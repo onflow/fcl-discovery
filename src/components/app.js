@@ -46,6 +46,7 @@ const ProviderCardRow = styled.div`
 `
 
 const ProviderCardColumn = styled.div`
+  margin: 0.5rem 0rem 0.5rem 0rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
