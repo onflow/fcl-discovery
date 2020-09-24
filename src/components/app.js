@@ -6,23 +6,31 @@ const AppContainer = styled.div`
   height: 100vh;
   width: 100vw;
 
+  background-color: #FFFFFF00;
+
   padding: 2rem;
 
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
 
   box-sizing: border-box;
+
+  overflow-y: scroll;
 `
 
 const ProviderCard = styled.div`
-  margin: 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
 
   padding: 0.5rem 1rem 0.5rem 1rem;
 
-  box-shadow: 0 6px 14px ${({color}) => color}, 0 4px 4px ${({color}) => color};
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
   border: 0.1rem solid ${({color}) => color};
   border-radius: 0.5rem;
 
@@ -30,7 +38,6 @@ const ProviderCard = styled.div`
 `
 
 const ProviderCardRow = styled.div`
-  margin: 1rem 0 1rem 0rem;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -39,19 +46,17 @@ const ProviderCardRow = styled.div`
 `
 
 const ProviderCardColumn = styled.div`
-  margin: 1rem 0 1rem 0rem;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
 `
 
 const ProviderCardIcon = styled.div`
   margin-right: 0.5rem;
 
-  height: 6rem;
-  width: 6rem;
+  height: 4rem;
+  min-width: 4rem;
 
   border-radius: 0.5rem;
 
@@ -62,13 +67,14 @@ const ProviderCardIcon = styled.div`
 `
 
 const ProviderCardTitle = styled.div`
-  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
   font-weight: bold;
   font-size: 2rem;
 `
 
 const ProviderCardDescription = styled.div`
   color: #a8a8a8; 
+  text-align: left;
 `
 
 const ProviderCardContact = styled.div`
@@ -78,21 +84,20 @@ const ProviderCardContact = styled.div`
 `
 
 const ProviderCardButton = styled.button`
-    width: 100%;
-    padding: 1rem 2rem 1rem 2rem;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    border: none;
-    border-radius: 0.5rem;
-    background-color: "#26ff76";
-    color: "#2a2825";
-    cursor: pointer;
-    font-weight: bold;
+  padding: 1rem 2rem 1rem 2rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: "#26ff76";
+  color: "#2a2825";
+  cursor: pointer;
+  font-weight: bold;
 
-    transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 
-    -webkit-appearance: none;
-    -moz-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 `
 
 export const App = ({ network, location }) => {
@@ -104,17 +109,18 @@ export const App = ({ network, location }) => {
       {
         providers.map(p => 
           <ProviderCard {...p}>
-            <ProviderCardRow>
-              <ProviderCardIcon {...p}/>
-              <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
-            </ProviderCardRow>
-            <ProviderCardRow>
-              <ProviderCardDescription>{p.description}</ProviderCardDescription>
-            </ProviderCardRow>
-            <a href={`${p.authn_endpoint}${location.search}`}><ProviderCardButton>Select</ProviderCardButton></a>
+
+            <ProviderCardColumn style={{marginRight: "2rem"}}>
+              <ProviderCardRow>
+                <ProviderCardIcon {...p}/>
+                <ProviderCardColumn>
+                  <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
+                  <ProviderCardDescription>{p.description}</ProviderCardDescription>
+                </ProviderCardColumn>
+              </ProviderCardRow>
+            </ProviderCardColumn>
             <ProviderCardColumn>
-              <ProviderCardContact>{p.contact_email}</ProviderCardContact>
-              <ProviderCardContact>{p.origin}</ProviderCardContact>
+              <a style={{width: "100%"}} href={`${p.authn_endpoint}${location.search}`}><ProviderCardButton>Select</ProviderCardButton></a>
             </ProviderCardColumn>
           </ProviderCard>
         )
