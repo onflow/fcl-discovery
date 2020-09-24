@@ -1,0 +1,42 @@
+{
+    "mainnet": [
+        {
+            "title": "Blocto",
+            "icon": "https://gblobscdn.gitbook.com/spaces%2F-MFJEAgz-LrhDYkRm4sv%2Favatar-1600919464132.png?alt=media",
+            "description": "Your Entrance To Blockchain World",
+            "color": "#afd8f7",
+            "contact_email": "support@blocto.app",
+            "authn_endpoint": "https://flow-wallet.blocto.app/authn",
+            "origin": "blocto.portto.io"
+        }
+    ],
+    "testnet": [
+        {
+            "title": "Blocto",
+            "icon": "https://gblobscdn.gitbook.com/spaces%2F-MFJEAgz-LrhDYkRm4sv%2Favatar-1600919464132.png?alt=media",
+            "description": "Your Entrance To Blockchain World",
+            "color": "#afd8f7",
+            "contact_email": "support@blocto.app",
+            "authn_endpoint": "https://flow-wallet-testnet.blocto.app/authn",
+            "origin": "blocto.portto.io"
+        },
+        {
+            "title": "Blocto",
+            "icon": "https://gblobscdn.gitbook.com/spaces%2F-MFJEAgz-LrhDYkRm4sv%2Favatar-1600919464132.png?alt=media",
+            "description": "Your Entrance To Blockchain World",
+            "color": "#afd8f7",
+            "contact_email": "support@blocto.app",
+            "authn_endpoint": "https://flow-wallet-testnet.blocto.app/authn",
+            "origin": "blocto.portto.io"
+        },
+        {
+            "title": "Blocto",
+            "icon": "https://gblobscdn.gitbook.com/spaces%2F-MFJEAgz-LrhDYkRm4sv%2Favatar-1600919464132.png?alt=media",
+            "description": "Your Entrance To Blockchain World",
+            "color": "#afd8f7",
+            "contact_email": "support@blocto.app",
+            "authn_endpoint": "https://flow-wallet-testnet.blocto.app/authn",
+            "origin": "blocto.portto.io"
+        }
+    ]
+}
