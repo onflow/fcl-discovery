@@ -20,7 +20,7 @@ const AppContainer = styled.div`
   overflow-y: scroll;
 `
 
-const ProviderCard = styled.div`
+const ProviderCard = styled.a`
   margin-bottom: 1rem;
   width: 100%;
 
@@ -35,6 +35,11 @@ const ProviderCard = styled.div`
   border-radius: 0.5rem;
 
   box-sizing: border-box;
+
+  text-decoration: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
 `
 
 const ProviderCardRow = styled.div`
@@ -71,6 +76,8 @@ const ProviderCardTitle = styled.div`
   margin-bottom: 0.5rem;
   font-weight: bold;
   font-size: 2rem;
+  color: #231f20;
+  font-weight: bold;
 `
 
 const ProviderCardDescription = styled.div`
@@ -109,7 +116,7 @@ export const App = ({ network, location }) => {
     <AppContainer>
       {
         providers.map(p => 
-          <ProviderCard {...p}>
+          <ProviderCard {...p} href={p.enabled ? `${p.authn_endpoint}${location.search}` : ''}>
 
             <ProviderCardColumn style={{marginRight: "2rem"}}>
               <ProviderCardRow>
@@ -119,9 +126,6 @@ export const App = ({ network, location }) => {
                   <ProviderCardDescription>{p.description}</ProviderCardDescription>
                 </ProviderCardColumn>
               </ProviderCardRow>
-            </ProviderCardColumn>
-            <ProviderCardColumn>
-              <a style={{width: "100%"}} href={`${p.authn_endpoint}${location.search}`}><ProviderCardButton>Select</ProviderCardButton></a>
             </ProviderCardColumn>
           </ProviderCard>
         )
