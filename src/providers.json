@@ -1,6 +1,16 @@
 {
     "mainnet": [
         {
+            "title": "Ledger",
+            "icon": "https://pbs.twimg.com/profile_images/915545754084741120/N44_mYZ7.jpg",
+            "description": "Ledger wallets, designed with the highest security standards.",
+            "color": "#1e2029",
+            "contact_email": "support@ledger.com",
+            "authn_endpoint": "https://fcl-ledger-web-mainnet.staging.onflow.org/mainnet/authn",
+            "origin": "ledger.com",
+            "enabled": true
+        },
+        {
             "title": "Blocto",
             "icon": "https://gblobscdn.gitbook.com/spaces%2F-MFJEAgz-LrhDYkRm4sv%2Favatar-1600919464132.png?alt=media",
             "description": "Your Entrance To Blockchain World",
