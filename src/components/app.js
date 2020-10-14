@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import logo from "../assets/logo.svg";
 import providersJson from "../providers.json";
 
 const AppContainer = styled.div`
@@ -20,7 +21,36 @@ const AppContainer = styled.div`
   overflow-y: scroll;
 `
 
-const ProviderCard = styled.a`
+const AppHeader = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`
+
+const AppLogoWrapper = styled.div`
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+`
+
+const AppLogo = styled.img`
+  margin-right: 3rem;
+  height: 4rem;
+`
+
+const AppTitle = styled.h2`
+  margin-bottom: 2rem;
+  text-align: left;
+  color: #2a2825;
+`
+
+const ProviderCard = styled.div`
   margin-bottom: 1rem;
   width: 100%;
 
@@ -36,7 +66,11 @@ const ProviderCard = styled.a`
 
   box-sizing: border-box;
 
+  opacity: ${({enabled}) => enabled ? "1" : "0.7"};
+  cursor: ${({enabled}) => enabled ? "pointer" : "unset"};
+
   text-decoration: none;
+  user-select: none;
 
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -114,9 +148,13 @@ export const App = ({ network, location }) => {
   
   return (
     <AppContainer>
+      <AppHeader>
+        <AppLogoWrapper><AppLogo src={logo} alt="Flow Logo"/></AppLogoWrapper>
+        <AppTitle>Choose a Provider</AppTitle>
+      </AppHeader>
       {
         providers.map(p => 
-          <ProviderCard {...p} href={p.enabled ? `${p.authn_endpoint}${location.search}` : ''}>
+          <ProviderCard {...p} onClick={() => p.enabled ? window.location.href = `${p.authn_endpoint}${location.search}` : null}>
 
             <ProviderCardColumn style={{marginRight: "2rem"}}>
               <ProviderCardRow>

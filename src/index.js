@@ -13,8 +13,6 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --text-primary: #0F0F0F;
     --text-secondary: #0B0B0B;
-    /* --font-family:"MonoLisa","JetBrains Mono","Fira Code",monospace; */
-
     --font-family:"Overpass",sans-serif;
   }
   body {
@@ -41,7 +39,7 @@ ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
     <Router>
-      <Switch>
+      <Switch>  
         <Route path="/authn" component={props => <App network="mainnet" {...props} />} exact/>
         <Route path="/testnet/authn" component={props => <App network="testnet" {...props} />} exact/>
       </Switch>

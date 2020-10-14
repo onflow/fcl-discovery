@@ -2,7 +2,7 @@
     "mainnet": [
         {
             "title": "Ledger",
-            "icon": "https://pbs.twimg.com/profile_images/915545754084741120/N44_mYZ7.jpg",
+            "icon": "/images/ledger.jpg",
             "description": "Ledger wallets, designed with the highest security standards.",
             "color": "#1e2029",
             "contact_email": "support@ledger.com",
@@ -12,8 +12,8 @@
         },
         {
             "title": "Blocto",
-            "icon": "https://gblobscdn.gitbook.com/spaces%2F-MFJEAgz-LrhDYkRm4sv%2Favatar-1600919464132.png?alt=media",
-            "description": "Your Entrance To Blockchain World",
+            "icon": "/images/blocto.png",
+            "description": "Your Entrance To Blockchain World. Coming Soon.",
             "color": "#afd8f7",
             "contact_email": "support@blocto.app",
             "authn_endpoint": "https://flow-wallet.blocto.app/authn",
@@ -24,7 +24,7 @@
     "testnet": [
         {
             "title": "Ledger",
-            "icon": "https://pbs.twimg.com/profile_images/915545754084741120/N44_mYZ7.jpg",
+            "icon": "/images/ledger.jpg",
             "description": "Ledger wallets, designed with the highest security standards.",
             "color": "#1e2029",
             "contact_email": "support@ledger.com",
@@ -34,7 +34,7 @@
         },
         {
             "title": "Blocto",
-            "icon": "https://gblobscdn.gitbook.com/spaces%2F-MFJEAgz-LrhDYkRm4sv%2Favatar-1600919464132.png?alt=media",
+            "icon": "/images/blocto.png",
             "description": "Your Entrance To Blockchain World. Coming Soon.",
             "color": "#afd8f7",
             "contact_email": "support@blocto.app",
