@@ -50,7 +50,7 @@ const AppTitle = styled.h2`
   color: #2a2825;
 `
 
-const ProviderCard = styled.div`
+const ProviderCardEnabled = styled.a`
   margin-bottom: 1rem;
   width: 100%;
 
@@ -66,8 +66,34 @@ const ProviderCard = styled.div`
 
   box-sizing: border-box;
 
-  opacity: ${({enabled}) => enabled ? "1" : "0.7"};
-  cursor: ${({enabled}) => enabled ? "pointer" : "unset"};
+  opacity: 1;
+  cursor: pointer;
+
+  text-decoration: none;
+  user-select: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+`
+
+const ProviderCardDisabled = styled.div`
+  margin-bottom: 1rem;
+  width: 100%;
+
+  padding: 0.5rem 1rem 0.5rem 1rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  border: 0.1rem solid ${({color}) => color};
+  border-radius: 0.5rem;
+
+  box-sizing: border-box;
+
+  opacity: 0.7;
+  cursor: unset;
 
   text-decoration: none;
   user-select: none;
@@ -153,19 +179,31 @@ export const App = ({ network, location }) => {
         <AppTitle>Choose a Provider</AppTitle>
       </AppHeader>
       {
-        providers.map(p => 
-          <ProviderCard {...p} onClick={() => p.enabled ? window.location.href = `${p.authn_endpoint}${location.search}` : null}>
-
-            <ProviderCardColumn style={{marginRight: "2rem"}}>
-              <ProviderCardRow>
-                <ProviderCardIcon {...p}/>
-                <ProviderCardColumn>
-                  <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
-                  <ProviderCardDescription>{p.description}</ProviderCardDescription>
-                </ProviderCardColumn>
-              </ProviderCardRow>
-            </ProviderCardColumn>
-          </ProviderCard>
+        providers.map(p =>
+          p.enabled ?
+            <ProviderCardEnabled {...p} href={`${p.authn_endpoint}${location.search}`}>
+              <ProviderCardColumn style={{marginRight: "2rem"}}>
+                <ProviderCardRow>
+                  <ProviderCardIcon {...p}/>
+                  <ProviderCardColumn>
+                    <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
+                    <ProviderCardDescription>{p.description}</ProviderCardDescription>
+                  </ProviderCardColumn>
+                </ProviderCardRow>
+              </ProviderCardColumn>
+            </ProviderCardEnabled> 
+            :
+            <ProviderCardDisabled {...p}>
+              <ProviderCardColumn style={{marginRight: "2rem"}}>
+                <ProviderCardRow>
+                  <ProviderCardIcon {...p}/>
+                  <ProviderCardColumn>
+                    <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
+                    <ProviderCardDescription>{p.description}</ProviderCardDescription>
+                  </ProviderCardColumn>
+                </ProviderCardRow>
+              </ProviderCardColumn>
+            </ProviderCardDisabled>
         )
       }
     </AppContainer>
