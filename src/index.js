@@ -16,12 +16,11 @@ const GlobalStyle = createGlobalStyle`
     --font-family:"Overpass",sans-serif;
   }
   body {
-    background-color: white;
+    background-color: transparent;
     color: var(--text-primary);
     font-family: var(--font-family);
     font-size: 16px;
     line-height: 22px;
-    // padding: 22px;
   }
   .switch-wrapper {
     position: relative;
