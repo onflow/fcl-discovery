@@ -4,12 +4,8 @@ import logo from "../assets/logo.svg";
 import providersJson from "../providers.json";
 
 const AppContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
-
-  background-color: #FFFFFF00;
-
-  padding: 2rem;
+  height: 100%;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -17,8 +13,6 @@ const AppContainer = styled.div`
   align-items: center;
 
   box-sizing: border-box;
-
-  overflow-y: scroll;
 `
 
 const AppHeader = styled.div`
@@ -180,7 +174,7 @@ export const App = ({ network, location }) => {
       </AppHeader>
       {
         providers.map(p =>
-          p.enabled ?
+          p.enabled ? 
             <ProviderCardEnabled {...p} href={`${p.authn_endpoint}${location.search}`}>
               <ProviderCardColumn style={{marginRight: "2rem"}}>
                 <ProviderCardRow>
