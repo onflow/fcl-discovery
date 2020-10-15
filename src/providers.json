@@ -28,7 +28,7 @@
             "description": "Ledger wallets, designed with the highest security standards.",
             "color": "#1e2029",
             "contact_email": "support@ledger.com",
-            "authn_endpoint": "https://fcl-ledger-web-testnet.staging.onflow.org/testnet/authn",
+            "authn_endpoint": "https://fcl-ledger-web.vercel.app/testnet/authn",
             "origin": "ledger.com",
             "enabled": true
         },
