@@ -13,12 +13,12 @@
         {
             "title": "Blocto",
             "icon": "/images/blocto.png",
-            "description": "Your Entrance To Blockchain World. Coming Soon.",
+            "description": "Your Entrance To Blockchain World.",
             "color": "#afd8f7",
             "contact_email": "support@blocto.app",
             "authn_endpoint": "https://flow-wallet.blocto.app/authn",
             "origin": "blocto.portto.io",
-            "enabled": false
+            "enabled": true
         }
     ],
     "testnet": [
@@ -35,12 +35,12 @@
         {
             "title": "Blocto",
             "icon": "/images/blocto.png",
-            "description": "Your Entrance To Blockchain World. Coming Soon.",
+            "description": "Your Entrance To Blockchain World.",
             "color": "#afd8f7",
             "contact_email": "support@blocto.app",
             "authn_endpoint": "https://flow-wallet-testnet.blocto.app/authn",
             "origin": "blocto.portto.io",
-            "enabled": false
+            "enabled": true
         }
     ]
 }
