@@ -1,16 +1,6 @@
 {
     "mainnet": [
         {
-            "title": "Ledger",
-            "icon": "/images/ledger.jpg",
-            "description": "Ledger wallets, designed with the highest security standards.",
-            "color": "#1e2029",
-            "contact_email": "support@ledger.com",
-            "authn_endpoint": "https://fcl-ledger-web.vercel.app/mainnet/authn",
-            "origin": "ledger.com",
-            "enabled": true
-        },
-        {
             "title": "Blocto",
             "icon": "/images/blocto.png",
             "description": "Your Entrance To Blockchain World.",
@@ -19,19 +9,19 @@
             "authn_endpoint": "https://flow-wallet.blocto.app/authn",
             "origin": "blocto.portto.io",
             "enabled": true
-        }
-    ],
-    "testnet": [
+        },
         {
             "title": "Ledger",
             "icon": "/images/ledger.jpg",
-            "description": "Ledger wallets, designed with the highest security standards.",
+            "description": "Ledger wallets, designed with the highest security standards. Coming Soon.",
             "color": "#1e2029",
             "contact_email": "support@ledger.com",
-            "authn_endpoint": "https://fcl-ledger-web.vercel.app/testnet/authn",
+            "authn_endpoint": "https://fcl-ledger-web.vercel.app/mainnet/authn",
             "origin": "ledger.com",
-            "enabled": true
-        },
+            "enabled": false
+        }
+    ],
+    "testnet": [
         {
             "title": "Blocto",
             "icon": "/images/blocto.png",
@@ -41,6 +31,16 @@
             "authn_endpoint": "https://flow-wallet-testnet.blocto.app/authn",
             "origin": "blocto.portto.io",
             "enabled": true
+        },
+        {
+            "title": "Ledger",
+            "icon": "/images/ledger.jpg",
+            "description": "Ledger wallets, designed with the highest security standards. Coming Soon.",
+            "color": "#1e2029",
+            "contact_email": "support@ledger.com",
+            "authn_endpoint": "https://fcl-ledger-web.vercel.app/testnet/authn",
+            "origin": "ledger.com",
+            "enabled": false
         }
     ]
 }
