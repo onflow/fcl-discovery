@@ -18,7 +18,7 @@
             "contact_email": "support@ledger.com",
             "authn_endpoint": "https://fcl-ledger-web.vercel.app/mainnet/authn",
             "origin": "ledger.com",
-            "enabled": false
+            "enabled": true
         }
     ],
     "testnet": [
@@ -40,7 +40,7 @@
             "contact_email": "support@ledger.com",
             "authn_endpoint": "https://fcl-ledger-web.vercel.app/testnet/authn",
             "origin": "ledger.com",
-            "enabled": false
+            "enabled": true
         }
     ]
 }
