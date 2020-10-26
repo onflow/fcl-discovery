@@ -13,7 +13,7 @@
         {
             "title": "Ledger",
             "icon": "/images/ledger.jpg",
-            "description": "Ledger wallets, designed with the highest security standards. Coming Soon.",
+            "description": "Ledger wallets, designed with the highest security standards.",
             "color": "#1e2029",
             "contact_email": "support@ledger.com",
             "authn_endpoint": "https://fcl-ledger-web.vercel.app/mainnet/authn",
@@ -35,7 +35,7 @@
         {
             "title": "Ledger",
             "icon": "/images/ledger.jpg",
-            "description": "Ledger wallets, designed with the highest security standards. Coming Soon.",
+            "description": "Ledger wallets, designed with the highest security standards.",
             "color": "#1e2029",
             "contact_email": "support@ledger.com",
             "authn_endpoint": "https://fcl-ledger-web.vercel.app/testnet/authn",
