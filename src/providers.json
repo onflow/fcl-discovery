@@ -7,7 +7,7 @@
             "color": "#afd8f7",
             "contact_email": "support@blocto.app",
             "authn_endpoint": "https://flow-wallet.blocto.app/authn",
-            "origin": "blocto.portto.io",
+            "origin": "https://blocto.portto.io",
             "enabled": true
         },
         {
@@ -17,7 +17,7 @@
             "color": "#1e2029",
             "contact_email": "support@ledger.com",
             "authn_endpoint": "https://fcl-ledger.onflow.org/mainnet/authn",
-            "origin": "ledger.com",
+            "origin": "https://ledger.com",
             "enabled": true
         }
     ],
@@ -25,11 +25,21 @@
         {
             "title": "Blocto",
             "icon": "/images/blocto.png",
-            "description": "Your Entrance To The Blockchain World.",
+            "description": "Your entrance to the blockchain world.",
             "color": "#afd8f7",
             "contact_email": "support@blocto.app",
             "authn_endpoint": "https://flow-wallet-testnet.blocto.app/authn",
-            "origin": "blocto.portto.io",
+            "origin": "https://blocto.portto.io",
+            "enabled": true
+        },
+        {
+            "title": "Dapper",
+            "icon": "https://staging.accounts.meetdapper.com/static/img/dapper/dapper-flow@256x256.png",
+            "description": "The trusted gateway to your digital goods.",
+            "color": "#762FBE",
+            "contact_email": "support@meetdapper.com",
+            "authn_endpoint": "https://staging.accounts.meetdapper.com/fcl/authn",
+            "origin": "https://meetdapper.com",
             "enabled": true
         },
         {
@@ -39,7 +49,7 @@
             "color": "#1e2029",
             "contact_email": "support@ledger.com",
             "authn_endpoint": "https://fcl-ledger.onflow.org/testnet/authn",
-            "origin": "ledger.com",
+            "origin": "https://ledger.com",
             "enabled": true
         }
     ]
