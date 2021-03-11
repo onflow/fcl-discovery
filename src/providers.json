@@ -45,12 +45,12 @@
     {
       "title": "Ledger",
       "icon": "/images/ledger.jpg",
-      "description": "Temporarily Disabled -- Ledger wallets, designed with the highest security standards.",
+      "description": "Ledger wallets, designed with the highest security standards.",
       "color": "#1e2029",
       "contact_email": "support@ledger.com",
       "authn_endpoint": "https://fcl-ledger.onflow.org/testnet/authn",
       "origin": "https://ledger.com",
-      "enabled": false
+      "enabled": true
     }
   ]
 }
