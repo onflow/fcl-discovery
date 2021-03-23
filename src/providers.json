@@ -35,12 +35,12 @@
     {
       "title": "Dapper",
       "icon": "https://staging.accounts.meetdapper.com/static/img/dapper/dapper-flow@256x256.png",
-      "description": "The trusted gateway to your digital goods.",
+      "description": "Coming Soon – The trusted gateway to your digital goods.",
       "color": "#762FBE",
       "contact_email": "support@meetdapper.com",
       "authn_endpoint": "https://staging.accounts.meetdapper.com/fcl/authn",
       "origin": "https://meetdapper.com",
-      "enabled": true
+      "enabled": false
     },
     {
       "title": "Ledger",
