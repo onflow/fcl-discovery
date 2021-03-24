@@ -71,6 +71,7 @@ ReactDOM.render(
           <Switch>  
             <Route path="/authn" component={props => <App network="mainnet" {...props} />} exact/>
             <Route path="/testnet/authn" component={props => <App network="testnet" {...props} />} exact/>
+            <Route path="/canarynet/authn" component={props => <App network="canarynet" {...props} />} exact/>
           </Switch>
         </Router>
       </Inner>
