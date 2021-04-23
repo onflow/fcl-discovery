@@ -6,19 +6,16 @@ import providersJson from "../providers.json";
 const AppContainer = styled.div`
   height: 100%;
   width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
   box-sizing: border-box;
+  overflow-y: auto;
 `
 
-const AppContent = styled.div`
-`
+const AppProviders = styled.div``
 
 const AppHeader = styled.div`
+  margin-bottom: 2rem;
   width: 100%;
+  height: 4rem;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -27,7 +24,6 @@ const AppHeader = styled.div`
 `
 
 const AppLogoWrapper = styled.div`
-  margin-bottom: 2rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -40,7 +36,6 @@ const AppLogo = styled.img`
 `
 
 const AppTitle = styled.h2`
-  margin-bottom: 2rem;
   text-align: left;
   color: #2a2825;
 `
@@ -186,11 +181,11 @@ export const App = ({ network, location, handleCancel }) => {
   
   return (
     <AppContainer>
-      <AppContent>
         <AppHeader>
           <AppLogoWrapper><AppLogo src={logo} alt="Flow Logo"/></AppLogoWrapper>
           <AppTitle>Choose a Provider</AppTitle>
         </AppHeader>
+        <AppProviders>
         {
           providers.map(p =>
             p.enabled ? 
@@ -219,7 +214,7 @@ export const App = ({ network, location, handleCancel }) => {
               </ProviderCardDisabled>
           )
         }
-      </AppContent>
+      </AppProviders>
       <AppFooter>
         <AppCancel onClick={handleCancel}>Cancel</AppCancel>
       </AppFooter>
