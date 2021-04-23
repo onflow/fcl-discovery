@@ -9,10 +9,12 @@ const AppContainer = styled.div`
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: space-between;
 
   box-sizing: border-box;
+`
+
+const AppContent = styled.div`
 `
 
 const AppHeader = styled.div`
@@ -34,7 +36,6 @@ const AppLogoWrapper = styled.div`
 `
 
 const AppLogo = styled.img`
-  margin-right: 3rem;
   height: 4rem;
 `
 
@@ -123,7 +124,6 @@ const ProviderCardIcon = styled.div`
   background-color: ${({color, icon}) => !icon ? color : "unset"};
   background-image: url(${({icon}) => icon});
   background-size: cover;
-
 `
 
 const ProviderCardTitle = styled.div`
@@ -162,44 +162,67 @@ const ProviderCardButton = styled.button`
   -moz-appearance: none;
 `
 
-export const App = ({ network, location }) => {
+const AppFooter = styled.div`
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`
+
+const AppCancel = styled.button`
+  text-align: center;
+  font-size: 1rem;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+`
+
+export const App = ({ network, location, handleCancel }) => {
   const providers = providersJson[network];
   if (!providers) return null;
   
   return (
     <AppContainer>
-      <AppHeader>
-        <AppLogoWrapper><AppLogo src={logo} alt="Flow Logo"/></AppLogoWrapper>
-        <AppTitle>Choose a Provider</AppTitle>
-      </AppHeader>
-      {
-        providers.map(p =>
-          p.enabled ? 
-            <ProviderCardEnabled {...p} href={`${p.authn_endpoint}${location.search}`}>
-              <ProviderCardColumn style={{marginRight: "2rem"}}>
-                <ProviderCardRow>
-                  <ProviderCardIcon {...p}/>
-                  <ProviderCardColumn>
-                    <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
-                    <ProviderCardDescription>{p.description}</ProviderCardDescription>
-                  </ProviderCardColumn>
-                </ProviderCardRow>
-              </ProviderCardColumn>
-            </ProviderCardEnabled> 
-            :
-            <ProviderCardDisabled {...p}>
-              <ProviderCardColumn style={{marginRight: "2rem"}}>
-                <ProviderCardRow>
-                  <ProviderCardIcon {...p}/>
-                  <ProviderCardColumn>
-                    <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
-                    <ProviderCardDescription>{p.description}</ProviderCardDescription>
-                  </ProviderCardColumn>
-                </ProviderCardRow>
-              </ProviderCardColumn>
-            </ProviderCardDisabled>
-        )
-      }
+      <AppContent>
+        <AppHeader>
+          <AppLogoWrapper><AppLogo src={logo} alt="Flow Logo"/></AppLogoWrapper>
+          <AppTitle>Choose a Provider</AppTitle>
+        </AppHeader>
+        {
+          providers.map(p =>
+            p.enabled ? 
+              <ProviderCardEnabled {...p} href={`${p.authn_endpoint}${location.search}`}>
+                <ProviderCardColumn>
+                  <ProviderCardRow>
+                    <ProviderCardIcon {...p}/>
+                    <ProviderCardColumn>
+                      <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
+                      <ProviderCardDescription>{p.description}</ProviderCardDescription>
+                    </ProviderCardColumn>
+                  </ProviderCardRow>
+                </ProviderCardColumn>
+              </ProviderCardEnabled> 
+              :
+              <ProviderCardDisabled {...p}>
+                <ProviderCardColumn>
+                  <ProviderCardRow>
+                    <ProviderCardIcon {...p}/>
+                    <ProviderCardColumn>
+                      <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
+                      <ProviderCardDescription>{p.description}</ProviderCardDescription>
+                    </ProviderCardColumn>
+                  </ProviderCardRow>
+                </ProviderCardColumn>
+              </ProviderCardDisabled>
+          )
+        }
+      </AppContent>
+      <AppFooter>
+        <AppCancel onClick={handleCancel}>Cancel</AppCancel>
+      </AppFooter>
     </AppContainer>
   );
 }

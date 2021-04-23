@@ -48,7 +48,6 @@ const Wrapper = styled.div`
 
 const Inner = styled.div`
   max-height: 100vh;
-  height: 35rem;
   max-width: 100vw;
   width: 40rem;
   padding: 2rem;
@@ -59,18 +58,24 @@ const Inner = styled.div`
   align-items: center;
   background-color: white;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  overflow-y: scroll;
+  overflow-y: auto;
 `
+const handleCancel = () => {
+  window.parent.postMessage({
+    type: "FCL::CHALLENGE::CANCEL"
+  }, "*")
+}
 
 ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
-    <Wrapper>
-      <Inner>
+    <Wrapper onClick={handleCancel}>
+      <Inner onClick={e => e.stopPropagation()}s>
         <Router>
           <Switch>  
-            <Route path="/authn" component={props => <App network="mainnet" {...props} />} exact/>
-            <Route path="/testnet/authn" component={props => <App network="testnet" {...props} />} exact/>
+            <Route path="/authn" component={props => <App network="mainnet" handleCancel={handleCancel} {...props} />} exact/>
+            <Route path="/testnet/authn" component={props => <App network="testnet" handleCancel={handleCancel} {...props} />} exact/>
+            <Route path="/canarynet/authn" component={props => <App network="canarynet" handleCancel={handleCancel} {...props} />} exact/>
           </Switch>
         </Router>
       </Inner>
