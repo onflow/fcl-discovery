@@ -158,7 +158,7 @@ const ProviderCardButton = styled.button`
 `
 
 const AppFooter = styled.div`
-  margin-top: 1rem;
+  margin-top: 2rem;
   width: 100%;
   display: flex;
   justify-content: center;

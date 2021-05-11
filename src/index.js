@@ -69,7 +69,7 @@ ReactDOM.render(
   <React.StrictMode>
     <GlobalStyle />
     <Wrapper onClick={handleCancel}>
-      <Inner onClick={e => e.stopPropagation()}s>
+      <Inner onClick={e => e.stopPropagation()}>
         <Router>
           <Switch>  
             <Route path="/authn" component={props => <App network="mainnet" handleCancel={handleCancel} {...props} />} exact/>
