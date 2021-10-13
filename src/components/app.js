@@ -212,6 +212,7 @@ export const App = ({ network, location, handleCancel }) => {
   }
 
   const showProvider = provider => {
+    // Only hide if specifically set to false
     if (provider.hasOwnProperty('enabled') && provider.enabled === false) {
       return false
     }
