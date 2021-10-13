@@ -15,5 +15,5 @@ export const hasValidVersion = versionObj => {
 export const isSameOrNewerThanVersion = (versionA, versionB) => {
   return parseInt(versionA.majorVersion) >= parseInt(versionB.majorVersion) &&
     parseInt(versionA.minorVersion) >= parseInt(versionB.minorVersion) &&
-    parseInt(versionA.patchNumber) >= parseInt(versionB.patchNumber) // do we need to check patch type?
+    parseInt(versionA.patchNumber) >= parseInt(versionB.patchNumber)
 }
