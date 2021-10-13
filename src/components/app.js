@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import logo from "../assets/logo.svg";
-import providersJson from "../providers.json";
+import servicesJson from "../providers.json";
 import { WalletUtils } from "@onflow/fcl";
 import { getVersionFromString, hasValidVersion, isSameOrNewerThanVersion } from '../helpers/version';
 import { combineProviders } from '../helpers/providers';
@@ -179,10 +179,10 @@ const AppCancel = styled.button`
 `
 
 export const App = ({ network, location, handleCancel }) => {
-  const defaultProviders = providersJson[network]
-  const supportedVersion = getVersionFromString('0.0.79') // Version that supports browser extension redirects
+  const defaultServices = servicesJson[network]
+  const supportedVersion = getVersionFromString('0.0.77') // Version that supports browser extension redirects
   const [appVersion, setAppVersion] = useState({})
-  const [providers, setProviders] = useState(defaultProviders)
+  const [services, setServices] = useState(defaultServices)
 
   useEffect(() => {
     WalletUtils.sendMsgToFCL("FCL:VIEW:READY")
@@ -198,10 +198,26 @@ export const App = ({ network, location, handleCancel }) => {
     // Check version of FCL. If their app version is older than the supported version for browser extensions then continue on without adding browser extensions.
     if (isSameOrNewerThanVersion(appVersion, supportedVersion)) {
       // Add browser extensions
-      const combinedProviderList = combineProviders(providers, window.fcl_extensions || [], true)
-      setProviders(combinedProviderList)
+      const combinedProviderList = combineProviders(services, window.fcl_extensions || [], true)
+      setServices(combinedProviderList)
     }
   }, [appVersion])
+
+  const onSelect = service => {
+    if (service.type === "default") {
+      return window.location.href = `${service.provider.authn_endpoint}${location.search}`
+    } else {
+      return WalletUtils.redirect(service)
+    }
+  }
+
+  const showProvider = provider => {
+    if (provider.hasOwnProperty('enabled') && provider.enabled === false) {
+      return false
+    }
+    
+    return true
+  }
 
   return (
     <AppContainer>
@@ -211,27 +227,27 @@ export const App = ({ network, location, handleCancel }) => {
         </AppHeader>
         <AppProviders>
         {
-          providers.map(({ provider }) =>
-            provider.enabled ? 
-              <ProviderCardEnabled {...provider} href={`${provider.authn_endpoint}${location.search}`}>
+          services.map(service =>
+            showProvider(service.provider) ? 
+              <ProviderCardEnabled {...service.provider} onClick={() => onSelect(service)}>
                 <ProviderCardColumn>
                   <ProviderCardRow>
-                    <ProviderCardIcon {...provider}/>
+                    <ProviderCardIcon {...service.provider}/>
                     <ProviderCardColumn>
-                      <ProviderCardName {...provider}>{provider.name}</ProviderCardName>
-                      <ProviderCardDescription>{provider.description}</ProviderCardDescription>
+                      <ProviderCardName {...service.provider}>{service.provider.name}</ProviderCardName>
+                      <ProviderCardDescription>{service.provider.description}</ProviderCardDescription>
                     </ProviderCardColumn>
                   </ProviderCardRow>
                 </ProviderCardColumn>
               </ProviderCardEnabled> 
               :
-              <ProviderCardDisabled {...provider}>
+              <ProviderCardDisabled {...service.provider}>
                 <ProviderCardColumn>
                   <ProviderCardRow>
-                    <ProviderCardIcon {...provider}/>
+                    <ProviderCardIcon {...service.provider}/>
                     <ProviderCardColumn>
-                      <ProviderCardName {...provider}>{provider.name}</ProviderCardName>
-                      <ProviderCardDescription>{provider.description}</ProviderCardDescription>
+                      <ProviderCardName {...service.provider}>{service.provider.name}</ProviderCardName>
+                      <ProviderCardDescription>{service.provider.description}</ProviderCardDescription>
                     </ProviderCardColumn>
                   </ProviderCardRow>
                 </ProviderCardColumn>
