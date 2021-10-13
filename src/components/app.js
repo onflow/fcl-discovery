@@ -123,7 +123,7 @@ const ProviderCardIcon = styled.div`
   background-size: cover;
 `
 
-const ProviderCardTitle = styled.div`
+const ProviderCardName = styled.div`
   margin-bottom: 0.5rem;
   font-weight: bold;
   font-size: 2rem;
@@ -215,7 +215,7 @@ export const App = ({ network, location, handleCancel }) => {
                   <ProviderCardRow>
                     <ProviderCardIcon {...provider}/>
                     <ProviderCardColumn>
-                      <ProviderCardTitle {...provider}>{provider.title}</ProviderCardTitle>
+                      <ProviderCardName {...provider}>{provider.name}</ProviderCardName>
                       <ProviderCardDescription>{provider.description}</ProviderCardDescription>
                     </ProviderCardColumn>
                   </ProviderCardRow>
@@ -227,7 +227,7 @@ export const App = ({ network, location, handleCancel }) => {
                   <ProviderCardRow>
                     <ProviderCardIcon {...provider}/>
                     <ProviderCardColumn>
-                      <ProviderCardTitle {...provider}>{provider.title}</ProviderCardTitle>
+                      <ProviderCardName {...provider}>{provider.name}</ProviderCardName>
                       <ProviderCardDescription>{provider.description}</ProviderCardDescription>
                     </ProviderCardColumn>
                   </ProviderCardRow>

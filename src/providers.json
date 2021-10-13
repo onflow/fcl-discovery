@@ -2,7 +2,7 @@
   "mainnet": [
     {
       "provider": {
-        "title": "Blocto",
+        "name": "Blocto",
         "icon": "/images/blocto.png",
         "description": "Your Entrance To The Blockchain World.",
         "color": "#afd8f7",
@@ -14,7 +14,7 @@
     },
     {
       "provider": {
-        "title": "Ledger",
+        "name": "Ledger",
         "icon": "/images/ledger.jpg",
         "description": "Ledger wallets, designed with the highest security standards.",
         "color": "#1e2029",
@@ -28,7 +28,7 @@
   "testnet": [
     {
       "provider": {
-        "title": "Blocto",
+        "name": "Blocto",
         "icon": "/images/blocto.png",
         "description": "Your entrance to the blockchain world.",
         "color": "#afd8f7",
@@ -40,7 +40,7 @@
     },
     {
       "provider": {
-        "title": "Dapper",
+        "name": "Dapper",
         "icon": "https://staging.accounts.meetdapper.com/static/img/dapper/dapper-flow@256x256.png",
         "description": "Coming Soon – The trusted gateway to your digital goods.",
         "color": "#762FBE",
@@ -52,7 +52,7 @@
     },
     {
       "provider": {
-        "title": "Ledger",
+        "name": "Ledger",
         "icon": "/images/ledger.jpg",
         "description": "Ledger wallets, designed with the highest security standards.",
         "color": "#1e2029",
@@ -66,7 +66,7 @@
   "canarynet": [
     {
       "provider": {
-        "title": "Ledger",
+        "name": "Ledger",
         "icon": "/images/ledger.jpg",
         "description": "Ledger wallets, designed with the highest security standards.",
         "color": "#1e2029",
