@@ -180,7 +180,7 @@ const AppCancel = styled.button`
 
 export const App = ({ network, location, handleCancel }) => {
   const defaultServices = servicesJson[network]
-  const supportedVersion = getVersionFromString('0.0.77') // Version that supports browser extension redirects
+  const supportedVersion = getVersionFromString('0.0.79') // Version that supports browser extension redirects
   const [appVersion, setAppVersion] = useState({})
   const [services, setServices] = useState(defaultServices)
 
