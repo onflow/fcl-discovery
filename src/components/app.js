@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import logo from "../assets/logo.svg";
 import providersJson from "../providers.json";
+import { WalletUtils } from "@onflow/fcl";
+import { getVersionFromString, hasValidVersion, isSameOrNewerThanVersion } from '../helpers/version';
 
 const AppContainer = styled.div`
   height: 100%;
@@ -176,9 +178,28 @@ const AppCancel = styled.button`
 `
 
 export const App = ({ network, location, handleCancel }) => {
-  const providers = providersJson[network];
-  if (!providers) return null;
-  
+  const defaultProviders = providersJson[network]
+  const supportedVersion = getVersionFromString('0.0.79') // Version that supports browser extension redirects
+  const [appVersion, setAppVersion] = useState({})
+  const [providers, setProviders] = useState(defaultProviders)
+
+  useEffect(() => {
+    WalletUtils.sendMsgToFCL("FCL:VIEW:READY")
+    WalletUtils.onMessageFromFCL("FCL:VIEW:READY:RESPONSE", ({ fclVersion }) => {
+      const parsedVersion = getVersionFromString(fclVersion)
+      if (hasValidVersion(parsedVersion)) {
+        setAppVersion(parsedVersion)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    // Check version of FCL. If their app version is older than the supported version for browser extensions then continue on without adding browser extensions.
+    if (isSameOrNewerThanVersion(appVersion, supportedVersion)) {
+      // Add browser extensions
+    }
+  }, [appVersion])
+
   return (
     <AppContainer>
         <AppHeader>
