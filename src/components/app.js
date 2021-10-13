@@ -208,27 +208,27 @@ export const App = ({ network, location, handleCancel }) => {
         </AppHeader>
         <AppProviders>
         {
-          providers.map(p =>
-            p.enabled ? 
-              <ProviderCardEnabled {...p} href={`${p.authn_endpoint}${location.search}`}>
+          providers.map(({ provider }) =>
+            provider.enabled ? 
+              <ProviderCardEnabled {...provider} href={`${provider.authn_endpoint}${location.search}`}>
                 <ProviderCardColumn>
                   <ProviderCardRow>
-                    <ProviderCardIcon {...p}/>
+                    <ProviderCardIcon {...provider}/>
                     <ProviderCardColumn>
-                      <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
-                      <ProviderCardDescription>{p.description}</ProviderCardDescription>
+                      <ProviderCardTitle {...provider}>{provider.title}</ProviderCardTitle>
+                      <ProviderCardDescription>{provider.description}</ProviderCardDescription>
                     </ProviderCardColumn>
                   </ProviderCardRow>
                 </ProviderCardColumn>
               </ProviderCardEnabled> 
               :
-              <ProviderCardDisabled {...p}>
+              <ProviderCardDisabled {...provider}>
                 <ProviderCardColumn>
                   <ProviderCardRow>
-                    <ProviderCardIcon {...p}/>
+                    <ProviderCardIcon {...provider}/>
                     <ProviderCardColumn>
-                      <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
-                      <ProviderCardDescription>{p.description}</ProviderCardDescription>
+                      <ProviderCardTitle {...provider}>{provider.title}</ProviderCardTitle>
+                      <ProviderCardDescription>{provider.description}</ProviderCardDescription>
                     </ProviderCardColumn>
                   </ProviderCardRow>
                 </ProviderCardColumn>
