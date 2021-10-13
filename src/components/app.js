@@ -4,6 +4,7 @@ import logo from "../assets/logo.svg";
 import providersJson from "../providers.json";
 import { WalletUtils } from "@onflow/fcl";
 import { getVersionFromString, hasValidVersion, isSameOrNewerThanVersion } from '../helpers/version';
+import { combineProviders } from '../helpers/providers';
 
 const AppContainer = styled.div`
   height: 100%;
@@ -197,6 +198,8 @@ export const App = ({ network, location, handleCancel }) => {
     // Check version of FCL. If their app version is older than the supported version for browser extensions then continue on without adding browser extensions.
     if (isSameOrNewerThanVersion(appVersion, supportedVersion)) {
       // Add browser extensions
+      const combinedProviderList = combineProviders(providers, window.fcl_extensions || [], true)
+      setProviders(combinedProviderList)
     }
   }, [appVersion])
 
