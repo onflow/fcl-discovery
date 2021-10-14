@@ -185,13 +185,16 @@ export const App = ({ network, location, handleCancel }) => {
   const [services, setServices] = useState(defaultServices)
 
   useEffect(() => {
-    WalletUtils.sendMsgToFCL("FCL:VIEW:READY")
-    WalletUtils.onMessageFromFCL("FCL:VIEW:READY:RESPONSE", ({ fclVersion }) => {
+    const unmount = WalletUtils.onMessageFromFCL("FCL:VIEW:READY:RESPONSE", ({ fclVersion }) => {
       const parsedVersion = getVersionFromString(fclVersion)
       if (hasValidVersion(parsedVersion)) {
         setAppVersion(parsedVersion)
       }
     })
+
+    WalletUtils.sendMsgToFCL("FCL:VIEW:READY")
+    
+    return unmount
   }, [])
 
   useEffect(() => {
