@@ -3,8 +3,8 @@ import styled from "styled-components";
 import logo from "../assets/logo.svg";
 import servicesJson from "../providers.json";
 import { WalletUtils } from "@onflow/fcl";
-import { getVersionFromString, hasValidVersion, isSameOrNewerThanVersion } from '../helpers/version';
 import { combineProviders } from '../helpers/providers';
+import { gte as isGreaterThanOrEqualToVersion, valid as isValidVersion } from 'semver';
 
 const AppContainer = styled.div`
   height: 100%;
@@ -180,15 +180,14 @@ const AppCancel = styled.button`
 
 export const App = ({ network, location, handleCancel }) => {
   const defaultServices = servicesJson[network]
-  const supportedVersion = getVersionFromString('0.0.79') // Version that supports browser extension redirects
-  const [appVersion, setAppVersion] = useState({})
+  const supportedVersion = '0.0.79' // Version that supports browser extension redirects
+  const [appVersion, setAppVersion] = useState(null)
   const [services, setServices] = useState(defaultServices)
 
   useEffect(() => {
     const unmount = WalletUtils.onMessageFromFCL("FCL:VIEW:READY:RESPONSE", ({ fclVersion }) => {
-      const parsedVersion = getVersionFromString(fclVersion)
-      if (hasValidVersion(parsedVersion)) {
-        setAppVersion(parsedVersion)
+      if (isValidVersion(fclVersion)) {
+        setAppVersion(fclVersion)
       }
     })
 
@@ -199,7 +198,7 @@ export const App = ({ network, location, handleCancel }) => {
 
   useEffect(() => {
     // Check version of FCL. If their app version is older than the supported version for browser extensions then continue on without adding browser extensions.
-    if (isSameOrNewerThanVersion(appVersion, supportedVersion)) {
+    if (appVersion && isGreaterThanOrEqualToVersion(appVersion, supportedVersion)) {
       // Add browser extensions
       const combinedProviderList = combineProviders(services, window.fcl_extensions || [], true)
       setServices(combinedProviderList)
