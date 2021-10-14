@@ -230,7 +230,7 @@ export const App = ({ network, location, handleCancel }) => {
         {
           services.map(service =>
             showProvider(service.provider) ? 
-              <ProviderCardEnabled {...service.provider} onClick={() => onSelect(service)}>
+              <ProviderCardEnabled key={service.id} {...service.provider} onClick={() => onSelect(service)}>
                 <ProviderCardColumn>
                   <ProviderCardRow>
                     <ProviderCardIcon {...service.provider}/>
@@ -242,7 +242,7 @@ export const App = ({ network, location, handleCancel }) => {
                 </ProviderCardColumn>
               </ProviderCardEnabled> 
               :
-              <ProviderCardDisabled {...service.provider}>
+              <ProviderCardDisabled key={service.id} {...service.provider}>
                 <ProviderCardColumn>
                   <ProviderCardRow>
                     <ProviderCardIcon {...service.provider}/>
