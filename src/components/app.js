@@ -205,9 +205,9 @@ export const App = ({ network, location, handleCancel }) => {
 
   const onSelect = service => {
     if (service.type === "default") {
-      return window.location.href = `${service.provider.authn_endpoint}${location.search}`
+      window.location.href = `${service.provider.authn_endpoint}${location.search}`
     } else {
-      return WalletUtils.redirect(service)
+      WalletUtils.redirect(service)
     }
   }
 
