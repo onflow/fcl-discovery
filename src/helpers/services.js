@@ -19,3 +19,5 @@ export const combineServices = (existingServices = [], newServices = [], front =
   }
   return filterUniqueServices(combined)
 }
+
+export const serviceListOfType = (services = [], type) => services.filter(service => service.type === type)

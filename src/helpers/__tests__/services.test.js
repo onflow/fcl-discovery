@@ -1,7 +1,7 @@
-import { combineServices } from "../services";
+import { combineServices, serviceListOfType } from "../services";
 
-describe('providers helpers: combineServices', () => {
-  it('should combine providers with right ordering and filter unique', () => {
+describe('services helpers: combineServices', () => {
+  it('should combine services with right ordering and filter unique', () => {
 
     const serviceA = {
       "id": 1,
@@ -56,5 +56,30 @@ describe('providers helpers: combineServices', () => {
 
     expect(combineServices(serviceListOne, serviceListTwo)).toEqual(expectedListOne)
     expect(combineServices(serviceListOne, serviceListTwo, true)).toEqual(expectedListTwo)
+  })
+})
+
+describe('services helpers: serviceListOfType', () => {
+  it('should combine services with right ordering and filter unique', () => {
+
+    const serviceA = {
+      "id": 1,
+      "type": "authn"
+    }
+
+    const serviceB = {
+      "id": 2,
+      "type": "authz"
+    }
+
+    const serviceC = {
+      "id": 2,
+      "type": "pre-authz"
+    }
+
+    const serviceList = [serviceA, serviceB, serviceC]
+
+    expect(serviceListOfType(serviceList, "authn").length).toEqual(1)
+    expect(serviceListOfType(serviceList, "authn")[0]).toEqual(serviceA)
   })
 })

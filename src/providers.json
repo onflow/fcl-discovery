@@ -2,7 +2,7 @@
   "mainnet": [
     {
       "id": 1,
-      "type": "default",
+      "type": "authn",
       "provider": {
         "name": "Blocto",
         "icon": "/images/blocto.png",
@@ -16,7 +16,7 @@
     },
     {
       "id": 3,
-      "type": "default",
+      "type": "authn",
       "provider": {
         "name": "Ledger",
         "icon": "/images/ledger.jpg",
@@ -32,7 +32,7 @@
   "testnet": [
     {
       "id": 1,
-      "type": "default",
+      "type": "authn",
       "provider": {
         "name": "Blocto",
         "icon": "/images/blocto.png",
@@ -46,7 +46,7 @@
     },
     {
       "id": 2,
-      "type": "default",
+      "type": "authn",
       "provider": {
         "name": "Dapper",
         "icon": "https://staging.accounts.meetdapper.com/static/img/dapper/dapper-flow@256x256.png",
@@ -60,7 +60,7 @@
     },
     {
       "id": 3,
-      "type": "default",
+      "type": "authn",
       "provider": {
         "name": "Ledger",
         "icon": "/images/ledger.jpg",
@@ -76,7 +76,7 @@
   "canarynet": [
     {
       "id": 3,
-      "type": "default",
+      "type": "authn",
       "provider": {
         "name": "Ledger",
         "icon": "/images/ledger.jpg",

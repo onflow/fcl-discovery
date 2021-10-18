@@ -3,7 +3,7 @@ import styled from "styled-components"
 import logo from "../assets/logo.svg"
 import servicesJson from "../providers.json"
 import {WalletUtils} from "@onflow/fcl"
-import {combineServices} from "../helpers/services"
+import {combineServices, serviceListOfType} from "../helpers/services"
 import {
   gte as isGreaterThanOrEqualToVersion,
   valid as isValidVersion,
@@ -181,11 +181,15 @@ const AppCancel = styled.button`
   -moz-appearance: none;
 `
 
+const SERVICE_TYPES = {
+  AUTHN: "authn"
+}
+
 export const App = ({network, location, handleCancel}) => {
   const defaultServices = servicesJson[network]
   const supportedVersion = "0.0.79" // Version that supports browser extension redirects
   const [appVersion, setAppVersion] = useState(null)
-  const [services, setServices] = useState(defaultServices)
+  const [services, setServices] = useState(serviceListOfType(defaultServices, SERVICE_TYPES.AUTHN))
   const [extensions, setExtensions] = useState([])
 
   useEffect(() => {
@@ -211,8 +215,9 @@ export const App = ({network, location, handleCancel}) => {
       isGreaterThanOrEqualToVersion(appVersion, supportedVersion)
     ) {
       // Add browser extensions
-      const combinedProviderList = combineServices(services, extensions, true)
-      setServices(combinedProviderList)
+      const combinedServiceList = combineServices(services, extensions, true)
+      const serviceList = serviceListOfType(combinedServiceList, SERVICE_TYPES.AUTHN)
+      setServices(serviceList)
     }
   }, [appVersion])
 
