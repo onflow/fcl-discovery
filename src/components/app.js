@@ -247,6 +247,7 @@ export const App = ({network, location, handleCancel}) => {
         <AppTitle>Choose a Provider</AppTitle>
       </AppHeader>
       <AppProviders>
+        {services.length === 0 && <div>No Wallets Found</div>}
         {services.map(service =>
           showProvider(service.provider) ? (
             <ProviderCardEnabled
