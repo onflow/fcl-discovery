@@ -10,7 +10,7 @@ const filterUniqueProviders = providers => {
   })
 }
 
-export const combineProviders = (existingProviders, newProviders, front = false) => {
+export const combineProviders = (existingProviders = [], newProviders = [], front = false) => {
   let combined
   if (front) {
     combined = newProviders.concat(existingProviders)
