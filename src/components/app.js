@@ -3,7 +3,7 @@ import styled from "styled-components"
 import logo from "../assets/logo.svg"
 import servicesJson from "../providers.json"
 import {WalletUtils} from "@onflow/fcl"
-import {combineProviders} from "../helpers/providers"
+import {combineServices} from "../helpers/services"
 import {
   gte as isGreaterThanOrEqualToVersion,
   valid as isValidVersion,
@@ -211,7 +211,7 @@ export const App = ({network, location, handleCancel}) => {
       isGreaterThanOrEqualToVersion(appVersion, supportedVersion)
     ) {
       // Add browser extensions
-      const combinedProviderList = combineProviders(services, extensions, true)
+      const combinedProviderList = combineServices(services, extensions, true)
       setServices(combinedProviderList)
     }
   }, [appVersion])

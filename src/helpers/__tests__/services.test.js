@@ -1,9 +1,9 @@
-import { combineProviders } from "../providers";
+import { combineServices } from "../services";
 
-describe('providers helpers: combineProviders', () => {
+describe('providers helpers: combineServices', () => {
   it('should combine providers with right ordering and filter unique', () => {
 
-    const providerA = {
+    const serviceA = {
       "id": 1,
       "provider": {
         "name": "Blocto",
@@ -17,7 +17,7 @@ describe('providers helpers: combineProviders', () => {
       }
     }
 
-    const providerB = {
+    const serviceB = {
       "id": 3,
       "provider": {
         "name": "Ledger",
@@ -31,7 +31,7 @@ describe('providers helpers: combineProviders', () => {
       }
     }
 
-    const providerC = {
+    const serviceC = {
       f_type: "Service",
       f_vsn: "1.0.0",
       type: "authn",
@@ -49,12 +49,12 @@ describe('providers helpers: combineProviders', () => {
       }
     }
 
-    const providerListOne = [providerA, providerB]
-    const providerListTwo = [providerC, providerC]
-    const expectedListOne = [providerA, providerB, providerC]
-    const expectedListTwo = [providerC, providerA, providerB]
+    const serviceListOne = [serviceA, serviceB]
+    const serviceListTwo = [serviceC, serviceC]
+    const expectedListOne = [serviceA, serviceB, serviceC]
+    const expectedListTwo = [serviceC, serviceA, serviceB]
 
-    expect(combineProviders(providerListOne, providerListTwo)).toEqual(expectedListOne)
-    expect(combineProviders(providerListOne, providerListTwo, true)).toEqual(expectedListTwo)
+    expect(combineServices(serviceListOne, serviceListTwo)).toEqual(expectedListOne)
+    expect(combineServices(serviceListOne, serviceListTwo, true)).toEqual(expectedListTwo)
   })
 })
