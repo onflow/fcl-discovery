@@ -223,6 +223,16 @@ export const App = ({network, handleCancel}) => {
 
   const showProvider = provider => provider.enabled !== false
 
+  const onSelect = service => {
+    if (!service) return
+
+    if (isGreaterThanOrEqualToVersion(appVersion, supportedVersion)) {
+      WalletUtils.redirect(service)
+    } else {
+      window.location.href = `${service.endpoint}${window.location.search}`
+    }
+  }
+
   return (
     <AppContainer>
       <AppHeader>
@@ -238,7 +248,7 @@ export const App = ({network, handleCancel}) => {
             <ProviderCardEnabled
               key={service.id}
               {...service.provider}
-              onClick={() => WalletUtils.redirect(service)}
+              onClick={() => onSelect(service)}
             >
               <ProviderCardColumn>
                 <ProviderCardRow>
