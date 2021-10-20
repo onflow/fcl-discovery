@@ -1,7 +1,13 @@
-import React from 'react';
-import styled from "styled-components";
-import logo from "../assets/logo.svg";
-import providersJson from "../providers.json";
+import React, {useEffect, useState} from "react"
+import styled from "styled-components"
+import logo from "../assets/logo.svg"
+import servicesJson from "../providers.json"
+import {WalletUtils} from "@onflow/fcl"
+import {combineServices, serviceListOfType} from "../helpers/services"
+import {
+  gte as isGreaterThanOrEqualToVersion,
+  valid as isValidVersion,
+} from "semver"
 
 const AppContainer = styled.div`
   height: 100%;
@@ -116,12 +122,12 @@ const ProviderCardIcon = styled.div`
 
   border-radius: 0.5rem;
 
-  background-color: ${({color, icon}) => !icon ? color : "unset"};
+  background-color: ${({color, icon}) => (!icon ? color : "unset")};
   background-image: url(${({icon}) => icon});
   background-size: cover;
 `
 
-const ProviderCardTitle = styled.div`
+const ProviderCardName = styled.div`
   margin-bottom: 0.5rem;
   font-weight: bold;
   font-size: 2rem;
@@ -130,7 +136,7 @@ const ProviderCardTitle = styled.div`
 `
 
 const ProviderCardDescription = styled.div`
-  color: #a8a8a8; 
+  color: #a8a8a8;
   text-align: left;
 `
 
@@ -175,49 +181,114 @@ const AppCancel = styled.button`
   -moz-appearance: none;
 `
 
-export const App = ({ network, location, handleCancel }) => {
-  const providers = providersJson[network];
-  if (!providers) return null;
-  
+const SERVICE_TYPES = {
+  AUTHN: "authn"
+}
+
+export const App = ({network, handleCancel}) => {
+  const defaultServices = servicesJson[network]
+  const supportedVersion = "0.0.79" // Version that supports browser extension redirects
+  const [appVersion, setAppVersion] = useState(null)
+  const [services, setServices] = useState(serviceListOfType(defaultServices, SERVICE_TYPES.AUTHN))
+  const [extensions, setExtensions] = useState([])
+
+  useEffect(() => {
+    const unmount = WalletUtils.onMessageFromFCL(
+      "FCL:VIEW:READY:RESPONSE",
+      ({fclVersion, body}) => {
+        if (isValidVersion(fclVersion)) {
+          setExtensions(body.extensions)
+          setAppVersion(fclVersion)
+        }
+      }
+    )
+
+    WalletUtils.sendMsgToFCL("FCL:VIEW:READY")
+
+    return unmount
+  }, [])
+
+  useEffect(() => {
+    // Check version of FCL. If their app version is older than the supported version for browser extensions then continue on without adding browser extensions.
+    if (
+      appVersion &&
+      isGreaterThanOrEqualToVersion(appVersion, supportedVersion)
+    ) {
+      // Add browser extensions
+      const combinedServiceList = combineServices(services, extensions, true)
+      const serviceList = serviceListOfType(combinedServiceList, SERVICE_TYPES.AUTHN)
+      setServices(serviceList)
+    }
+  }, [appVersion])
+
+  const showProvider = provider => provider.enabled !== false
+
+  const onSelect = service => {
+    if (!service) return
+
+    if (
+      appVersion &&
+      isGreaterThanOrEqualToVersion(appVersion, supportedVersion)
+    ) {
+      WalletUtils.redirect(service)
+    } else {
+      window.location.href = `${service.endpoint}${window.location.search}`
+    }
+  }
+
   return (
     <AppContainer>
-        <AppHeader>
-          <AppLogoWrapper><AppLogo src={logo} alt="Flow Logo"/></AppLogoWrapper>
-          <AppTitle>Choose a Provider</AppTitle>
-        </AppHeader>
-        <AppProviders>
-        {
-          providers.map(p =>
-            p.enabled ? 
-              <ProviderCardEnabled {...p} href={`${p.authn_endpoint}${location.search}`}>
-                <ProviderCardColumn>
-                  <ProviderCardRow>
-                    <ProviderCardIcon {...p}/>
-                    <ProviderCardColumn>
-                      <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
-                      <ProviderCardDescription>{p.description}</ProviderCardDescription>
-                    </ProviderCardColumn>
-                  </ProviderCardRow>
-                </ProviderCardColumn>
-              </ProviderCardEnabled> 
-              :
-              <ProviderCardDisabled {...p}>
-                <ProviderCardColumn>
-                  <ProviderCardRow>
-                    <ProviderCardIcon {...p}/>
-                    <ProviderCardColumn>
-                      <ProviderCardTitle {...p}>{p.title}</ProviderCardTitle>
-                      <ProviderCardDescription>{p.description}</ProviderCardDescription>
-                    </ProviderCardColumn>
-                  </ProviderCardRow>
-                </ProviderCardColumn>
-              </ProviderCardDisabled>
+      <AppHeader>
+        <AppLogoWrapper>
+          <AppLogo src={logo} alt='Flow Logo' />
+        </AppLogoWrapper>
+        <AppTitle>Choose a Provider</AppTitle>
+      </AppHeader>
+      <AppProviders>
+        {services.length === 0 && <div>No Wallets Found</div>}
+        {services.map(service =>
+          showProvider(service.provider) ? (
+            <ProviderCardEnabled
+              key={service.id}
+              {...service.provider}
+              onClick={() => onSelect(service)}
+            >
+              <ProviderCardColumn>
+                <ProviderCardRow>
+                  <ProviderCardIcon {...service.provider} />
+                  <ProviderCardColumn>
+                    <ProviderCardName {...service.provider}>
+                      {service.provider.name}
+                    </ProviderCardName>
+                    <ProviderCardDescription>
+                      {service.provider.description}
+                    </ProviderCardDescription>
+                  </ProviderCardColumn>
+                </ProviderCardRow>
+              </ProviderCardColumn>
+            </ProviderCardEnabled>
+          ) : (
+            <ProviderCardDisabled key={service.id} {...service.provider}>
+              <ProviderCardColumn>
+                <ProviderCardRow>
+                  <ProviderCardIcon {...service.provider} />
+                  <ProviderCardColumn>
+                    <ProviderCardName {...service.provider}>
+                      {service.provider.name}
+                    </ProviderCardName>
+                    <ProviderCardDescription>
+                      {service.provider.description}
+                    </ProviderCardDescription>
+                  </ProviderCardColumn>
+                </ProviderCardRow>
+              </ProviderCardColumn>
+            </ProviderCardDisabled>
           )
-        }
+        )}
       </AppProviders>
       <AppFooter>
         <AppCancel onClick={handleCancel}>Cancel</AppCancel>
       </AppFooter>
     </AppContainer>
-  );
+  )
 }

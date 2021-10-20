@@ -1,68 +1,117 @@
 {
   "mainnet": [
     {
-      "title": "Blocto",
-      "icon": "/images/blocto.png",
-      "description": "Your Entrance To The Blockchain World.",
-      "color": "#afd8f7",
-      "contact_email": "support@blocto.app",
-      "authn_endpoint": "https://flow-wallet.blocto.app/authn",
-      "origin": "https://blocto.portto.io",
-      "enabled": true
+      "id": 1,
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "IFRAME/RPC",
+      "uid": "blocto#authn",
+      "endpoint": "https://flow-wallet.blocto.app/authn",
+      "provider": {
+        "name": "Blocto",
+        "icon": "/images/blocto.png",
+        "description": "Your Entrance To The Blockchain World.",
+        "color": "#afd8f7",
+        "supportEmail": "support@blocto.app",
+        "website": "https://blocto.portto.io",
+        "enabled": true
+      }
     },
     {
-      "title": "Ledger",
-      "icon": "/images/ledger.jpg",
-      "description": "Ledger wallets, designed with the highest security standards.",
-      "color": "#1e2029",
-      "contact_email": "support@ledger.com",
-      "authn_endpoint": "https://fcl-ledger.onflow.org/mainnet/authn",
-      "origin": "https://ledger.com",
-      "enabled": true
+      "id": 3,
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "IFRAME/RPC",
+      "uid": "ledger#authn",
+      "endpoint": "https://fcl-ledger.onflow.org/mainnet/authn",
+      "provider": {
+        "name": "Ledger",
+        "icon": "/images/ledger.jpg",
+        "description": "Ledger wallets, designed with the highest security standards.",
+        "color": "#1e2029",
+        "supportEmail": "support@ledger.com",
+        "website": "https://ledger.com",
+        "enabled": true
+      }
     }
   ],
   "testnet": [
     {
-      "title": "Blocto",
-      "icon": "/images/blocto.png",
-      "description": "Your entrance to the blockchain world.",
-      "color": "#afd8f7",
-      "contact_email": "support@blocto.app",
-      "authn_endpoint": "https://flow-wallet-testnet.blocto.app/authn",
-      "origin": "https://blocto.portto.io",
-      "enabled": true
+      "id": 1,
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "IFRAME/RPC",
+      "uid": "blocto#authn",
+      "endpoint": "https://flow-wallet-testnet.blocto.app/authn",
+      "provider": {
+        "name": "Blocto",
+        "icon": "/images/blocto.png",
+        "description": "Your entrance to the blockchain world.",
+        "color": "#afd8f7",
+        "supportEmail": "support@blocto.app",
+        "authn_endpoint": "https://flow-wallet-testnet.blocto.app/authn",
+        "website": "https://blocto.portto.io",
+        "enabled": true
+      }
     },
     {
-      "title": "Dapper",
-      "icon": "https://staging.accounts.meetdapper.com/static/img/dapper/dapper-flow@256x256.png",
-      "description": "Coming Soon – The trusted gateway to your digital goods.",
-      "color": "#762FBE",
-      "contact_email": "support@meetdapper.com",
-      "authn_endpoint": "https://staging.accounts.meetdapper.com/fcl/authn",
-      "origin": "https://meetdapper.com",
-      "enabled": false
+      "id": 2,
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "IFRAME/RPC",
+      "uid": "dapper-wallet#authn",
+      "endpoint": "https://staging.accounts.meetdapper.com/fcl/authn",
+      "provider": {
+        "name": "Dapper",
+        "icon": "https://staging.accounts.meetdapper.com/static/img/dapper/dapper-flow@256x256.png",
+        "description": "Coming Soon – The trusted gateway to your digital goods.",
+        "color": "#762FBE",
+        "supportEmail": "support@meetdapper.com",
+        "website": "https://meetdapper.com",
+        "enabled": false
+      }
     },
     {
-      "title": "Ledger",
-      "icon": "/images/ledger.jpg",
-      "description": "Ledger wallets, designed with the highest security standards.",
-      "color": "#1e2029",
-      "contact_email": "support@ledger.com",
-      "authn_endpoint": "https://fcl-ledger.onflow.org/testnet/authn",
-      "origin": "https://ledger.com",
-      "enabled": true
+      "id": 3,
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "IFRAME/RPC",
+      "uid": "ledger#authn",
+      "endpoint": "https://fcl-ledger.onflow.org/testnet/authn",
+      "provider": {
+        "name": "Ledger",
+        "icon": "/images/ledger.jpg",
+        "description": "Ledger wallets, designed with the highest security standards.",
+        "color": "#1e2029",
+        "supportEmail": "support@ledger.com",
+        "website": "https://ledger.com",
+        "enabled": true
+      }
     }
   ],
   "canarynet": [
     {
-      "title": "Ledger",
-      "icon": "/images/ledger.jpg",
-      "description": "Ledger wallets, designed with the highest security standards.",
-      "color": "#1e2029",
-      "contact_email": "support@ledger.com",
-      "authn_endpoint": "https://fcl-ledger.onflow.org/canarynet/authn",
-      "origin": "https://ledger.com",
-      "enabled": true
+      "id": 3,
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "IFRAME/RPC",
+      "uid": "ledger#authn",
+      "endpoint": "https://fcl-ledger.onflow.org/canarynet/authn",
+      "provider": {
+        "name": "Ledger",
+        "icon": "/images/ledger.jpg",
+        "description": "Ledger wallets, designed with the highest security standards.",
+        "color": "#1e2029",
+        "supportEmail": "support@ledger.com",
+        "website": "https://ledger.com",
+        "enabled": true
+      }
     }
   ]
 }
