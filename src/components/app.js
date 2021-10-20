@@ -185,7 +185,7 @@ const SERVICE_TYPES = {
   AUTHN: "authn"
 }
 
-export const App = ({network, location, handleCancel}) => {
+export const App = ({network, handleCancel}) => {
   const defaultServices = servicesJson[network]
   const supportedVersion = "0.0.79" // Version that supports browser extension redirects
   const [appVersion, setAppVersion] = useState(null)
