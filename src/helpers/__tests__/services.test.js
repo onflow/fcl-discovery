@@ -5,13 +5,13 @@ describe('services helpers: combineServices', () => {
 
     const serviceA = {
       "id": 1,
+      "endpoint": "https://flow-wallet.blocto.app/authn",
       "provider": {
         "name": "Blocto",
         "icon": "/images/blocto.png",
         "description": "Your Entrance To The Blockchain World.",
         "color": "#afd8f7",
         "supportEmail": "support@blocto.app",
-        "authn_endpoint": "https://flow-wallet.blocto.app/authn",
         "website": "https://blocto.portto.io",
         "enabled": true
       }
@@ -19,13 +19,13 @@ describe('services helpers: combineServices', () => {
 
     const serviceB = {
       "id": 3,
+      "endpoint": "https://fcl-ledger.onflow.org/mainnet/authn",
       "provider": {
         "name": "Ledger",
         "icon": "/images/ledger.jpg",
         "description": "Ledger wallets, designed with the highest security standards.",
         "color": "#1e2029",
         "supportEmail": "support@ledger.com",
-        "authn_endpoint": "https://fcl-ledger.onflow.org/mainnet/authn",
         "website": "https://ledger.com",
         "enabled": true
       }
