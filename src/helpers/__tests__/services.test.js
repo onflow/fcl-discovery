@@ -7,45 +7,23 @@ describe('services helpers: combineServices', () => {
       "id": 1,
       "endpoint": "https://flow-wallet.blocto.app/authn",
       "provider": {
-        "name": "Blocto",
-        "icon": "/images/blocto.png",
-        "description": "Your Entrance To The Blockchain World.",
-        "color": "#afd8f7",
-        "supportEmail": "support@blocto.app",
-        "website": "https://blocto.portto.io",
-        "enabled": true
+        "name": "Blocto"
       }
     }
 
     const serviceB = {
-      "id": 3,
+      "id": 2,
       "endpoint": "https://fcl-ledger.onflow.org/mainnet/authn",
       "provider": {
-        "name": "Ledger",
-        "icon": "/images/ledger.jpg",
-        "description": "Ledger wallets, designed with the highest security standards.",
-        "color": "#1e2029",
-        "supportEmail": "support@ledger.com",
-        "website": "https://ledger.com",
-        "enabled": true
+        "name": "Ledger"
       }
     }
 
     const serviceC = {
-      f_type: "Service",
-      f_vsn: "1.0.0",
-      type: "authn",
-      uid: "liquality-wallet#authn",
+      "id": 3,
       endpoint: "liquality",
-      id: "0xf8d6e0586b0a20c7",
-      identity: {
-        address: "0xf8d6e0586b0a20c7",
-      },
       provider: {
-        address: null,
         name: "Liquality Wallet Extension",
-        icon: null,
-        description: "Liquality Wallet Extension for Chrome",
       }
     }
 
