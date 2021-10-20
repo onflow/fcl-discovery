@@ -221,14 +221,6 @@ export const App = ({network, location, handleCancel}) => {
     }
   }, [appVersion])
 
-  const onSelect = service => {
-    if (service.type === "default") {
-      window.location.href = `${service.provider.authn_endpoint}${location.search}`
-    } else {
-      WalletUtils.redirect(service)
-    }
-  }
-
   const showProvider = provider => {
     // Only hide if specifically set to false
     if (provider.hasOwnProperty("enabled") && provider.enabled === false) {
@@ -253,7 +245,7 @@ export const App = ({network, location, handleCancel}) => {
             <ProviderCardEnabled
               key={service.id}
               {...service.provider}
-              onClick={() => onSelect(service)}
+              onClick={() => WalletUtils.redirect(service)}
             >
               <ProviderCardColumn>
                 <ProviderCardRow>
