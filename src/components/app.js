@@ -226,7 +226,10 @@ export const App = ({network, handleCancel}) => {
   const onSelect = service => {
     if (!service) return
 
-    if (isGreaterThanOrEqualToVersion(appVersion, supportedVersion)) {
+    if (
+      appVersion &&
+      isGreaterThanOrEqualToVersion(appVersion, supportedVersion)
+    ) {
       WalletUtils.redirect(service)
     } else {
       window.location.href = `${service.endpoint}${window.location.search}`
