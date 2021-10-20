@@ -12,8 +12,8 @@
         "icon": "/images/blocto.png",
         "description": "Your Entrance To The Blockchain World.",
         "color": "#afd8f7",
-        "contact_email": "support@blocto.app",
-        "origin": "https://blocto.portto.io",
+        "supportEmail": "support@blocto.app",
+        "website": "https://blocto.portto.io",
         "enabled": true
       }
     },
@@ -29,8 +29,8 @@
         "icon": "/images/ledger.jpg",
         "description": "Ledger wallets, designed with the highest security standards.",
         "color": "#1e2029",
-        "contact_email": "support@ledger.com",
-        "origin": "https://ledger.com",
+        "supportEmail": "support@ledger.com",
+        "website": "https://ledger.com",
         "enabled": true
       }
     }
@@ -48,9 +48,9 @@
         "icon": "/images/blocto.png",
         "description": "Your entrance to the blockchain world.",
         "color": "#afd8f7",
-        "contact_email": "support@blocto.app",
+        "supportEmail": "support@blocto.app",
         "authn_endpoint": "https://flow-wallet-testnet.blocto.app/authn",
-        "origin": "https://blocto.portto.io",
+        "website": "https://blocto.portto.io",
         "enabled": true
       }
     },
@@ -66,8 +66,8 @@
         "icon": "https://staging.accounts.meetdapper.com/static/img/dapper/dapper-flow@256x256.png",
         "description": "Coming Soon – The trusted gateway to your digital goods.",
         "color": "#762FBE",
-        "contact_email": "support@meetdapper.com",
-        "origin": "https://meetdapper.com",
+        "supportEmail": "support@meetdapper.com",
+        "website": "https://meetdapper.com",
         "enabled": false
       }
     },
@@ -83,8 +83,8 @@
         "icon": "/images/ledger.jpg",
         "description": "Ledger wallets, designed with the highest security standards.",
         "color": "#1e2029",
-        "contact_email": "support@ledger.com",
-        "origin": "https://ledger.com",
+        "supportEmail": "support@ledger.com",
+        "website": "https://ledger.com",
         "enabled": true
       }
     }
@@ -102,8 +102,8 @@
         "icon": "/images/ledger.jpg",
         "description": "Ledger wallets, designed with the highest security standards.",
         "color": "#1e2029",
-        "contact_email": "support@ledger.com",
-        "origin": "https://ledger.com",
+        "supportEmail": "support@ledger.com",
+        "website": "https://ledger.com",
         "enabled": true
       }
     }

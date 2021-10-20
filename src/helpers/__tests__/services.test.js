@@ -10,9 +10,9 @@ describe('services helpers: combineServices', () => {
         "icon": "/images/blocto.png",
         "description": "Your Entrance To The Blockchain World.",
         "color": "#afd8f7",
-        "contact_email": "support@blocto.app",
+        "supportEmail": "support@blocto.app",
         "authn_endpoint": "https://flow-wallet.blocto.app/authn",
-        "origin": "https://blocto.portto.io",
+        "website": "https://blocto.portto.io",
         "enabled": true
       }
     }
@@ -24,9 +24,9 @@ describe('services helpers: combineServices', () => {
         "icon": "/images/ledger.jpg",
         "description": "Ledger wallets, designed with the highest security standards.",
         "color": "#1e2029",
-        "contact_email": "support@ledger.com",
+        "supportEmail": "support@ledger.com",
         "authn_endpoint": "https://fcl-ledger.onflow.org/mainnet/authn",
-        "origin": "https://ledger.com",
+        "website": "https://ledger.com",
         "enabled": true
       }
     }
