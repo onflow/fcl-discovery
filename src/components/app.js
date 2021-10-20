@@ -221,14 +221,7 @@ export const App = ({network, handleCancel}) => {
     }
   }, [appVersion])
 
-  const showProvider = provider => {
-    // Only hide if specifically set to false
-    if (provider.hasOwnProperty("enabled") && provider.enabled === false) {
-      return false
-    }
-
-    return true
-  }
+  const showProvider = provider => provider.enabled !== false
 
   return (
     <AppContainer>
