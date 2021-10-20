@@ -6,6 +6,7 @@
       "f_vsn": "1.0.0",
       "type": "authn",
       "method": "IFRAME/RPC",
+      "uid": "blocto#authn",
       "endpoint": "https://flow-wallet.blocto.app/authn",
       "provider": {
         "name": "Blocto",
@@ -23,6 +24,7 @@
       "f_vsn": "1.0.0",
       "type": "authn",
       "method": "IFRAME/RPC",
+      "uid": "ledger#authn",
       "endpoint": "https://fcl-ledger.onflow.org/mainnet/authn",
       "provider": {
         "name": "Ledger",
@@ -42,6 +44,7 @@
       "f_vsn": "1.0.0",
       "type": "authn",
       "method": "IFRAME/RPC",
+      "uid": "blocto#authn",
       "endpoint": "https://flow-wallet-testnet.blocto.app/authn",
       "provider": {
         "name": "Blocto",
@@ -60,6 +63,7 @@
       "f_vsn": "1.0.0",
       "type": "authn",
       "method": "IFRAME/RPC",
+      "uid": "dapper-wallet#authn",
       "endpoint": "https://staging.accounts.meetdapper.com/fcl/authn",
       "provider": {
         "name": "Dapper",
@@ -77,6 +81,7 @@
       "f_vsn": "1.0.0",
       "type": "authn",
       "method": "IFRAME/RPC",
+      "uid": "ledger#authn",
       "endpoint": "https://fcl-ledger.onflow.org/testnet/authn",
       "provider": {
         "name": "Ledger",
@@ -96,6 +101,7 @@
       "f_vsn": "1.0.0",
       "type": "authn",
       "method": "IFRAME/RPC",
+      "uid": "ledger#authn",
       "endpoint": "https://fcl-ledger.onflow.org/canarynet/authn",
       "provider": {
         "name": "Ledger",
