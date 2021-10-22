@@ -1,21 +1,9 @@
 import { useRouter } from 'next/router'
-import { useFetch } from '../hooks/useFetch'
+import { Discovery } from '../components/Discovery'
 import { PATHS } from '../helpers/constants'
 import { createPathFromArray } from '../helpers/paths'
 
-const Services = ({ network }) => {
-  const requestUrl = `/api/services?=${network}`
-  const { loading, data, error } = useFetch(requestUrl)
-
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error Fetching Services</div>
-
-  return (
-    <div>{JSON.stringify(data)}</div>
-  )
-}
-
-const Discovery = () => {
+const Router = () => {
   const router = useRouter()
   const { path } = router.query // ['authn'] ['testnet', 'authn'] ['canarynet', 'authn']
   const pathStr = createPathFromArray(path)
@@ -24,7 +12,7 @@ const Discovery = () => {
 
   if (!isValidRoute) return <div>Page Not Found</div>
   
-  return <Services network={network} />
+  return <Discovery network={network} />
 }
 
-export default Discovery
+export default Router
