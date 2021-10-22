@@ -117,7 +117,7 @@ const ProviderCardDescription = styled.div`
 
 export const Discovery = ({ network, handleCancel }) => {
   const requestUrl = `/api/services?=${network}`
-  const supportedVersion = "0.0.77" // Version that supports browser extension redirects
+  const supportedVersion = "0.0.79" // Version that supports browser extension redirects
   const { appVersion, extensions } = useFCL()
   const { loading, data, error } = useFetch(requestUrl)
   const services = useMemo(() => {
