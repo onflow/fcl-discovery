@@ -1,12 +1,7 @@
 import { useRouter } from 'next/router'
 import { useFetch } from '../hooks/useFetch'
+import { PATHS } from '../helpers/constants'
 import { createPathFromArray } from '../helpers/paths'
-
-const PATHS = {
-  MAIN: '/authn',
-  TESTNET: '/testnet/authn',
-  CANARYNET: '/canarynet/authn'
-}
 
 const Discovery = () => {
   const router = useRouter()
