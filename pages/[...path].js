@@ -29,9 +29,4 @@ const Discovery = () => {
   )
 }
 
-const DiscoveryNoSSR = dynamic(
-  () => Promise.resolve(Discovery),
-  { ssr: false }
-)
-
-export default DiscoveryNoSSR
+export default Discovery
