@@ -56,7 +56,7 @@ function MyApp({ Component, pageProps }) {
       <GlobalStyle />
       <Wrapper onClick={handleCancel}>
         <Inner onClick={e => e.stopPropagation()}>
-          <Component {...pageProps} />
+          <Component {...pageProps} handleCancel={handleCancel} />
         </Inner>
       </Wrapper>
     </>

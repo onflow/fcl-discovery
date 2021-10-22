@@ -3,3 +3,7 @@ export const PATHS = {
   TESTNET: '/testnet/authn',
   CANARYNET: '/canarynet/authn'
 }
+
+export const SERVICE_TYPES = {
+  AUTHN: "authn"
+}

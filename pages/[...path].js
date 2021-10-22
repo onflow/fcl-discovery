@@ -3,7 +3,7 @@ import { Discovery } from '../components/Discovery'
 import { PATHS } from '../helpers/constants'
 import { createPathFromArray } from '../helpers/paths'
 
-const Router = () => {
+const Router = ({ handleCancel }) => {
   const router = useRouter()
   const { path } = router.query // ['authn'] ['testnet', 'authn'] ['canarynet', 'authn']
   const pathStr = createPathFromArray(path)
@@ -12,7 +12,7 @@ const Router = () => {
 
   if (!isValidRoute) return <div>Page Not Found</div>
   
-  return <Discovery network={network} />
+  return <Discovery network={network} handleCancel={handleCancel} />
 }
 
 export default Router
