@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { useFetch } from '../hooks/useFetch'
 
