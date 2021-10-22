@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo } from "react"
 import styled from "styled-components"
 import {WalletUtils} from "@onflow/fcl"
 import {
@@ -6,6 +6,7 @@ import {
   valid as isValidVersion,
 } from "semver"
 import { useFetch } from "../hooks/useFetch"
+import { useFCL } from "../hooks/useFCL"
 import { combineServices, serviceListOfType } from "../helpers/services"
 import { SERVICE_TYPES } from "../helpers/constants"
 import Header from "./Header"
@@ -117,8 +118,7 @@ const ProviderCardDescription = styled.div`
 export const Discovery = ({ network, handleCancel }) => {
   const requestUrl = `/api/services?=${network}`
   const supportedVersion = "0.0.77" // Version that supports browser extension redirects
-  const [appVersion, setAppVersion] = useState(null)
-  const [extensions, setExtensions] = useState([])
+  const { appVersion, extensions } = useFCL()
   const { loading, data, error } = useFetch(requestUrl)
   const services = useMemo(() => {
     let defaultServices = serviceListOfType(data, SERVICE_TYPES.AUTHN)
@@ -136,22 +136,6 @@ export const Discovery = ({ network, handleCancel }) => {
     return defaultServices
 
   }, [data, extensions, appVersion])
-
-  useEffect(() => {
-    const unmount = WalletUtils.onMessageFromFCL(
-      "FCL:VIEW:READY:RESPONSE",
-      ({fclVersion, body}) => {
-        if (isValidVersion(fclVersion)) {
-          setExtensions(body.extensions)
-          setAppVersion(fclVersion)
-        }
-      }
-    )
-
-    WalletUtils.sendMsgToFCL("FCL:VIEW:READY")
-
-    return unmount
-  }, [])
 
   const showProvider = provider => provider.enabled !== false
 
