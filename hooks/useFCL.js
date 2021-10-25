@@ -7,19 +7,12 @@ export function useFCL() {
   const [extensions, setExtensions] = useState([])
 
   useEffect(() => {
-    const unmount = WalletUtils.onMessageFromFCL(
-      "FCL:VIEW:READY:RESPONSE",
-      ({fclVersion, body}) => {
-        if (isValidVersion(fclVersion)) {
-          setExtensions(body.extensions)
-          setAppVersion(fclVersion)
-        }
+    WalletUtils.ready(({fclVersion, body}) => {
+      if (isValidVersion(fclVersion)) {
+        setExtensions(body.extensions)
+        setAppVersion(fclVersion)
       }
-    )
-  
-    WalletUtils.sendMsgToFCL("FCL:VIEW:READY")
-  
-    return unmount
+    })
   }, [])
 
   return {
