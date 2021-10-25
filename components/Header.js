@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import logo from "../public/logo.svg"
 
 const AppHeader = styled.div`
   margin-bottom: 2rem;
@@ -33,7 +32,7 @@ export default function Header() {
   return (
     <AppHeader>
       <AppLogoWrapper>
-        <AppLogo src={logo} alt='Flow Logo' />
+        <AppLogo src="/logo.svg" alt='Flow Logo' />
       </AppLogoWrapper>
       <AppTitle>Choose a Provider</AppTitle>
     </AppHeader>
