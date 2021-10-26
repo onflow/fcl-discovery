@@ -10,14 +10,19 @@ const filterUniqueServices = services => {
   })
 }
 
-export const combineServices = (existingServices = [], newServices = [], front = false) => {
+export const combineServices = (
+  existingServices = [],
+  newServices = [],
+  front = false
+) => {
   let combined
   if (front) {
     combined = newServices.concat(existingServices)
   } else {
-    combined = existingServices.concat(newServices) 
+    combined = existingServices.concat(newServices)
   }
   return filterUniqueServices(combined)
 }
 
-export const serviceListOfType = (services = [], type) => services.filter(service => service.type === type)
+export const serviceListOfType = (services = [], type) =>
+  services.filter(service => service.type === type)
