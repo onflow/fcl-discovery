@@ -1,4 +1,4 @@
-import {useEffect, useMemo} from "react"
+import {useMemo} from "react"
 import styled from "styled-components"
 import {WalletUtils} from "@onflow/fcl"
 import {
@@ -13,14 +13,14 @@ import Header from "./Header"
 import Footer from "./Footer"
 import ServiceCard from "./ServiceCard"
 
-const AppContainer = styled.div`
+const ServicesContainer = styled.div`
   height: 100%;
   width: 100%;
   box-sizing: border-box;
   overflow-y: auto;
 `
 
-const AppProviders = styled.div``
+const ProvidersList = styled.div``
 
 const ProviderCardEnabled = styled.a`
   margin-bottom: 1rem;
@@ -117,13 +117,12 @@ export const Discovery = ({network, handleCancel}) => {
     }
   }
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error Fetching Services</div>
+  if (loading || error) return <div />
 
   return (
-    <AppContainer>
+    <ServicesContainer>
       <Header />
-      <AppProviders>
+      <ProvidersList>
         {services.length === 0 && <div>No Wallets Found</div>}
         {services.map(service =>
           showProvider(service.provider) ? (
@@ -140,8 +139,8 @@ export const Discovery = ({network, handleCancel}) => {
             </ProviderCardDisabled>
           )
         )}
-      </AppProviders>
+      </ProvidersList>
       <Footer handleCancel={handleCancel} />
-    </AppContainer>
+    </ServicesContainer>
   )
 }
