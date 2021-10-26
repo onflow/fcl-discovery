@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "test": "jest"
   },
   "dependencies": {
@@ -19,8 +18,6 @@
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.13.3",
-    "eslint": "8.0.1",
-    "eslint-config-next": "11.1.2",
     "jest": "^27.3.1"
   }
 }
