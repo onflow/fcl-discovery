@@ -18,7 +18,7 @@ const AppCancel = styled.button`
   -moz-appearance: none;
 `
 
-export default function Footer({ handleCancel }) {
+export default function Footer({handleCancel}) {
   return (
     <AppFooter>
       <AppCancel onClick={handleCancel}>Cancel</AppCancel>

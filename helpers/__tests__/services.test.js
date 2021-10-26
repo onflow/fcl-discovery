@@ -1,30 +1,29 @@
-import { combineServices, serviceListOfType } from "../services"
+import {combineServices, serviceListOfType} from "../services"
 
-describe('services helpers: combineServices', () => {
-  it('should combine services with right ordering and filter unique', () => {
-
+describe("services helpers: combineServices", () => {
+  it("should combine services with right ordering and filter unique", () => {
     const serviceA = {
-      "id": 1,
-      "endpoint": "https://flow-wallet.blocto.app/authn",
-      "provider": {
-        "name": "Blocto"
-      }
+      id: 1,
+      endpoint: "https://flow-wallet.blocto.app/authn",
+      provider: {
+        name: "Blocto",
+      },
     }
 
     const serviceB = {
-      "id": 2,
-      "endpoint": "https://fcl-ledger.onflow.org/mainnet/authn",
-      "provider": {
-        "name": "Ledger"
-      }
+      id: 2,
+      endpoint: "https://fcl-ledger.onflow.org/mainnet/authn",
+      provider: {
+        name: "Ledger",
+      },
     }
 
     const serviceC = {
-      "id": 3,
+      id: 3,
       endpoint: "liquality",
       provider: {
         name: "Liquality Wallet Extension",
-      }
+      },
     }
 
     const serviceListOne = [serviceA, serviceB]
@@ -32,27 +31,30 @@ describe('services helpers: combineServices', () => {
     const expectedListOne = [serviceA, serviceB, serviceC]
     const expectedListTwo = [serviceC, serviceA, serviceB]
 
-    expect(combineServices(serviceListOne, serviceListTwo)).toEqual(expectedListOne)
-    expect(combineServices(serviceListOne, serviceListTwo, true)).toEqual(expectedListTwo)
+    expect(combineServices(serviceListOne, serviceListTwo)).toEqual(
+      expectedListOne
+    )
+    expect(combineServices(serviceListOne, serviceListTwo, true)).toEqual(
+      expectedListTwo
+    )
   })
 })
 
-describe('services helpers: serviceListOfType', () => {
-  it('should combine services with right ordering and filter unique', () => {
-
+describe("services helpers: serviceListOfType", () => {
+  it("should combine services with right ordering and filter unique", () => {
     const serviceA = {
-      "id": 1,
-      "type": "authn"
+      id: 1,
+      type: "authn",
     }
 
     const serviceB = {
-      "id": 2,
-      "type": "authz"
+      id: 2,
+      type: "authz",
     }
 
     const serviceC = {
-      "id": 2,
-      "type": "pre-authz"
+      id: 2,
+      type: "pre-authz",
     }
 
     const serviceList = [serviceA, serviceB, serviceC]

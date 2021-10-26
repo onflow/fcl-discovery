@@ -1,1 +1,1 @@
-export const createPathFromArray = (arr = []) => `/${arr.join('/')}`
+export const createPathFromArray = (arr = []) => `/${arr.join("/")}`

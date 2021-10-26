@@ -1,4 +1,4 @@
-import styled, {createGlobalStyle} from 'styled-components';
+import styled, {createGlobalStyle} from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
   * { 
@@ -40,15 +40,18 @@ const Inner = styled.div`
   box-sizing: border-box;
   border-radius: 0.5rem;
   background-color: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   overflow-y: auto;
 `
 
-function MyApp({ Component, pageProps }) {
+function MyApp({Component, pageProps}) {
   const handleCancel = () => {
-    window.parent.postMessage({
-      type: "FCL:FRAME:CLOSE"
-    }, "*")
+    window.parent.postMessage(
+      {
+        type: "FCL:FRAME:CLOSE",
+      },
+      "*"
+    )
   }
 
   return (

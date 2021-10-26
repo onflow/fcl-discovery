@@ -42,7 +42,7 @@ const ProviderCardDescription = styled.div`
   text-align: left;
 `
 
-export default function ServiceCard({ icon, name, description }) {
+export default function ServiceCard({icon, name, description}) {
   return (
     <ProviderCardRow>
       <ProviderCardIcon icon={icon} />

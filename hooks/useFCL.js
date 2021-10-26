@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react"
 import {WalletUtils} from "@onflow/fcl"
-import { valid as isValidVersion } from "semver"
+import {valid as isValidVersion} from "semver"
 
 export function useFCL() {
   const [appVersion, setAppVersion] = useState(null)
@@ -17,6 +17,6 @@ export function useFCL() {
 
   return {
     appVersion,
-    extensions
+    extensions,
   }
 }

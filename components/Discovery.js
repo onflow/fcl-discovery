@@ -1,14 +1,14 @@
-import { useEffect, useMemo } from "react"
+import {useEffect, useMemo} from "react"
 import styled from "styled-components"
 import {WalletUtils} from "@onflow/fcl"
 import {
   gte as isGreaterThanOrEqualToVersion,
   valid as isValidVersion,
 } from "semver"
-import { useFetch } from "../hooks/useFetch"
-import { useFCL } from "../hooks/useFCL"
-import { combineServices, serviceListOfType } from "../helpers/services"
-import { SERVICE_TYPES } from "../helpers/constants"
+import {useFetch} from "../hooks/useFetch"
+import {useFCL} from "../hooks/useFCL"
+import {combineServices, serviceListOfType} from "../helpers/services"
+import {SERVICE_TYPES} from "../helpers/constants"
 import Header from "./Header"
 import Footer from "./Footer"
 import ServiceCard from "./ServiceCard"
@@ -74,11 +74,11 @@ const ProviderCardDisabled = styled.div`
   -moz-appearance: none;
 `
 
-export const Discovery = ({ network, handleCancel }) => {
+export const Discovery = ({network, handleCancel}) => {
   const requestUrl = `/api/services?=${network}`
   const supportedVersion = "0.0.79" // Version that supports browser extension redirects
-  const { appVersion, extensions } = useFCL()
-  const { loading, data, error } = useFetch(requestUrl)
+  const {appVersion, extensions} = useFCL()
+  const {loading, data, error} = useFetch(requestUrl)
   const services = useMemo(() => {
     let defaultServices = serviceListOfType(data, SERVICE_TYPES.AUTHN)
 
@@ -88,12 +88,18 @@ export const Discovery = ({ network, handleCancel }) => {
       isGreaterThanOrEqualToVersion(appVersion, supportedVersion)
     ) {
       // Add browser extensions
-      const combinedServiceList = combineServices(defaultServices, extensions, true)
-      defaultServices = serviceListOfType(combinedServiceList, SERVICE_TYPES.AUTHN)
+      const combinedServiceList = combineServices(
+        defaultServices,
+        extensions,
+        true
+      )
+      defaultServices = serviceListOfType(
+        combinedServiceList,
+        SERVICE_TYPES.AUTHN
+      )
     }
 
     return defaultServices
-
   }, [data, extensions, appVersion])
 
   const showProvider = provider => provider.enabled !== false

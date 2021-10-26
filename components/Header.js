@@ -32,7 +32,7 @@ export default function Header() {
   return (
     <AppHeader>
       <AppLogoWrapper>
-        <AppLogo src="/logo.svg" alt='Flow Logo' />
+        <AppLogo src="/logo.svg" alt="Flow Logo" />
       </AppLogoWrapper>
       <AppTitle>Choose a Provider</AppTitle>
     </AppHeader>
