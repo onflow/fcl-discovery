@@ -2,8 +2,7 @@ import {useMemo} from "react"
 import styled from "styled-components"
 import {WalletUtils} from "@onflow/fcl"
 import {
-  gte as isGreaterThanOrEqualToVersion,
-  valid as isValidVersion,
+  gte as isGreaterThanOrEqualToVersion
 } from "semver"
 import {useFetch} from "../hooks/useFetch"
 import {useFCL} from "../hooks/useFCL"
