@@ -1,10 +1,8 @@
 import {useMemo} from "react"
+import useSWR from "swr"
 import styled from "styled-components"
 import {WalletUtils} from "@onflow/fcl"
-import {
-  gte as isGreaterThanOrEqualToVersion
-} from "semver"
-import {useFetch} from "../hooks/useFetch"
+import {gte as isGreaterThanOrEqualToVersion} from "semver"
 import {useFCL} from "../hooks/useFCL"
 import {combineServices, serviceListOfType} from "../helpers/services"
 import {SERVICE_TYPES} from "../helpers/constants"
@@ -73,11 +71,13 @@ const ProviderCardDisabled = styled.div`
   -moz-appearance: none;
 `
 
+const fetcher = url => fetch(url).then(res => res.json())
+
 export const Discovery = ({network, handleCancel}) => {
   const requestUrl = `/api/services?network=${network}`
   const supportedVersion = "0.0.79" // Version that supports browser extension redirects
   const {appVersion, extensions} = useFCL()
-  const {loading, data, error} = useFetch(requestUrl)
+  const {data, error} = useSWR(requestUrl, fetcher)
   const services = useMemo(() => {
     let defaultServices = serviceListOfType(data, SERVICE_TYPES.AUTHN)
 
@@ -116,7 +116,7 @@ export const Discovery = ({network, handleCancel}) => {
     }
   }
 
-  if (loading) return <div />
+  if (!data) return <div />
   if (error) return <div>Error Loading Data</div>
 
   return (
