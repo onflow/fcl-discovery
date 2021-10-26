@@ -117,7 +117,8 @@ export const Discovery = ({network, handleCancel}) => {
     }
   }
 
-  if (loading || error) return <div />
+  if (loading) return <div />
+  if (error) return <div>Error Loading Data</div>
 
   return (
     <ServicesContainer>
