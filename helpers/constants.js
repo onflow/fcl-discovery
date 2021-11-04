@@ -1,7 +1,7 @@
 export const PATHS = {
-  MAIN: "/authn",
-  TESTNET: "/testnet/authn",
-  CANARYNET: "/canarynet/authn",
+  mainnet: "/authn",
+  testnet: "/testnet/authn",
+  canarynet: "/canarynet/authn",
 }
 
 export const SERVICE_TYPES = {

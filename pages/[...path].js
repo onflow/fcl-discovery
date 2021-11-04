@@ -1,8 +1,7 @@
 import {useRouter} from "next/router"
 import styled, {css} from "styled-components"
 import {Discovery} from "../components/Discovery"
-import {PATHS} from "../helpers/constants"
-import {createPathFromArray} from "../helpers/paths"
+import {isValidPath, getNetworkFromPath} from "../helpers/paths"
 
 const AppContainer = styled.div`
   max-height: 0;
@@ -18,15 +17,14 @@ const AppContainer = styled.div`
 const Router = ({handleCancel}) => {
   const router = useRouter()
   const {path} = router.query // ['authn'] ['testnet', 'authn'] ['canarynet', 'authn']
-  const pathStr = createPathFromArray(path)
-  const isValidRoute = Object.values(PATHS).some(p => p === pathStr)
-  const network = path && path.length === 2 ? path[0] : "mainnet"
+  const isValid = isValidPath(path)
+  const network = getNetworkFromPath(path)
 
   return (
     <AppContainer isSet={Boolean(path)}>
       {!path && <div />}
-      {path && !isValidRoute && <div>Page Not Found</div>}
-      {path && isValidRoute && (
+      {path && !isValid && <div>Page Not Found</div>}
+      {path && isValid && (
         <Discovery network={network} handleCancel={handleCancel} />
       )}
     </AppContainer>

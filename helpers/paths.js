@@ -1,1 +1,10 @@
-export const createPathFromArray = (arr = []) => `/${arr.join("/")}`
+import {PATHS} from "./constants"
+
+export const createPathFromArray = (arr = []) => `/${arr.join("/")}`.toLowerCase()
+
+export const isValidPath = path => {
+  const pathStr = createPathFromArray(path)
+  return Object.values(PATHS).some(p => p === pathStr)
+}
+
+export const getNetworkFromPath = path => path && path.length === 2 ? path[0].toLowerCase() : "mainnet"
