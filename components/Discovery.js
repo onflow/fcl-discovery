@@ -5,7 +5,7 @@ import {WalletUtils} from "@onflow/fcl"
 import {gte as isGreaterThanOrEqualToVersion} from "semver"
 import {useFCL} from "../hooks/useFCL"
 import {combineServices, serviceListOfType} from "../helpers/services"
-import {SERVICE_TYPES} from "../helpers/constants"
+import {PATHS, SERVICE_TYPES} from "../helpers/constants"
 import Header from "./Header"
 import Footer from "./Footer"
 import ServiceCard from "./ServiceCard"
@@ -74,7 +74,7 @@ const ProviderCardDisabled = styled.div`
 const fetcher = url => fetch(url).then(res => res.json())
 
 export const Discovery = ({network, handleCancel}) => {
-  const requestUrl = `/api/services?network=${network}`
+  const requestUrl = `/api${PATHS[network]}`
   const supportedVersion = "0.0.79" // Version that supports browser extension redirects
   const {appVersion, extensions} = useFCL()
   const {data, error} = useSWR(requestUrl, fetcher)
