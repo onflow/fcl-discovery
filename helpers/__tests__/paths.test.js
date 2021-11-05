@@ -31,7 +31,7 @@ describe("paths helpers: isValidPath", () => {
 })
 
 describe("paths helpers: getNetworkFromPath", () => {
-  it("should check a path is valid", () => {
+  it("get correct network from path", () => {
     const pathOne = ["authn"]
     const pathTwo = ["testnet", "authn"]
     const pathThree = ["canarynet", "authn"]
