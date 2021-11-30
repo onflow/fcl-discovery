@@ -1,15 +1,21 @@
 import equal from 'fast-deep-equal'
 
+// Filters services based on deep equal comparison
 const filterUniqueServices = services => {
-  let foundIds = []
-  return services.filter(p => {
-    if (foundIds.includes(p.id)) {
-      return false
-    } else {
-      foundIds.push(p.id)
-      return true
+  let foundServices = []
+
+  for (const service of services) {
+    let uniqueService = true
+    for (const foundService of foundServices) {
+      if (equal(service, foundService)) {
+        uniqueService = false
+      }
     }
-  })
+
+    if (uniqueService) foundServices.push(service)
+  }
+
+  return foundServices
 }
 
 export const combineServices = (
