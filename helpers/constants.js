@@ -7,3 +7,7 @@ export const PATHS = {
 export const SERVICE_TYPES = {
   AUTHN: "authn",
 }
+
+export const SERVICES_PLATFORMS = {
+  EXTENSION: "web/extension",
+}

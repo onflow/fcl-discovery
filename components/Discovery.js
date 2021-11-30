@@ -4,8 +4,8 @@ import styled from "styled-components"
 import {WalletUtils} from "@onflow/fcl"
 import {gte as isGreaterThanOrEqualToVersion} from "semver"
 import {useFCL} from "../hooks/useFCL"
-import {combineServices, serviceListOfType} from "../helpers/services"
-import {PATHS, SERVICE_TYPES} from "../helpers/constants"
+import {combineServices, serviceListOfProp, filterListedExtensions} from "../helpers/services"
+import {PATHS, SERVICES_PLATFORMS, SERVICE_TYPES} from "../helpers/constants"
 import Header from "./Header"
 import Footer from "./Footer"
 import ServiceCard from "./ServiceCard"
@@ -79,7 +79,8 @@ export const Discovery = ({network, handleCancel}) => {
   const {appVersion, extensions} = useFCL()
   const {data, error} = useSWR(requestUrl, fetcher)
   const services = useMemo(() => {
-    let defaultServices = serviceListOfType(data, SERVICE_TYPES.AUTHN)
+    const authnServices = serviceListOfProp(data, "type", SERVICE_TYPES.AUTHN)
+    let defaultServices = authnServices.filter(s => s.platform !== SERVICES_PLATFORMS.EXTENSION) // We don't want extensions unless they are injected and listed
 
     // Check version of FCL. If their app version is older than the supported version for browser extensions then continue on without adding browser extensions.
     if (
@@ -87,14 +88,12 @@ export const Discovery = ({network, handleCancel}) => {
       isGreaterThanOrEqualToVersion(appVersion, supportedVersion)
     ) {
       // Add browser extensions
-      const combinedServiceList = combineServices(
+      const listedExtensions = serviceListOfProp(authnServices, "platform", SERVICES_PLATFORMS.EXTENSION)
+      const filteredExtensions = filterListedExtensions(listedExtensions, extensions)
+      defaultServices = combineServices(
         defaultServices,
-        extensions,
+        filteredExtensions,
         true
-      )
-      defaultServices = serviceListOfType(
-        combinedServiceList,
-        SERVICE_TYPES.AUTHN
       )
     }
 

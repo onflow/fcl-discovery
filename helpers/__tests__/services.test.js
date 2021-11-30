@@ -1,4 +1,4 @@
-import {combineServices, serviceListOfType} from "../services"
+import {combineServices, filterListedExtensions, serviceListOfProp} from "../services"
 
 describe("services helpers: combineServices", () => {
   it("should combine services with right ordering and filter unique", () => {
@@ -40,7 +40,7 @@ describe("services helpers: combineServices", () => {
   })
 })
 
-describe("services helpers: serviceListOfType", () => {
+describe("services helpers: serviceListOfProp", () => {
   it("should combine services with right ordering and filter unique", () => {
     const serviceA = {
       id: 1,
@@ -59,7 +59,32 @@ describe("services helpers: serviceListOfType", () => {
 
     const serviceList = [serviceA, serviceB, serviceC]
 
-    expect(serviceListOfType(serviceList, "authn").length).toEqual(1)
-    expect(serviceListOfType(serviceList, "authn")[0]).toEqual(serviceA)
+    expect(serviceListOfProp(serviceList, "type", "authn").length).toEqual(1)
+    expect(serviceListOfProp(serviceList, "type", "authn")[0]).toEqual(serviceA)
+  })
+})
+
+describe("services helpers: filterListedExtensions", () => {
+  it("should filter out extensions that are not listed in services", () => {
+    const serviceA = {
+      "platform": "web/extension",
+      "provider": {
+        "name": "Extension One"
+      }
+    }
+
+    const serviceB = {
+      "platform": "web/extension",
+      "provider": {
+        "name": "Extension Two"
+      }
+    }
+
+    const serviceList = [serviceA, serviceB]
+    const extensions = [serviceA]
+    const expectedResponse = [serviceA]
+
+    expect(filterListedExtensions(serviceList, extensions).length).toEqual(1)
+    expect(filterListedExtensions(serviceList, extensions)).toEqual(expectedResponse)
   })
 })
