@@ -17,7 +17,7 @@ const AppContainer = styled.div`
 
 const Router = ({handleCancel}) => {
   const router = useRouter()
-  const {path, include} = router.query // ['authn'] ['testnet', 'authn'] ['canarynet', 'authn']
+  const {path, include} = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn'] include: ['0x123']
   const isValid = isValidPath(path)
   const network = getNetworkFromPath(path)
   const queryStr = constructApiQueryParams({ include })
