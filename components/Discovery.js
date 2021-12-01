@@ -74,7 +74,7 @@ const ProviderCardDisabled = styled.div`
 const fetcher = url => fetch(url).then(res => res.json())
 
 export const Discovery = ({network, queryStr, handleCancel}) => {
-  const requestUrl = `/api${PATHS[network]}/${queryStr}`
+  const requestUrl = `/api${PATHS[network]}${queryStr}`
   const supportedVersion = "0.0.79" // Version that supports browser extension redirects
   const {appVersion, extensions} = useFCL()
   const {data, error} = useSWR(requestUrl, fetcher)
