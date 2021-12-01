@@ -1,7 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import Cors from "cors"
 import servicesJson from "../../data/services.json"
-import {isValidPath, getNetworkFromPath} from "../../helpers/paths"
+import {isValidPath, getNetworkFromPath}  from "../../helpers/paths"
+import {filterOptInServices} from "../../helpers/services"
+import {pipe} from "../../helpers/pipe"
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -25,10 +27,13 @@ function runMiddleware(req, res, fn) {
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors)
 
-  const slug = req.query.slug
+  const {slug, include: includeList} = req.query
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug)
-  const services = servicesJson[network]
+
+  const services = pipe(
+    s => filterOptInServices(s, includeList)
+  )(servicesJson[network])
 
   if (!isValid) {
     return res.status(400).json({message: "Invalid Network"})

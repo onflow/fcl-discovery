@@ -26,3 +26,11 @@ export const combineServices = (
 
 export const serviceListOfType = (services = [], type) =>
   services.filter(service => service.type === type)
+
+// If it's an optIn service, make sure it's been asked to be included
+export function filterOptInServices(services = [], includeList = []) {
+  return services.filter(service => {
+    if (service.optIn) return includeList.includes(service?.provider?.address)
+    return true
+  })
+}
