@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import Cors from "cors"
 import servicesJson from "../../data/services.json"
-import { isValidPath, getNetworkFromPath}  from "../../helpers/paths"
-import { filterOptInServices } from "../../helpers/services"
-import { pipe } from "../../helpers/pipe"
+import {isValidPath, getNetworkFromPath}  from "../../helpers/paths"
+import {filterOptInServices} from "../../helpers/services"
+import {pipe} from "../../helpers/pipe"
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -27,7 +27,7 @@ function runMiddleware(req, res, fn) {
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors)
 
-  const { slug, include: includeList } = req.query
+  const {slug, include: includeList} = req.query
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug)
 
