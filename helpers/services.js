@@ -34,3 +34,14 @@ export function filterOptInServices(services = [], includeList = []) {
     return true
   })
 }
+
+export const constructApiQueryParams = ({ include }) => {
+  let queryStr = '?'
+  
+  if (include) {
+    let includeQueryStr = include.map(addr => `include=${addr}`).join('&')
+    queryStr = queryStr.concat(includeQueryStr)
+  }
+
+  return queryStr
+}

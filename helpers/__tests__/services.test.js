@@ -1,4 +1,4 @@
-import {combineServices, filterOptInServices, serviceListOfType} from "../services"
+import {combineServices, constructApiQueryParams, filterOptInServices, serviceListOfType} from "../services"
 
 describe("services helpers: combineServices", () => {
   it("should combine services with right ordering and filter unique", () => {
@@ -102,5 +102,15 @@ describe("services helpers: filterOptInServices", () => {
     expect(filterOptInServices(serviceListA, includeListA)).toEqual(expectedResponseA)
     expect(filterOptInServices(serviceListB, includeListB).length).toEqual(3)
     expect(filterOptInServices(serviceListB, includeListB)).toEqual(expectedResponseB)
+  })
+})
+
+describe("constructApiQueryParams", () => {
+  it("it should construct API query params", () => {
+    const filters = {
+      include: ["0x1", "0x2"]
+    }
+
+    expect(constructApiQueryParams(filters)).toEqual("?include=0x1&include=0x2")
   })
 })
