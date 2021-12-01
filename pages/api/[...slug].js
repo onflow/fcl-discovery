@@ -30,12 +30,10 @@ export default async function handler(req, res) {
   const { slug, include: includeList } = req.query
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug)
-  
+
   const services = pipe(
     s => filterOptInServices(s, includeList)
   )(servicesJson[network])
-
-  console.log('adaffa', services)
 
   if (!isValid) {
     return res.status(400).json({message: "Invalid Network"})
