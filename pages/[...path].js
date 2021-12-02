@@ -17,10 +17,10 @@ const AppContainer = styled.div`
 
 const Router = ({handleCancel}) => {
   const router = useRouter()
-  const {path, include} = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn'] include: ['0x123']
+  const {path, fcl_version, include} = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn'] include: ['0x123']
   const isValid = isValidPath(path)
   const network = getNetworkFromPath(path)
-  const queryStr = constructApiQueryParams({ include })
+  const queryStr = constructApiQueryParams({fcl_version, include})
 
   return (
     <AppContainer isSet={Boolean(path)}>

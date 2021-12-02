@@ -5,7 +5,7 @@ import {WalletUtils} from "@onflow/fcl"
 import {gte as isGreaterThanOrEqualToVersion} from "semver"
 import {useFCL} from "../hooks/useFCL"
 import {combineServices, serviceListOfType} from "../helpers/services"
-import {PATHS, SERVICE_TYPES} from "../helpers/constants"
+import {PATHS, SERVICE_TYPES, SUPPORTED_VERSIONS} from "../helpers/constants"
 import Header from "./Header"
 import Footer from "./Footer"
 import ServiceCard from "./ServiceCard"
@@ -75,7 +75,6 @@ const fetcher = url => fetch(url).then(res => res.json())
 
 export const Discovery = ({network, queryStr, handleCancel}) => {
   const requestUrl = `/api${PATHS[network]}${queryStr}`
-  const supportedVersion = "0.0.79" // Version that supports browser extension redirects
   const {appVersion, extensions} = useFCL()
   const {data, error} = useSWR(requestUrl, fetcher)
   const services = useMemo(() => {
@@ -84,7 +83,7 @@ export const Discovery = ({network, queryStr, handleCancel}) => {
     // Check version of FCL. If their app version is older than the supported version for browser extensions then continue on without adding browser extensions.
     if (
       appVersion &&
-      isGreaterThanOrEqualToVersion(appVersion, supportedVersion)
+      isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.EXTENSIONS)
     ) {
       // Add browser extensions
       const combinedServiceList = combineServices(
@@ -108,7 +107,7 @@ export const Discovery = ({network, queryStr, handleCancel}) => {
 
     if (
       appVersion &&
-      isGreaterThanOrEqualToVersion(appVersion, supportedVersion)
+      isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.EXTENSIONS)
     ) {
       WalletUtils.redirect(service)
     } else {

@@ -4,6 +4,8 @@ import servicesJson from "../../data/services.json"
 import {isValidPath, getNetworkFromPath}  from "../../helpers/paths"
 import {filterOptInServices} from "../../helpers/services"
 import {pipe} from "../../helpers/pipe"
+import {gte as isGreaterThanOrEqualToVersion, coerce} from "semver"
+import {SUPPORTED_VERSIONS} from "../../helpers/constants"
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -24,15 +26,18 @@ function runMiddleware(req, res, fn) {
   })
 }
 
+const shouldFilterOrReturnDefault = (filterFn, fact, original) => fact ? filterFn() : original
+
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors)
-
-  const {slug, include: includeList} = req.query
+  
+  const {slug, fcl_version, include: includeList} = req.query
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug)
+  const isFilteringSupported = fcl_version && isGreaterThanOrEqualToVersion(fcl_version, SUPPORTED_VERSIONS.FILTERING) || false
 
   const services = pipe(
-    s => filterOptInServices(s, includeList)
+    s => shouldFilterOrReturnDefault(() => filterOptInServices(s, includeList), isFilteringSupported, s)
   )(servicesJson[network])
 
   if (!isValid) {
