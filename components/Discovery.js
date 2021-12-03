@@ -123,17 +123,17 @@ export const Discovery = ({network, queryStr, handleCancel}) => {
       <Header />
       <ProvidersList>
         {services.length === 0 && <div>No Wallets Found</div>}
-        {services.map(service =>
+        {services.map((service, index) =>
           showProvider(service.provider) ? (
             <ProviderCardEnabled
-              key={service.id}
+              key={service?.provider?.address ?? index}
               {...service.provider}
               onClick={() => onSelect(service)}
             >
               <ServiceCard {...service.provider} />
             </ProviderCardEnabled>
           ) : (
-            <ProviderCardDisabled key={service.id} {...service.provider}>
+            <ProviderCardDisabled key={service?.provider?.address ?? index} {...service.provider}>
               <ServiceCard {...service.provider} />
             </ProviderCardDisabled>
           )
