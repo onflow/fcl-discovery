@@ -9,7 +9,7 @@ import {isGreaterThanOrEqualToVersion} from "../../helpers/version"
 
 // Initializing the cors middleware
 const cors = Cors({
-  methods: ["GET"]
+  methods: ["POST"]
 })
 
 // Helper method to wait for a middleware to execute before continuing
@@ -30,14 +30,12 @@ const shouldFilterOrReturnDefault = (filterFn, fact, original) => fact ? filterF
 
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors)
-  console.log('reqreq', req.method)
-  console.log('reqreq', req.body)
   
   const {slug} = req.query
   const {fclVersion, include} = req.body
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug)
-  const isFilteringSupported = (fclVersion && isGreaterThanOrEqualToVersion(fclVersion, SUPPORTED_VERSIONS.FILTERING)) || false
+  const isFilteringSupported = isGreaterThanOrEqualToVersion(fclVersion, SUPPORTED_VERSIONS.FILTERING)
 
   const services = pipe(
     s => shouldFilterOrReturnDefault(() => filterOptInServices(s, include), isFilteringSupported, s)

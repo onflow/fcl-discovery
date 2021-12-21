@@ -1,6 +1,6 @@
-export const isGreaterThanOrEqualToVersion = (newVersion, oldVersion) => {
+export const isGreaterThanOrEqualToVersion = (newVersion, supportedVersion) => {
   const [newVersionNoAlpha, newAlpha] = newVersion.split('-')
-  const [oldVersionNoAlpha, oldAlpha] = oldVersion.split('-')
+  const [oldVersionNoAlpha, oldAlpha] = supportedVersion.split('-')
   const newSplit = newVersionNoAlpha.split('.')
   const oldSplit = oldVersionNoAlpha.split('.')
 
@@ -16,13 +16,16 @@ export const isGreaterThanOrEqualToVersion = (newVersion, oldVersion) => {
       if (i === 2) {
 
         // If neither contain alpha, return true
-        if (!newSplit[i].includes('alpha') && !oldSplit[i].includes('alpha')) return true
+        if (!newVersion.includes('alpha') && !supportedVersion.includes('alpha')) return true
         
-        // If new contains alpha, but old does not return true
-        if (newSplit[i].includes('alpha') && !oldSplit[i].includes('alpha')) return true
+        // If new contains alpha, but supported does not return true
+        if (newVersion.includes('alpha') && !supportedVersion.includes('alpha')) return true
 
-        const newAlphaVersion = newSplit[i].split('.')[1]
-        const oldAlphaVersion = oldSplit[i].split('.')[1]
+        // If new version does not have alpha, but supported does then it's not new enough
+        if (!newVersion.includes('alpha') && supportedVersion.includes('alpha')) return false
+
+        const newAlphaVersion = newAlpha.split('.')[1]
+        const oldAlphaVersion = oldAlpha.split('.')[1]
         if (parseInt(newAlphaVersion) >= parseInt(oldAlphaVersion)) return true
       }
       
