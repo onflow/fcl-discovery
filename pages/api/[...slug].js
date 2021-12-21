@@ -5,7 +5,7 @@ import {isValidPath, getNetworkFromPath}  from "../../helpers/paths"
 import {filterOptInServices} from "../../helpers/services"
 import {pipe} from "../../helpers/pipe"
 import {SUPPORTED_VERSIONS} from "../../helpers/constants"
-import { isGreaterThanOrEqualToVersion } from "../../helpers/version"
+import {isGreaterThanOrEqualToVersion} from "../../helpers/version"
 
 // Initializing the cors middleware
 const cors = Cors({

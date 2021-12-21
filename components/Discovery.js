@@ -7,7 +7,7 @@ import {PATHS, SERVICE_TYPES, SUPPORTED_VERSIONS} from "../helpers/constants"
 import Header from "./Header"
 import Footer from "./Footer"
 import ServiceCard from "./ServiceCard"
-import { isGreaterThanOrEqualToVersion } from "../helpers/version"
+import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 
 const ServicesContainer = styled.div`
   height: 100%;
