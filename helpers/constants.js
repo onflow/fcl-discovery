@@ -9,6 +9,6 @@ export const SERVICE_TYPES = {
 }
 
 export const SUPPORTED_VERSIONS = {
-  FILTERING: "0.0.78",
+  FILTERING: "0.0.78-alpha.9",
   EXTENSIONS: "0.0.79" // Version that supports browser extension redirects
 }
