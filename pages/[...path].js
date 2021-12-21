@@ -2,7 +2,7 @@ import {useRouter} from "next/router"
 import styled, {css} from "styled-components"
 import {Discovery} from "../components/Discovery"
 import {isValidPath, getNetworkFromPath} from "../helpers/paths"
-import {constructApiQueryParams} from "../helpers/services"
+import { useFCL } from "../hooks/useFCL"
 
 const AppContainer = styled.div`
   max-height: 0;
@@ -17,17 +17,23 @@ const AppContainer = styled.div`
 
 const Router = ({handleCancel}) => {
   const router = useRouter()
-  const {path, fcl_version, include} = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn'] include: ['0x123']
+  const {path} = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn'] include: ['0x123']
+  const {appVersion, extensions, walletInclude} = useFCL()
   const isValid = isValidPath(path)
   const network = getNetworkFromPath(path)
-  const queryStr = constructApiQueryParams({fcl_version, include})
 
   return (
     <AppContainer isSet={Boolean(path)}>
       {!path && <div />}
       {path && !isValid && <div>Page Not Found</div>}
       {path && isValid && (
-        <Discovery network={network} queryStr={queryStr} handleCancel={handleCancel} />
+        <Discovery 
+          network={network}
+          appVersion={appVersion}
+          extensions={extensions}
+          walletInclude={walletInclude}
+          handleCancel={handleCancel}
+        />
       )}
     </AppContainer>
   )

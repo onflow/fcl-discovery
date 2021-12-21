@@ -1,16 +1,18 @@
 import {useEffect, useState} from "react"
 import {WalletUtils} from "@onflow/fcl"
-import {valid as isValidVersion} from "semver"
 
 export function useFCL() {
   const [appVersion, setAppVersion] = useState(null)
   const [extensions, setExtensions] = useState([])
+  const [walletInclude, setWalletInclude] = useState([])
 
   useEffect(() => {
-    WalletUtils.ready(({fclVersion, body}) => {
-      if (isValidVersion(fclVersion)) {
+    WalletUtils.ready(({fclVersion, body, config}) => { // send config object
+      console.log('configconfigconfigconfigconfig', config)
+      if (fclVersion) {
         setExtensions(body.extensions)
         setAppVersion(fclVersion)
+        setWalletInclude(config.walletInclude || [])
       }
     })
   }, [])
@@ -18,5 +20,6 @@ export function useFCL() {
   return {
     appVersion,
     extensions,
+    walletInclude
   }
 }
