@@ -7,8 +7,7 @@ export function useFCL() {
   const [walletInclude, setWalletInclude] = useState([])
 
   useEffect(() => {
-    WalletUtils.ready(({fclVersion, body, config}) => { // send config object
-      console.log('configconfigconfigconfigconfig', config)
+    WalletUtils.ready(({fclVersion, body, config}) => {
       if (fclVersion) {
         setExtensions(body.extensions)
         setAppVersion(fclVersion)
