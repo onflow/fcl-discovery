@@ -72,7 +72,7 @@ const ProviderCardDisabled = styled.div`
 
 const fetcher = (url, opts) => {
   return fetch(url, {
-    method: "post",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
