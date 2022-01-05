@@ -1,6 +1,5 @@
 export const isGreaterThanOrEqualToVersion = (newVersion, supportedVersion) => {
-  if (!newVersion) return false
-  if (!supportedVersion) return false
+  if (!newVersion || !supportedVersion) return false
 
   const [newVersionNoAlpha, newAlpha] = newVersion.split('-')
   const [oldVersionNoAlpha, oldAlpha] = supportedVersion.split('-')
