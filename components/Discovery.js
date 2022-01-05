@@ -2,13 +2,12 @@ import {useMemo} from "react"
 import useSWR from "swr"
 import styled from "styled-components"
 import {WalletUtils} from "@onflow/fcl"
-import {gte as isGreaterThanOrEqualToVersion} from "semver"
-import {useFCL} from "../hooks/useFCL"
 import {combineServices, serviceListOfType} from "../helpers/services"
 import {PATHS, SERVICE_TYPES, SUPPORTED_VERSIONS} from "../helpers/constants"
 import Header from "./Header"
 import Footer from "./Footer"
 import ServiceCard from "./ServiceCard"
+import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 
 const ServicesContainer = styled.div`
   height: 100%;
@@ -71,12 +70,22 @@ const ProviderCardDisabled = styled.div`
   -moz-appearance: none;
 `
 
-const fetcher = url => fetch(url).then(res => res.json())
+const fetcher = (url, opts) => {
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(opts)
+  }).then(d => d.json())
+}
 
-export const Discovery = ({network, queryStr, handleCancel}) => {
-  const requestUrl = `/api${PATHS[network]}${queryStr}`
-  const {appVersion, extensions} = useFCL()
-  const {data, error} = useSWR(requestUrl, fetcher)
+export const Discovery = ({network, appVersion, extensions, walletInclude, handleCancel}) => {
+  const requestUrl = `/api${PATHS[network]}`
+  const {data, error} = useSWR(requestUrl, url => fetcher(url, {
+    fclVersion: appVersion,
+    include: walletInclude 
+  }))
   const services = useMemo(() => {
     let defaultServices = serviceListOfType(data, SERVICE_TYPES.AUTHN)
 

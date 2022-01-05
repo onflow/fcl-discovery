@@ -34,18 +34,3 @@ export function filterOptInServices(services = [], includeList = []) {
     return true
   })
 }
-
-export const constructApiQueryParams = ({ version, include }) => {
-  let queryStr = ""
-
-  if (version) {
-    queryStr = queryStr.concat(`fcl_version=${version}&`)
-  }
-  
-  if (include) {
-    const includeQueryStr = include.map(addr => `include=${addr}`).join('&')
-    queryStr = queryStr.concat(includeQueryStr)
-  }
-
-  return queryStr.length ? `?${queryStr}` : ""
-}

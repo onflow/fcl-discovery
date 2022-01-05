@@ -27,6 +27,7 @@ describe("paths helpers: isValidPath", () => {
     expect(isValidPath(pathTwo)).toBe(true)
     expect(isValidPath(pathThree)).toBe(true)
     expect(isValidPath(pathFour)).toBe(false)
+    expect(isValidPath(null)).toBe(false)
   })
 })
 
