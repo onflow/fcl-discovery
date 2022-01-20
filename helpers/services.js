@@ -1,10 +1,10 @@
 const filterUniqueServices = services => {
   let foundIds = []
   return services.filter(p => {
-    if (foundIds.includes(p.id)) {
+    if (foundIds.includes(p.provider.address)) {
       return false
     } else {
-      foundIds.push(p.id)
+      foundIds.push(p.provider.address)
       return true
     }
   })
