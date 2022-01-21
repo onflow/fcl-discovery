@@ -109,8 +109,6 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
     return defaultServices
   }, [data, extensions, appVersion])
 
-  const showProvider = provider => provider.enabled !== false
-
   const onSelect = service => {
     if (!service) return
 
@@ -133,7 +131,7 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
       <ProvidersList>
         {services.length === 0 && <div>No Wallets Found</div>}
         {services.map((service, index) =>
-          showProvider(service.provider) ? (
+          service.provider ? (
             <ProviderCardEnabled
               key={service?.provider?.address ?? index}
               {...service.provider}

@@ -3,25 +3,25 @@ import {combineServices, filterOptInServices, serviceListOfType} from "../servic
 describe("services helpers: combineServices", () => {
   it("should combine services with right ordering and filter unique", () => {
     const serviceA = {
-      id: 1,
       endpoint: "https://flow-wallet.blocto.app/authn",
       provider: {
+        address: 1,
         name: "Blocto",
       },
     }
 
     const serviceB = {
-      id: 2,
       endpoint: "https://fcl-ledger.onflow.org/mainnet/authn",
       provider: {
+        address: 2,
         name: "Ledger",
       },
     }
 
     const serviceC = {
-      id: 3,
       endpoint: "liquality",
       provider: {
+        address: 3,
         name: "Liquality Wallet Extension",
       },
     }
@@ -43,18 +43,15 @@ describe("services helpers: combineServices", () => {
 describe("services helpers: serviceListOfType", () => {
   it("should combine services with right ordering and filter unique", () => {
     const serviceA = {
-      id: 1,
-      type: "authn",
+      type: "authn"
     }
 
     const serviceB = {
-      id: 2,
-      type: "authz",
+      type: "authz"
     }
 
     const serviceC = {
-      id: 2,
-      type: "pre-authz",
+      type: "pre-authz"
     }
 
     const serviceList = [serviceA, serviceB, serviceC]

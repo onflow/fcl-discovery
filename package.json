@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@onflow/fcl": "0.0.78-alpha.9",
+    "@onflow/fcl": "0.0.78-alpha.11",
     "cors": "^2.8.5",
     "next": "11.1.2",
     "react": "17.0.2",
