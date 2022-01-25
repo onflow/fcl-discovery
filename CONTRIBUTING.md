@@ -111,20 +111,21 @@ or other changes before your pull request can be ultimately accepted.
 - Reference issues and pull requests liberally after the first line
 - Start commits with a 3 character topic
   - Topics:
-    - CODE -- Modified code (Requires a Changelog Entry)
-    - DOC -- Modified a some form of documentation
-    - OPS -- Modified repository tooling/scripts
-    - VSN -- Changed a version number
+    - feature -- Modified code (new feature)
+    - fix -- Modified code (fix bug)
+    - docs -- Modified a some form of documentation
+    - chore -- Modified repository tooling/scripts
+    - version -- Changed a version number
 
 Format: TOPIC -- what is change
 
 Examples:
 
-- OPS -- tests only run once now for ci master branch
-- CODE -- fix issue with using regex for type matching
-- DOC -- update readme with instructions
-- VSN -- 0.0.3 -> 0.0.4
-- VSN -- 1.5.3 -> 2.0.0 breaking change
+- feature: added include support on api
+- fix: quickened slow loading of ui
+- docs: update readme with instructions
+- chore: updated jest version
+- version: 0.0.3 -> 0.0.4
 
 ### JavaScript Styleguide
 
