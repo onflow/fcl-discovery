@@ -32,5 +32,6 @@ yarn dev
 
 To learn more about the repo, take a look at the following resources:
 
+- [Discovery](https://docs.onflow.org/fcl/reference/api/#discovery) - Documentation for using Discovery with FCL.
 - [FCL](https://docs.onflow.org/fcl/) - Learn more about Flow's FCL
 - [Next.js Documentation](https://nextjs.org/docs) - This app is built with Next. Learn about Next.js features and API.
