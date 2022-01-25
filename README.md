@@ -28,7 +28,7 @@ yarn dev
 | Mainnet        | `http://localhost:3000/api/authn`         |
 | Testnet        | `http://localhost:3000/api/testnet/authn` |
 
-## Other
+## Documentation
 
 To learn more about the repo, take a look at the following resources:
 
