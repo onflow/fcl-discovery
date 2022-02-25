@@ -26,7 +26,7 @@ export default function Explainer() {
   return (
     <ExplainerContainer>
       <ExplainerDescription>
-        <strong>{appConfig?.title || clientConfig?.hostname || "Unknown App"}</strong> wants to connect to your wallet.
+        <strong>{appConfig?.title || "Unknown App"}</strong> wants to connect to your wallet.
       </ExplainerDescription>
       <ExplainerLink>
         <div onClick={() => window.open("https://docs.onflow.org/flow-token/available-wallets/", "_blank")}>What is a wallet?</div>
