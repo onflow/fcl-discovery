@@ -28,7 +28,7 @@ const AppTitle = styled.h2`
   color: #2a2825;
 `
 
-export default function Header() {
+export default function FlowHeader() {
   return (
     <AppHeader>
       <AppLogoWrapper>

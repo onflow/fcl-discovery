@@ -4,6 +4,8 @@ import {WalletUtils} from "@onflow/fcl"
 export function useFCL() {
   const [hasInitialized, setHasInitialized] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [appConfig, setAppConfig] = useState()
+  const [clientConfig, setClientConfig] = useState()
   const [appVersion, setAppVersion] = useState(null)
   const [extensions, setExtensions] = useState([])
   const [walletInclude, setWalletInclude] = useState([])
@@ -12,7 +14,17 @@ export function useFCL() {
     setHasInitialized(true)
     setLoading(true)
 
-    WalletUtils.ready(({fclVersion, body, config}) => {
+    WalletUtils.ready(({body, config}) => {
+      const fclVersion = config?.client?.fclVersion
+      
+      if (config?.app) {
+        setAppConfig(config.app)
+      }
+
+      if (config?.client) {
+        setClientConfig(config.client)
+      }
+
       if (fclVersion) {
         setExtensions(body.extensions)
         setAppVersion(fclVersion)
@@ -26,6 +38,8 @@ export function useFCL() {
   return {
     hasInitialized,
     loading,
+    appConfig,
+    clientConfig,
     appVersion,
     extensions,
     walletInclude

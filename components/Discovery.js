@@ -4,10 +4,10 @@ import styled from "styled-components"
 import {WalletUtils} from "@onflow/fcl"
 import {combineServices, serviceListOfType} from "../helpers/services"
 import {PATHS, SERVICE_TYPES, SUPPORTED_VERSIONS} from "../helpers/constants"
-import Header from "./Header"
 import Footer from "./Footer"
 import ServiceCard from "./ServiceCard"
 import {isGreaterThanOrEqualToVersion} from "../helpers/version"
+import Header from "./Headers/Header"
 
 const ServicesContainer = styled.div`
   height: 100%;

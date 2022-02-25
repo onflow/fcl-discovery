@@ -10,5 +10,10 @@ export const SERVICE_TYPES = {
 
 export const SUPPORTED_VERSIONS = {
   FILTERING: "0.0.78-alpha.10",
-  EXTENSIONS: "0.0.78-alpha.10" // Version that supports browser extension redirects
+  EXTENSIONS: "0.0.78-alpha.10", // Version that supports browser extension redirects
+  APP_CONFIG: "0.0.79-alpha.4"
+}
+
+export const COLORS = {
+  secondary: '#02419F'
 }
