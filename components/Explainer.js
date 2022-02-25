@@ -21,7 +21,7 @@ const ExplainerLink = styled.div`
 `
 
 export default function Explainer() {
-  const {appConfig, clientConfig} = useFCL()
+  const {appConfig} = useFCL()
 
   return (
     <ExplainerContainer>
