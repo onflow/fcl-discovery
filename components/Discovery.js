@@ -1,7 +1,6 @@
 import {useMemo} from "react"
 import useSWR from "swr"
 import styled from "styled-components"
-import {WalletUtils} from "@onflow/fcl"
 import {combineServices, serviceListOfType} from "../helpers/services"
 import {PATHS, SERVICE_TYPES, SUPPORTED_VERSIONS} from "../helpers/constants"
 import Footer from "./Footer"
@@ -17,58 +16,6 @@ const ServicesContainer = styled.div`
 `
 
 const ProvidersList = styled.div``
-
-const ProviderCardEnabled = styled.a`
-  margin-bottom: 1rem;
-  width: 100%;
-
-  padding: 0.5rem 1rem 0.5rem 1rem;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  border: 0.1rem solid ${({color}) => color};
-  border-radius: 0.5rem;
-
-  box-sizing: border-box;
-
-  opacity: 1;
-  cursor: pointer;
-
-  text-decoration: none;
-  user-select: none;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-`
-
-const ProviderCardDisabled = styled.div`
-  margin-bottom: 1rem;
-  width: 100%;
-
-  padding: 0.5rem 1rem 0.5rem 1rem;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  border: 0.1rem solid ${({color}) => color};
-  border-radius: 0.5rem;
-
-  box-sizing: border-box;
-
-  opacity: 0.7;
-  cursor: unset;
-
-  text-decoration: none;
-  user-select: none;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-`
 
 const fetcher = (url, opts) => {
   return fetch(url, {
@@ -109,19 +56,6 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
     return defaultServices
   }, [data, extensions, appVersion])
 
-  const onSelect = service => {
-    if (!service) return
-
-    if (
-      appVersion &&
-      isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.EXTENSIONS)
-    ) {
-      WalletUtils.redirect(service)
-    } else {
-      window.location.href = `${service.endpoint}${window.location.search}`
-    }
-  }
-
   if (!data) return <div />
   if (error) return <div>Error Loading Data</div>
 
@@ -130,21 +64,14 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
       <Header />
       <ProvidersList>
         {services.length === 0 && <div>No Wallets Found</div>}
-        {services.map((service, index) =>
-          service.provider ? (
-            <ProviderCardEnabled
-              key={service?.provider?.address ?? index}
-              {...service.provider}
-              onClick={() => onSelect(service)}
-            >
-              <ServiceCard {...service.provider} />
-            </ProviderCardEnabled>
-          ) : (
-            <ProviderCardDisabled key={service?.provider?.address ?? index} {...service.provider}>
-              <ServiceCard {...service.provider} />
-            </ProviderCardDisabled>
-          )
-        )}
+        {services.map((service, index) => {
+          return <ServiceCard
+            key={service?.provider?.address ?? index}
+            isEnabled={Boolean(service.provider)}
+            {...service.provider}
+            service={service}
+          />
+        })}
       </ProvidersList>
       <Footer handleCancel={handleCancel} />
     </ServicesContainer>

@@ -1,5 +1,34 @@
+import {WalletUtils} from "@onflow/fcl"
 import styled from "styled-components"
+import {SUPPORTED_VERSIONS} from "../helpers/constants"
+import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import {useFCL} from "../hooks/useFCL"
+
+const ProviderCard = styled.a`
+  margin-bottom: 1rem;
+  width: 100%;
+
+  padding: 0.5rem 1rem 0.5rem 1rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  border: 0.1rem solid ${({color}) => color};
+  border-radius: 0.5rem;
+
+  box-sizing: border-box;
+
+  opacity: ${props => props.enabled ? "1" : "0.7"};
+  cursor:  ${props => props.enabled ? "pointer" : "unset"};
+
+  text-decoration: none;
+  user-select: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+`
 
 const ProviderCardRow = styled.div`
   width: 100%;
@@ -43,18 +72,33 @@ const ProviderCardDescription = styled.div`
   text-align: left;
 `
 
-export default function ServiceCard({address, icon, name, description}) {
-  const {extensions} = useFCL()
+export default function ServiceCard({isEnabled, address, icon, name, description, service}) {
+  const {extensions, appVersion} = useFCL()
   const isInstalled = extensions.some(ext => ext?.provider?.address === address)
+
+  const onSelect = () => {
+    if (!service) return
+
+    if (
+      appVersion &&
+      isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.EXTENSIONS)
+    ) {
+      WalletUtils.redirect(service)
+    } else {
+      window.location.href = `${service.endpoint}${window.location.search}`
+    }
+  }
   
   return (
-    <ProviderCardRow>
-      <ProviderCardIcon icon={icon} />
-      <ProviderCardColumn>
-        <ProviderCardName>{name}</ProviderCardName>
-        <ProviderCardDescription>{description}</ProviderCardDescription>
-        {isInstalled && <div>Installed</div>}
-      </ProviderCardColumn>
-    </ProviderCardRow>
+    <ProviderCard enabled={isEnabled} onClick={onSelect}>
+      <ProviderCardRow>
+        <ProviderCardIcon icon={icon} />
+        <ProviderCardColumn>
+          <ProviderCardName>{name}</ProviderCardName>
+          <ProviderCardDescription>{description}</ProviderCardDescription>
+          {isInstalled && <div>Installed</div>}
+        </ProviderCardColumn>
+      </ProviderCardRow>
+    </ProviderCard>
   )
 }
