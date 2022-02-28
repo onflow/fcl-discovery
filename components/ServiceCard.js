@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import {useFCL} from "../hooks/useFCL"
 
 const ProviderCardRow = styled.div`
   width: 100%;
@@ -42,13 +43,17 @@ const ProviderCardDescription = styled.div`
   text-align: left;
 `
 
-export default function ServiceCard({icon, name, description}) {
+export default function ServiceCard({address, icon, name, description}) {
+  const {extensions} = useFCL()
+  const isInstalled = extensions.some(ext => ext?.provider?.address === address)
+  
   return (
     <ProviderCardRow>
       <ProviderCardIcon icon={icon} />
       <ProviderCardColumn>
         <ProviderCardName>{name}</ProviderCardName>
         <ProviderCardDescription>{description}</ProviderCardDescription>
+        {isInstalled && <div>Installed</div>}
       </ProviderCardColumn>
     </ProviderCardRow>
   )
