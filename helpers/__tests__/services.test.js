@@ -134,7 +134,7 @@ describe("services helpers: getServiceByAddress", () => {
 })
 
 describe("services helpers: sortByAddress", () => {
-  it("should put last installed first", () => {
+  it("should put selected installed first", () => {
     const address = "0xB"
 
     const serviceA = {
