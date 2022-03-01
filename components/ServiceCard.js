@@ -1,6 +1,6 @@
 import {WalletUtils} from "@onflow/fcl"
 import styled from "styled-components"
-import {LOCAL_STORAGE_KEYS, SUPPORTED_VERSIONS} from "../helpers/constants"
+import {COLORS, LOCAL_STORAGE_KEYS, SUPPORTED_VERSIONS} from "../helpers/constants"
 import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import {useFCL} from "../hooks/useFCL"
 import {useLocalStorage} from "../hooks/useLocalStorage"
@@ -16,10 +16,10 @@ const ServiceCardContainer = styled.a`
   justify-content: space-between;
   flex-wrap: wrap;
 
-  border: 0.1rem solid ${({color}) => color};
-  border-radius: 0.5rem;
-
+  border: 0.5px solid ${COLORS.grey};
   box-sizing: border-box;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
 
   opacity: ${props => props.enabled ? "1" : "0.7"};
   cursor:  ${props => props.enabled ? "pointer" : "unset"};
@@ -39,14 +39,6 @@ const ServiceCardRow = styled.div`
   align-items: center;
 `
 
-const ServiceCardColumn = styled.div`
-  margin: 0.5rem 0rem 0.5rem 0rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-`
-
 const ServiceCardIcon = styled.div`
   margin-right: 0.5rem;
 
@@ -61,19 +53,13 @@ const ServiceCardIcon = styled.div`
 `
 
 const ServiceCardName = styled.div`
-  margin-bottom: 0.5rem;
   font-weight: bold;
   font-size: 2rem;
   color: #231f20;
   font-weight: bold;
 `
 
-const ServiceCardDescription = styled.div`
-  color: #a8a8a8;
-  text-align: left;
-`
-
-export default function ServiceCard({isEnabled, address, icon, name, description, service}) {
+export default function ServiceCard({isEnabled, address, icon, name, service}) {
   const {extensions, appVersion} = useFCL()
   const isInstalled = extensions.some(ext => ext?.provider?.address === address)
   const [_, setLastInstalled] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
@@ -97,11 +83,8 @@ export default function ServiceCard({isEnabled, address, icon, name, description
     <ServiceCardContainer enabled={isEnabled} onClick={onSelect}>
       <ServiceCardRow>
         <ServiceCardIcon icon={icon} />
-        <ServiceCardColumn>
-          <ServiceCardName>{name}</ServiceCardName>
-          <ServiceCardDescription>{description}</ServiceCardDescription>
-          {isInstalled && <div>Installed</div>}
-        </ServiceCardColumn>
+        <ServiceCardName>{name}</ServiceCardName>
+        {isInstalled && <div>Installed</div>}
       </ServiceCardRow>
     </ServiceCardContainer>
   )

@@ -8,13 +8,13 @@ import ServiceCard from "./ServiceCard"
 import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import Header from "./Headers/Header"
 import {useLocalStorage} from "../hooks/useLocalStorage"
-import { pipe } from "@onflow/fcl"
 
-const ServicesContainer = styled.div`
+const DiscoveryContainer = styled.div`
   height: 100%;
   width: 100%;
   box-sizing: border-box;
   overflow-y: auto;
+  padding: 5px;
 `
 
 const ProvidersList = styled.div``
@@ -64,7 +64,7 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
   if (error) return <div>Error Loading Data</div>
 
   return (
-    <ServicesContainer>
+    <DiscoveryContainer>
       <Header />
       <ProvidersList>
         {services.length === 0 && <div>No Wallets Found</div>}
@@ -78,6 +78,6 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
         })}
       </ProvidersList>
       <Footer handleCancel={handleCancel} />
-    </ServicesContainer>
+    </DiscoveryContainer>
   )
 }
