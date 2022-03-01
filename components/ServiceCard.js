@@ -33,7 +33,7 @@ const ServiceCardContainer = styled.a`
   justify-content: space-between;
   flex-wrap: wrap;
 
-  border: 0.5px solid ${COLORS.grey};
+  border: 0.5px solid ${COLORS.GREY_LIGHTER};
   box-sizing: border-box;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -69,9 +69,23 @@ const ServiceCardIcon = styled.div`
 
 const ServiceCardName = styled.div`
   font-size: 1.5rem;
-  color: ${COLORS.black};
+  color: ${COLORS.BLACK};
   font-weight: 600;
 `
+
+const ServiceCardTags = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: ${COLORS.GREY}
+`
+
+const DotSeperator = styled.div`
+  padding: 0 5px;
+  font-size: 1.5rem;
+`
+
+const ServiceCardTag = styled.div``
 
 export default function ServiceCard({isEnabled, address, icon, name, service}) {
   const {extensions, appVersion} = useFCL()
@@ -109,7 +123,12 @@ export default function ServiceCard({isEnabled, address, icon, name, service}) {
         <ServiceCardRow>
           <ServiceCardIcon icon={icon} />
           <ServiceCardName>{name}</ServiceCardName>
-          {isInstalled && <div>Installed</div>}
+          {isInstalled && 
+            <ServiceCardTags>
+              <DotSeperator> · </DotSeperator>
+              <ServiceCardTag>Installed</ServiceCardTag>
+            </ServiceCardTags>
+          }
         </ServiceCardRow>
       </ServiceCardContainer>
     </RowContainer>

@@ -16,7 +16,7 @@ const ExplainerDescription = styled.div`
 
 const ExplainerLink = styled.div`
   text-decoration: none;
-  color: ${COLORS.secondary};
+  color: ${COLORS.SECONDARY};
   cursor: pointer;
 `
 

@@ -15,9 +15,10 @@ export const SUPPORTED_VERSIONS = {
 }
 
 export const COLORS = {
-  secondary: "#02419F",
-  grey: "#CECECE",
-  black: "#000000"
+  SECONDARY: "#02419F",
+  GREY: "#616161",
+  GREY_LIGHTER: "#CECECE",
+  BLACK: "#000000"
 }
 
 const LOCAL_STORAGE_VERSION = "v1"

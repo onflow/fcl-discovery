@@ -16,7 +16,7 @@ const AppLogo = styled.img`
 `
 
 const ClientDomain = styled.div`
-  color: ${COLORS.secondary};
+  color: ${COLORS.SECONDARY};
 `
 
 export default function AppHeader() {
