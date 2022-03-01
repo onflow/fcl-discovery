@@ -5,8 +5,25 @@ import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import {useFCL} from "../hooks/useFCL"
 import {useLocalStorage} from "../hooks/useLocalStorage"
 
-const ServiceCardContainer = styled.a`
+const RowContainer = styled.div`
+  display: flex;
+  align-items: center;
   margin-bottom: 1rem;
+`
+
+const MoreSection = styled.div`
+  margin-right: 10px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+`
+
+const MoreImg = styled.img`
+  width: 30px;
+  height: 30px;
+`
+
+const ServiceCardContainer = styled.a`
   width: 100%;
 
   padding: 0.5rem 1rem 0.5rem 1rem;
@@ -63,6 +80,7 @@ export default function ServiceCard({isEnabled, address, icon, name, service}) {
   const {extensions, appVersion} = useFCL()
   const isInstalled = extensions.some(ext => ext?.provider?.address === address)
   const [_, setLastInstalled] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
+  const hasWebsite = Boolean(service?.provider?.website)
 
   const onSelect = () => {
     if (!service) return
@@ -79,13 +97,23 @@ export default function ServiceCard({isEnabled, address, icon, name, service}) {
     }
   }
   
+  const openMoreInfo = () => {
+    if (!service?.provider?.website) return
+    window.open(service?.provider?.website, "_blank")
+  }
+  
   return (
-    <ServiceCardContainer enabled={isEnabled} onClick={onSelect}>
-      <ServiceCardRow>
-        <ServiceCardIcon icon={icon} />
-        <ServiceCardName>{name}</ServiceCardName>
-        {isInstalled && <div>Installed</div>}
-      </ServiceCardRow>
-    </ServiceCardContainer>
+    <RowContainer>
+      <MoreSection onClick={openMoreInfo}>
+        {hasWebsite && <MoreImg src="/images/question-mark.svg" alt="Learn More" />}
+      </MoreSection>
+      <ServiceCardContainer enabled={isEnabled} onClick={onSelect}>
+        <ServiceCardRow>
+          <ServiceCardIcon icon={icon} />
+          <ServiceCardName>{name}</ServiceCardName>
+          {isInstalled && <div>Installed</div>}
+        </ServiceCardRow>
+      </ServiceCardContainer>
+    </RowContainer>
   )
 }
