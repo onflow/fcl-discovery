@@ -40,6 +40,7 @@ export const getServiceByAddress = (services, address) => {
 }
 
 export function sortByAddress(services, selectedAddress) {
+  if (!selectedAddress) return services
   const serviceWithAddress = getServiceByAddress(services, selectedAddress)
   const servicesWithoutSpecified = services.filter(service => service?.provider?.address !== selectedAddress)
   return [serviceWithAddress, ...servicesWithoutSpecified]
