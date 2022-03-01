@@ -18,6 +18,8 @@ export const COLORS = {
   secondary: '#02419F'
 }
 
+const LOCAL_STORAGE_VERSION = 'v1'
+
 export const LOCAL_STORAGE_KEYS = {
-  LAST_INSTALLED: 'ext:lastInstalled'
+  LAST_INSTALLED: `${LOCAL_STORAGE_VERSION}:ext:lastInstalled`
 }

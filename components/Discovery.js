@@ -1,12 +1,14 @@
 import {useMemo} from "react"
 import useSWR from "swr"
 import styled from "styled-components"
-import {combineServices, serviceListOfType} from "../helpers/services"
-import {PATHS, SERVICE_TYPES, SUPPORTED_VERSIONS} from "../helpers/constants"
+import {combineServices, serviceListOfType, sortByAddress} from "../helpers/services"
+import {LOCAL_STORAGE_KEYS, PATHS, SERVICE_TYPES, SUPPORTED_VERSIONS} from "../helpers/constants"
 import Footer from "./Footer"
 import ServiceCard from "./ServiceCard"
 import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import Header from "./Headers/Header"
+import {useLocalStorage} from "../hooks/useLocalStorage"
+import { pipe } from "@onflow/fcl"
 
 const ServicesContainer = styled.div`
   height: 100%;
@@ -33,6 +35,8 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
     fclVersion: appVersion,
     include: walletInclude 
   }))
+  const [lastInstalled, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
+
   const services = useMemo(() => {
     let defaultServices = serviceListOfType(data, SERVICE_TYPES.AUTHN)
 
@@ -53,7 +57,7 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
       )
     }
 
-    return defaultServices
+    return sortByAddress(defaultServices, lastInstalled)
   }, [data, extensions, appVersion])
 
   if (!data) return <div />
