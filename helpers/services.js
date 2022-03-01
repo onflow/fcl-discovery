@@ -34,3 +34,13 @@ export function filterOptInServices(services = [], includeList = []) {
     return true
   })
 }
+
+export const getServiceByAddress = (services, address) => {
+  return services.find(service => service?.provider?.address === address)
+}
+
+export function sortByAddress(services, selectedAddress) {
+  const serviceWithAddress = getServiceByAddress(services, selectedAddress)
+  const servicesWithoutSpecified = services.filter(service => service?.provider?.address !== selectedAddress)
+  return [serviceWithAddress, ...servicesWithoutSpecified]
+}

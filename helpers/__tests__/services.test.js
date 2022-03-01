@@ -1,4 +1,4 @@
-import {combineServices, filterOptInServices, serviceListOfType} from "../services"
+import {combineServices, filterOptInServices, getServiceByAddress, serviceListOfType, sortByAddress} from "../services"
 
 describe("services helpers: combineServices", () => {
   it("should combine services with right ordering and filter unique", () => {
@@ -99,5 +99,68 @@ describe("services helpers: filterOptInServices", () => {
     expect(filterOptInServices(serviceListA, includeListA)).toEqual(expectedResponseA)
     expect(filterOptInServices(serviceListB, includeListB).length).toEqual(3)
     expect(filterOptInServices(serviceListB, includeListB)).toEqual(expectedResponseB)
+  })
+})
+
+describe("services helpers: getServiceByAddress", () => {
+  it("should pick correct address", () => {
+    const address = "0xB"
+
+    const serviceA = {
+      type: "authn",
+      provider: {
+        address: "0xA"
+      }
+    }
+
+    const serviceB = {
+      type: "authn",
+      provider: {
+        address: address
+      }
+    }
+
+    const serviceC = {
+      type: "authn",
+      provider: {
+        address: "0xC"
+      }
+    }
+
+    const services = [serviceA, serviceB, serviceC]
+
+    expect(getServiceByAddress(services, address)).toEqual(serviceB)
+  })
+})
+
+describe("services helpers: sortByAddress", () => {
+  it("should put last installed first", () => {
+    const address = "0xB"
+
+    const serviceA = {
+      type: "authn",
+      provider: {
+        address: "0xA"
+      }
+    }
+
+    const serviceB = {
+      type: "authn",
+      provider: {
+        address: address
+      }
+    }
+
+    const serviceC = {
+      type: "authn",
+      provider: {
+        address: "0xC"
+      }
+    }
+
+    const services = [serviceA, serviceB, serviceC]
+    const expectedRes = [serviceB, serviceA, serviceC]
+
+    expect(sortByAddress(services, address)).toEqual(expectedRes)
   })
 })
