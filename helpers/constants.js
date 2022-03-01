@@ -15,11 +15,12 @@ export const SUPPORTED_VERSIONS = {
 }
 
 export const COLORS = {
-  secondary: '#02419F',
-  grey: '#CECECE'
+  secondary: "#02419F",
+  grey: "#CECECE",
+  black: "#000000"
 }
 
-const LOCAL_STORAGE_VERSION = 'v1'
+const LOCAL_STORAGE_VERSION = "v1"
 
 export const LOCAL_STORAGE_KEYS = {
   LAST_INSTALLED: `${LOCAL_STORAGE_VERSION}:ext:lastInstalled`

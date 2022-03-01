@@ -57,8 +57,6 @@ const ServiceCardRow = styled.div`
 `
 
 const ServiceCardIcon = styled.div`
-  margin-right: 0.5rem;
-
   height: 4rem;
   min-width: 4rem;
 
@@ -70,10 +68,9 @@ const ServiceCardIcon = styled.div`
 `
 
 const ServiceCardName = styled.div`
-  font-weight: bold;
-  font-size: 2rem;
-  color: #231f20;
-  font-weight: bold;
+  font-size: 1.5rem;
+  color: ${COLORS.black};
+  font-weight: 600;
 `
 
 export default function ServiceCard({isEnabled, address, icon, name, service}) {
