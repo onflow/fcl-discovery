@@ -80,6 +80,7 @@ export default function ServiceCard({isEnabled, address, icon, name, service}) {
   const {extensions, appVersion} = useFCL()
   const isInstalled = extensions.some(ext => ext?.provider?.address === address)
   const [_, setLastInstalled] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
+  const serviceWebsite = service?.provider?.website
   const hasWebsite = Boolean(service?.provider?.website)
 
   const onSelect = () => {
@@ -98,8 +99,8 @@ export default function ServiceCard({isEnabled, address, icon, name, service}) {
   }
   
   const openMoreInfo = () => {
-    if (!service?.provider?.website) return
-    window.open(service?.provider?.website, "_blank")
+    if (!hasWebsite) return
+    window.open(serviceWebsite, "_blank")
   }
   
   return (
