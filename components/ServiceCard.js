@@ -5,7 +5,7 @@ import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import {useFCL} from "../hooks/useFCL"
 import {useLocalStorage} from "../hooks/useLocalStorage"
 
-const ProviderCard = styled.a`
+const ServiceCardContainer = styled.a`
   margin-bottom: 1rem;
   width: 100%;
 
@@ -31,7 +31,7 @@ const ProviderCard = styled.a`
   -moz-appearance: none;
 `
 
-const ProviderCardRow = styled.div`
+const ServiceCardRow = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -39,7 +39,7 @@ const ProviderCardRow = styled.div`
   align-items: center;
 `
 
-const ProviderCardColumn = styled.div`
+const ServiceCardColumn = styled.div`
   margin: 0.5rem 0rem 0.5rem 0rem;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@ const ProviderCardColumn = styled.div`
   align-items: flex-start;
 `
 
-const ProviderCardIcon = styled.div`
+const ServiceCardIcon = styled.div`
   margin-right: 0.5rem;
 
   height: 4rem;
@@ -60,7 +60,7 @@ const ProviderCardIcon = styled.div`
   background-size: cover;
 `
 
-const ProviderCardName = styled.div`
+const ServiceCardName = styled.div`
   margin-bottom: 0.5rem;
   font-weight: bold;
   font-size: 2rem;
@@ -68,7 +68,7 @@ const ProviderCardName = styled.div`
   font-weight: bold;
 `
 
-const ProviderCardDescription = styled.div`
+const ServiceCardDescription = styled.div`
   color: #a8a8a8;
   text-align: left;
 `
@@ -94,15 +94,15 @@ export default function ServiceCard({isEnabled, address, icon, name, description
   }
   
   return (
-    <ProviderCard enabled={isEnabled} onClick={onSelect}>
-      <ProviderCardRow>
-        <ProviderCardIcon icon={icon} />
-        <ProviderCardColumn>
-          <ProviderCardName>{name}</ProviderCardName>
-          <ProviderCardDescription>{description}</ProviderCardDescription>
+    <ServiceCardContainer enabled={isEnabled} onClick={onSelect}>
+      <ServiceCardRow>
+        <ServiceCardIcon icon={icon} />
+        <ServiceCardColumn>
+          <ServiceCardName>{name}</ServiceCardName>
+          <ServiceCardDescription>{description}</ServiceCardDescription>
           {isInstalled && <div>Installed</div>}
-        </ProviderCardColumn>
-      </ProviderCardRow>
-    </ProviderCard>
+        </ServiceCardColumn>
+      </ServiceCardRow>
+    </ServiceCardContainer>
   )
 }
