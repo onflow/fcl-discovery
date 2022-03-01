@@ -1,8 +1,9 @@
 import {WalletUtils} from "@onflow/fcl"
 import styled from "styled-components"
-import {SUPPORTED_VERSIONS} from "../helpers/constants"
+import {LOCAL_STORAGE_KEYS, SUPPORTED_VERSIONS} from "../helpers/constants"
 import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import {useFCL} from "../hooks/useFCL"
+import {useLocalStorage} from "../hooks/useLocalStorage"
 
 const ProviderCard = styled.a`
   margin-bottom: 1rem;
@@ -75,9 +76,12 @@ const ProviderCardDescription = styled.div`
 export default function ServiceCard({isEnabled, address, icon, name, description, service}) {
   const {extensions, appVersion} = useFCL()
   const isInstalled = extensions.some(ext => ext?.provider?.address === address)
+  const [_, setLastInstalled] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
 
   const onSelect = () => {
     if (!service) return
+
+    setLastInstalled(service?.provider?.address)
 
     if (
       appVersion &&

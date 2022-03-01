@@ -17,3 +17,7 @@ export const SUPPORTED_VERSIONS = {
 export const COLORS = {
   secondary: '#02419F'
 }
+
+export const LOCAL_STORAGE_KEYS = {
+  LAST_INSTALLED: 'ext:lastInstalled'
+}
