@@ -8,6 +8,24 @@ const MessageContainer = styled.div`
   border-radius: 5px;
   font-size: 0.9rem;
   text-align: center;
+  display: flex;
+  align-items: center;
+`
+
+const MessageText = styled.div`
+  padding-right: 10px;
+`
+
+const CloseSection = styled.div`
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+  right: 25px;
+`
+
+const CloseIcon = styled.img`
+  width: 15px;
+  height: 15px;
 `
 
 const MessageLink = styled.a`
@@ -15,11 +33,16 @@ const MessageLink = styled.a`
   cursor: pointer;
 `
 
-export function Message({text, link}) {
+export function Message({text, link, onClose}) {
   return (
     <MessageContainer>
-      <div>{text}</div>
-      <div>For more info, see <MessageLink onClick={() => window.open(link, "_blank")}>{link}</MessageLink></div>
+      <MessageText>
+        <div>{text}</div>
+        <div>For more info, see <MessageLink onClick={() => window.open(link, "_blank")}>{link}</MessageLink></div>
+      </MessageText>
+      <CloseSection onClick={onClose}>
+        <CloseIcon src="/images/close.svg" alt="Close" />
+      </CloseSection>
     </MessageContainer>
   )
 }

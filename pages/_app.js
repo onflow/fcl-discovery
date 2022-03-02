@@ -1,4 +1,5 @@
 import {useRouter} from "next/router"
+import { useState } from "react"
 import styled, {createGlobalStyle} from "styled-components"
 import {Message} from "../components/Message"
 import {NETWORKS, SUPPORTED_VERSIONS} from "../helpers/constants"
@@ -80,6 +81,7 @@ function MyApp({Component, pageProps}) {
   const {appConfig, appVersion} = useFCL()
   const isMissingConfig = !(appConfig?.icon && appConfig?.title)
   const showDeveloperMessage = isTestnet && isMissingConfig && isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.APP_CONFIG)
+  const [messageOpen, setMessageOpen] = useState(true)
 
   const handleCancel = () => {
     window.parent.postMessage(
@@ -93,6 +95,11 @@ function MyApp({Component, pageProps}) {
   const developerMessage = "👋 Hey Flow dev (you're only seeing this on Testnet), looks like you're missing some app configuration. You can add an icon and title to brand this for your app by setting it in your FCL config."
   const developerLink = "https://docs.onflow.org/fcl/reference/configure-fcl/"
 
+  const closeMessage = event => {
+    event.stopPropagation()
+    setMessageOpen(false)
+  }
+
   return (
     <>
       <GlobalStyle />
@@ -103,9 +110,9 @@ function MyApp({Component, pageProps}) {
           </CloseSection>
           <Component {...pageProps} />
         </Inner>
-        {showDeveloperMessage &&  
+        {showDeveloperMessage && messageOpen &&  
           <MessageAnchor>
-            <Message text={developerMessage} link={developerLink} />
+            <Message text={developerMessage} link={developerLink} onClose={closeMessage} />
           </MessageAnchor>
         }
       </Wrapper>
