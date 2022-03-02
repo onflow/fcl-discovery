@@ -8,6 +8,7 @@ import ServiceCard from "./ServiceCard"
 import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import Header from "./Headers/Header"
 import {useLocalStorage} from "../hooks/useLocalStorage"
+import {pipe} from "../helpers/pipe"
 
 const DiscoveryContainer = styled.div`
   height: 100%;
@@ -35,29 +36,19 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
     fclVersion: appVersion,
     include: walletInclude 
   }))
-  const [lastInstalled, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
+  const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
 
   const services = useMemo(() => {
-    let defaultServices = serviceListOfType(data, SERVICE_TYPES.AUTHN)
+    const isSupported = isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.EXTENSIONS)
 
-    // Check version of FCL. If their app version is older than the supported version for browser extensions then continue on without adding browser extensions.
-    if (
-      appVersion &&
-      isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.EXTENSIONS)
-    ) {
-      // Add browser extensions
-      const combinedServiceList = combineServices(
-        defaultServices,
-        extensions,
-        true
-      )
-      defaultServices = serviceListOfType(
-        combinedServiceList,
-        SERVICE_TYPES.AUTHN
-      )
-    }
-
-    return sortByAddress(defaultServices, lastInstalled)
+    return pipe(
+      services => {
+        if (!isSupported) return services
+        return combineServices(services, extensions, true)
+      },
+      services => serviceListOfType(services, SERVICE_TYPES.AUTHN), // Only show authn services
+      services => sortByAddress(services, lastUsed) // Put last used service at top
+    )(data)
   }, [data, extensions, appVersion])
 
   if (!data) return <div />

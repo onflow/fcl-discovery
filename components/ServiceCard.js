@@ -90,14 +90,14 @@ const ServiceCardTag = styled.div``
 export default function ServiceCard({isEnabled, address, icon, name, service}) {
   const {extensions, appVersion} = useFCL()
   const isInstalled = extensions.some(ext => ext?.provider?.address === address)
-  const [_, setLastInstalled] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
+  const [_, setLastUsed] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
   const serviceWebsite = service?.provider?.website
   const hasWebsite = Boolean(service?.provider?.website)
 
   const onSelect = () => {
     if (!service) return
 
-    setLastInstalled(service?.provider?.address)
+    setLastUsed(service?.provider?.address)
 
     if (
       appVersion &&
