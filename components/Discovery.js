@@ -65,6 +65,7 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
             isEnabled={Boolean(service.provider)}
             {...service.provider}
             service={service}
+            lastUsed={service?.provider?.address === lastUsed}
           />
         })}
       </ProvidersList>

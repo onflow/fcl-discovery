@@ -24,6 +24,7 @@ const MoreImg = styled.img`
 `
 
 const ServiceCardContainer = styled.a`
+  position: relative;
   width: 100%;
 
   padding: 0.5rem 1rem 0.5rem 1rem;
@@ -46,6 +47,15 @@ const ServiceCardContainer = styled.a`
 
   -webkit-appearance: none;
   -moz-appearance: none;
+`
+
+const ServiceContainerTag = styled.div`
+  position: absolute;
+  margin: -25px 0 0 10px;
+  background: white;
+  font-size: 0.9rem;
+  color: ${COLORS.GREY};
+  padding: 5px;
 `
 
 const ServiceCardRow = styled.div`
@@ -77,7 +87,7 @@ const ServiceCardTags = styled.div`
   display: flex;
   align-items: center;
   font-size: 0.9rem;
-  color: ${COLORS.GREY}
+  color: ${COLORS.GREY};
 `
 
 const DotSeperator = styled.div`
@@ -87,7 +97,7 @@ const DotSeperator = styled.div`
 
 const ServiceCardTag = styled.div``
 
-export default function ServiceCard({isEnabled, address, icon, name, service}) {
+export default function ServiceCard({isEnabled, address, icon, name, service, lastUsed = false}) {
   const {extensions, appVersion} = useFCL()
   const isInstalled = extensions.some(ext => ext?.provider?.address === address)
   const [_, setLastUsed] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
@@ -120,6 +130,7 @@ export default function ServiceCard({isEnabled, address, icon, name, service}) {
         {hasWebsite && <MoreImg src="/images/question-mark.svg" alt="Learn More" />}
       </MoreSection>
       <ServiceCardContainer enabled={isEnabled} onClick={onSelect}>
+        {lastUsed && <ServiceContainerTag>Last Used</ServiceContainerTag>}
         <ServiceCardRow>
           <ServiceCardIcon icon={icon} />
           <ServiceCardName>{name}</ServiceCardName>
