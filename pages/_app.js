@@ -1,8 +1,9 @@
 import {useRouter} from "next/router"
 import styled, {createGlobalStyle} from "styled-components"
 import {Message} from "../components/Message"
-import {NETWORKS} from "../helpers/constants"
+import {NETWORKS, SUPPORTED_VERSIONS} from "../helpers/constants"
 import {getNetworkFromPath} from "../helpers/paths"
+import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import {useFCL} from "../hooks/useFCL"
 
 const GlobalStyle = createGlobalStyle`
@@ -62,8 +63,9 @@ function MyApp({Component, pageProps}) {
   const {path} = router.query
   const network = getNetworkFromPath(path)
   const isTestnet = network === NETWORKS.TESTNET
-  const {appConfig} = useFCL()
+  const {appConfig, appVersion} = useFCL()
   const isMissingConfig = !(appConfig?.icon && appConfig?.title)
+  const showDeveloperMessage = isTestnet && isMissingConfig && isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.APP_CONFIG)
 
   const handleCancel = () => {
     window.parent.postMessage(
@@ -74,7 +76,7 @@ function MyApp({Component, pageProps}) {
     )
   }
 
-  const developerMessage = "👋 Hey Flow dev, looks like you're missing some app configuration. You can set it in your FCL config."
+  const developerMessage = "👋 Hey Flow dev (you're only seeing this on Testnet), looks like you're missing some app configuration. You can add an icon and title to brand this for your app by setting it in your FCL config."
   const developerLink = "https://docs.onflow.org/fcl/reference/configure-fcl/"
 
   return (
@@ -84,7 +86,7 @@ function MyApp({Component, pageProps}) {
         <Inner onClick={e => e.stopPropagation()}>
           <Component {...pageProps} handleCancel={handleCancel} />
         </Inner>
-        {isTestnet && isMissingConfig && 
+        {showDeveloperMessage &&  
           <MessageAnchor>
             <Message text={developerMessage} link={developerLink} />
           </MessageAnchor>
