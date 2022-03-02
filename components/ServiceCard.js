@@ -47,6 +47,12 @@ const ServiceCardContainer = styled.a`
 
   -webkit-appearance: none;
   -moz-appearance: none;
+
+  transition: 0.1s ease-in transform;
+
+  &:hover {
+    transform: scale(1.01)
+  }
 `
 
 const ServiceContainerTag = styled.div`
