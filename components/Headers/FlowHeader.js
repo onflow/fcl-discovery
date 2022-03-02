@@ -3,9 +3,8 @@ import styled from "styled-components"
 const AppHeader = styled.div`
   margin-bottom: 2rem;
   width: 100%;
-  height: 4rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -17,6 +16,7 @@ const AppLogoWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  margin-bottom: 8px;
 `
 
 const AppLogo = styled.img`
@@ -26,6 +26,7 @@ const AppLogo = styled.img`
 const AppTitle = styled.h2`
   text-align: left;
   color: #2a2825;
+  font-size: 1.3rem;
 `
 
 export default function FlowHeader() {

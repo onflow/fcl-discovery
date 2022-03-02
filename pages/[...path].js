@@ -15,7 +15,7 @@ const AppContainer = styled.div`
     `};
 `
 
-const Router = ({handleCancel}) => {
+const Router = () => {
   const router = useRouter()
   const {path} = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn']
   const {hasInitialized, loading, appVersion, extensions, walletInclude} = useFCL()
@@ -32,7 +32,6 @@ const Router = ({handleCancel}) => {
           appVersion={appVersion}
           extensions={extensions}
           walletInclude={walletInclude}
-          handleCancel={handleCancel}
         />
       )}
     </AppContainer>

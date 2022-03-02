@@ -58,6 +58,20 @@ const Inner = styled.div`
   overflow-y: auto;
 `
 
+const CloseSection = styled.div`
+  position: absolute;
+  margin-right: 10px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  right: 25px;
+`
+
+const CloseIcon = styled.img`
+  width: 20px;
+  height: 20px;
+`
+
 function MyApp({Component, pageProps}) {
   const router = useRouter()
   const {path} = router.query
@@ -84,7 +98,10 @@ function MyApp({Component, pageProps}) {
       <GlobalStyle />
       <Wrapper onClick={handleCancel}>
         <Inner onClick={e => e.stopPropagation()}>
-          <Component {...pageProps} handleCancel={handleCancel} />
+          <CloseSection onClick={handleCancel}>
+            <CloseIcon src="/images/close.svg" alt="Close" />
+          </CloseSection>
+          <Component {...pageProps} />
         </Inner>
         {showDeveloperMessage &&  
           <MessageAnchor>

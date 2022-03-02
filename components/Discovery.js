@@ -3,7 +3,6 @@ import useSWR from "swr"
 import styled from "styled-components"
 import {combineServices, serviceListOfType, sortByAddress} from "../helpers/services"
 import {LOCAL_STORAGE_KEYS, PATHS, SERVICE_TYPES, SUPPORTED_VERSIONS} from "../helpers/constants"
-import Footer from "./Footer"
 import ServiceCard from "./ServiceCard"
 import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import Header from "./Headers/Header"
@@ -30,7 +29,7 @@ const fetcher = (url, opts) => {
   }).then(d => d.json())
 }
 
-export const Discovery = ({network, appVersion, extensions, walletInclude, handleCancel}) => {
+export const Discovery = ({network, appVersion, extensions, walletInclude}) => {
   const requestUrl = `/api${PATHS[network]}`
   const {data, error} = useSWR(requestUrl, url => fetcher(url, {
     fclVersion: appVersion,
@@ -69,7 +68,6 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
           />
         })}
       </ProvidersList>
-      <Footer handleCancel={handleCancel} />
     </DiscoveryContainer>
   )
 }
