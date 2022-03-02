@@ -1,4 +1,9 @@
+import {useRouter} from "next/router"
 import styled, {createGlobalStyle} from "styled-components"
+import {Message} from "../components/Message"
+import {NETWORKS} from "../helpers/constants"
+import {getNetworkFromPath} from "../helpers/paths"
+import {useFCL} from "../hooks/useFCL"
 
 const GlobalStyle = createGlobalStyle`
   * { 
@@ -32,7 +37,15 @@ const Wrapper = styled.div`
   align-items: center;
 `
 
+const MessageAnchor = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  left: 20px;
+`
+
 const Inner = styled.div`
+  position: relative;
   max-height: 100vh;
   max-width: 100vw;
   width: 40rem;
@@ -45,6 +58,13 @@ const Inner = styled.div`
 `
 
 function MyApp({Component, pageProps}) {
+  const router = useRouter()
+  const {path} = router.query
+  const network = getNetworkFromPath(path)
+  const isTestnet = network === NETWORKS.TESTNET
+  const {appConfig} = useFCL()
+  const isMissingConfig = !(appConfig?.icon && appConfig?.title)
+
   const handleCancel = () => {
     window.parent.postMessage(
       {
@@ -54,6 +74,9 @@ function MyApp({Component, pageProps}) {
     )
   }
 
+  const developerMessage = "👋 Hey Flow dev, looks like you're missing some app configuration. You can set it in your FCL config."
+  const developerLink = "https://docs.onflow.org/fcl/reference/configure-fcl/"
+
   return (
     <>
       <GlobalStyle />
@@ -61,6 +84,11 @@ function MyApp({Component, pageProps}) {
         <Inner onClick={e => e.stopPropagation()}>
           <Component {...pageProps} handleCancel={handleCancel} />
         </Inner>
+        {isTestnet && isMissingConfig && 
+          <MessageAnchor>
+            <Message text={developerMessage} link={developerLink} />
+          </MessageAnchor>
+        }
       </Wrapper>
     </>
   )

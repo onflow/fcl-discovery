@@ -1,3 +1,7 @@
+export const NETWORKS = {
+  TESTNET: "testnet"
+}
+
 export const PATHS = {
   mainnet: "/authn",
   testnet: "/testnet/authn",
@@ -18,7 +22,8 @@ export const COLORS = {
   SECONDARY: "#02419F",
   GREY: "#616161",
   GREY_LIGHTER: "#CECECE",
-  BLACK: "#000000"
+  BLACK: "#000000",
+  WARNING: "#feefb3"
 }
 
 const LOCAL_STORAGE_VERSION = "v1"
