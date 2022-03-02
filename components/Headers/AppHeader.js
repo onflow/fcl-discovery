@@ -34,6 +34,7 @@ const DefaultImg = styled.img`
 
 const ClientDomain = styled.div`
   color: ${COLORS.SECONDARY};
+  margin-top: 5px;
 `
 
 export default function AppHeader() {

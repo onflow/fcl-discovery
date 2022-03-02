@@ -6,12 +6,13 @@ const ExplainerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 0;
+  padding: 15px 0 30px 0;
 `
 
 const ExplainerDescription = styled.div`
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 5px;
+  text-align: center;
 `
 
 const ExplainerLink = styled.div`
@@ -26,7 +27,8 @@ export default function Explainer() {
   return (
     <ExplainerContainer>
       <ExplainerDescription>
-        <strong>{appConfig?.title || "Unknown App"}</strong> wants to connect to your wallet.
+        <div><strong>{appConfig?.title || "Unknown App"}</strong></div>
+        <div>wants to connect to your wallet.</div>
       </ExplainerDescription>
       <ExplainerLink>
         <div onClick={() => window.open("https://docs.onflow.org/flow-token/available-wallets/", "_blank")}>What is a wallet?</div>
