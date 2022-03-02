@@ -21,7 +21,8 @@ export const SUPPORTED_VERSIONS = {
 export const COLORS = {
   SECONDARY: "#02419F",
   GREY: "#616161",
-  GREY_LIGHTER: "#CECECE",
+  GREY_LIGHTER: "#cecece",
+  GREY_LIGHTER_TWO: "#f5f5f5",
   BLACK: "#000000",
   WARNING: "#feefb3"
 }
@@ -29,5 +30,5 @@ export const COLORS = {
 const LOCAL_STORAGE_VERSION = "v1"
 
 export const LOCAL_STORAGE_KEYS = {
-  LAST_INSTALLED: `${LOCAL_STORAGE_VERSION}:ext:lastUsed`
+  LAST_INSTALLED: `discovery:${LOCAL_STORAGE_VERSION}:ext:lastUsed`
 }
