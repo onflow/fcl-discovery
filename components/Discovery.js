@@ -42,12 +42,12 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, handl
     const isSupported = isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.EXTENSIONS)
 
     return pipe(
-      services => {
-        if (!isSupported) return services
-        return combineServices(services, extensions, true)
+      data => {
+        if (!isSupported) return data
+        return combineServices(data, extensions, true)
       },
-      services => serviceListOfType(services, SERVICE_TYPES.AUTHN), // Only show authn services
-      services => sortByAddress(services, lastUsed) // Put last used service at top
+      data => serviceListOfType(data, SERVICE_TYPES.AUTHN), // Only show authn services
+      data => sortByAddress(data, lastUsed) // Put last used service at top
     )(data)
   }, [data, extensions, appVersion])
 
