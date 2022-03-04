@@ -50,8 +50,8 @@ const Inner = styled.div`
   position: relative;
   max-height: 100vh;
   max-width: 100vw;
-  width: 40rem;
-  padding: 2rem;
+  width: 30rem;
+  padding: 1rem;
   box-sizing: border-box;
   border-radius: 0.5rem;
   background-color: white;
@@ -61,7 +61,6 @@ const Inner = styled.div`
 
 const CloseSection = styled.div`
   position: absolute;
-  margin-right: 10px;
   cursor: pointer;
   width: 20px;
   height: 20px;

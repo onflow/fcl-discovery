@@ -14,13 +14,13 @@ const RowContainer = styled.div`
 const MoreSection = styled.div`
   margin-right: 10px;
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 1.8rem;
+  height: 1.8rem;
 `
 
 const MoreImg = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 1.8rem;
+  height: 1.8rem;
 `
 
 const ServiceCardContainer = styled.a`
@@ -59,7 +59,7 @@ const ServiceContainerTag = styled.div`
   position: absolute;
   margin: -25px 0 0 10px;
   background: white;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: ${COLORS.GREY};
   padding: 5px;
 `
@@ -84,8 +84,8 @@ const ServiceCardRightColumn = styled.div`
 `
 
 const ServiceCardIcon = styled.div`
-  height: 4rem;
-  min-width: 4rem;
+  height: 3.8rem;
+  min-width: 3.8rem;
 
   border-radius: 0.5rem;
 
@@ -95,7 +95,7 @@ const ServiceCardIcon = styled.div`
 `
 
 const ServiceCardName = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: ${COLORS.BLACK};
   font-weight: 600;
 `
@@ -103,13 +103,13 @@ const ServiceCardName = styled.div`
 const ServiceCardTags = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: ${COLORS.GREY};
 `
 
 const DotSeperator = styled.div`
   padding: 0 5px;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
 `
 
 const ServiceCardTag = styled.div``

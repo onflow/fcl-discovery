@@ -20,13 +20,13 @@ const AppLogoWrapper = styled.div`
 `
 
 const AppLogo = styled.img`
-  height: 4rem;
+  height: 3.5rem;
 `
 
 const AppTitle = styled.h2`
   text-align: left;
   color: #2a2825;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 `
 
 export default function FlowHeader() {
