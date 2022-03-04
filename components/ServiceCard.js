@@ -68,8 +68,19 @@ const ServiceCardRow = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const ServiceCardLeftColumn = styled.div`
+  display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+`
+
+const ServiceCardRightColumn = styled.div`
+  padding-right: 10px;
 `
 
 const ServiceCardIcon = styled.div`
@@ -102,6 +113,10 @@ const DotSeperator = styled.div`
 `
 
 const ServiceCardTag = styled.div``
+
+const ArrowContainer = styled.div``
+
+const ArrowSvg = styled.img``
 
 export default function ServiceCard({isEnabled, address, icon, name, service, lastUsed = false}) {
   const {extensions, appVersion} = useFCL()
@@ -138,14 +153,21 @@ export default function ServiceCard({isEnabled, address, icon, name, service, la
       <ServiceCardContainer enabled={isEnabled} onClick={onSelect}>
         {lastUsed && <ServiceContainerTag>Last Used</ServiceContainerTag>}
         <ServiceCardRow>
-          <ServiceCardIcon icon={icon} />
-          <ServiceCardName>{name}</ServiceCardName>
-          {isInstalled && 
-            <ServiceCardTags>
-              <DotSeperator> · </DotSeperator>
-              <ServiceCardTag>Installed</ServiceCardTag>
-            </ServiceCardTags>
-          }
+          <ServiceCardLeftColumn>
+            <ServiceCardIcon icon={icon} />
+            <ServiceCardName>{name}</ServiceCardName>
+            {isInstalled && 
+              <ServiceCardTags>
+                <DotSeperator> · </DotSeperator>
+                <ServiceCardTag>Installed</ServiceCardTag>
+              </ServiceCardTags>
+            }
+          </ServiceCardLeftColumn>
+          <ServiceCardRightColumn>
+            <ArrowContainer>
+              <ArrowSvg src="/images/arrow-right.svg" alt="Select" />
+            </ArrowContainer>
+          </ServiceCardRightColumn>
         </ServiceCardRow>
       </ServiceCardContainer>
     </RowContainer>
