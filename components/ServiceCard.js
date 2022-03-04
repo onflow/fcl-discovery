@@ -51,7 +51,7 @@ const ServiceCardContainer = styled.a`
   transition: 0.1s ease-in transform;
 
   &:hover {
-    transform: scale(1.01)
+    transform: scale(1.01);
   }
 `
 
