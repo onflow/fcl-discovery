@@ -89,7 +89,12 @@ const ServiceCardLeftColumn = styled.div`
 `
 
 const ServiceCardRightColumn = styled.div`
-  padding-right: 10px;
+  padding: 0 10px 0 5px;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+  
 `
 
 const ServiceCardIcon = styled.div`
