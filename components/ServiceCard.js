@@ -139,6 +139,14 @@ export default function ServiceCard({isEnabled, address, icon, name, service, la
   const serviceWebsite = service?.provider?.website
   const hasWebsite = Boolean(service?.provider?.website)
 
+  const truncateString = (str, n) => {
+    if (str.length > n) {
+      return str.substring(0, n) + "...";
+    } else {
+      return str;
+    }
+  }
+
   const onSelect = () => {
     if (!service) return
 
@@ -169,7 +177,7 @@ export default function ServiceCard({isEnabled, address, icon, name, service, la
         <ServiceCardRow>
           <ServiceCardLeftColumn>
             <ServiceCardIcon icon={icon} />
-            <ServiceCardName>{name}</ServiceCardName>
+            <ServiceCardName>{truncateString(name, 15)}</ServiceCardName>
             {isInstalled && 
               <ServiceCardTags>
                 <DotSeperator> · </DotSeperator>
