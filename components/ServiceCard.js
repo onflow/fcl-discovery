@@ -18,8 +18,8 @@ const RowContainer = styled.div`
 const MoreSection = styled.div`
   margin-right: 10px;
   cursor: pointer;
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 1.6rem;
+  height: 1.6rem;
   transition: 0.1s ease-in transform;
 
   &:hover {
@@ -28,8 +28,8 @@ const MoreSection = styled.div`
 `
 
 const MoreImg = styled.img`
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 1.6rem;
+  height: 1.6rem;
 `
 
 const ServiceCardContainer = styled.a`
@@ -94,7 +94,6 @@ const ServiceCardRightColumn = styled.div`
   @media (max-width: 480px) {
     display: none;
   }
-  
 `
 
 const ServiceCardIcon = styled.div`
@@ -112,6 +111,10 @@ const ServiceCardName = styled.div`
   font-size: 1.4rem;
   color: ${COLORS.BLACK};
   font-weight: 600;
+
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
 `
 
 const ServiceCardTags = styled.div`
