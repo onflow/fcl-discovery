@@ -14,7 +14,7 @@ const DiscoveryContainer = styled.div`
   width: 100%;
   box-sizing: border-box;
   overflow-y: auto;
-  padding: 5px;
+  padding: 5px 10px 5px 5px;
 `
 
 const ProvidersList = styled.div``
