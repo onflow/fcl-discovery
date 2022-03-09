@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
   :root {
     --text-primary: #0F0F0F;
     --text-secondary: #0B0B0B;
-    --font-family:"Overpass",sans-serif;
+    --font-family: Overpass, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   }
   body {
     background-color: transparent;
@@ -66,9 +66,23 @@ const CloseSection = styled.div`
   height: 20px;
   right: 25px;
   transition: 0.1s ease-in transform;
+  animation-name: waitToShow;
+  animation-duration: 1s;
 
   &:hover {
     transform: scale(1.1)
+  }
+
+  @keyframes waitToShow {
+    0% {
+      opacity: 0;
+    }
+    80% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 `
 

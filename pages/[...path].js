@@ -6,7 +6,7 @@ import {useFCL} from "../hooks/useFCL"
 
 const AppContainer = styled.div`
   max-height: 0;
-  transition: max-height 100ms ease-in;
+  transition: max-height 250ms ease-in;
 
   ${props =>
     props.isSet &&
