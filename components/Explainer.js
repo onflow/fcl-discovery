@@ -30,9 +30,9 @@ export default function Explainer() {
         <div><strong>{appConfig?.title || "Unknown App"}</strong></div>
         <div>wants to connect to your wallet.</div>
       </ExplainerDescription>
-      <ExplainerLink>
+      {/* <ExplainerLink>
         <div onClick={() => window.open("https://docs.onflow.org/flow-token/available-wallets/", "_blank")}>What is a wallet?</div>
-      </ExplainerLink>
+      </ExplainerLink> */}
     </ExplainerContainer>
   )
 }
