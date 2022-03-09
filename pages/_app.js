@@ -65,6 +65,11 @@ const CloseSection = styled.div`
   width: 20px;
   height: 20px;
   right: 25px;
+  transition: 0.1s ease-in transform;
+
+  &:hover {
+    transform: scale(1.1)
+  }
 `
 
 const CloseIcon = styled.img`

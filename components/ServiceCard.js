@@ -16,6 +16,11 @@ const MoreSection = styled.div`
   cursor: pointer;
   width: 1.8rem;
   height: 1.8rem;
+  transition: 0.1s ease-in transform;
+
+  &:hover {
+    transform: scale(1.1)
+  }
 `
 
 const MoreImg = styled.img`
