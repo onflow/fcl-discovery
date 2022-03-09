@@ -9,6 +9,10 @@ const RowContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `
 
 const MoreSection = styled.div`
