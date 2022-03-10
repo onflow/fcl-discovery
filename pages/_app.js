@@ -111,7 +111,7 @@ function MyApp({Component, pageProps}) {
   }
 
   const developerMessage = "👋 Hey Flow dev (you're only seeing this on Testnet), looks like you're missing some app configuration. You can add an icon and title to brand this for your app by setting it in your FCL config."
-  const developerLink = "https://docs.onflow.org/fcl/reference/configure-fcl/"
+  const developerLink = "https://github.com/onflow/fcl-discovery/blob/master/README.md"
 
   const closeMessage = event => {
     event.stopPropagation()
