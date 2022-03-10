@@ -28,6 +28,41 @@ yarn dev
 | Mainnet        | `http://localhost:3000/api/authn`         |
 | Testnet        | `http://localhost:3000/api/testnet/authn` |
 
+## Configuration (For FCL)
+
+These are examples on how to set configuration from FCL](https://docs.onflow.org/fcl/) in your application.
+
+### Include Opt In Wallets
+
+**Starting in FCL v0.0.78-alpha.10**
+
+To include opt-in wallets from FCL:
+
+```
+import * as fcl from "@onflow/fcl"
+
+fcl.config({
+  "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
+  "discovery.authn.endpoint": "https://fcl-discovery.onflow.org/api/testnet/authn",
+  "discovery.authn.include": ["0x123"] // Service account address
+})
+```
+
+### App Title & Icon
+
+**Starting in FCL v0.0.79-alpha.4**
+
+To set an app title and icon from FCL:
+
+```
+import * as fcl from "@onflow/fcl"
+
+fcl.config({
+  "app.detail.title": "Test App",
+  "app.detail.icon": "https://placekitten.com/g/200/200"
+})
+```
+
 ## Documentation
 
 To learn more about the repo, take a look at the following resources:
