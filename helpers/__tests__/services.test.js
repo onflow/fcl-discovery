@@ -192,4 +192,26 @@ describe("services helpers: sortByAddress", () => {
 
     expect(sortByAddress(services, address)).toEqual(services)
   })
+
+  it("if selected address is not in services it should return services as is", () => {
+    const address = "0xC"
+
+    const serviceA = {
+      type: "authn",
+      provider: {
+        address: "0xA"
+      }
+    }
+
+    const serviceB = {
+      type: "authn",
+      provider: {
+        address: "0xB"
+      }
+    }
+
+    const services = [serviceA, serviceB]
+
+    expect(sortByAddress(services, address)).toEqual(services)
+  })
 })
