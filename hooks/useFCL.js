@@ -14,8 +14,9 @@ export function useFCL() {
     setHasInitialized(true)
     setLoading(true)
 
-    WalletUtils.ready(({body, config}) => {
-      const fclVersion = config?.client?.fclVersion
+    WalletUtils.ready(({fclVersion, body, config}) => {
+      // config.client.fclVersion is only available starting in version 0.0.79-alpha.4
+      const appFclVersion = config?.client?.fclVersion || fclVersion || null
       
       if (config?.app) {
         setAppConfig(config.app)
@@ -25,7 +26,7 @@ export function useFCL() {
         setClientConfig(config.client)
       }
 
-      if (fclVersion) {
+      if (appFclVersion) {
         setExtensions(body.extensions)
         setAppVersion(fclVersion)
         setWalletInclude(config.discoveryAuthnInclude || [])
