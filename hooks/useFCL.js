@@ -28,7 +28,7 @@ export function useFCL() {
 
       if (appFclVersion) {
         setExtensions(body.extensions)
-        setAppVersion(fclVersion)
+        setAppVersion(appFclVersion)
         setWalletInclude(config.discoveryAuthnInclude || [])
       }
 
