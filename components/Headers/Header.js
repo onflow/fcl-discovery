@@ -6,8 +6,8 @@ import {SUPPORTED_VERSIONS} from "../../helpers/constants"
 import Explainer from "../Explainer"
 
 export default function Header() {
-  const {clientConfig} = useFCL()
-  const isAppHeaderSupported = isGreaterThanOrEqualToVersion(clientConfig?.fclVersion, SUPPORTED_VERSIONS.APP_CONFIG)
+  const {appVersion} = useFCL()
+  const isAppHeaderSupported = isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.APP_CONFIG)
 
   return (
     <>
