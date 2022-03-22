@@ -30,7 +30,7 @@ yarn dev
 
 ## Configuration (For FCL)
 
-These are examples on how to set configuration from FCL](https://docs.onflow.org/fcl/) in your application.
+These are examples on how to set configuration from [FCL](https://docs.onflow.org/fcl/) in your application.
 
 ### Include Opt In Wallets
 
@@ -62,6 +62,19 @@ fcl.config({
   "app.detail.icon": "https://placekitten.com/g/200/200"
 })
 ```
+
+## Adding a Wallet to Discovery
+
+Flow compatible wallets wanting to add their wallets to Discovery can do by creating a PR with the following:
+
+- Add your wallet's service information to the [services data file](https://github.com/onflow/fcl-discovery/blob/master/data/services.json)
+- Provide a demo of your wallet that can be tested and is connected to Testnet
+
+For more information/examples on how to build a Flow compatible wallet, check out the following links:
+
+- [Wallet Provider Spec](https://github.com/onflow/fcl-js/blob/9bce741d3b32fde18b07084b62ea15f9bbdb85bc/packages/fcl/src/wallet-provider-spec/draft-v3.md)
+- [FCL Dev Wallet](https://github.com/onflow/fcl-dev-wallet)
+- [Example Chrome Extension Wallet](https://github.com/onflow/wallet-extension-example)
 
 ## Documentation
 
