@@ -65,7 +65,7 @@ fcl.config({
 
 ## Adding a Wallet to Discovery
 
-Flow compatible wallets wanting to add their wallets to Discovery can do by creating a PR with the following:
+Flow compatible wallets wanting to add their wallets to Discovery can do so by creating a PR with the following:
 
 - Add your wallet's service information to the [services data file](https://github.com/onflow/fcl-discovery/blob/master/data/services.json)
 - Provide a demo of your wallet that can be tested and is connected to Testnet
