@@ -4,8 +4,14 @@ import servicesJson from "../../data/services.json"
 import {isValidPath, getNetworkFromPath}  from "../../helpers/paths"
 import {filterOptInServices} from "../../helpers/services"
 import {pipe} from "../../helpers/pipe"
-import {SUPPORTED_VERSIONS} from "../../helpers/constants"
+import {SUPPORTED_VERSIONS, SENTRY_DSN} from "../../helpers/constants"
 import {isGreaterThanOrEqualToVersion} from "../../helpers/version"
+import * as Sentry from "@sentry/nextjs";
+
+Sentry.init({
+  dsn: SENTRY_DSN,
+  tracesSampleRate: 1.0
+})
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -28,7 +34,7 @@ function runMiddleware(req, res, fn) {
 
 const shouldFilterOrReturnDefault = (filterFn, fact, original) => fact ? filterFn() : original
 
-export default async function handler(req, res) {
+async function handler(req, res) {
   await runMiddleware(req, res, cors)
   
   const {slug} = req.query
@@ -48,3 +54,5 @@ export default async function handler(req, res) {
 
   return res.status(200).json(services)
 }
+
+export default Sentry.withSentry(handler)
