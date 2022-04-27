@@ -4,15 +4,10 @@ import servicesJson from "../../data/services.json"
 import {isValidPath, getNetworkFromPath}  from "../../helpers/paths"
 import {filterOptInServices} from "../../helpers/services"
 import {pipe} from "../../helpers/pipe"
-import {SUPPORTED_VERSIONS, SENTRY_DSN} from "../../helpers/constants"
+import {SUPPORTED_VERSIONS} from "../../helpers/constants"
 import {isGreaterThanOrEqualToVersion} from "../../helpers/version"
-import * as Sentry from "@sentry/nextjs"
+import Sentry from '../../config/sentry.server'
 import mixpanel from '../../config/mixpanel.server'
-
-Sentry.init({
-  dsn: SENTRY_DSN,
-  tracesSampleRate: 1.0
-})
 
 // Initializing the cors middleware
 const cors = Cors({
