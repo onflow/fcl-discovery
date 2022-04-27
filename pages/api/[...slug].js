@@ -6,7 +6,8 @@ import {filterOptInServices} from "../../helpers/services"
 import {pipe} from "../../helpers/pipe"
 import {SUPPORTED_VERSIONS, SENTRY_DSN} from "../../helpers/constants"
 import {isGreaterThanOrEqualToVersion} from "../../helpers/version"
-import * as Sentry from "@sentry/nextjs";
+import * as Sentry from "@sentry/nextjs"
+import mixpanel from '../../config/mixpanel.server'
 
 Sentry.init({
   dsn: SENTRY_DSN,
@@ -46,6 +47,12 @@ async function handler(req, res) {
 
   if (!isValid) {
     return res.status(400).json({message: "Invalid Network"})
+  }
+
+  if (process.env.NODE_ENV === 'production') {
+    mixpanel.track('Wallet Discovery Request', {
+      type: discoveryRequestType
+    })
   }
 
   const services = pipe(
