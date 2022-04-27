@@ -30,7 +30,7 @@ const fetcher = (url, opts) => {
 }
 
 export const Discovery = ({network, appVersion, extensions, walletInclude}) => {
-  const requestUrl = `/api${PATHS[network]}`
+  const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
   const {data, error} = useSWR(requestUrl, url => fetcher(url, {
     fclVersion: appVersion,
     include: walletInclude 

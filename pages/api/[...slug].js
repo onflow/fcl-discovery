@@ -37,11 +37,12 @@ const shouldFilterOrReturnDefault = (filterFn, fact, original) => fact ? filterF
 async function handler(req, res) {
   await runMiddleware(req, res, cors)
   
-  const {slug} = req.query
+  const {slug, discoveryType} = req.query
   const {fclVersion, include} = req.body
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug)
   const isFilteringSupported = isGreaterThanOrEqualToVersion(fclVersion, SUPPORTED_VERSIONS.FILTERING)
+  const discoveryRequestType = discoveryType || 'API'
 
   if (!isValid) {
     return res.status(400).json({message: "Invalid Network"})
