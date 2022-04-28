@@ -46,7 +46,8 @@ async function handler(req, res) {
 
   if (process.env.NODE_ENV === 'production') {
     mixpanel.track('Wallet Discovery Request', {
-      type: discoveryRequestType
+      type: discoveryRequestType,
+      network
     })
   }
 
