@@ -44,12 +44,10 @@ async function handler(req, res) {
     return res.status(400).json({message: "Invalid Network"})
   }
 
-  if (process.env.NODE_ENV === 'production') {
-    mixpanel.track('Wallet Discovery Request', {
-      type: discoveryRequestType,
-      network
-    })
-  }
+  mixpanel.track('Wallet Discovery Request', {
+    type: discoveryRequestType,
+    network
+  })
 
   const services = pipe(
     s => shouldFilterOrReturnDefault(() => filterOptInServices(s, include), isFilteringSupported, s)
