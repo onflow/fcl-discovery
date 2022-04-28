@@ -36,7 +36,7 @@ async function handler(req, res) {
   const {slug, discoveryType} = req.query
   const {fclVersion, include} = req.body
   const isValid = isValidPath(slug)
-  const network = getNetworkFromPath(slug)
+  const network = getNetworkFromPath(slug).toLowerCase()
   const isFilteringSupported = isGreaterThanOrEqualToVersion(fclVersion, SUPPORTED_VERSIONS.FILTERING)
   const discoveryRequestType = discoveryType || 'API'
 
