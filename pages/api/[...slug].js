@@ -4,14 +4,10 @@ import servicesJson from "../../data/services.json"
 import {isValidPath, getNetworkFromPath}  from "../../helpers/paths"
 import {filterOptInServices} from "../../helpers/services"
 import {pipe} from "../../helpers/pipe"
-import {SUPPORTED_VERSIONS, SENTRY_DSN} from "../../helpers/constants"
+import {SUPPORTED_VERSIONS} from "../../helpers/constants"
 import {isGreaterThanOrEqualToVersion} from "../../helpers/version"
-import * as Sentry from "@sentry/nextjs";
-
-Sentry.init({
-  dsn: SENTRY_DSN,
-  tracesSampleRate: 1.0
-})
+import Sentry from '../../config/sentry.server'
+import mixpanel from '../../config/mixpanel.server'
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -37,15 +33,21 @@ const shouldFilterOrReturnDefault = (filterFn, fact, original) => fact ? filterF
 async function handler(req, res) {
   await runMiddleware(req, res, cors)
   
-  const {slug} = req.query
+  const {slug, discoveryType} = req.query
   const {fclVersion, include} = req.body
   const isValid = isValidPath(slug)
-  const network = getNetworkFromPath(slug)
+  const network = getNetworkFromPath(slug).toLowerCase()
   const isFilteringSupported = isGreaterThanOrEqualToVersion(fclVersion, SUPPORTED_VERSIONS.FILTERING)
+  const discoveryRequestType = discoveryType || 'API'
 
   if (!isValid) {
     return res.status(400).json({message: "Invalid Network"})
   }
+
+  mixpanel.track('Wallet Discovery Request', {
+    type: discoveryRequestType,
+    network
+  })
 
   const services = pipe(
     s => shouldFilterOrReturnDefault(() => filterOptInServices(s, include), isFilteringSupported, s)
