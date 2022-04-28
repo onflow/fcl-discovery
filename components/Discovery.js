@@ -45,7 +45,7 @@ export const Discovery = ({network, appVersion, extensions, walletInclude}) => {
         if (!isSupported) return data
         return combineServices(data, extensions, true)
       },
-      data => serviceListOfType(data, SERVICE_TYPES.AUTHN), // Only show authn services
+      data => serviceListOfType(data, SERVICE_TYPES.authn), // Only show authn services
       data => sortByAddress(data, lastUsed) // Put last used service at top
     )(data)
   }, [data, extensions, appVersion])

@@ -1,15 +1,14 @@
-export const NETWORKS = {
-  TESTNET: "testnet"
-}
+import Enum from 'enum-xyz'
+
+const {canarynet, testnet, mainnet, authn} = Enum.String
+
+export const NETWORKS = {canarynet, testnet, mainnet}
+export const SERVICE_TYPES = {authn}
 
 export const PATHS = {
   mainnet: "/authn",
   testnet: "/testnet/authn",
   canarynet: "/canarynet/authn",
-}
-
-export const SERVICE_TYPES = {
-  AUTHN: "authn",
 }
 
 export const SUPPORTED_VERSIONS = {
