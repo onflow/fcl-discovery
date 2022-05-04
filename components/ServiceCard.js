@@ -153,7 +153,7 @@ export default function ServiceCard({isEnabled, address, icon, name, service, la
   const onSelect = () => {
     if (!service) return
 
-    setLastUsed(service?.provider?.address)
+    setLastUsed(service?.provider?.address) // TODO: Handle WC without an address
 
     if (
       appVersion &&

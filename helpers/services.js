@@ -50,3 +50,39 @@ export function sortByAddress(services, selectedAddress) {
   const servicesWithoutSpecified = services.filter(service => service?.provider?.address !== selectedAddress)
   return [serviceWithAddress, ...servicesWithoutSpecified]
 }
+
+// TODO: Add test
+export function createGenericService({ 
+  type, 
+  f_vsn = '1.0.0', 
+  method = "IFRAME/RPC", 
+  uid, 
+  endpoint, 
+  optIn = true, 
+  address, 
+  name, 
+  icon,
+  description, 
+  color, 
+  supportEmail, 
+  website }) {
+
+  return {
+    "f_type": "Service",
+    f_vsn,
+    type,
+    method,
+    uid,
+    endpoint,
+    optIn,
+    "provider": {
+      address,
+      name,
+      icon,
+      description,
+      color,
+      supportEmail,
+      website
+    }
+  }
+}

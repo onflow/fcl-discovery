@@ -1,7 +1,7 @@
 import {useMemo} from "react"
 import useSWR from "swr"
 import styled from "styled-components"
-import {combineServices, serviceListOfType, sortByAddress} from "../helpers/services"
+import {combineServices, createGenericService, serviceListOfType, sortByAddress} from "../helpers/services"
 import {LOCAL_STORAGE_KEYS, PATHS, SERVICE_TYPES, SUPPORTED_VERSIONS} from "../helpers/constants"
 import ServiceCard from "./ServiceCard"
 import {isGreaterThanOrEqualToVersion} from "../helpers/version"
@@ -29,7 +29,7 @@ const fetcher = (url, opts) => {
   }).then(d => d.json())
 }
 
-export const Discovery = ({network, appVersion, extensions, walletInclude}) => {
+export const Discovery = ({network, appVersion, extensions, walletInclude, wcProviderId}) => {
   const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
   const {data, error} = useSWR(requestUrl, url => fetcher(url, {
     fclVersion: appVersion,
@@ -44,6 +44,18 @@ export const Discovery = ({network, appVersion, extensions, walletInclude}) => {
       data => {
         if (!isSupported) return data
         return combineServices(data, extensions, true)
+      },
+      data => {
+        if (wcProviderId) {
+          return [...data, createGenericService({
+            type: 'authn',
+            method: 'WC/RPC',
+            uid: 'wc#authn',
+            name: 'WC'
+          })]
+        } else {
+          return data
+        }
       },
       data => serviceListOfType(data, SERVICE_TYPES.authn), // Only show authn services
       data => sortByAddress(data, lastUsed) // Put last used service at top

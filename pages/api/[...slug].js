@@ -49,6 +49,7 @@ async function handler(req, res) {
     network
   })
 
+  // TODO: WC filtering
   const services = pipe(
     s => shouldFilterOrReturnDefault(() => filterOptInServices(s, include), isFilteringSupported, s)
   )(servicesJson[network])
