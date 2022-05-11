@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@onflow/fcl": "0.0.78",
+    "@onflow/fcl": "1.0.0",
     "@sentry/nextjs": "^6.19.6",
     "cors": "^2.8.5",
     "enum-xyz": "^0.1.0",
