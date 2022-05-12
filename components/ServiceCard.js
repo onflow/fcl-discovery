@@ -1,13 +1,13 @@
-import {WalletUtils} from "@onflow/fcl"
-import styled from "styled-components"
+import { WalletUtils } from '@onflow/fcl'
+import styled from 'styled-components'
 import {
   COLORS,
   LOCAL_STORAGE_KEYS,
   SUPPORTED_VERSIONS,
-} from "../helpers/constants"
-import {isGreaterThanOrEqualToVersion} from "../helpers/version"
-import {useFCL} from "../hooks/useFCL"
-import {useLocalStorage} from "../hooks/useLocalStorage"
+} from '../helpers/constants'
+import { isGreaterThanOrEqualToVersion } from '../helpers/version'
+import { useFCL } from '../hooks/useFCL'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const RowContainer = styled.div`
   display: flex;
@@ -52,8 +52,8 @@ const ServiceCardContainer = styled.a`
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
 
-  opacity: ${props => (props.enabled ? "1" : "0.7")};
-  cursor: ${props => (props.enabled ? "pointer" : "unset")};
+  opacity: ${(props) => (props.enabled ? '1' : '0.7')};
+  cursor: ${(props) => (props.enabled ? 'pointer' : 'unset')};
 
   text-decoration: none;
   user-select: none;
@@ -106,8 +106,8 @@ const ServiceCardIcon = styled.div`
 
   border-radius: 0.5rem;
 
-  background-color: ${({color, icon}) => (!icon ? color : "unset")};
-  background-image: url(${({icon}) => icon});
+  background-color: ${({ color, icon }) => (!icon ? color : 'unset')};
+  background-image: url(${({ icon }) => icon});
   background-size: cover;
 `
 
@@ -147,8 +147,10 @@ export default function ServiceCard({
   service,
   lastUsed = false,
 }) {
-  const {extensions, appVersion} = useFCL()
-  const isInstalled = extensions.some(ext => ext?.provider?.address === address)
+  const { extensions, appVersion } = useFCL()
+  const isInstalled = extensions.some(
+    (ext) => ext?.provider?.address === address
+  )
   const [_, setLastUsed] = useLocalStorage(
     LOCAL_STORAGE_KEYS.LAST_INSTALLED,
     null
@@ -158,7 +160,7 @@ export default function ServiceCard({
 
   const truncateString = (str, n) => {
     if (str.length > n) {
-      return str.substring(0, n) + "..."
+      return str.substring(0, n) + '...'
     } else {
       return str
     }
@@ -181,7 +183,7 @@ export default function ServiceCard({
 
   const openMoreInfo = () => {
     if (!hasWebsite) return
-    window.open(serviceWebsite, "_blank")
+    window.open(serviceWebsite, '_blank')
   }
 
   return (

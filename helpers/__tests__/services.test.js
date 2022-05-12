@@ -4,31 +4,31 @@ import {
   getServiceByAddress,
   serviceListOfType,
   sortByAddress,
-} from "../services"
+} from '../services'
 
-describe("services helpers: combineServices", () => {
-  it("should combine services with right ordering and filter unique", () => {
+describe('services helpers: combineServices', () => {
+  it('should combine services with right ordering and filter unique', () => {
     const serviceA = {
-      endpoint: "https://flow-wallet.blocto.app/authn",
+      endpoint: 'https://flow-wallet.blocto.app/authn',
       provider: {
         address: 1,
-        name: "Blocto",
+        name: 'Blocto',
       },
     }
 
     const serviceB = {
-      endpoint: "https://fcl-ledger.onflow.org/mainnet/authn",
+      endpoint: 'https://fcl-ledger.onflow.org/mainnet/authn',
       provider: {
         address: 2,
-        name: "Ledger",
+        name: 'Ledger',
       },
     }
 
     const serviceC = {
-      endpoint: "liquality",
+      endpoint: 'liquality',
       provider: {
         address: 3,
-        name: "Liquality Wallet Extension",
+        name: 'Liquality Wallet Extension',
       },
     }
 
@@ -46,47 +46,47 @@ describe("services helpers: combineServices", () => {
   })
 })
 
-describe("services helpers: serviceListOfType", () => {
-  it("should combine services with right ordering and filter unique", () => {
+describe('services helpers: serviceListOfType', () => {
+  it('should combine services with right ordering and filter unique', () => {
     const serviceA = {
-      type: "authn",
+      type: 'authn',
     }
 
     const serviceB = {
-      type: "authz",
+      type: 'authz',
     }
 
     const serviceC = {
-      type: "pre-authz",
+      type: 'pre-authz',
     }
 
     const serviceList = [serviceA, serviceB, serviceC]
 
-    expect(serviceListOfType(serviceList, "authn").length).toEqual(1)
-    expect(serviceListOfType(serviceList, "authn")[0]).toEqual(serviceA)
+    expect(serviceListOfType(serviceList, 'authn').length).toEqual(1)
+    expect(serviceListOfType(serviceList, 'authn')[0]).toEqual(serviceA)
   })
 })
 
-describe("services helpers: filterOptInServices", () => {
-  it("should only include optIn services if specified", () => {
-    const optInAddress = "0xC"
+describe('services helpers: filterOptInServices', () => {
+  it('should only include optIn services if specified', () => {
+    const optInAddress = '0xC'
 
     const serviceA = {
-      type: "authn",
+      type: 'authn',
       provider: {
-        address: "0xA",
+        address: '0xA',
       },
     }
 
     const serviceB = {
-      type: "authz",
+      type: 'authz',
       provider: {
-        address: "0xB",
+        address: '0xB',
       },
     }
 
     const serviceC = {
-      type: "pre-authz",
+      type: 'pre-authz',
       optIn: true,
       provider: {
         address: optInAddress,
@@ -112,28 +112,28 @@ describe("services helpers: filterOptInServices", () => {
   })
 })
 
-describe("services helpers: getServiceByAddress", () => {
-  it("should pick correct address", () => {
-    const address = "0xB"
+describe('services helpers: getServiceByAddress', () => {
+  it('should pick correct address', () => {
+    const address = '0xB'
 
     const serviceA = {
-      type: "authn",
+      type: 'authn',
       provider: {
-        address: "0xA",
+        address: '0xA',
       },
     }
 
     const serviceB = {
-      type: "authn",
+      type: 'authn',
       provider: {
         address: address,
       },
     }
 
     const serviceC = {
-      type: "authn",
+      type: 'authn',
       provider: {
-        address: "0xC",
+        address: '0xC',
       },
     }
 
@@ -143,28 +143,28 @@ describe("services helpers: getServiceByAddress", () => {
   })
 })
 
-describe("services helpers: sortByAddress", () => {
-  it("should put selected installed first", () => {
-    const address = "0xB"
+describe('services helpers: sortByAddress', () => {
+  it('should put selected installed first', () => {
+    const address = '0xB'
 
     const serviceA = {
-      type: "authn",
+      type: 'authn',
       provider: {
-        address: "0xA",
+        address: '0xA',
       },
     }
 
     const serviceB = {
-      type: "authn",
+      type: 'authn',
       provider: {
         address: address,
       },
     }
 
     const serviceC = {
-      type: "authn",
+      type: 'authn',
       provider: {
-        address: "0xC",
+        address: '0xC',
       },
     }
 
@@ -174,27 +174,27 @@ describe("services helpers: sortByAddress", () => {
     expect(sortByAddress(services, address)).toEqual(expectedRes)
   })
 
-  it("if no selected address it should return services as is", () => {
+  it('if no selected address it should return services as is', () => {
     const address = null
 
     const serviceA = {
-      type: "authn",
+      type: 'authn',
       provider: {
-        address: "0xA",
+        address: '0xA',
       },
     }
 
     const serviceB = {
-      type: "authn",
+      type: 'authn',
       provider: {
-        address: "0xB",
+        address: '0xB',
       },
     }
 
     const serviceC = {
-      type: "authn",
+      type: 'authn',
       provider: {
-        address: "0xC",
+        address: '0xC',
       },
     }
 
@@ -203,20 +203,20 @@ describe("services helpers: sortByAddress", () => {
     expect(sortByAddress(services, address)).toEqual(services)
   })
 
-  it("if selected address is not in services it should return services as is", () => {
-    const address = "0xC"
+  it('if selected address is not in services it should return services as is', () => {
+    const address = '0xC'
 
     const serviceA = {
-      type: "authn",
+      type: 'authn',
       provider: {
-        address: "0xA",
+        address: '0xA',
       },
     }
 
     const serviceB = {
-      type: "authn",
+      type: 'authn',
       provider: {
-        address: "0xB",
+        address: '0xB',
       },
     }
 

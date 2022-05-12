@@ -1,22 +1,22 @@
-import {useMemo} from "react"
-import useSWR from "swr"
-import styled from "styled-components"
+import { useMemo } from 'react'
+import useSWR from 'swr'
+import styled from 'styled-components'
 import {
   combineServices,
   serviceListOfType,
   sortByAddress,
-} from "../helpers/services"
+} from '../helpers/services'
 import {
   LOCAL_STORAGE_KEYS,
   PATHS,
   SERVICE_TYPES,
   SUPPORTED_VERSIONS,
-} from "../helpers/constants"
-import ServiceCard from "./ServiceCard"
-import {isGreaterThanOrEqualToVersion} from "../helpers/version"
-import Header from "./Headers/Header"
-import {useLocalStorage} from "../hooks/useLocalStorage"
-import {pipe} from "../helpers/pipe"
+} from '../helpers/constants'
+import ServiceCard from './ServiceCard'
+import { isGreaterThanOrEqualToVersion } from '../helpers/version'
+import Header from './Headers/Header'
+import { useLocalStorage } from '../hooks/useLocalStorage'
+import { pipe } from '../helpers/pipe'
 
 const DiscoveryContainer = styled.div`
   height: 100%;
@@ -30,17 +30,22 @@ const ProvidersList = styled.div``
 
 const fetcher = (url, opts) => {
   return fetch(url, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(opts),
-  }).then(d => d.json())
+  }).then((d) => d.json())
 }
 
-export const Discovery = ({network, appVersion, extensions, walletInclude}) => {
+export const Discovery = ({
+  network,
+  appVersion,
+  extensions,
+  walletInclude,
+}) => {
   const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
-  const {data, error} = useSWR(requestUrl, url =>
+  const { data, error } = useSWR(requestUrl, (url) =>
     fetcher(url, {
       fclVersion: appVersion,
       include: walletInclude,
@@ -55,12 +60,12 @@ export const Discovery = ({network, appVersion, extensions, walletInclude}) => {
     )
 
     return pipe(
-      data => {
+      (data) => {
         if (!isSupported) return data
         return combineServices(data, extensions, true)
       },
-      data => serviceListOfType(data, SERVICE_TYPES.authn), // Only show authn services
-      data => sortByAddress(data, lastUsed) // Put last used service at top
+      (data) => serviceListOfType(data, SERVICE_TYPES.authn), // Only show authn services
+      (data) => sortByAddress(data, lastUsed) // Put last used service at top
     )(data)
   }, [data, extensions, appVersion])
 

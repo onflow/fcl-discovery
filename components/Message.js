@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import {COLORS} from "../helpers/constants"
+import styled from 'styled-components'
+import { COLORS } from '../helpers/constants'
 
 const MessageContainer = styled.div`
   background: ${COLORS.WARNING};
@@ -33,14 +33,14 @@ const MessageLink = styled.a`
   cursor: pointer;
 `
 
-export function Message({text, link, onClose}) {
+export function Message({ text, link, onClose }) {
   return (
     <MessageContainer>
       <MessageText>
         <div>{text}</div>
         <div>
-          For more info, see{" "}
-          <MessageLink onClick={() => window.open(link, "_blank")}>
+          For more info, see{' '}
+          <MessageLink onClick={() => window.open(link, '_blank')}>
             {link}
           </MessageLink>
         </div>

@@ -1,6 +1,6 @@
-import styled from "styled-components"
-import {COLORS} from "../../helpers/constants"
-import {useFCL} from "../../hooks/useFCL"
+import styled from 'styled-components'
+import { COLORS } from '../../helpers/constants'
+import { useFCL } from '../../hooks/useFCL'
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ const ClientDomain = styled.div`
 `
 
 export default function AppHeader() {
-  const {appConfig, clientConfig} = useFCL()
+  const { appConfig, clientConfig } = useFCL()
 
   return (
     <HeaderContainer>
