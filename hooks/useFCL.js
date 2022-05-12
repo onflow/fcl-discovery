@@ -18,8 +18,9 @@ export function useFCL() {
       // config.client.fclVersion is only available starting in version 0.0.79-alpha.4
       // config?.client?.extensions starts in fcl v1
       const appFclVersion = config?.client?.fclVersion || fclVersion || null
-      const clientExtensions = config?.client?.extensions || body?.extensions || []
-      
+      const clientExtensions =
+        config?.client?.extensions || body?.extensions || []
+
       if (config?.app) {
         setAppConfig(config.app)
       }
@@ -45,6 +46,6 @@ export function useFCL() {
     clientConfig,
     appVersion,
     extensions,
-    walletInclude
+    walletInclude,
   }
 }

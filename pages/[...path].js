@@ -18,7 +18,8 @@ const AppContainer = styled.div`
 const Router = () => {
   const router = useRouter()
   const {path} = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn']
-  const {hasInitialized, loading, appVersion, extensions, walletInclude} = useFCL()
+  const {hasInitialized, loading, appVersion, extensions, walletInclude} =
+    useFCL()
   const isValid = isValidPath(path)
   const network = getNetworkFromPath(path)
 
@@ -27,7 +28,7 @@ const Router = () => {
       {!path && <div />}
       {path && !isValid && <div>Page Not Found</div>}
       {path && isValid && hasInitialized && !loading && (
-        <Discovery 
+        <Discovery
           network={network}
           appVersion={appVersion}
           extensions={extensions}

@@ -16,17 +16,17 @@ yarn dev
 
 ### Discovery Routes
 
-| Environment    | Example                                   |
-| -------------- | ----------------------------------------- |
-| Mainnet        | `http://localhost:3000/authn`             |
-| Testnet        | `http://localhost:3000/testnet/authn`     |
+| Environment | Example                               |
+| ----------- | ------------------------------------- |
+| Mainnet     | `http://localhost:3000/authn`         |
+| Testnet     | `http://localhost:3000/testnet/authn` |
 
 ### Discovery API Endpoints
 
-| Environment    | Example                                   |
-| -------------- | ----------------------------------------- |
-| Mainnet        | `http://localhost:3000/api/authn`         |
-| Testnet        | `http://localhost:3000/api/testnet/authn` |
+| Environment | Example                                   |
+| ----------- | ----------------------------------------- |
+| Mainnet     | `http://localhost:3000/api/authn`         |
+| Testnet     | `http://localhost:3000/api/testnet/authn` |
 
 ## Configuration (For FCL)
 

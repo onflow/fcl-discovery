@@ -7,7 +7,10 @@ import Explainer from "../Explainer"
 
 export default function Header() {
   const {appVersion} = useFCL()
-  const isAppHeaderSupported = isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.APP_CONFIG)
+  const isAppHeaderSupported = isGreaterThanOrEqualToVersion(
+    appVersion,
+    SUPPORTED_VERSIONS.APP_CONFIG
+  )
 
   return (
     <>

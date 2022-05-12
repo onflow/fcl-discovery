@@ -1,4 +1,4 @@
-import { isGreaterThanOrEqualToVersion } from "../version"
+import {isGreaterThanOrEqualToVersion} from "../version"
 
 describe("isGreaterThanOrEqualToVersion", () => {
   it("it should check if versions are greater than or equal to", () => {
@@ -14,16 +14,32 @@ describe("isGreaterThanOrEqualToVersion", () => {
     const versionI = "1.0.79-alpha.3"
     const versionJ = "0.0.78-alpha.9"
     const versionK = "0.0.78-alpha.10"
-    expect(isGreaterThanOrEqualToVersion(versionA, supportedVersion)).toEqual(false)
-    expect(isGreaterThanOrEqualToVersion(versionB, supportedVersion)).toEqual(false)
-    expect(isGreaterThanOrEqualToVersion(versionC, supportedVersion)).toEqual(true)
-    expect(isGreaterThanOrEqualToVersion(versionD, supportedVersion)).toEqual(false)
+    expect(isGreaterThanOrEqualToVersion(versionA, supportedVersion)).toEqual(
+      false
+    )
+    expect(isGreaterThanOrEqualToVersion(versionB, supportedVersion)).toEqual(
+      false
+    )
+    expect(isGreaterThanOrEqualToVersion(versionC, supportedVersion)).toEqual(
+      true
+    )
+    expect(isGreaterThanOrEqualToVersion(versionD, supportedVersion)).toEqual(
+      false
+    )
     expect(isGreaterThanOrEqualToVersion(versionD, versionC)).toEqual(false)
     expect(isGreaterThanOrEqualToVersion(versionC, versionD)).toEqual(true)
-    expect(isGreaterThanOrEqualToVersion(versionE, supportedVersion)).toEqual(true)
-    expect(isGreaterThanOrEqualToVersion(versionF, supportedVersion)).toEqual(true)
-    expect(isGreaterThanOrEqualToVersion(versionG, supportedVersion)).toEqual(true)
-    expect(isGreaterThanOrEqualToVersion(versionH, supportedVersion)).toEqual(true)
+    expect(isGreaterThanOrEqualToVersion(versionE, supportedVersion)).toEqual(
+      true
+    )
+    expect(isGreaterThanOrEqualToVersion(versionF, supportedVersion)).toEqual(
+      true
+    )
+    expect(isGreaterThanOrEqualToVersion(versionG, supportedVersion)).toEqual(
+      true
+    )
+    expect(isGreaterThanOrEqualToVersion(versionH, supportedVersion)).toEqual(
+      true
+    )
     expect(isGreaterThanOrEqualToVersion(versionI, versionH)).toEqual(true)
     expect(isGreaterThanOrEqualToVersion(versionK, versionJ)).toEqual(true)
     expect(isGreaterThanOrEqualToVersion(versionJ, versionK)).toEqual(false)

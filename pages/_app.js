@@ -1,5 +1,5 @@
 import {useRouter} from "next/router"
-import { useState } from "react"
+import {useState} from "react"
 import styled, {createGlobalStyle} from "styled-components"
 import {Message} from "../components/Message"
 import {NETWORKS, SUPPORTED_VERSIONS} from "../helpers/constants"
@@ -70,7 +70,7 @@ const CloseSection = styled.div`
   animation-duration: 1s;
 
   &:hover {
-    transform: scale(1.1)
+    transform: scale(1.1);
   }
 
   @keyframes waitToShow {
@@ -98,7 +98,10 @@ function MyApp({Component, pageProps}) {
   const isTestnet = network === NETWORKS.TESTNET
   const {appConfig, appVersion} = useFCL()
   const isMissingConfig = !(appConfig?.icon && appConfig?.title)
-  const showDeveloperMessage = isTestnet && isMissingConfig && isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.APP_CONFIG)
+  const showDeveloperMessage =
+    isTestnet &&
+    isMissingConfig &&
+    isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.APP_CONFIG)
   const [messageOpen, setMessageOpen] = useState(true)
 
   const handleCancel = () => {
@@ -110,8 +113,10 @@ function MyApp({Component, pageProps}) {
     )
   }
 
-  const developerMessage = "👋 Hey Flow dev (you're only seeing this on Testnet), looks like you're missing some app configuration. You can add an icon and title to brand this for your app by setting it in your FCL config."
-  const developerLink = "https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration"
+  const developerMessage =
+    "👋 Hey Flow dev (you're only seeing this on Testnet), looks like you're missing some app configuration. You can add an icon and title to brand this for your app by setting it in your FCL config."
+  const developerLink =
+    "https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration"
 
   const closeMessage = event => {
     event.stopPropagation()
@@ -128,11 +133,15 @@ function MyApp({Component, pageProps}) {
           </CloseSection>
           <Component {...pageProps} />
         </Inner>
-        {showDeveloperMessage && messageOpen &&  
+        {showDeveloperMessage && messageOpen && (
           <MessageAnchor>
-            <Message text={developerMessage} link={developerLink} onClose={closeMessage} />
+            <Message
+              text={developerMessage}
+              link={developerLink}
+              onClose={closeMessage}
+            />
           </MessageAnchor>
-        }
+        )}
       </Wrapper>
     </>
   )

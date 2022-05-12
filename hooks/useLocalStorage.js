@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect} from "react"
 
 function getStorageValue(key, defaultValue) {
   const saved = localStorage.getItem(key)

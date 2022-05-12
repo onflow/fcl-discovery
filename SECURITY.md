@@ -1,4 +1,3 @@
-
 # Responsible Disclosure Policy
 
 Flow was built from the ground up with security in mind. Our code, infrastructure, and development methodology helps us keep our users safe.
