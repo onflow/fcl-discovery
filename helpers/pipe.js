@@ -1,4 +1,4 @@
 export const pipe =
   (...fns) =>
-  x =>
+  (x) =>
     fns.reduce((y, f) => f(y), x)

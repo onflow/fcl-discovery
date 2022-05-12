@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react"
-import {WalletUtils} from "@onflow/fcl"
+import { useEffect, useState } from 'react'
+import { WalletUtils } from '@onflow/fcl'
 
 export function useFCL() {
   const [hasInitialized, setHasInitialized] = useState(false)
@@ -14,7 +14,7 @@ export function useFCL() {
     setHasInitialized(true)
     setLoading(true)
 
-    WalletUtils.ready(({fclVersion, body, config}) => {
+    WalletUtils.ready(({ fclVersion, body, config }) => {
       // config.client.fclVersion is only available starting in version 0.0.79-alpha.4
       // config?.client?.extensions starts in fcl v1
       const appFclVersion = config?.client?.fclVersion || fclVersion || null

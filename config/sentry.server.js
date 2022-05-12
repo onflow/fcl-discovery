@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/nextjs"
+import * as Sentry from '@sentry/nextjs'
 
 Sentry.init({
   dsn: process.env.SENTRY_DSN, // env var would be NEXT_PUBLIC_... on FE

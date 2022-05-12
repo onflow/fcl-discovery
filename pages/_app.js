@@ -1,11 +1,11 @@
-import {useRouter} from "next/router"
-import {useState} from "react"
-import styled, {createGlobalStyle} from "styled-components"
-import {Message} from "../components/Message"
-import {NETWORKS, SUPPORTED_VERSIONS} from "../helpers/constants"
-import {getNetworkFromPath} from "../helpers/paths"
-import {isGreaterThanOrEqualToVersion} from "../helpers/version"
-import {useFCL} from "../hooks/useFCL"
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import styled, { createGlobalStyle } from 'styled-components'
+import { Message } from '../components/Message'
+import { NETWORKS, SUPPORTED_VERSIONS } from '../helpers/constants'
+import { getNetworkFromPath } from '../helpers/paths'
+import { isGreaterThanOrEqualToVersion } from '../helpers/version'
+import { useFCL } from '../hooks/useFCL'
 
 const GlobalStyle = createGlobalStyle`
   * { 
@@ -91,12 +91,12 @@ const CloseIcon = styled.img`
   height: 20px;
 `
 
-function MyApp({Component, pageProps}) {
+function MyApp({ Component, pageProps }) {
   const router = useRouter()
-  const {path} = router.query
+  const { path } = router.query
   const network = getNetworkFromPath(path)
   const isTestnet = network === NETWORKS.TESTNET
-  const {appConfig, appVersion} = useFCL()
+  const { appConfig, appVersion } = useFCL()
   const isMissingConfig = !(appConfig?.icon && appConfig?.title)
   const showDeveloperMessage =
     isTestnet &&
@@ -107,18 +107,18 @@ function MyApp({Component, pageProps}) {
   const handleCancel = () => {
     window.parent.postMessage(
       {
-        type: "FCL:FRAME:CLOSE",
+        type: 'FCL:FRAME:CLOSE',
       },
-      "*"
+      '*'
     )
   }
 
   const developerMessage =
     "👋 Hey Flow dev (you're only seeing this on Testnet), looks like you're missing some app configuration. You can add an icon and title to brand this for your app by setting it in your FCL config."
   const developerLink =
-    "https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration"
+    'https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration'
 
-  const closeMessage = event => {
+  const closeMessage = (event) => {
     event.stopPropagation()
     setMessageOpen(false)
   }
@@ -127,7 +127,7 @@ function MyApp({Component, pageProps}) {
     <>
       <GlobalStyle />
       <Wrapper onClick={handleCancel}>
-        <Inner onClick={e => e.stopPropagation()}>
+        <Inner onClick={(e) => e.stopPropagation()}>
           <CloseSection onClick={handleCancel}>
             <CloseIcon src="/images/close.svg" alt="Close" />
           </CloseSection>

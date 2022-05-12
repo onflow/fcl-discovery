@@ -1,6 +1,6 @@
-import styled from "styled-components"
-import {COLORS} from "../helpers/constants"
-import {useFCL} from "../hooks/useFCL"
+import styled from 'styled-components'
+import { COLORS } from '../helpers/constants'
+import { useFCL } from '../hooks/useFCL'
 
 const ExplainerContainer = styled.div`
   display: flex;
@@ -22,13 +22,13 @@ const ExplainerLink = styled.div`
 `
 
 export default function Explainer() {
-  const {appConfig} = useFCL()
+  const { appConfig } = useFCL()
 
   return (
     <ExplainerContainer>
       <ExplainerDescription>
         <div>
-          <strong>{appConfig?.title || "Unknown App"}</strong>
+          <strong>{appConfig?.title || 'Unknown App'}</strong>
         </div>
         <div>wants to connect to your wallet.</div>
       </ExplainerDescription>
