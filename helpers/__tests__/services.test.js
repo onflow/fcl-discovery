@@ -1,4 +1,10 @@
-import {combineServices, filterOptInServices, getServiceByAddress, serviceListOfType, sortByAddress} from "../services"
+import {
+  combineServices,
+  filterOptInServices,
+  getServiceByAddress,
+  serviceListOfType,
+  sortByAddress,
+} from "../services"
 
 describe("services helpers: combineServices", () => {
   it("should combine services with right ordering and filter unique", () => {
@@ -43,15 +49,15 @@ describe("services helpers: combineServices", () => {
 describe("services helpers: serviceListOfType", () => {
   it("should combine services with right ordering and filter unique", () => {
     const serviceA = {
-      type: "authn"
+      type: "authn",
     }
 
     const serviceB = {
-      type: "authz"
+      type: "authz",
     }
 
     const serviceC = {
-      type: "pre-authz"
+      type: "pre-authz",
     }
 
     const serviceList = [serviceA, serviceB, serviceC]
@@ -64,27 +70,27 @@ describe("services helpers: serviceListOfType", () => {
 describe("services helpers: filterOptInServices", () => {
   it("should only include optIn services if specified", () => {
     const optInAddress = "0xC"
-    
+
     const serviceA = {
       type: "authn",
       provider: {
-        address: "0xA"
-      }
+        address: "0xA",
+      },
     }
 
     const serviceB = {
       type: "authz",
       provider: {
-        address: "0xB"
-      }
+        address: "0xB",
+      },
     }
 
     const serviceC = {
       type: "pre-authz",
       optIn: true,
       provider: {
-        address: optInAddress
-      }
+        address: optInAddress,
+      },
     }
 
     const serviceListA = [serviceA, serviceB, serviceC]
@@ -96,9 +102,13 @@ describe("services helpers: filterOptInServices", () => {
     const expectedResponseB = [serviceA, serviceB, serviceC]
 
     expect(filterOptInServices(serviceListA, includeListA).length).toEqual(2)
-    expect(filterOptInServices(serviceListA, includeListA)).toEqual(expectedResponseA)
+    expect(filterOptInServices(serviceListA, includeListA)).toEqual(
+      expectedResponseA
+    )
     expect(filterOptInServices(serviceListB, includeListB).length).toEqual(3)
-    expect(filterOptInServices(serviceListB, includeListB)).toEqual(expectedResponseB)
+    expect(filterOptInServices(serviceListB, includeListB)).toEqual(
+      expectedResponseB
+    )
   })
 })
 
@@ -109,22 +119,22 @@ describe("services helpers: getServiceByAddress", () => {
     const serviceA = {
       type: "authn",
       provider: {
-        address: "0xA"
-      }
+        address: "0xA",
+      },
     }
 
     const serviceB = {
       type: "authn",
       provider: {
-        address: address
-      }
+        address: address,
+      },
     }
 
     const serviceC = {
       type: "authn",
       provider: {
-        address: "0xC"
-      }
+        address: "0xC",
+      },
     }
 
     const services = [serviceA, serviceB, serviceC]
@@ -140,22 +150,22 @@ describe("services helpers: sortByAddress", () => {
     const serviceA = {
       type: "authn",
       provider: {
-        address: "0xA"
-      }
+        address: "0xA",
+      },
     }
 
     const serviceB = {
       type: "authn",
       provider: {
-        address: address
-      }
+        address: address,
+      },
     }
 
     const serviceC = {
       type: "authn",
       provider: {
-        address: "0xC"
-      }
+        address: "0xC",
+      },
     }
 
     const services = [serviceA, serviceB, serviceC]
@@ -170,22 +180,22 @@ describe("services helpers: sortByAddress", () => {
     const serviceA = {
       type: "authn",
       provider: {
-        address: "0xA"
-      }
+        address: "0xA",
+      },
     }
 
     const serviceB = {
       type: "authn",
       provider: {
-        address: "0xB"
-      }
+        address: "0xB",
+      },
     }
 
     const serviceC = {
       type: "authn",
       provider: {
-        address: "0xC"
-      }
+        address: "0xC",
+      },
     }
 
     const services = [serviceA, serviceB, serviceC]
@@ -199,15 +209,15 @@ describe("services helpers: sortByAddress", () => {
     const serviceA = {
       type: "authn",
       provider: {
-        address: "0xA"
-      }
+        address: "0xA",
+      },
     }
 
     const serviceB = {
       type: "authn",
       provider: {
-        address: "0xB"
-      }
+        address: "0xB",
+      },
     }
 
     const services = [serviceA, serviceB]

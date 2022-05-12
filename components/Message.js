@@ -38,7 +38,12 @@ export function Message({text, link, onClose}) {
     <MessageContainer>
       <MessageText>
         <div>{text}</div>
-        <div>For more info, see <MessageLink onClick={() => window.open(link, "_blank")}>{link}</MessageLink></div>
+        <div>
+          For more info, see{" "}
+          <MessageLink onClick={() => window.open(link, "_blank")}>
+            {link}
+          </MessageLink>
+        </div>
       </MessageText>
       <CloseSection onClick={onClose}>
         <CloseIcon src="/images/close.svg" alt="Close" />

@@ -27,7 +27,9 @@ export default function Explainer() {
   return (
     <ExplainerContainer>
       <ExplainerDescription>
-        <div><strong>{appConfig?.title || "Unknown App"}</strong></div>
+        <div>
+          <strong>{appConfig?.title || "Unknown App"}</strong>
+        </div>
         <div>wants to connect to your wallet.</div>
       </ExplainerDescription>
       {/* <ExplainerLink>

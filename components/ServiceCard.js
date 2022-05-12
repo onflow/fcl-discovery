@@ -1,6 +1,10 @@
 import {WalletUtils} from "@onflow/fcl"
 import styled from "styled-components"
-import {COLORS, LOCAL_STORAGE_KEYS, SUPPORTED_VERSIONS} from "../helpers/constants"
+import {
+  COLORS,
+  LOCAL_STORAGE_KEYS,
+  SUPPORTED_VERSIONS,
+} from "../helpers/constants"
 import {isGreaterThanOrEqualToVersion} from "../helpers/version"
 import {useFCL} from "../hooks/useFCL"
 import {useLocalStorage} from "../hooks/useLocalStorage"
@@ -23,7 +27,7 @@ const MoreSection = styled.div`
   transition: 0.1s ease-in transform;
 
   &:hover {
-    transform: scale(1.1)
+    transform: scale(1.1);
   }
 `
 
@@ -48,8 +52,8 @@ const ServiceCardContainer = styled.a`
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
 
-  opacity: ${props => props.enabled ? "1" : "0.7"};
-  cursor:  ${props => props.enabled ? "pointer" : "unset"};
+  opacity: ${props => (props.enabled ? "1" : "0.7")};
+  cursor: ${props => (props.enabled ? "pointer" : "unset")};
 
   text-decoration: none;
   user-select: none;
@@ -135,18 +139,28 @@ const ArrowContainer = styled.div``
 
 const ArrowSvg = styled.img``
 
-export default function ServiceCard({isEnabled, address, icon, name, service, lastUsed = false}) {
+export default function ServiceCard({
+  isEnabled,
+  address,
+  icon,
+  name,
+  service,
+  lastUsed = false,
+}) {
   const {extensions, appVersion} = useFCL()
   const isInstalled = extensions.some(ext => ext?.provider?.address === address)
-  const [_, setLastUsed] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
+  const [_, setLastUsed] = useLocalStorage(
+    LOCAL_STORAGE_KEYS.LAST_INSTALLED,
+    null
+  )
   const serviceWebsite = service?.provider?.website
   const hasWebsite = Boolean(service?.provider?.website)
 
   const truncateString = (str, n) => {
     if (str.length > n) {
-      return str.substring(0, n) + "...";
+      return str.substring(0, n) + "..."
     } else {
-      return str;
+      return str
     }
   }
 
@@ -164,16 +178,18 @@ export default function ServiceCard({isEnabled, address, icon, name, service, la
       window.location.href = `${service.endpoint}${window.location.search}`
     }
   }
-  
+
   const openMoreInfo = () => {
     if (!hasWebsite) return
     window.open(serviceWebsite, "_blank")
   }
-  
+
   return (
     <RowContainer>
       <MoreSection onClick={openMoreInfo}>
-        {hasWebsite && <MoreImg src="/images/question-mark.svg" alt="Learn More" />}
+        {hasWebsite && (
+          <MoreImg src="/images/question-mark.svg" alt="Learn More" />
+        )}
       </MoreSection>
       <ServiceCardContainer enabled={isEnabled} onClick={onSelect}>
         {lastUsed && <ServiceContainerTag>Last Used</ServiceContainerTag>}
@@ -181,12 +197,12 @@ export default function ServiceCard({isEnabled, address, icon, name, service, la
           <ServiceCardLeftColumn>
             <ServiceCardIcon icon={icon} />
             <ServiceCardName>{truncateString(name, 15)}</ServiceCardName>
-            {isInstalled && 
+            {isInstalled && (
               <ServiceCardTags>
                 <DotSeperator> · </DotSeperator>
                 <ServiceCardTag>Installed</ServiceCardTag>
               </ServiceCardTags>
-            }
+            )}
           </ServiceCardLeftColumn>
           <ServiceCardRightColumn>
             <ArrowContainer>
