@@ -1,4 +1,11 @@
-import {combineServices, filterOptInServices, getServiceByAddress, serviceListOfType, sortByAddress} from "../services"
+import {
+  combineServices, 
+  createGenericService,
+  filterOptInServices, 
+  getServiceByAddress, 
+  serviceListOfType, 
+  sortByAddress
+} from "../services"
 
 describe("services helpers: combineServices", () => {
   it("should combine services with right ordering and filter unique", () => {
@@ -213,5 +220,44 @@ describe("services helpers: sortByAddress", () => {
     const services = [serviceA, serviceB]
 
     expect(sortByAddress(services, address)).toEqual(services)
+  })
+})
+
+describe("services helpers: createGenericService", () => {
+  it("should create a generic service with provided fields", () => {
+    const type = 'authn'
+    const uid = 'test#authn'
+    const address = '0x123'
+    const name = 'Test'
+    const description = 'Test description.'
+
+    const data = {
+      type,
+      uid,
+      address,
+      name,
+      description
+    }
+
+    const expectedResponse = {
+      f_type: 'Service',
+      f_vsn: '1.0.0',
+      type,
+      method: 'IFRAME/RPC',
+      uid,
+      endpoint: null,
+      optIn: true,
+      provider: {
+        address,
+        name,
+        icon: null,
+        description,
+        color: null,
+        supportEmail: null,
+        website: null
+      }
+    }
+
+    expect(createGenericService(data)).toEqual(expectedResponse)
   })
 })

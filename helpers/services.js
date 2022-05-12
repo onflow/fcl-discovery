@@ -53,19 +53,19 @@ export function sortByAddress(services, selectedAddress) {
 
 // TODO: Add test
 export function createGenericService({ 
-  type, 
+  type = null, 
   f_vsn = '1.0.0', 
   method = "IFRAME/RPC", 
-  uid, 
-  endpoint, 
+  uid = null, 
+  endpoint = null, 
   optIn = true, 
-  address, 
-  name, 
-  icon,
-  description, 
-  color, 
-  supportEmail, 
-  website }) {
+  address = null, 
+  name = null, 
+  icon = null,
+  description = null, 
+  color = null, 
+  supportEmail = null, 
+  website = null }) {
 
   return {
     "f_type": "Service",
