@@ -1,17 +1,17 @@
 export const NETWORKS = {
-  canarynet: 'canarynet',
-  testnet: 'testnet',
-  mainnet: 'mainnet',
+  CANARYNET: 'canarynet',
+  TESTNET: 'testnet',
+  MAINNET: 'mainnet',
 }
 
 export const SERVICE_TYPES = {
-  authn: 'authn',
+  AUTHN: 'authn',
 }
 
 export const PATHS = {
-  mainnet: '/authn',
-  testnet: '/testnet/authn',
-  canarynet: '/canarynet/authn',
+  MAINNET: '/authn',
+  TESTNET: '/testnet/authn',
+  CANARYNET: '/canarynet/authn',
 }
 
 export const SUPPORTED_VERSIONS = {
