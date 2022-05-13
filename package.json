@@ -16,7 +16,6 @@
     "@onflow/fcl": "1.0.0",
     "@sentry/nextjs": "^6.19.6",
     "cors": "^2.8.5",
-    "enum-xyz": "^0.1.0",
     "mixpanel": "^0.14.0",
     "next": "^12.1.6",
     "react": "^18.1.0",
@@ -27,7 +26,7 @@
   "devDependencies": {
     "babel-plugin-styled-components": "^2.0.7",
     "husky": "^8.0.1",
-    "jest": "^27.3.1",
+    "jest": "^28.1.0",
     "prettier": "^2.6.2"
   }
 }
