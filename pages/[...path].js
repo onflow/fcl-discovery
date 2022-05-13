@@ -17,8 +17,15 @@ const AppContainer = styled.div`
 
 const Router = () => {
   const router = useRouter()
-  const {path} = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn']
-  const {hasInitialized, loading, appVersion, extensions, walletInclude, wcProviderId} = useFCL()
+  const { path } = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn']
+  const {
+    hasInitialized,
+    loading,
+    appVersion,
+    extensions,
+    walletInclude,
+    wcProviderId,
+  } = useFCL()
   const isValid = isValidPath(path)
   const network = getNetworkFromPath(path)
 

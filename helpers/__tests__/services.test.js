@@ -1,14 +1,14 @@
 import {
-  combineServices, 
+  combineServices,
   createGenericService,
-  filterOptInServices, 
-  getServiceByAddress, 
-  serviceListOfType, 
-  sortByAddress
-} from "../services"
+  filterOptInServices,
+  getServiceByAddress,
+  serviceListOfType,
+  sortByAddress,
+} from '../services'
 
-describe("services helpers: combineServices", () => {
-  it("should combine services with right ordering and filter unique", () => {
+describe('services helpers: combineServices', () => {
+  it('should combine services with right ordering and filter unique', () => {
     const serviceA = {
       endpoint: 'https://flow-wallet.blocto.app/authn',
       provider: {
@@ -227,8 +227,8 @@ describe('services helpers: sortByAddress', () => {
   })
 })
 
-describe("services helpers: createGenericService", () => {
-  it("should create a generic service with provided fields", () => {
+describe('services helpers: createGenericService', () => {
+  it('should create a generic service with provided fields', () => {
     const type = 'authn'
     const uid = 'test#authn'
     const address = '0x123'
@@ -240,7 +240,7 @@ describe("services helpers: createGenericService", () => {
       uid,
       address,
       name,
-      description
+      description,
     }
 
     const expectedResponse = {
@@ -258,8 +258,8 @@ describe("services helpers: createGenericService", () => {
         description,
         color: null,
         supportEmail: null,
-        website: null
-      }
+        website: null,
+      },
     }
 
     expect(createGenericService(data)).toEqual(expectedResponse)

@@ -19,9 +19,10 @@ export function useFCL() {
       // config.client.fclVersion is only available starting in version 0.0.79-alpha.4
       // config?.client?.extensions starts in fcl v1
       const appFclVersion = config?.client?.fclVersion || fclVersion || null
-      const clientExtensions = config?.client?.extensions || body?.extensions || []
+      const clientExtensions =
+        config?.client?.extensions || body?.extensions || []
       const wcProviderId = '1234' // TODO: figure out where this comes from // maybe? .put("discovery.authn.include", ["0x1234", "wc:providerId"])
-      
+
       if (config?.app) {
         setAppConfig(config.app)
       }
@@ -52,6 +53,6 @@ export function useFCL() {
     appVersion,
     extensions,
     walletInclude,
-    wcProviderId
+    wcProviderId,
   }
 }

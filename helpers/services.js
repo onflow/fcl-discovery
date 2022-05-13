@@ -53,37 +53,37 @@ export function sortByAddress(services, selectedAddress) {
   return [serviceWithAddress, ...servicesWithoutSpecified]
 }
 
-export function createGenericService({ 
-  type = null, 
-  f_vsn = '1.0.0', 
-  method = "IFRAME/RPC", 
-  uid = null, 
-  endpoint = null, 
-  optIn = true, 
-  address = null, 
-  name = null, 
+export function createGenericService({
+  type = null,
+  f_vsn = '1.0.0',
+  method = 'IFRAME/RPC',
+  uid = null,
+  endpoint = null,
+  optIn = true,
+  address = null,
+  name = null,
   icon = null,
-  description = null, 
-  color = null, 
-  supportEmail = null, 
-  website = null }) {
-
+  description = null,
+  color = null,
+  supportEmail = null,
+  website = null,
+}) {
   return {
-    "f_type": "Service",
+    f_type: 'Service',
     f_vsn,
     type,
     method,
     uid,
     endpoint,
     optIn,
-    "provider": {
+    provider: {
       address,
       name,
       icon,
       description,
       color,
       supportEmail,
-      website
-    }
+      website,
+    },
   }
 }

@@ -1,13 +1,23 @@
-import {useMemo} from "react"
-import useSWR from "swr"
-import styled from "styled-components"
-import {combineServices, createGenericService, serviceListOfType, sortByAddress} from "../helpers/services"
-import {LOCAL_STORAGE_KEYS, PATHS, SERVICE_TYPES, SUPPORTED_VERSIONS} from "../helpers/constants"
-import ServiceCard from "./ServiceCard"
-import {isGreaterThanOrEqualToVersion} from "../helpers/version"
-import Header from "./Headers/Header"
-import {useLocalStorage} from "../hooks/useLocalStorage"
-import {pipe} from "../helpers/pipe"
+import { useMemo } from 'react'
+import useSWR from 'swr'
+import styled from 'styled-components'
+import {
+  combineServices,
+  createGenericService,
+  serviceListOfType,
+  sortByAddress,
+} from '../helpers/services'
+import {
+  LOCAL_STORAGE_KEYS,
+  PATHS,
+  SERVICE_TYPES,
+  SUPPORTED_VERSIONS,
+} from '../helpers/constants'
+import ServiceCard from './ServiceCard'
+import { isGreaterThanOrEqualToVersion } from '../helpers/version'
+import Header from './Headers/Header'
+import { useLocalStorage } from '../hooks/useLocalStorage'
+import { pipe } from '../helpers/pipe'
 
 const DiscoveryContainer = styled.div`
   height: 100%;
@@ -29,7 +39,13 @@ const fetcher = (url, opts) => {
   }).then(d => d.json())
 }
 
-export const Discovery = ({network, appVersion, extensions, walletInclude, wcProviderId}) => {
+export const Discovery = ({
+  network,
+  appVersion,
+  extensions,
+  walletInclude,
+  wcProviderId,
+}) => {
   const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
     fetcher(url, {
@@ -52,12 +68,15 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, wcPro
       },
       data => {
         if (wcProviderId) {
-          return [...data, createGenericService({
-            type: 'authn',
-            method: 'WC/RPC',
-            uid: 'wc#authn',
-            name: 'WC'
-          })]
+          return [
+            ...data,
+            createGenericService({
+              type: 'authn',
+              method: 'WC/RPC',
+              uid: 'wc#authn',
+              name: 'WC',
+            }),
+          ]
         } else {
           return data
         }
