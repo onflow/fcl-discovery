@@ -118,7 +118,7 @@ function MyApp({ Component, pageProps }) {
   const developerLink =
     'https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration'
 
-  const closeMessage = (event) => {
+  const closeMessage = event => {
     event.stopPropagation()
     setMessageOpen(false)
   }
@@ -127,7 +127,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <GlobalStyle />
       <Wrapper onClick={handleCancel}>
-        <Inner onClick={(e) => e.stopPropagation()}>
+        <Inner onClick={e => e.stopPropagation()}>
           <CloseSection onClick={handleCancel}>
             <CloseIcon src="/images/close.svg" alt="Close" />
           </CloseSection>
