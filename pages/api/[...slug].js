@@ -18,7 +18,7 @@ const cors = Cors({
 // And to throw an error when an error happens in a middleware
 function runMiddleware(req, res, fn) {
   return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
+    fn(req, res, result => {
       if (result instanceof Error) {
         return reject(result)
       }
@@ -53,7 +53,7 @@ async function handler(req, res) {
     network,
   })
 
-  const services = pipe((s) =>
+  const services = pipe(s =>
     shouldFilterOrReturnDefault(
       () => filterOptInServices(s, include),
       isFilteringSupported,

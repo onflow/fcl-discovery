@@ -35,7 +35,7 @@ const fetcher = (url, opts) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(opts),
-  }).then((d) => d.json())
+  }).then(d => d.json())
 }
 
 export const Discovery = ({
@@ -45,7 +45,7 @@ export const Discovery = ({
   walletInclude,
 }) => {
   const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
-  const { data, error } = useSWR(requestUrl, (url) =>
+  const { data, error } = useSWR(requestUrl, url =>
     fetcher(url, {
       fclVersion: appVersion,
       include: walletInclude,
@@ -60,12 +60,12 @@ export const Discovery = ({
     )
 
     return pipe(
-      (data) => {
+      data => {
         if (!isSupported) return data
         return combineServices(data, extensions, true)
       },
-      (data) => serviceListOfType(data, SERVICE_TYPES.authn), // Only show authn services
-      (data) => sortByAddress(data, lastUsed) // Put last used service at top
+      data => serviceListOfType(data, SERVICE_TYPES.authn), // Only show authn services
+      data => sortByAddress(data, lastUsed) // Put last used service at top
     )(data)
   }, [data, extensions, appVersion])
 

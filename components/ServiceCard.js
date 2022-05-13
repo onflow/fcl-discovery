@@ -52,8 +52,8 @@ const ServiceCardContainer = styled.a`
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
 
-  opacity: ${(props) => (props.enabled ? '1' : '0.7')};
-  cursor: ${(props) => (props.enabled ? 'pointer' : 'unset')};
+  opacity: ${props => (props.enabled ? '1' : '0.7')};
+  cursor: ${props => (props.enabled ? 'pointer' : 'unset')};
 
   text-decoration: none;
   user-select: none;
@@ -148,9 +148,7 @@ export default function ServiceCard({
   lastUsed = false,
 }) {
   const { extensions, appVersion } = useFCL()
-  const isInstalled = extensions.some(
-    (ext) => ext?.provider?.address === address
-  )
+  const isInstalled = extensions.some(ext => ext?.provider?.address === address)
   const [_, setLastUsed] = useLocalStorage(
     LOCAL_STORAGE_KEYS.LAST_INSTALLED,
     null

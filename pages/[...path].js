@@ -8,7 +8,7 @@ const AppContainer = styled.div`
   max-height: 0;
   transition: max-height 250ms ease-in;
 
-  ${(props) =>
+  ${props =>
     props.isSet &&
     css`
       max-height: 500px;
