@@ -21,24 +21,29 @@ const ProvidersList = styled.div``
 
 const fetcher = (url, opts) => {
   return fetch(url, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(opts)
+    body: JSON.stringify(opts),
   }).then(d => d.json())
 }
 
 export const Discovery = ({network, appVersion, extensions, walletInclude, wcProviderId}) => {
   const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
-  const {data, error} = useSWR(requestUrl, url => fetcher(url, {
-    fclVersion: appVersion,
-    include: walletInclude 
-  }))
+  const { data, error } = useSWR(requestUrl, url =>
+    fetcher(url, {
+      fclVersion: appVersion,
+      include: walletInclude,
+    })
+  )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
 
   const services = useMemo(() => {
-    const isSupported = isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.EXTENSIONS)
+    const isSupported = isGreaterThanOrEqualToVersion(
+      appVersion,
+      SUPPORTED_VERSIONS.EXTENSIONS
+    )
 
     return pipe(
       data => {
@@ -71,13 +76,15 @@ export const Discovery = ({network, appVersion, extensions, walletInclude, wcPro
       <ProvidersList>
         {services.length === 0 && <div>No Wallets Found</div>}
         {services.map((service, index) => {
-          return <ServiceCard
-            key={service?.provider?.address ?? index}
-            isEnabled={Boolean(service.provider)}
-            {...service.provider}
-            service={service}
-            lastUsed={service?.provider?.address === lastUsed}
-          />
+          return (
+            <ServiceCard
+              key={service?.provider?.address ?? index}
+              isEnabled={Boolean(service.provider)}
+              {...service.provider}
+              service={service}
+              lastUsed={service?.provider?.address === lastUsed}
+            />
+          )
         })}
       </ProvidersList>
     </DiscoveryContainer>

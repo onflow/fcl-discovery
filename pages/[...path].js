@@ -1,8 +1,8 @@
-import {useRouter} from "next/router"
-import styled, {css} from "styled-components"
-import {Discovery} from "../components/Discovery"
-import {isValidPath, getNetworkFromPath} from "../helpers/paths"
-import {useFCL} from "../hooks/useFCL"
+import { useRouter } from 'next/router'
+import styled, { css } from 'styled-components'
+import { Discovery } from '../components/Discovery'
+import { isValidPath, getNetworkFromPath } from '../helpers/paths'
+import { useFCL } from '../hooks/useFCL'
 
 const AppContainer = styled.div`
   max-height: 0;
@@ -27,7 +27,7 @@ const Router = () => {
       {!path && <div />}
       {path && !isValid && <div>Page Not Found</div>}
       {path && isValid && hasInitialized && !loading && (
-        <Discovery 
+        <Discovery
           network={network}
           appVersion={appVersion}
           extensions={extensions}

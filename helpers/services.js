@@ -47,11 +47,12 @@ export function sortByAddress(services, selectedAddress) {
   if (!selectedAddress) return services
   if (!containsAddress(services, selectedAddress)) return services // Do not continue if address you want to sort by is not in list
   const serviceWithAddress = getServiceByAddress(services, selectedAddress)
-  const servicesWithoutSpecified = services.filter(service => service?.provider?.address !== selectedAddress)
+  const servicesWithoutSpecified = services.filter(
+    service => service?.provider?.address !== selectedAddress
+  )
   return [serviceWithAddress, ...servicesWithoutSpecified]
 }
 
-// TODO: Add test
 export function createGenericService({ 
   type = null, 
   f_vsn = '1.0.0', 

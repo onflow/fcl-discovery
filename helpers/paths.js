@@ -1,6 +1,7 @@
-import {PATHS} from "./constants"
+import { PATHS } from './constants'
 
-export const createPathFromArray = (arr = []) => `/${arr.join("/")}`.toLowerCase()
+export const createPathFromArray = (arr = []) =>
+  `/${arr.join('/')}`.toLowerCase()
 
 export const isValidPath = path => {
   if (!path) return false
@@ -8,4 +9,5 @@ export const isValidPath = path => {
   return Object.values(PATHS).some(p => p === pathStr)
 }
 
-export const getNetworkFromPath = path => path && path.length === 2 ? path[0].toLowerCase() : "mainnet"
+export const getNetworkFromPath = path =>
+  path && path.length === 2 ? path[0].toLowerCase() : 'mainnet'
