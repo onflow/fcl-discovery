@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { COLORS } from '../helpers/constants'
-import useFCL from '../hooks/useFCL'
+import { useFCL } from '../hooks/useFCL'
 
 const ExplainerContainer = styled.div`
   display: flex;

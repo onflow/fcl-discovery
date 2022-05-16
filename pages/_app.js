@@ -5,7 +5,7 @@ import { Message } from '../components/Message'
 import { NETWORKS, SUPPORTED_VERSIONS } from '../helpers/constants'
 import { getNetworkFromPath } from '../helpers/paths'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
-import useFCL from '../hooks/useFCL'
+import { useFCL } from '../hooks/useFCL'
 
 const GlobalStyle = createGlobalStyle`
   * { 
