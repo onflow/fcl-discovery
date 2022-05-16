@@ -15,7 +15,7 @@ import {
 import ServiceCard from './ServiceCard'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import Header from './Headers/Header'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import { useLocalStorage } from '../hooks'
 import { pipe } from '../helpers/pipe'
 
 const DiscoveryContainer = styled.div`
