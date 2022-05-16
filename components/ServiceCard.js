@@ -6,7 +6,7 @@ import {
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
-import useFCL from '../hooks/useFCL'
+import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
 const RowContainer = styled.div`
