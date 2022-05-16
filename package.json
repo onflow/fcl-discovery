@@ -13,7 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@onflow/fcl": "1.0.0",
+    "@onflow/fcl": "1.0.1",
     "@sentry/nextjs": "^6.19.7",
     "cors": "^2.8.5",
     "mixpanel": "^0.14.0",
