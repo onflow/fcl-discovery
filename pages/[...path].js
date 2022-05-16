@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import styled, { css } from 'styled-components'
 import { Discovery } from '../components/Discovery'
 import { isValidPath, getNetworkFromPath } from '../helpers/paths'
-import { useFCL } from '../hooks/useFCL'
+import useFCL from '../hooks/useFCL'
 
 const AppContainer = styled.div`
   max-height: 0;
