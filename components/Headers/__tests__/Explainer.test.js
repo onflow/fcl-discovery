@@ -1,34 +1,31 @@
 import { render } from '@testing-library/react'
-import AppHeader from '../AppHeader'
+import Explainer from '../Explainer'
 import * as hooks from '../../../hooks'
 
-describe('Component: AppHeader', () => {
-  test('should render the the component with icon', () => {
+describe('Component: Explainer', () => {
+  test('should render the component with app title', () => {
     jest.spyOn(hooks, 'useFCL').mockImplementation(() => {
       return {
         appConfig: {
-          icon: 'test.png',
-        },
-        clientConfig: {
-          hostname: 'www.onflow.org',
+          title: 'Test App',
         },
       }
     })
 
-    const { container } = render(<AppHeader />)
+    const { container } = render(<Explainer />)
     expect(container.firstChild).toMatchSnapshot()
   })
 
-  test('should render the default image in the component if no icon', () => {
+  test('should render app as unknown in Explainer component if no title', () => {
     jest.spyOn(hooks, 'useFCL').mockImplementation(() => {
       return {
         appConfig: {
-          icon: null,
+          title: null,
         },
       }
     })
 
-    const { container } = render(<AppHeader />)
+    const { container } = render(<Explainer />)
     expect(container.firstChild).toMatchSnapshot()
   })
 })
