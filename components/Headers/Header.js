@@ -1,6 +1,6 @@
 import FlowHeader from './FlowHeader'
 import AppHeader from './AppHeader'
-import { useFCL } from '../../hooks/useFCL'
+import { useFCL } from '../../hooks'
 import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import { SUPPORTED_VERSIONS } from '../../helpers/constants'
 import Explainer from '../Explainer'
