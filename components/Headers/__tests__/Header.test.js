@@ -1,10 +1,20 @@
 import { render } from '@testing-library/react'
 import Header from '../Header'
-import * as hooks from '../../../hooks'
+import * as hooks from '../../../hooks/useFCL'
 
 describe('Component: Header', () => {
+  let fclHookSpy
+
+  beforeEach(() => {
+    fclHookSpy = jest.spyOn(hooks, 'useFCL')
+  })
+
+  afterEach(() => {
+    fclHookSpy.mockRestore()
+  })
+
   test('should render the configurable component if version is old enough', () => {
-    jest.spyOn(hooks, 'useFCL').mockImplementation(() => {
+    fclHookSpy.mockImplementation(() => {
       return {
         appVersion: '1.0.0',
       }
@@ -15,7 +25,7 @@ describe('Component: Header', () => {
   })
 
   test('should NOT render the configurable component if version is too low', () => {
-    jest.spyOn(hooks, 'useFCL').mockImplementation(() => {
+    fclHookSpy.mockImplementation(() => {
       return {
         appVersion: '0.0.77',
       }
