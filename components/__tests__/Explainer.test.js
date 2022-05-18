@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import Explainer from '../Explainer'
-import * as hooks from '../../../hooks'
+import * as hooks from '../../hooks'
 
 describe('Component: Explainer', () => {
   test('should render the component with app title', () => {
