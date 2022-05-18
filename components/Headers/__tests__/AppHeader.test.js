@@ -1,10 +1,20 @@
 import { render } from '@testing-library/react'
 import AppHeader from '../AppHeader'
-import * as hooks from '../../../hooks'
+import * as hooks from '../../../hooks/useFCL'
 
 describe('Component: AppHeader', () => {
+  let fclHookSpy
+
+  beforeEach(() => {
+    fclHookSpy = jest.spyOn(hooks, 'useFCL')
+  })
+
+  afterEach(() => {
+    fclHookSpy.mockRestore()
+  })
+
   test('should render the the component with icon', () => {
-    jest.spyOn(hooks, 'useFCL').mockImplementation(() => {
+    fclHookSpy.mockImplementation(() => {
       return {
         appConfig: {
           icon: 'test.png',
@@ -20,7 +30,7 @@ describe('Component: AppHeader', () => {
   })
 
   test('should render the default image in the component if no icon', () => {
-    jest.spyOn(hooks, 'useFCL').mockImplementation(() => {
+    fclHookSpy.mockImplementation(() => {
       return {
         appConfig: {
           icon: null,

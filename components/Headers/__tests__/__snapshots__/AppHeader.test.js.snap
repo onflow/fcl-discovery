@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: AppHeader should render the default image in the component if no icon 1`] = `
+<div
+  class="sc-bczRLJ dIvpJ"
+>
+  <div
+    class="sc-dkzDqf hDaBCz"
+  >
+    <img
+      class="sc-hKMtZM eFtwgT"
+      src="/images/default-img.svg"
+    />
+  </div>
+  <div
+    class="sc-eCYdqJ hBueAj"
+  />
+</div>
+`;
+
+exports[`Component: AppHeader should render the the component with icon 1`] = `
+<div
+  class="sc-bczRLJ dIvpJ"
+>
+  <img
+    alt="Logo"
+    class="sc-gsnTZi dJWCEM"
+    src="test.png"
+  />
+  <div
+    class="sc-eCYdqJ hBueAj"
+  >
+    www.onflow.org
+  </div>
+</div>
+`;
