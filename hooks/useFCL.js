@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { WalletUtils } from '@onflow/fcl'
 
-export default function useFCL() {
+export function useFCL() {
   const [hasInitialized, setHasInitialized] = useState(false)
   const [loading, setLoading] = useState(false)
   const [appConfig, setAppConfig] = useState()
