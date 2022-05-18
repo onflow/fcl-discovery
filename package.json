@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "npm run lint:prettier",
     "lint:prettier": "prettier --check .",
     "lintfix": "prettier --write --list-different .",
