@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Header should NOT render the configurable component if version is too low 1`] = `
+<div
+  class="sc-bczRLJ eJWKtT"
+>
+  <div
+    class="sc-gsnTZi kDRAhc"
+  >
+    <img
+      alt="Flow Logo"
+      class="sc-dkzDqf kEzBlf"
+      src="/logo.svg"
+    />
+  </div>
+  <h2
+    class="sc-hKMtZM ksKXfP"
+  >
+    Choose a Provider
+  </h2>
+</div>
+`;
+
+exports[`Component: Header should render the configurable component if version is old enough 1`] = `
+<div
+  class="sc-eCYdqJ hZPPJe"
+>
+  <div
+    class="sc-gKXOVf hnasIS"
+  >
+    <img
+      class="sc-iBkjds dwyhjr"
+      src="/images/default-img.svg"
+    />
+  </div>
+  <div
+    class="sc-ftvSup bolNmJ"
+  />
+</div>
+`;
