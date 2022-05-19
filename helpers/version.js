@@ -8,8 +8,6 @@ export const isGreaterThanOrEqualToVersion = (version, supportedVersion) => {
 
   for (let i = 0; i < 3; i++) {
     // If greater, return true
-    console.log('versionSplit[i]', versionSplit[i])
-    console.log('supportedVersionSplit[i]', supportedVersionSplit[i])
     if (parseInt(versionSplit[i]) > parseInt(supportedVersionSplit[i]))
       return true
     if (parseInt(versionSplit[i]) < parseInt(supportedVersionSplit[i]))
