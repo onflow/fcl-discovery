@@ -27,7 +27,7 @@ export const isGreaterThanOrEqualToVersion = (version, supportedVersion) => {
 
         // If new version does not have alpha, but supported does then it's not new enough
         if (!version.includes('alpha') && supportedVersion.includes('alpha'))
-          return true
+          return false
 
         const newAlphaVersion = newAlpha.split('.')[1]
         const supportedAlphaVersion = supportedAlpha.split('.')[1]

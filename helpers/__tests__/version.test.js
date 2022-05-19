@@ -48,5 +48,6 @@ describe('isGreaterThanOrEqualToVersion', () => {
     expect(isGreaterThanOrEqualToVersion(versionL, versionM)).toEqual(false)
     expect(isGreaterThanOrEqualToVersion(versionC, versionM)).toEqual(false)
     expect(isGreaterThanOrEqualToVersion(versionM, versionL)).toEqual(true)
+    expect(isGreaterThanOrEqualToVersion(versionC, versionK)).toEqual(false)
   })
 })
