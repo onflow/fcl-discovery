@@ -1,3 +1,5 @@
+import { SERVICE_METHODS } from './constants'
+
 const filterUniqueServices = services => {
   let foundIds = []
   return services.filter(p => {
@@ -52,3 +54,9 @@ export function sortByAddress(services, selectedAddress) {
   )
   return [serviceWithAddress, ...servicesWithoutSpecified]
 }
+
+export const isExtension = service =>
+  service?.method === SERVICE_METHODS.EXTENSION
+
+export const isExtensionInstalled = (extensions, address) =>
+  extensions.some(extension => extension?.provider?.address === address)
