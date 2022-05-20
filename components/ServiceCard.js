@@ -165,7 +165,7 @@ export default function ServiceCard({
   const providerMetadata = getProviderMetadataByAddress(
     service?.provider?.address
   )
-  const platform = getPlatform().toLowerCase()
+  const platform = getPlatform()?.toLowerCase()
 
   const onSelect = () => {
     if (!service) return
