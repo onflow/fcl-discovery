@@ -1,0 +1,9 @@
+{
+  "0x123-example": {
+    "platforms": {
+      "chrome": {
+        "install_link": "https://www.onflow.org"
+      }
+    }
+  }
+}
