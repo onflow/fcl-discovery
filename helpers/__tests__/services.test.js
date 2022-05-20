@@ -8,6 +8,20 @@ import {
   sortByAddress,
 } from '../services'
 
+jest.mock(
+  '../../data/metadata.json',
+  () => ({
+    'test-address': {
+      platforms: {
+        chrome: {
+          installLink: 'https://www.onflow.org',
+        },
+      },
+    },
+  }),
+  { virtual: true }
+)
+
 describe('services helpers: combineServices', () => {
   it('should combine services with right ordering and filter unique', () => {
     const serviceA = {
@@ -227,20 +241,6 @@ describe('services helpers: sortByAddress', () => {
     expect(sortByAddress(services, address)).toEqual(services)
   })
 })
-
-jest.mock(
-  '../../data/metadata.json',
-  () => ({
-    'test-address': {
-      platforms: {
-        chrome: {
-          installLink: 'https://www.onflow.org',
-        },
-      },
-    },
-  }),
-  { virtual: true }
-)
 
 describe('services helpers: filterServicesByPlatform', () => {
   it('should filter services by platform', () => {
