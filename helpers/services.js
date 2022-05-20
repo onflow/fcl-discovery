@@ -80,15 +80,13 @@ export const requiresPlatform = service => {
   return requiredPlatformTypes.includes(service?.method)
 }
 
-export function filterServicesByPlatform(platform) {
-  return function (services = []) {
-    return services.filter(service => {
-      if (!requiresPlatform(service)) return true
-      const providerMetadata = getProviderMetadataByAddress(
-        service?.provider?.address
-      )
-      const providerPlatforms = Object.keys(providerMetadata?.platforms || {})
-      return providerPlatforms.includes(platform?.toLowerCase())
-    })
-  }
+export function filterServicesByPlatform(platform, services = []) {
+  return services.filter(service => {
+    if (!requiresPlatform(service)) return true
+    const providerMetadata = getProviderMetadataByAddress(
+      service?.provider?.address
+    )
+    const providerPlatforms = Object.keys(providerMetadata?.platforms || {})
+    return providerPlatforms.includes(platform?.toLowerCase())
+  })
 }

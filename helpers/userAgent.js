@@ -9,3 +9,11 @@ export const getPlatform = () => {
     }
   }
 }
+
+export const getPlatformFromUserAgent = userAgent => {
+  for (const value of Object.values(USER_AGENTS)) {
+    if (userAgent?.includes(value)) {
+      return value
+    }
+  }
+}

@@ -50,7 +50,7 @@ export const Discovery = ({
     fetcher(url, {
       fclVersion: appVersion,
       include: walletInclude,
-      platform: getPlatform(),
+      userAgent: window?.navigator?.userAgent,
     })
   )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
