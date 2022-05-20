@@ -34,3 +34,7 @@ const LOCAL_STORAGE_VERSION = 'v1'
 export const LOCAL_STORAGE_KEYS = {
   LAST_INSTALLED: `discovery:${LOCAL_STORAGE_VERSION}:ext:lastUsed`,
 }
+
+export const USER_AGENTS = {
+  CHROME: 'Chrome',
+}
