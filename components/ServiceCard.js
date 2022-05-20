@@ -5,8 +5,10 @@ import {
   LOCAL_STORAGE_KEYS,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
+import { getProviderMetadataByAddress } from '../helpers/metadata'
 import { isExtension, isExtensionInstalled } from '../helpers/services'
 import { truncateString } from '../helpers/strings'
+import { getPlatform } from '../helpers/userAgent'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -160,11 +162,24 @@ export default function ServiceCard({
     extensions,
     service?.provider?.address
   )
+  const providerMetadata = getProviderMetadataByAddress(
+    service?.provider?.address
+  )
+  const platform = getPlatform().toLowerCase()
 
   const onSelect = () => {
     if (!service) return
 
     setLastUsed(service?.provider?.address)
+
+    if (isExtensionService && !isExtensionServiceInstalled) {
+      const installLink = providerMetadata?.platforms[platform]?.installLink
+
+      if (installLink) {
+        window.open(installLink, '_blank')
+      }
+      return
+    }
 
     if (
       appVersion &&
