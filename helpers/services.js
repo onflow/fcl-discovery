@@ -1,4 +1,4 @@
-import { SERVICE_METHODS } from './constants'
+import { SERVICE_METHODS, SERVICE_TYPES } from './constants'
 
 const filterUniqueServices = services => {
   let foundIds = []
@@ -29,6 +29,9 @@ export const combineServices = (
 export const serviceListOfType = (services = [], type) =>
   services.filter(service => service.type === type)
 
+export const serviceOfTypeAuthn = services =>
+  serviceListOfType(services, SERVICE_TYPES.AUTHN)
+
 // If it's an optIn service, make sure it's been asked to be included
 export function filterOptInServices(services = [], includeList = []) {
   return services.filter(service => {
@@ -45,6 +48,7 @@ export const containsAddress = (services, address) => {
   return services.some(service => service?.provider?.address === address)
 }
 
+// Put last used service at top
 export function sortByAddress(services, selectedAddress) {
   if (!selectedAddress) return services
   if (!containsAddress(services, selectedAddress)) return services // Do not continue if address you want to sort by is not in list
@@ -54,6 +58,15 @@ export function sortByAddress(services, selectedAddress) {
   )
   return [serviceWithAddress, ...servicesWithoutSpecified]
 }
+
+// Filter out extensions in service list if they are installed
+export const filterServicesForInstalledExtensions =
+  (extensions = []) =>
+  (services = []) => {
+    return services.filter(
+      service => !isExtensionInstalled(extensions, service?.provider?.address)
+    )
+  }
 
 export const isExtension = service =>
   service?.method === SERVICE_METHODS.EXTENSION
