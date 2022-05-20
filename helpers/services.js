@@ -88,7 +88,7 @@ export function filterServicesByPlatform(platform) {
       const providerMetadata = getProviderMetadataByAddress(
         service?.provider?.address
       )
-      const providerPlatforms = Object.keys(providerMetadata?.platforms || [])
+      const providerPlatforms = Object.keys(providerMetadata?.platforms || {})
       return providerPlatforms.includes(platform.toLowerCase())
     })
   }
