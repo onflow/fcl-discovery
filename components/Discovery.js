@@ -3,6 +3,7 @@ import useSWR from 'swr'
 import styled from 'styled-components'
 import {
   combineServices,
+  filterServicesByPlatform,
   filterServicesForInstalledExtensions,
   serviceListOfType,
   serviceOfTypeAuthn,
@@ -19,6 +20,7 @@ import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import Header from './Headers/Header'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { pipe } from '../helpers/pipe'
+import { getPlatform } from '../helpers/userAgent'
 
 const DiscoveryContainer = styled.div`
   height: 100%;
@@ -54,6 +56,7 @@ export const Discovery = ({
     })
   )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
+  const platform = getPlatform()
 
   const services = useMemo(() => {
     const isSupported = isGreaterThanOrEqualToVersion(
@@ -67,6 +70,7 @@ export const Discovery = ({
         if (!isSupported) return data
         return combineServices(data, extensions, true)
       },
+      filterServicesByPlatform(platform),
       serviceOfTypeAuthn,
       data => sortByAddress(data, lastUsed)
     )(data)

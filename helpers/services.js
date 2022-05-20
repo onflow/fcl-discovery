@@ -1,4 +1,5 @@
 import { SERVICE_METHODS, SERVICE_TYPES } from './constants'
+import { getProviderMetadataByAddress } from './metadata'
 
 const filterUniqueServices = services => {
   let foundIds = []
@@ -59,6 +60,12 @@ export function sortByAddress(services, selectedAddress) {
   return [serviceWithAddress, ...servicesWithoutSpecified]
 }
 
+export const isExtension = service =>
+  service?.method === SERVICE_METHODS.EXTENSION
+
+export const isExtensionInstalled = (extensions, address) =>
+  extensions.some(extension => extension?.provider?.address === address)
+
 // Filter out extensions in service list if they are installed
 export function filterServicesForInstalledExtensions(extensions = []) {
   return function (services = []) {
@@ -68,8 +75,21 @@ export function filterServicesForInstalledExtensions(extensions = []) {
   }
 }
 
-export const isExtension = service =>
-  service?.method === SERVICE_METHODS.EXTENSION
+export const requiresPlatform = service => {
+  const requiredPlatformTypes = [SERVICE_METHODS.EXTENSION]
+  return requiredPlatformTypes.includes(service?.method)
+}
 
-export const isExtensionInstalled = (extensions, address) =>
-  extensions.some(extension => extension?.provider?.address === address)
+export function filterServicesByPlatform(platform) {
+  return function (services = []) {
+    if (!platform) return services
+    return services.filter(service => {
+      if (!requiresPlatform(service)) return true
+      const providerMetadata = getProviderMetadataByAddress(
+        service?.provider?.address
+      )
+      const providerPlatforms = Object.keys(providerMetadata?.platforms || [])
+      return providerPlatforms.includes(platform.toLowerCase())
+    })
+  }
+}
