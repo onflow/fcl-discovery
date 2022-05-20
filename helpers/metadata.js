@@ -1,3 +1,4 @@
 import metadataJson from '../data/metadata.json'
 
-export const getMetadataForAddress = address => metadataJson[address]
+export const getProviderMetadataByAddress = address =>
+  address ? metadataJson[address] : null
