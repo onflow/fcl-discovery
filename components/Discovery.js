@@ -3,7 +3,9 @@ import useSWR from 'swr'
 import styled from 'styled-components'
 import {
   combineServices,
+  filterServicesForInstalledExtensions,
   serviceListOfType,
+  serviceOfTypeAuthn,
   sortByAddress,
 } from '../helpers/services'
 import {
@@ -60,12 +62,13 @@ export const Discovery = ({
     )
 
     return pipe(
+      filterServicesForInstalledExtensions(extensions),
       data => {
         if (!isSupported) return data
         return combineServices(data, extensions, true)
       },
-      data => serviceListOfType(data, SERVICE_TYPES.AUTHN), // Only show authn services
-      data => sortByAddress(data, lastUsed) // Put last used service at top
+      serviceOfTypeAuthn,
+      data => sortByAddress(data, lastUsed)
     )(data)
   }, [data, extensions, appVersion])
 
