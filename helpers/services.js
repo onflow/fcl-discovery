@@ -82,14 +82,13 @@ export const requiresPlatform = service => {
 
 export function filterServicesByPlatform(platform) {
   return function (services = []) {
-    if (!platform) return services
     return services.filter(service => {
       if (!requiresPlatform(service)) return true
       const providerMetadata = getProviderMetadataByAddress(
         service?.provider?.address
       )
       const providerPlatforms = Object.keys(providerMetadata?.platforms || {})
-      return providerPlatforms.includes(platform.toLowerCase())
+      return providerPlatforms.includes(platform?.toLowerCase())
     })
   }
 }
