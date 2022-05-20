@@ -8,6 +8,10 @@ export const SERVICE_TYPES = {
   AUTHN: 'authn',
 }
 
+export const SERVICE_METHODS = {
+  EXTENSION: 'EXT/RPC',
+}
+
 export const PATHS = {
   MAINNET: '/authn',
   TESTNET: '/testnet/authn',

@@ -5,6 +5,8 @@ import {
   LOCAL_STORAGE_KEYS,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
+import { isExtensionInstalled } from '../helpers/services'
+import { truncateString } from '../helpers/strings'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -141,28 +143,22 @@ const ArrowSvg = styled.img``
 
 export default function ServiceCard({
   isEnabled,
-  address,
   icon,
   name,
   service,
   lastUsed = false,
 }) {
   const { extensions, appVersion } = useFCL()
-  const isInstalled = extensions.some(ext => ext?.provider?.address === address)
   const [_, setLastUsed] = useLocalStorage(
     LOCAL_STORAGE_KEYS.LAST_INSTALLED,
     null
   )
   const serviceWebsite = service?.provider?.website
   const hasWebsite = Boolean(service?.provider?.website)
-
-  const truncateString = (str, n) => {
-    if (str.length > n) {
-      return str.substring(0, n) + '...'
-    } else {
-      return str
-    }
-  }
+  const isExtensionServiceInstalled = isExtensionInstalled(
+    extensions,
+    service?.provider?.address
+  )
 
   const onSelect = () => {
     if (!service) return
@@ -197,7 +193,7 @@ export default function ServiceCard({
           <ServiceCardLeftColumn>
             <ServiceCardIcon icon={icon} />
             <ServiceCardName>{truncateString(name, 15)}</ServiceCardName>
-            {isInstalled && (
+            {isExtensionServiceInstalled && (
               <ServiceCardTags>
                 <DotSeperator> · </DotSeperator>
                 <ServiceCardTag>Installed</ServiceCardTag>
