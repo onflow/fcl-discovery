@@ -1,6 +1,8 @@
+import { USER_AGENTS } from '../constants'
 import {
   combineServices,
   filterOptInServices,
+  filterServicesByPlatform,
   getServiceByAddress,
   serviceListOfType,
   sortByAddress,
@@ -223,5 +225,54 @@ describe('services helpers: sortByAddress', () => {
     const services = [serviceA, serviceB]
 
     expect(sortByAddress(services, address)).toEqual(services)
+  })
+})
+
+jest.mock(
+  '../../data/metadata.json',
+  () => ({
+    'test-address': {
+      platforms: {
+        chrome: {
+          installLink: 'https://www.onflow.org',
+        },
+      },
+    },
+  }),
+  { virtual: true }
+)
+
+describe('services helpers: filterServicesByPlatform', () => {
+  it('should filter services by platform', () => {
+    const platform = USER_AGENTS.CHROME
+
+    const serviceA = {
+      type: 'authn',
+      method: 'EXT/RPC',
+      provider: {
+        address: 'test-address',
+      },
+    }
+
+    const serviceB = {
+      type: 'authn',
+      method: 'EXT/RPC',
+      provider: {
+        address: '0x123',
+      },
+    }
+
+    const serviceC = {
+      type: 'authn',
+      method: 'IFRAME/RPC',
+      provider: {
+        address: '0xC',
+      },
+    }
+
+    const services = [serviceA, serviceB, serviceC]
+    const expectedRes = [serviceA, serviceC]
+
+    expect(filterServicesByPlatform(platform)(services)).toEqual(expectedRes)
   })
 })
