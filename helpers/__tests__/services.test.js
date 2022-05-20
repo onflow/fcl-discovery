@@ -273,7 +273,7 @@ describe('services helpers: filterServicesByPlatform', () => {
     const services = [serviceA, serviceB, serviceC]
     const expectedRes = [serviceA, serviceC]
 
-    expect(filterServicesByPlatform(platform)(services)).toEqual(expectedRes)
+    expect(filterServicesByPlatform(platform, services)).toEqual(expectedRes)
   })
 
   it('should not return platform required services if no platform defined', () => {
@@ -306,6 +306,6 @@ describe('services helpers: filterServicesByPlatform', () => {
     const services = [serviceA, serviceB, serviceC]
     const expectedRes = [serviceC]
 
-    expect(filterServicesByPlatform(platform)(services)).toEqual(expectedRes)
+    expect(filterServicesByPlatform(platform, services)).toEqual(expectedRes)
   })
 })
