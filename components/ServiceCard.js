@@ -5,7 +5,7 @@ import {
   LOCAL_STORAGE_KEYS,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
-import { isExtensionInstalled } from '../helpers/services'
+import { isExtension, isExtensionInstalled } from '../helpers/services'
 import { truncateString } from '../helpers/strings'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { useFCL } from '../hooks/useFCL'
@@ -155,6 +155,7 @@ export default function ServiceCard({
   )
   const serviceWebsite = service?.provider?.website
   const hasWebsite = Boolean(service?.provider?.website)
+  const isExtensionService = isExtension(service)
   const isExtensionServiceInstalled = isExtensionInstalled(
     extensions,
     service?.provider?.address
@@ -193,10 +194,16 @@ export default function ServiceCard({
           <ServiceCardLeftColumn>
             <ServiceCardIcon icon={icon} />
             <ServiceCardName>{truncateString(name, 15)}</ServiceCardName>
-            {isExtensionServiceInstalled && (
+            {isExtensionService && isExtensionServiceInstalled && (
               <ServiceCardTags>
                 <DotSeperator> · </DotSeperator>
                 <ServiceCardTag>Installed</ServiceCardTag>
+              </ServiceCardTags>
+            )}
+            {isExtensionService && !isExtensionServiceInstalled && (
+              <ServiceCardTags>
+                <DotSeperator> · </DotSeperator>
+                <ServiceCardTag>Requires Install</ServiceCardTag>
               </ServiceCardTags>
             )}
           </ServiceCardLeftColumn>
