@@ -276,7 +276,7 @@ describe('services helpers: filterServicesByPlatform', () => {
     expect(filterServicesByPlatform(platform)(services)).toEqual(expectedRes)
   })
 
-  it('should show all services if no platform defined', () => {
+  it('should not return platform required services if no platform defined', () => {
     const platform = null
 
     const serviceA = {
@@ -304,7 +304,7 @@ describe('services helpers: filterServicesByPlatform', () => {
     }
 
     const services = [serviceA, serviceB, serviceC]
-    const expectedRes = [serviceA, serviceB, serviceC]
+    const expectedRes = [serviceC]
 
     expect(filterServicesByPlatform(platform)(services)).toEqual(expectedRes)
   })

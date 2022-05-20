@@ -3,16 +3,13 @@ import useSWR from 'swr'
 import styled from 'styled-components'
 import {
   combineServices,
-  filterServicesByPlatform,
   filterServicesForInstalledExtensions,
-  serviceListOfType,
   serviceOfTypeAuthn,
   sortByAddress,
 } from '../helpers/services'
 import {
   LOCAL_STORAGE_KEYS,
   PATHS,
-  SERVICE_TYPES,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
 import ServiceCard from './ServiceCard'
@@ -53,10 +50,10 @@ export const Discovery = ({
     fetcher(url, {
       fclVersion: appVersion,
       include: walletInclude,
+      platform: getPlatform(),
     })
   )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
-  const platform = getPlatform()
 
   const services = useMemo(() => {
     const isSupported = isGreaterThanOrEqualToVersion(
@@ -70,7 +67,6 @@ export const Discovery = ({
         if (!isSupported) return data
         return combineServices(data, extensions, true)
       },
-      filterServicesByPlatform(platform),
       serviceOfTypeAuthn,
       data => sortByAddress(data, lastUsed)
     )(data)
