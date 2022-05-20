@@ -243,7 +243,7 @@ describe('services helpers: sortByAddress', () => {
 })
 
 describe('services helpers: filterServicesByPlatform', () => {
-  it('should filter services by platform', () => {
+  it('should filter services if they do not have required platform', () => {
     const platform = USER_AGENTS.CHROME
 
     const serviceA = {
@@ -272,6 +272,39 @@ describe('services helpers: filterServicesByPlatform', () => {
 
     const services = [serviceA, serviceB, serviceC]
     const expectedRes = [serviceA, serviceC]
+
+    expect(filterServicesByPlatform(platform)(services)).toEqual(expectedRes)
+  })
+
+  it('should show all services if no platform defined', () => {
+    const platform = null
+
+    const serviceA = {
+      type: 'authn',
+      method: 'EXT/RPC',
+      provider: {
+        address: 'test-address',
+      },
+    }
+
+    const serviceB = {
+      type: 'authn',
+      method: 'EXT/RPC',
+      provider: {
+        address: '0x123',
+      },
+    }
+
+    const serviceC = {
+      type: 'authn',
+      method: 'IFRAME/RPC',
+      provider: {
+        address: '0xC',
+      },
+    }
+
+    const services = [serviceA, serviceB, serviceC]
+    const expectedRes = [serviceA, serviceB, serviceC]
 
     expect(filterServicesByPlatform(platform)(services)).toEqual(expectedRes)
   })
