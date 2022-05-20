@@ -60,13 +60,13 @@ export function sortByAddress(services, selectedAddress) {
 }
 
 // Filter out extensions in service list if they are installed
-export const filterServicesForInstalledExtensions =
-  (extensions = []) =>
-  (services = []) => {
+export function filterServicesForInstalledExtensions(extensions = []) {
+  return function (services = []) {
     return services.filter(
       service => !isExtensionInstalled(extensions, service?.provider?.address)
     )
   }
+}
 
 export const isExtension = service =>
   service?.method === SERVICE_METHODS.EXTENSION
