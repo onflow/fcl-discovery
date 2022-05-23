@@ -1,4 +1,4 @@
-import { USER_AGENTS } from '../constants'
+import { USER_AGENTS_SUBSTRINGS } from '../constants'
 import { hasUserAgent } from '../userAgent'
 
 const chromeUserAgent =
@@ -24,7 +24,7 @@ describe('Helpers: userAgent', () => {
       },
     }))
 
-    expect(hasUserAgent(USER_AGENTS.CHROME)).toBe(true)
+    expect(hasUserAgent(USER_AGENTS_SUBSTRINGS.CHROME)).toBe(true)
   })
 
   test('should check for non-existant user agent', () => {
@@ -34,6 +34,6 @@ describe('Helpers: userAgent', () => {
       },
     }))
 
-    expect(hasUserAgent(USER_AGENTS.CHROME)).toBe(false)
+    expect(hasUserAgent(USER_AGENTS_SUBSTRINGS.CHROME)).toBe(false)
   })
 })
