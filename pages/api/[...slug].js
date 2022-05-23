@@ -3,8 +3,11 @@ import Cors from 'cors'
 import servicesJson from '../../data/services.json'
 import { isValidPath, getNetworkFromPath } from '../../helpers/paths'
 import {
+  combineServices,
   filterOptInServices,
   filterServicesByPlatform,
+  filterServicesForInstalledExtensions,
+  serviceOfTypeAuthn,
 } from '../../helpers/services'
 import { pipe } from '../../helpers/pipe'
 import { SERVICE_METHODS, SUPPORTED_VERSIONS } from '../../helpers/constants'
@@ -32,23 +35,26 @@ function runMiddleware(req, res, fn) {
   })
 }
 
-const shouldFilterOrReturnDefault = (filterFn, fact, original) =>
-  fact ? filterFn() : original
-
 async function handler(req, res) {
   await runMiddleware(req, res, cors)
 
   const { slug, discoveryType } = req.query
-  const { fclVersion, include, userAgent } = req.body
+  const { fclVersion, include, extensions, userAgent } = req.body
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug).toLowerCase()
   const isFilteringSupported = isGreaterThanOrEqualToVersion(
     fclVersion,
     SUPPORTED_VERSIONS.FILTERING
   )
+  const areExtensionsSupported = isGreaterThanOrEqualToVersion(
+    fclVersion,
+    SUPPORTED_VERSIONS.EXTENSIONS
+  )
   const areUninstalledExtensionsSupported = isGreaterThanOrEqualToVersion(
     fclVersion,
-    SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS
+    discoveryType === 'UI'
+      ? SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS
+      : SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS_API
   )
   const platform = getPlatformFromUserAgent(userAgent)
   const discoveryRequestType = discoveryType || 'API'
@@ -67,12 +73,16 @@ async function handler(req, res) {
   // If below certain version, there is no user agent
 
   const services = pipe(
-    services =>
-      shouldFilterOrReturnDefault(
-        () => filterOptInServices(services, include),
-        isFilteringSupported,
-        services
-      ),
+    services => {
+      if (!isFilteringSupported) return services
+      return filterOptInServices(services, include)
+    },
+    filterServicesForInstalledExtensions(extensions),
+    services => {
+      if (!areExtensionsSupported) return services
+      return combineServices(services, extensions, true)
+    },
+    serviceOfTypeAuthn,
     services => {
       if (!areUninstalledExtensionsSupported) {
         // Filter out extensions if not supported because they were added on the FCL side in previous versions

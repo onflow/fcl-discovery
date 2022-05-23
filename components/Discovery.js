@@ -50,27 +50,15 @@ export const Discovery = ({
     fetcher(url, {
       fclVersion: appVersion,
       include: walletInclude,
+      extensions,
       userAgent: getUserAgent(),
     })
   )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
 
-  const services = useMemo(() => {
-    const isSupported = isGreaterThanOrEqualToVersion(
-      appVersion,
-      SUPPORTED_VERSIONS.EXTENSIONS
-    )
-
-    return pipe(
-      filterServicesForInstalledExtensions(extensions),
-      data => {
-        if (!isSupported) return data
-        return combineServices(data, extensions, true)
-      },
-      serviceOfTypeAuthn,
-      data => sortByAddress(data, lastUsed)
-    )(data)
-  }, [data, extensions, appVersion])
+  console.log('UI API CALL dataaaaa', data)
+  console.log('lastUsed', lastUsed)
+  const services = sortByAddress(data, lastUsed)
 
   if (!data) return <div />
   if (error) return <div>Error Loading Data</div>

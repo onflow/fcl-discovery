@@ -45,12 +45,12 @@ export const getServiceByAddress = (services, address) => {
   return services.find(service => service?.provider?.address === address)
 }
 
-export const containsAddress = (services, address) => {
+export const containsAddress = (services = [], address) => {
   return services.some(service => service?.provider?.address === address)
 }
 
 // Put last used service at top
-export function sortByAddress(services, selectedAddress) {
+export function sortByAddress(services = [], selectedAddress) {
   if (!selectedAddress) return services
   if (!containsAddress(services, selectedAddress)) return services // Do not continue if address you want to sort by is not in list
   const serviceWithAddress = getServiceByAddress(services, selectedAddress)
