@@ -1,4 +1,4 @@
-import { USER_AGENTS } from '../constants'
+import { USER_AGENTS_SUBSTRINGS } from '../constants'
 import {
   combineServices,
   filterOptInServices,
@@ -244,7 +244,7 @@ describe('services helpers: sortByAddress', () => {
 
 describe('services helpers: filterServicesByPlatform', () => {
   it('should filter services if they do not have required platform', () => {
-    const platform = USER_AGENTS.CHROME
+    const platform = USER_AGENTS_SUBSTRINGS.CHROME
 
     const serviceA = {
       type: 'authn',
