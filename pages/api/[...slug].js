@@ -3,6 +3,7 @@ import Cors from 'cors'
 import servicesJson from '../../data/services.json'
 import { isValidPath, getNetworkFromPath } from '../../helpers/paths'
 import {
+  appendInstallLinkToUninstalledServices,
   combineServices,
   filterOptInServices,
   filterServicesByPlatform,
@@ -77,6 +78,7 @@ async function handler(req, res) {
       if (!isFilteringSupported) return services
       return filterOptInServices(services, include)
     },
+    appendInstallLinkToUninstalledServices(platform),
     filterServicesForInstalledExtensions(extensions),
     services => {
       if (!areExtensionsSupported) return services

@@ -90,3 +90,26 @@ export function filterServicesByPlatform(platform, services = []) {
     return providerPlatforms.includes(platform?.toLowerCase())
   })
 }
+
+export function appendInstallLinkToUninstalledServices(platform) {
+  return function (services) {
+    return services.map(service => {
+      const clone = { ...service }
+
+      if (requiresPlatform(service)) {
+        clone.provider['required_install'] = true
+        const providerMetadata = getProviderMetadataByAddress(
+          service?.provider?.address
+        )
+        const installLink =
+          providerMetadata?.platforms[platform.toLowerCase()]?.install_link
+
+        if (installLink) {
+          clone.provider['install_link'] = installLink
+        }
+      }
+
+      return clone
+    })
+  }
+}
