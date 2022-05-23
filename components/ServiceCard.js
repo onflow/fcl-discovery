@@ -10,6 +10,7 @@ import { isExtension, isExtensionInstalled } from '../helpers/services'
 import { truncateString } from '../helpers/strings'
 import { getPlatform } from '../helpers/userAgent'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
+import { handleCancel } from '../helpers/window'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
@@ -177,6 +178,7 @@ export default function ServiceCard({
 
       if (installLink) {
         window.open(installLink, '_blank')
+        handleCancel()
       }
       return
     }
