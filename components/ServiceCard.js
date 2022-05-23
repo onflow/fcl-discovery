@@ -173,7 +173,7 @@ export default function ServiceCard({
     setLastUsed(service?.provider?.address)
 
     if (isExtensionService && !isExtensionServiceInstalled) {
-      const installLink = providerMetadata?.platforms[platform]?.installLink
+      const installLink = providerMetadata?.platforms[platform]?.install_link
 
       if (installLink) {
         window.open(installLink, '_blank')

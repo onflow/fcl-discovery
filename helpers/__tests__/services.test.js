@@ -14,7 +14,7 @@ jest.mock(
     'test-address': {
       platforms: {
         chrome: {
-          installLink: 'https://www.onflow.org',
+          install_link: 'https://www.onflow.org',
         },
       },
     },
