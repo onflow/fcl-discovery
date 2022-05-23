@@ -55,9 +55,6 @@ export const Discovery = ({
     })
   )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
-
-  console.log('UI API CALL dataaaaa', data)
-  console.log('lastUsed', lastUsed)
   const services = sortByAddress(data, lastUsed)
 
   if (!data) return <div />
