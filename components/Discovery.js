@@ -17,7 +17,7 @@ import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import Header from './Headers/Header'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { pipe } from '../helpers/pipe'
-import { getPlatform } from '../helpers/userAgent'
+import { getUserAgent } from '../helpers/userAgent'
 
 const DiscoveryContainer = styled.div`
   height: 100%;
@@ -50,7 +50,7 @@ export const Discovery = ({
     fetcher(url, {
       fclVersion: appVersion,
       include: walletInclude,
-      userAgent: window?.navigator?.userAgent,
+      userAgent: getUserAgent(),
     })
   )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)

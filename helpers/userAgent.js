@@ -1,5 +1,7 @@
 import { USER_AGENTS } from './constants'
 
+export const getUserAgent = () => window?.navigator?.userAgent
+
 export const hasUserAgent = type => window?.navigator?.userAgent.includes(type)
 
 export const getPlatform = () => {
