@@ -97,7 +97,7 @@ export function appendInstallLinkToUninstalledServices(platform) {
       const clone = { ...service }
 
       if (requiresPlatform(service)) {
-        clone.provider['required_install'] = true
+        clone.provider['requires_install'] = true
         const providerMetadata = getProviderMetadataByAddress(
           service?.provider?.address
         )
