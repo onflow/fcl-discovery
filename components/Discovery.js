@@ -15,7 +15,7 @@ import {
 import ServiceCard from './ServiceCard'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import Header from './Headers/Header'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import { useStorage } from '../hooks/useStorage'
 import { pipe } from '../helpers/pipe'
 import { getUserAgent } from '../helpers/userAgent'
 
@@ -53,7 +53,7 @@ export const Discovery = ({
       userAgent: getUserAgent(),
     })
   )
-  const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
+  const [lastUsed, _] = useStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
 
   const services = useMemo(() => {
     const isSupported = isGreaterThanOrEqualToVersion(

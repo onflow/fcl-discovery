@@ -12,7 +12,7 @@ import { getPlatform } from '../helpers/userAgent'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { handleCancel } from '../helpers/window'
 import { useFCL } from '../hooks/useFCL'
-import { useLocalStorage } from '../hooks/useLocalStorage'
+import { useStorage } from '../hooks/useStorage'
 
 const RowContainer = styled.div`
   display: flex;
@@ -152,10 +152,7 @@ export default function ServiceCard({
   lastUsed = false,
 }) {
   const { extensions, appVersion } = useFCL()
-  const [_, setLastUsed] = useLocalStorage(
-    LOCAL_STORAGE_KEYS.LAST_INSTALLED,
-    null
-  )
+  const [_, setLastUsed] = useStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
   const serviceWebsite = service?.provider?.website
   const hasWebsite = Boolean(service?.provider?.website)
   const isExtensionService = isExtension(service)
