@@ -73,6 +73,7 @@ export const Discovery = ({
             createGenericService({
               type: 'authn',
               method: 'WC/RPC',
+              endpoint: 'flow_authn',
               uid: 'wc#authn',
               name: 'WC',
             }),
