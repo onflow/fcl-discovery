@@ -46,10 +46,10 @@
       "provider": {
         "address": "0xead892083b3e2c6c",
         "name": "Dapper Wallet",
-        "icon": null,
+        "icon": "/images/dapper.svg",
         "description": "The trusted gateway to your digital world.",
         "color": "#FF5A9D",
-        "supportEmail": null,
+        "supportEmail": "support@meetdapper.com",
         "website": "https://meetdapper.com"
       }
     }
@@ -102,10 +102,10 @@
       "provider": {
         "address": "0x82ec283f88a62e65",
         "name": "Dapper Wallet",
-        "icon": null,
+        "icon": "/images/dapper.svg",
         "description": "The trusted gateway to your digital world.",
         "color": "#FF5A9D",
-        "supportEmail": null,
+        "supportEmail": "support@meetdapper.com",
         "website": "https://meetdapper.com"
       }
     }
