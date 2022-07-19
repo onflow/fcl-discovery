@@ -10,6 +10,7 @@ export function useFCL() {
   const [extensions, setExtensions] = useState([])
   const [walletInclude, setWalletInclude] = useState([])
   const [wcProviderId, setWcProviderId] = useState(null)
+  const [wcPairings, setWcPairings] = useState(null)
 
   useEffect(() => {
     setHasInitialized(true)
@@ -22,7 +23,7 @@ export function useFCL() {
       const clientExtensions =
         config?.client?.extensions || body?.extensions || []
       const wcProviderId = '1234' // TODO: figure out where this comes from // maybe? .put("discovery.authn.include", ["0x1234", "wc:providerId"])
-
+      const wcPairings = config?.client?.wcPairings
       if (config?.app) {
         setAppConfig(config.app)
       }
@@ -41,6 +42,10 @@ export function useFCL() {
         setWcProviderId(wcProviderId)
       }
 
+      if (wcPairings) {
+        setWcPairings(wcPairings)
+      }
+
       setLoading(false)
     })
   }, [])
@@ -54,5 +59,6 @@ export function useFCL() {
     extensions,
     walletInclude,
     wcProviderId,
+    wcPairings,
   }
 }

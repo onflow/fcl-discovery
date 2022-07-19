@@ -107,7 +107,7 @@ function MyApp({ Component, pageProps }) {
   const handleCancel = () => {
     window.parent.postMessage(
       {
-        type: 'FCL:FRAME:CLOSE',
+        type: 'FCL:VIEW:CLOSE',
       },
       '*'
     )

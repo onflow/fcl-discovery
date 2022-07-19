@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {
   combineServices,
   createGenericService,
+  createWcServices,
   serviceListOfType,
   sortByAddress,
 } from '../helpers/services'
@@ -45,6 +46,7 @@ export const Discovery = ({
   extensions,
   walletInclude,
   wcProviderId,
+  wcPairings,
 }) => {
   const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
@@ -68,15 +70,25 @@ export const Discovery = ({
       },
       data => {
         if (wcProviderId) {
+          const pairingServices = !wcPairings
+            ? []
+            : createWcServices(wcPairings, {
+                type: 'authn',
+                method: 'WC/RPC',
+                endpoint: 'flow_authn',
+                uid: 'wc#authn',
+                name: 'WC',
+              })
           return [
             ...data,
-            createGenericService({
+            createGenericService(wcPairings, {
               type: 'authn',
               method: 'WC/RPC',
               endpoint: 'flow_authn',
               uid: 'wc#authn',
               name: 'WC',
             }),
+            ...pairingServices,
           ]
         } else {
           return data

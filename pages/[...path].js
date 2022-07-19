@@ -25,6 +25,7 @@ const Router = () => {
     extensions,
     walletInclude,
     wcProviderId,
+    wcPairings,
   } = useFCL()
   const isValid = isValidPath(path)
   const network = getNetworkFromPath(path)
@@ -40,6 +41,7 @@ const Router = () => {
           extensions={extensions}
           walletInclude={walletInclude}
           wcProviderId={wcProviderId}
+          wcPairings={wcPairings}
         />
       )}
     </AppContainer>
