@@ -88,7 +88,10 @@ export function appendInstallData(platform, extensions = [], services = []) {
 
     if (requiresPlatform(service)) {
       clone.provider['requires_install'] = true
-      clone.provider['is_installed'] = isExtensionInstalled(extensions, service?.provider?.address)
+      clone.provider['is_installed'] = isExtensionInstalled(
+        extensions,
+        service?.provider?.address
+      )
       const providerMetadata = getProviderMetadataByAddress(
         service?.provider?.address
       )

@@ -15,14 +15,7 @@ import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import Sentry from '../../config/sentry.server'
 import mixpanel from '../../config/mixpanel.server'
 import { getPlatformFromUserAgent } from '../../helpers/userAgent'
-import {
-  always,
-  ifElse,
-  partial,
-  pipe,
-  reject,
-  when,
-} from 'rambda'
+import { always, ifElse, partial, pipe, reject, when } from 'rambda'
 
 // Initializing the cors middleware
 const cors = Cors({
