@@ -10,12 +10,12 @@ import {
   filterServicesForInstalledExtensions,
   serviceOfTypeAuthn,
 } from '../../helpers/services'
-import { pipe } from '../../helpers/pipe'
 import { SERVICE_METHODS, SUPPORTED_VERSIONS } from '../../helpers/constants'
 import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import Sentry from '../../config/sentry.server'
 import mixpanel from '../../config/mixpanel.server'
 import { getPlatformFromUserAgent } from '../../helpers/userAgent'
+import { always, partial, pipe, when } from 'rambda'
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -74,10 +74,10 @@ async function handler(req, res) {
   // If below certain version, there is no user agent
 
   const services = pipe(
-    services => {
-      if (!isFilteringSupported) return services
-      return filterOptInServices(services, include)
-    },
+    when(
+      always(isFilteringSupported),
+      partial(filterOptInServices, include)
+    ),
     appendInstallLinkToUninstalledServices(platform),
     filterServicesForInstalledExtensions(extensions),
     services => {

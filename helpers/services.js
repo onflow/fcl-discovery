@@ -34,7 +34,7 @@ export const serviceOfTypeAuthn = services =>
   serviceListOfType(services, SERVICE_TYPES.AUTHN)
 
 // If it's an optIn service, make sure it's been asked to be included
-export function filterOptInServices(services = [], includeList = []) {
+export function filterOptInServices(includeList = [], services = []) {
   return services.filter(service => {
     if (service.optIn) return includeList.includes(service?.provider?.address)
     return true

@@ -117,12 +117,12 @@ describe('services helpers: filterOptInServices', () => {
     const includeListB = [optInAddress]
     const expectedResponseB = [serviceA, serviceB, serviceC]
 
-    expect(filterOptInServices(serviceListA, includeListA).length).toEqual(2)
-    expect(filterOptInServices(serviceListA, includeListA)).toEqual(
+    expect(filterOptInServices(includeListA, serviceListA).length).toEqual(2)
+    expect(filterOptInServices(includeListA, serviceListA)).toEqual(
       expectedResponseA
     )
-    expect(filterOptInServices(serviceListB, includeListB).length).toEqual(3)
-    expect(filterOptInServices(serviceListB, includeListB)).toEqual(
+    expect(filterOptInServices(includeListB, serviceListB).length).toEqual(3)
+    expect(filterOptInServices(includeListB, serviceListB)).toEqual(
       expectedResponseB
     )
   })

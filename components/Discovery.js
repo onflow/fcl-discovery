@@ -16,7 +16,6 @@ import ServiceCard from './ServiceCard'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import Header from './Headers/Header'
 import { useLocalStorage } from '../hooks/useLocalStorage'
-import { pipe } from '../helpers/pipe'
 import { getUserAgent } from '../helpers/userAgent'
 
 const DiscoveryContainer = styled.div`
