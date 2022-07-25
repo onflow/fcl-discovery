@@ -86,8 +86,8 @@ async function handler(req, res) {
   const services = pipe(
     // Remove opt in services unless marked as include, if supported
     when(always(isFilteringSupported), partial(filterOptInServices, include)),
+    // Add installation data
     appendInstallData(platform),
-    filterServicesForInstalledExtensions(extensions),
     // Add extensions if supported
     when(always(areExtensionsSupported), services =>
       combineServices(services, extensions, true)

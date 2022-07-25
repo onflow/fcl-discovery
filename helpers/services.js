@@ -66,15 +66,6 @@ export const isExtension = service =>
 export const isExtensionInstalled = (extensions, address) =>
   extensions.some(extension => extension?.provider?.address === address)
 
-// Filter out extensions in service list if they are installed
-export function filterServicesForInstalledExtensions(extensions = []) {
-  return function (services = []) {
-    return services.filter(
-      service => !isExtensionInstalled(extensions, service?.provider?.address)
-    )
-  }
-}
-
 export const requiresPlatform = service => {
   const requiredPlatformTypes = [SERVICE_METHODS.EXTENSION]
   return requiredPlatformTypes.includes(service?.method)
