@@ -82,10 +82,11 @@ async function handler(req, res) {
     ),
     appendInstallLinkToUninstalledServices(platform),
     filterServicesForInstalledExtensions(extensions),
-    services => {
-      if (!areExtensionsSupported) return services
-      return combineServices(services, extensions, true)
-    },
+    // Add extensions if supported
+    when(
+      always(areExtensionsSupported),
+      services => combineServices(services, extensions, true)
+    ),
     serviceOfTypeAuthn,
     // Filter out extensions if not supported because they were added on the FCL side in previous versions
     ifElse(
