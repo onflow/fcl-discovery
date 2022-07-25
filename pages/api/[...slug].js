@@ -75,6 +75,7 @@ async function handler(req, res) {
   // If below certain version, there is no user agent
 
   const services = pipe(
+    // Filter out opt in services unless marked as include, if supported
     when(
       always(isFilteringSupported),
       partial(filterOptInServices, include)
