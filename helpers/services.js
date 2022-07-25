@@ -82,25 +82,23 @@ export function filterServicesByPlatform(platform, services = []) {
   })
 }
 
-export function appendInstallData(platform) {
-  return function (services) {
-    return services.map(service => {
-      const clone = { ...service }
+export function appendInstallData(platform, extensions, services) {
+  return services.map(service => {
+    const clone = { ...service }
 
-      if (requiresPlatform(service)) {
-        clone.provider['requires_install'] = true
-        const providerMetadata = getProviderMetadataByAddress(
-          service?.provider?.address
-        )
-        const installLink =
-          providerMetadata?.platforms[platform.toLowerCase()]?.install_link
+    if (requiresPlatform(service)) {
+      clone.provider['requires_install'] = true
+      const providerMetadata = getProviderMetadataByAddress(
+        service?.provider?.address
+      )
+      const installLink =
+        providerMetadata?.platforms[platform.toLowerCase()]?.install_link
 
-        if (installLink) {
-          clone.provider['install_link'] = installLink
-        }
+      if (installLink) {
+        clone.provider['install_link'] = installLink
       }
+    }
 
-      return clone
-    })
-  }
+    return clone
+  })
 }
