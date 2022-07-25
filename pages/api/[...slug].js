@@ -16,7 +16,16 @@ import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import Sentry from '../../config/sentry.server'
 import mixpanel from '../../config/mixpanel.server'
 import { getPlatformFromUserAgent } from '../../helpers/userAgent'
-import { always, filter, ifElse, not, partial, pipe, reject, when } from 'rambda'
+import {
+  always,
+  filter,
+  ifElse,
+  not,
+  partial,
+  pipe,
+  reject,
+  when,
+} from 'rambda'
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -76,16 +85,12 @@ async function handler(req, res) {
 
   const services = pipe(
     // Filter out opt in services unless marked as include, if supported
-    when(
-      always(isFilteringSupported),
-      partial(filterOptInServices, include)
-    ),
+    when(always(isFilteringSupported), partial(filterOptInServices, include)),
     appendInstallLinkToUninstalledServices(platform),
     filterServicesForInstalledExtensions(extensions),
     // Add extensions if supported
-    when(
-      always(areExtensionsSupported),
-      services => combineServices(services, extensions, true)
+    when(always(areExtensionsSupported), services =>
+      combineServices(services, extensions, true)
     ),
     serviceOfTypeAuthn,
     // Filter out extensions if not supported because they were added on the FCL side in previous versions

@@ -113,8 +113,8 @@ const ServiceCardIconWrapper = styled.div`
 `
 
 const ServiceCardIcon = styled.div`
-  height: 3.0rem;
-  min-width: 3.0rem;
+  height: 3rem;
+  min-width: 3rem;
 
   border-radius: 0.5rem;
 
