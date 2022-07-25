@@ -3,7 +3,7 @@ import Cors from 'cors'
 import servicesJson from '../../data/services.json'
 import { isValidPath, getNetworkFromPath } from '../../helpers/paths'
 import {
-  appendInstallLinkToUninstalledServices,
+  appendInstallData,
   combineServices,
   filterOptInServices,
   filterServicesByPlatform,
@@ -84,9 +84,9 @@ async function handler(req, res) {
   // If below certain version, there is no user agent
 
   const services = pipe(
-    // Filter out opt in services unless marked as include, if supported
+    // Remove opt in services unless marked as include, if supported
     when(always(isFilteringSupported), partial(filterOptInServices, include)),
-    appendInstallLinkToUninstalledServices(platform),
+    appendInstallData(platform),
     filterServicesForInstalledExtensions(extensions),
     // Add extensions if supported
     when(always(areExtensionsSupported), services =>

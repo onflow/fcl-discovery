@@ -91,7 +91,7 @@ export function filterServicesByPlatform(platform, services = []) {
   })
 }
 
-export function appendInstallLinkToUninstalledServices(platform) {
+export function appendInstallData(platform) {
   return function (services) {
     return services.map(service => {
       const clone = { ...service }
