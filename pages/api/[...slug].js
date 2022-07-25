@@ -8,6 +8,7 @@ import {
   filterOptInServices,
   filterServicesByPlatform,
   filterServicesForInstalledExtensions,
+  isExtension,
   serviceOfTypeAuthn,
 } from '../../helpers/services'
 import { SERVICE_METHODS, SUPPORTED_VERSIONS } from '../../helpers/constants'
@@ -15,7 +16,7 @@ import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import Sentry from '../../config/sentry.server'
 import mixpanel from '../../config/mixpanel.server'
 import { getPlatformFromUserAgent } from '../../helpers/userAgent'
-import { always, partial, pipe, when } from 'rambda'
+import { always, filter, ifElse, not, partial, pipe, reject, when } from 'rambda'
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -85,13 +86,12 @@ async function handler(req, res) {
       return combineServices(services, extensions, true)
     },
     serviceOfTypeAuthn,
-    services => {
-      if (!areUninstalledExtensionsSupported) {
-        // Filter out extensions if not supported because they were added on the FCL side in previous versions
-        return services.filter(s => s.method !== SERVICE_METHODS.EXTENSION)
-      }
-      return filterServicesByPlatform(platform, services)
-    }
+    // Filter out extensions if not supported because they were added on the FCL side in previous versions
+    ifElse(
+      always(areUninstalledExtensionsSupported),
+      partial(filterServicesByPlatform, platform),
+      partial(reject, isExtension)
+    )
   )(servicesJson[network])
 
   return res.status(200).json(services)
