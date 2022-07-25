@@ -82,12 +82,13 @@ export function filterServicesByPlatform(platform, services = []) {
   })
 }
 
-export function appendInstallData(platform, extensions, services) {
+export function appendInstallData(platform, extensions = [], services = []) {
   return services.map(service => {
     const clone = { ...service }
 
     if (requiresPlatform(service)) {
       clone.provider['requires_install'] = true
+      clone.provider['is_installed'] = isExtensionInstalled(extensions, service?.provider?.address)
       const providerMetadata = getProviderMetadataByAddress(
         service?.provider?.address
       )
