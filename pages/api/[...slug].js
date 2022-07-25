@@ -7,20 +7,17 @@ import {
   combineServices,
   filterOptInServices,
   filterServicesByPlatform,
-  filterServicesForInstalledExtensions,
   isExtension,
   serviceOfTypeAuthn,
 } from '../../helpers/services'
-import { SERVICE_METHODS, SUPPORTED_VERSIONS } from '../../helpers/constants'
+import { SUPPORTED_VERSIONS } from '../../helpers/constants'
 import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import Sentry from '../../config/sentry.server'
 import mixpanel from '../../config/mixpanel.server'
 import { getPlatformFromUserAgent } from '../../helpers/userAgent'
 import {
   always,
-  filter,
   ifElse,
-  not,
   partial,
   pipe,
   reject,
