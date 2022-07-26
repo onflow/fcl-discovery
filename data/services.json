@@ -134,7 +134,7 @@
       "uid": "lilico#authn",
       "endpoint": "chrome-extension://hpclkefagolihohboafpheddmmgdffjm/popup.html",
       "provider": {
-        "address": "0x3d2b4d1b51f3a4cd",
+        "address": "0x33f75ff0b830dcec",
         "name": "Lilico",
         "icon": "/images/lilico.png",
         "description": "A crypto wallet on Flow built for explorers, collectors, and gamers.",
