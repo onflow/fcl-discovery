@@ -40,7 +40,7 @@ async function handler(req, res) {
   await runMiddleware(req, res, cors)
 
   const { slug, discoveryType } = req.query
-  const { type, fclVersion, include, extensions, userAgent } = req.body
+  const { fclVersion, include, extensions, userAgent } = req.body
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug).toLowerCase()
   const isFilteringSupported = isGreaterThanOrEqualToVersion(
