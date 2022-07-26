@@ -53,24 +53,21 @@ export function sortByAddress(services, selectedAddress) {
   return [serviceWithAddress, ...servicesWithoutSpecified]
 }
 
-export function createGenericService(
-  pairings,
-  {
-    type = null,
-    f_vsn = '1.0.0',
-    method = 'IFRAME/RPC',
-    uid = null,
-    endpoint = null,
-    optIn = true,
-    address = null,
-    name = null,
-    icon = null,
-    description = null,
-    color = null,
-    supportEmail = null,
-    website = null,
-  }
-) {
+export function createGenericService({
+  type = null,
+  f_vsn = '1.0.0',
+  method = 'IFRAME/RPC',
+  uid = null,
+  endpoint = null,
+  optIn = true,
+  address = null,
+  name = null,
+  icon = null,
+  description = null,
+  color = null,
+  supportEmail = null,
+  website = null,
+}) {
   return {
     f_type: 'Service',
     f_vsn,
@@ -81,7 +78,7 @@ export function createGenericService(
     optIn,
     provider: {
       address,
-      name: `${!pairings ? name : 'New WC Pairing'}`,
+      name: 'WalletConnect',
       icon,
       description,
       color,
@@ -102,15 +99,15 @@ export function createWcServices(
     optIn = true,
     address = null,
     name = null,
-    icon = null,
+    icon = 'https://avatars.githubusercontent.com/u/37784886',
     description = null,
     color = null,
     supportEmail = null,
     website = null,
   }
 ) {
-  return pairings.map(pairing => {
-    return {
+  return [
+    {
       f_type: 'Service',
       f_vsn,
       type,
@@ -119,15 +116,35 @@ export function createWcServices(
       endpoint,
       optIn,
       provider: {
-        ...pairing,
-        address: pairing.topic,
-        name: pairing.peerMetadata.name,
-        icon: pairing.peerMetadata.icons[0],
-        description: pairing.peerMetadata.description,
-        website: pairing.peerMetadata.url,
+        address,
+        name: 'WalletConnect',
+        icon,
+        description,
         color,
         supportEmail,
+        website,
       },
-    }
-  })
+    },
+    ...pairings.map(pairing => {
+      return {
+        f_type: 'Service',
+        f_vsn,
+        type,
+        method,
+        uid,
+        endpoint,
+        optIn,
+        provider: {
+          ...pairing,
+          address: pairing.topic,
+          name: pairing.peerMetadata.name,
+          icon: pairing.peerMetadata.icons[0],
+          description: pairing.peerMetadata.description,
+          website: pairing.peerMetadata.url,
+          color,
+          supportEmail,
+        },
+      }
+    }),
+  ]
 }

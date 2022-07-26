@@ -45,7 +45,7 @@ export const Discovery = ({
   appVersion,
   extensions,
   walletInclude,
-  wcProviderId,
+  wcProjectId,
   wcPairings,
 }) => {
   const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
@@ -69,26 +69,16 @@ export const Discovery = ({
         return combineServices(data, extensions, true)
       },
       data => {
-        if (wcProviderId) {
-          const pairingServices = !wcPairings
-            ? []
-            : createWcServices(wcPairings, {
-                type: 'authn',
-                method: 'WC/RPC',
-                endpoint: 'flow_authn',
-                uid: 'wc#authn',
-                name: 'WC',
-              })
+        if (wcProjectId) {
           return [
             ...data,
-            createGenericService(wcPairings, {
+            ...createWcServices(wcPairings, {
               type: 'authn',
               method: 'WC/RPC',
               endpoint: 'flow_authn',
               uid: 'wc#authn',
               name: 'WC',
             }),
-            ...pairingServices,
           ]
         } else {
           return data
