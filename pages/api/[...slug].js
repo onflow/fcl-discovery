@@ -53,7 +53,9 @@ async function handler(req, res) {
   )
   const areUninstalledExtensionsSupported = isGreaterThanOrEqualToVersion(
     fclVersion,
-    SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS
+    discoveryType === 'UI'
+      ? SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS
+      : SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS_API
   )
   const platform = getPlatformFromUserAgent(userAgent)
   const discoveryRequestType = discoveryType || 'API'
