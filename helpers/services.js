@@ -1,5 +1,5 @@
 import { SERVICE_METHODS, SERVICE_TYPES } from './constants'
-import { getProviderMetadataByAddress } from './metadata'
+import { getInstallLinkFromMetadata, getProviderMetadataByAddress } from './metadata'
 
 const filterUniqueServices = services => {
   let foundIds = []
@@ -95,8 +95,8 @@ export function appendInstallData(platform, extensions = [], services = []) {
       const providerMetadata = getProviderMetadataByAddress(
         service?.provider?.address
       )
-      const installLink =
-        providerMetadata?.platforms[platform.toLowerCase()]?.install_link
+
+      const installLink = getInstallLinkFromMetadata(providerMetadata, platform)
 
       if (installLink) {
         clone.provider['install_link'] = installLink
