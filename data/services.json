@@ -52,6 +52,23 @@
         "supportEmail": "support@meetdapper.com",
         "website": "https://meetdapper.com"
       }
+    },
+    {
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "EXT/RPC",
+      "uid": "lilico#authn",
+      "endpoint": "chrome-extension://hpclkefagolihohboafpheddmmgdffjm/popup.html",
+      "provider": {
+        "address": "0x33f75ff0b830dcec",
+        "name": "Lilico",
+        "icon": "/images/lilico.png",
+        "description": "A crypto wallet on Flow built for explorers, collectors, and gamers.",
+        "color": "#FC814A",
+        "supportEmail": "hi@lilico.app",
+        "website": "https://lilico.app"
+      }
     }
   ],
   "testnet": [
@@ -107,6 +124,23 @@
         "color": "#FF5A9D",
         "supportEmail": "support@meetdapper.com",
         "website": "https://meetdapper.com"
+      }
+    },
+    {
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "EXT/RPC",
+      "uid": "lilico#authn",
+      "endpoint": "chrome-extension://hpclkefagolihohboafpheddmmgdffjm/popup.html",
+      "provider": {
+        "address": "0x33f75ff0b830dcec",
+        "name": "Lilico",
+        "icon": "/images/lilico.png",
+        "description": "A crypto wallet on Flow built for explorers, collectors, and gamers.",
+        "color": "#FC814A",
+        "supportEmail": "hi@lilico.app",
+        "website": "https://lilico.app"
       }
     }
   ],

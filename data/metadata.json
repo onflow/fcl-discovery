@@ -5,5 +5,12 @@
         "install_link": "https://www.onflow.org"
       }
     }
+  },
+  "0x33f75ff0b830dcec": {
+    "platforms": {
+      "chrome": {
+        "install_link": "https://chrome.google.com/webstore/detail/lilico/hpclkefagolihohboafpheddmmgdffjm"
+      }
+    }
   }
 }

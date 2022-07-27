@@ -10,7 +10,6 @@ import { isExtension, isExtensionInstalled } from '../helpers/services'
 import { truncateString } from '../helpers/strings'
 import { getPlatform } from '../helpers/userAgent'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
-import { handleCancel } from '../helpers/window'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
@@ -105,9 +104,17 @@ const ServiceCardRightColumn = styled.div`
   }
 `
 
-const ServiceCardIcon = styled.div`
+const ServiceCardIconWrapper = styled.div`
   height: 3.8rem;
   min-width: 3.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const ServiceCardIcon = styled.div`
+  height: 3rem;
+  min-width: 3rem;
 
   border-radius: 0.5rem;
 
@@ -131,11 +138,13 @@ const ServiceCardTags = styled.div`
   align-items: center;
   font-size: 0.8rem;
   color: ${COLORS.GREY};
+  margin-top: 4px;
 `
 
 const DotSeperator = styled.div`
   padding: 0 5px;
   font-size: 1.4rem;
+  margin-top: -2px;
 `
 
 const ServiceCardTag = styled.div``
@@ -177,8 +186,9 @@ export default function ServiceCard({
       const installLink = providerMetadata?.platforms[platform]?.install_link
 
       if (installLink) {
-        window.open(installLink, '_blank')
-        handleCancel()
+        // Extensions require reload of page to inject script into dapp with data
+        // Redirecting dapp to install page forces page to be refreshed when returning
+        window.parent.location.href = installLink
       }
       return
     }
@@ -209,7 +219,9 @@ export default function ServiceCard({
         {lastUsed && <ServiceContainerTag>Last Used</ServiceContainerTag>}
         <ServiceCardRow>
           <ServiceCardLeftColumn>
-            <ServiceCardIcon icon={icon} />
+            <ServiceCardIconWrapper>
+              <ServiceCardIcon icon={icon} />
+            </ServiceCardIconWrapper>
             <ServiceCardName>{truncateString(name, 15)}</ServiceCardName>
             {isExtensionService && isExtensionServiceInstalled && (
               <ServiceCardTags>
@@ -220,7 +232,7 @@ export default function ServiceCard({
             {isExtensionService && !isExtensionServiceInstalled && (
               <ServiceCardTags>
                 <DotSeperator> · </DotSeperator>
-                <ServiceCardTag>Requires Install</ServiceCardTag>
+                <ServiceCardTag>Install Extension</ServiceCardTag>
               </ServiceCardTags>
             )}
           </ServiceCardLeftColumn>

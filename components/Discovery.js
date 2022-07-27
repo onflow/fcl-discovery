@@ -16,7 +16,6 @@ import ServiceCard from './ServiceCard'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import Header from './Headers/Header'
 import { useLocalStorage } from '../hooks/useLocalStorage'
-import { pipe } from '../helpers/pipe'
 import { getUserAgent } from '../helpers/userAgent'
 
 const DiscoveryContainer = styled.div`
@@ -48,29 +47,15 @@ export const Discovery = ({
   const requestUrl = `/api${PATHS[network.toUpperCase()]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
     fetcher(url, {
+      type: ['authn'],
       fclVersion: appVersion,
       include: walletInclude,
+      extensions,
       userAgent: getUserAgent(),
     })
   )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
-
-  const services = useMemo(() => {
-    const isSupported = isGreaterThanOrEqualToVersion(
-      appVersion,
-      SUPPORTED_VERSIONS.EXTENSIONS
-    )
-
-    return pipe(
-      filterServicesForInstalledExtensions(extensions),
-      data => {
-        if (!isSupported) return data
-        return combineServices(data, extensions, true)
-      },
-      serviceOfTypeAuthn,
-      data => sortByAddress(data, lastUsed)
-    )(data)
-  }, [data, extensions, appVersion])
+  const services = sortByAddress(data, lastUsed)
 
   if (!data) return <div />
   if (error) return <div>Error Loading Data</div>
