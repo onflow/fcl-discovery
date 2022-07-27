@@ -65,7 +65,7 @@ async function handler(req, res) {
   mixpanel.track('Wallet Discovery Request', {
     type: discoveryRequestType,
     network,
-    fclVersion
+    fclVersion,
   })
 
   // In newer versions, we'll have extensions sent

@@ -47,6 +47,7 @@ export const Discovery = ({
   const requestUrl = `/api${PATHS[network.toUpperCase()]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
     fetcher(url, {
+      type: ['authn'],
       fclVersion: appVersion,
       include: walletInclude,
       extensions,
