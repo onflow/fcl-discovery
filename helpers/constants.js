@@ -23,7 +23,7 @@ export const SUPPORTED_VERSIONS = {
   EXTENSIONS: '0.0.79-alpha.0', // Version that supports browser extension redirects
   APP_CONFIG: '0.0.79-alpha.4', // Version that supports displaying your app config
   UNINSTALLED_EXTENSIONS: '1.0.0', // Version that supports uninstalled extensions
-  UNINSTALLED_EXTENSIONS_API: '1.1.2', // Version that supports uninstalled extensions on Discovery API
+  UNINSTALLED_EXTENSIONS_API: '1.2.0', // Version that supports uninstalled extensions on Discovery API
   PLATFORM: '1.0.0', // Version that supports platform
 }
 
