@@ -77,6 +77,10 @@ export function filterServicesByPlatform(platform, services = []) {
     const providerMetadata = getProviderMetadataByAddress(
       service?.provider?.address
     )
+
+    // Assume it is supported if we can't find the metadata for it.
+    if (!providerMetadata) return true
+
     const providerPlatforms = Object.keys(providerMetadata?.platforms || {})
     return providerPlatforms.includes(platform?.toLowerCase())
   })
