@@ -38,7 +38,7 @@ export function useFCL() {
         setWalletInclude(config.discoveryAuthnInclude || [])
       }
 
-      if (wc.projectId) {
+      if (wc?.projectId) {
         setWcProjectId(wc.projectId)
         setWcPairings(wc.pairings)
       }
