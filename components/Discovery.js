@@ -46,7 +46,7 @@ export const Discovery = ({
   extensions,
   walletInclude,
   wcProjectId,
-  wcPairings,
+  servicePlugins,
 }) => {
   const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
@@ -69,16 +69,17 @@ export const Discovery = ({
         return combineServices(data, extensions, true)
       },
       data => {
-        if (wcProjectId) {
+        if (servicePlugins) {
           return [
             ...data,
-            ...createWcServices(wcPairings, {
+            ...servicePlugins,
+            /*             ...createWcServices(wcPairings, {
               type: 'authn',
               method: 'WC/RPC',
               endpoint: 'flow_authn',
               uid: 'wc#authn',
               name: 'WC',
-            }),
+            }), */
           ]
         } else {
           return data
