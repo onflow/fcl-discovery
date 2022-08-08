@@ -9,8 +9,7 @@ export function useFCL() {
   const [appVersion, setAppVersion] = useState(null)
   const [extensions, setExtensions] = useState([])
   const [walletInclude, setWalletInclude] = useState([])
-  const [wcProjectId, setWcProjectId] = useState(null)
-  const [servicePlugins, setServicePlugins] = useState([])
+  const [clientServices, setClientServices] = useState([])
 
   useEffect(() => {
     setHasInitialized(true)
@@ -22,8 +21,7 @@ export function useFCL() {
       const appFclVersion = config?.client?.fclVersion || fclVersion || null
       const clientExtensions =
         config?.client?.extensions || body?.extensions || []
-      const wc = config?.client?.wc || null
-      const servicePlugins = config?.client.discoveryServices
+      const clientServices = config?.client?.discoveryServices || null
 
       if (config?.app) {
         setAppConfig(config.app)
@@ -39,12 +37,8 @@ export function useFCL() {
         setWalletInclude(config.discoveryAuthnInclude || [])
       }
 
-      if (wc?.projectId) {
-        setWcProjectId(wc.projectId)
-      }
-
-      if (servicePlugins?.length > 0) {
-        setServicePlugins(servicePlugins)
+      if (clientServices) {
+        setClientServices(clientServices)
       }
 
       setLoading(false)
@@ -59,7 +53,6 @@ export function useFCL() {
     appVersion,
     extensions,
     walletInclude,
-    wcProjectId,
-    servicePlugins,
+    clientServices,
   }
 }

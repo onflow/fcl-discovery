@@ -3,8 +3,6 @@ import useSWR from 'swr'
 import styled from 'styled-components'
 import {
   combineServices,
-  createGenericService,
-  createWcServices,
   serviceListOfType,
   sortByAddress,
 } from '../helpers/services'
@@ -45,8 +43,7 @@ export const Discovery = ({
   appVersion,
   extensions,
   walletInclude,
-  wcProjectId,
-  servicePlugins,
+  clientServices,
 }) => {
   const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
@@ -69,18 +66,8 @@ export const Discovery = ({
         return combineServices(data, extensions, true)
       },
       data => {
-        if (servicePlugins) {
-          return [
-            ...data,
-            ...servicePlugins,
-            /*             ...createWcServices(wcPairings, {
-              type: 'authn',
-              method: 'WC/RPC',
-              endpoint: 'flow_authn',
-              uid: 'wc#authn',
-              name: 'WC',
-            }), */
-          ]
+        if (clientServices) {
+          return [...data, ...clientServices]
         } else {
           return data
         }
