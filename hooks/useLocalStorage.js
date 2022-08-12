@@ -10,7 +10,7 @@ const isLocalStorageAvailable = () => {
   } catch (e) {
     return false
   }
-} 
+}
 
 const getStorageValue = (key, defaultValue) => {
   const saved = localStorage.getItem(key)

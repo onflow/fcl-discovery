@@ -1,5 +1,8 @@
 import { SERVICE_METHODS, SERVICE_TYPES } from './constants'
-import { getInstallLinkFromMetadata, getProviderMetadataByAddress } from './metadata'
+import {
+  getInstallLinkFromMetadata,
+  getProviderMetadataByAddress,
+} from './metadata'
 
 const filterUniqueServices = services => {
   let foundIds = []
