@@ -3,20 +3,20 @@ import useSWR from 'swr'
 import styled from 'styled-components'
 import {
   combineServices,
-  serviceListOfType,
+  filterServicesForInstalledExtensions,
+  serviceOfTypeAuthn,
   sortByAddress,
 } from '../helpers/services'
 import {
   LOCAL_STORAGE_KEYS,
   PATHS,
-  SERVICE_TYPES,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
 import ServiceCard from './ServiceCard'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import Header from './Headers/Header'
 import { useLocalStorage } from '../hooks/useLocalStorage'
-import { pipe } from '../helpers/pipe'
+import { getUserAgent } from '../helpers/userAgent'
 
 const DiscoveryContainer = styled.div`
   height: 100%;
@@ -45,37 +45,20 @@ export const Discovery = ({
   walletInclude,
   clientServices,
 }) => {
-  const requestUrl = `/api${PATHS[network]}?discoveryType=UI`
+  console.log('clientServices =====', clientServices)
+  const requestUrl = `/api${PATHS[network.toUpperCase()]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
     fetcher(url, {
+      type: ['authn'],
       fclVersion: appVersion,
       include: walletInclude,
+      extensions,
+      userAgent: getUserAgent(),
+      clientServices, // TODO: maybe combine this with extensions except version support then needs to be fixed in later step
     })
   )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
-
-  const services = useMemo(() => {
-    const isSupported = isGreaterThanOrEqualToVersion(
-      appVersion,
-      SUPPORTED_VERSIONS.EXTENSIONS
-    )
-
-    return pipe(
-      data => {
-        if (!isSupported) return data
-        return combineServices(data, extensions, true)
-      },
-      data => {
-        if (clientServices) {
-          return [...data, ...clientServices]
-        } else {
-          return data
-        }
-      },
-      data => serviceListOfType(data, SERVICE_TYPES.authn), // Only show authn services
-      data => sortByAddress(data, lastUsed) // Put last used service at top
-    )(data)
-  }, [data, extensions, appVersion])
+  const services = sortByAddress(data, lastUsed)
 
   if (!data) return <div />
   if (error) return <div>Error Loading Data</div>

@@ -14,6 +14,8 @@ describe('isGreaterThanOrEqualToVersion', () => {
     const versionI = '1.0.79-alpha.3'
     const versionJ = '0.0.78-alpha.9'
     const versionK = '0.0.78-alpha.10'
+    const versionL = '1.0.0'
+    const versionM = '1.2.0'
     expect(isGreaterThanOrEqualToVersion(versionA, supportedVersion)).toEqual(
       false
     )
@@ -43,5 +45,8 @@ describe('isGreaterThanOrEqualToVersion', () => {
     expect(isGreaterThanOrEqualToVersion(versionI, versionH)).toEqual(true)
     expect(isGreaterThanOrEqualToVersion(versionK, versionJ)).toEqual(true)
     expect(isGreaterThanOrEqualToVersion(versionJ, versionK)).toEqual(false)
+    expect(isGreaterThanOrEqualToVersion(versionL, versionM)).toEqual(false)
+    expect(isGreaterThanOrEqualToVersion(versionC, versionM)).toEqual(false)
+    expect(isGreaterThanOrEqualToVersion(versionM, versionL)).toEqual(true)
   })
 })

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: FlowHeader should render the FlowHeader component 1`] = `
+<div
+  class="sc-bczRLJ eJWKtT"
+>
+  <div
+    class="sc-gsnTZi kDRAhc"
+  >
+    <img
+      alt="Flow Logo"
+      class="sc-dkzDqf kEzBlf"
+      src="/logo.svg"
+    />
+  </div>
+  <h2
+    class="sc-hKMtZM ksKXfP"
+  >
+    Choose a Provider
+  </h2>
+</div>
+`;

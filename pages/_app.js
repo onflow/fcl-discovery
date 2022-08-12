@@ -5,6 +5,7 @@ import { Message } from '../components/Message'
 import { NETWORKS, SUPPORTED_VERSIONS } from '../helpers/constants'
 import { getNetworkFromPath } from '../helpers/paths'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
+import { handleCancel } from '../helpers/window'
 import { useFCL } from '../hooks/useFCL'
 
 const GlobalStyle = createGlobalStyle`
@@ -103,15 +104,6 @@ function MyApp({ Component, pageProps }) {
     isMissingConfig &&
     isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.APP_CONFIG)
   const [messageOpen, setMessageOpen] = useState(true)
-
-  const handleCancel = () => {
-    window.parent.postMessage(
-      {
-        type: 'FCL:VIEW:CLOSE',
-      },
-      '*'
-    )
-  }
 
   const developerMessage =
     "👋 Hey Flow dev (you're only seeing this on Testnet), looks like you're missing some app configuration. You can add an icon and title to brand this for your app by setting it in your FCL config."

@@ -34,6 +34,41 @@
         "supportEmail": "support@ledger.com",
         "website": "https://ledger.com"
       }
+    },
+    {
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "IFRAME/RPC",
+      "uid": "dapper-wallet#authn",
+      "endpoint": "https://accounts.meetdapper.com/fcl/authn-restricted",
+      "optIn": true,
+      "provider": {
+        "address": "0xead892083b3e2c6c",
+        "name": "Dapper Wallet",
+        "icon": "/images/dapper.svg",
+        "description": "The trusted gateway to your digital world.",
+        "color": "#FF5A9D",
+        "supportEmail": "support@meetdapper.com",
+        "website": "https://meetdapper.com"
+      }
+    },
+    {
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "EXT/RPC",
+      "uid": "lilico#authn",
+      "endpoint": "chrome-extension://hpclkefagolihohboafpheddmmgdffjm/popup.html",
+      "provider": {
+        "address": "0x33f75ff0b830dcec",
+        "name": "Lilico",
+        "icon": "/images/lilico.png",
+        "description": "A crypto wallet on Flow built for explorers, collectors, and gamers.",
+        "color": "#FC814A",
+        "supportEmail": "hi@lilico.app",
+        "website": "https://lilico.app"
+      }
     }
   ],
   "testnet": [
@@ -71,6 +106,41 @@
         "color": "#1e2029",
         "supportEmail": "support@ledger.com",
         "website": "https://ledger.com"
+      }
+    },
+    {
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "IFRAME/RPC",
+      "uid": "dapper-wallet#authn",
+      "endpoint": "https://staging.accounts.meetdapper.com/fcl/authn-restricted",
+      "optIn": true,
+      "provider": {
+        "address": "0x82ec283f88a62e65",
+        "name": "Dapper Wallet",
+        "icon": "/images/dapper.svg",
+        "description": "The trusted gateway to your digital world.",
+        "color": "#FF5A9D",
+        "supportEmail": "support@meetdapper.com",
+        "website": "https://meetdapper.com"
+      }
+    },
+    {
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "EXT/RPC",
+      "uid": "lilico#authn",
+      "endpoint": "chrome-extension://hpclkefagolihohboafpheddmmgdffjm/popup.html",
+      "provider": {
+        "address": "0x33f75ff0b830dcec",
+        "name": "Lilico",
+        "icon": "/images/lilico.png",
+        "description": "A crypto wallet on Flow built for explorers, collectors, and gamers.",
+        "color": "#FC814A",
+        "supportEmail": "hi@lilico.app",
+        "website": "https://lilico.app"
       }
     }
   ],

@@ -5,6 +5,10 @@ import {
   LOCAL_STORAGE_KEYS,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
+import { getProviderMetadataByAddress } from '../helpers/metadata'
+import { isExtension, isExtensionInstalled } from '../helpers/services'
+import { truncateString } from '../helpers/strings'
+import { getPlatform } from '../helpers/userAgent'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -100,9 +104,17 @@ const ServiceCardRightColumn = styled.div`
   }
 `
 
-const ServiceCardIcon = styled.div`
+const ServiceCardIconWrapper = styled.div`
   height: 3.8rem;
   min-width: 3.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const ServiceCardIcon = styled.div`
+  height: 3rem;
+  min-width: 3rem;
 
   border-radius: 0.5rem;
 
@@ -126,11 +138,13 @@ const ServiceCardTags = styled.div`
   align-items: center;
   font-size: 0.8rem;
   color: ${COLORS.GREY};
+  margin-top: 4px;
 `
 
 const DotSeperator = styled.div`
   padding: 0 5px;
   font-size: 1.4rem;
+  margin-top: -2px;
 `
 
 const ServiceCardTag = styled.div``
@@ -141,33 +155,43 @@ const ArrowSvg = styled.img``
 
 export default function ServiceCard({
   isEnabled,
-  address,
   icon,
   name,
   service,
   lastUsed = false,
 }) {
   const { extensions, appVersion } = useFCL()
-  const isInstalled = extensions.some(ext => ext?.provider?.address === address)
   const [_, setLastUsed] = useLocalStorage(
     LOCAL_STORAGE_KEYS.LAST_INSTALLED,
     null
   )
   const serviceWebsite = service?.provider?.website
   const hasWebsite = Boolean(service?.provider?.website)
-
-  const truncateString = (str, n) => {
-    if (str.length > n) {
-      return str.substring(0, n) + '...'
-    } else {
-      return str
-    }
-  }
+  const isExtensionService = isExtension(service)
+  const isExtensionServiceInstalled = isExtensionInstalled(
+    extensions,
+    service?.provider?.address
+  )
+  const providerMetadata = getProviderMetadataByAddress(
+    service?.provider?.address
+  )
+  const platform = getPlatform()?.toLowerCase()
 
   const onSelect = () => {
     if (!service) return
 
     setLastUsed(service?.provider?.address) // TODO: Handle WC without an address
+
+    if (isExtensionService && !isExtensionServiceInstalled) {
+      const installLink = providerMetadata?.platforms[platform]?.install_link
+
+      if (installLink) {
+        // Extensions require reload of page to inject script into dapp with data
+        // Redirecting dapp to install page forces page to be refreshed when returning
+        window.parent.location.href = installLink
+      }
+      return
+    }
 
     if (
       appVersion &&
@@ -195,12 +219,20 @@ export default function ServiceCard({
         {lastUsed && <ServiceContainerTag>Last Used</ServiceContainerTag>}
         <ServiceCardRow>
           <ServiceCardLeftColumn>
-            <ServiceCardIcon icon={icon} />
+            <ServiceCardIconWrapper>
+              <ServiceCardIcon icon={icon} />
+            </ServiceCardIconWrapper>
             <ServiceCardName>{truncateString(name, 15)}</ServiceCardName>
-            {isInstalled && (
+            {isExtensionService && isExtensionServiceInstalled && (
               <ServiceCardTags>
                 <DotSeperator> · </DotSeperator>
                 <ServiceCardTag>Installed</ServiceCardTag>
+              </ServiceCardTags>
+            )}
+            {isExtensionService && !isExtensionServiceInstalled && (
+              <ServiceCardTags>
+                <DotSeperator> · </DotSeperator>
+                <ServiceCardTag>Install Extension</ServiceCardTag>
               </ServiceCardTags>
             )}
           </ServiceCardLeftColumn>

@@ -1,10 +1,26 @@
+import { USER_AGENTS_SUBSTRINGS } from '../constants'
 import {
   combineServices,
   filterOptInServices,
+  filterServicesByPlatform,
   getServiceByAddress,
   serviceListOfType,
   sortByAddress,
 } from '../services'
+
+jest.mock(
+  '../../data/metadata.json',
+  () => ({
+    'test-address': {
+      platforms: {
+        chrome: {
+          install_link: 'https://www.onflow.org',
+        },
+      },
+    },
+  }),
+  { virtual: true }
+)
 
 describe('services helpers: combineServices', () => {
   it('should combine services with right ordering and filter unique', () => {
@@ -101,12 +117,12 @@ describe('services helpers: filterOptInServices', () => {
     const includeListB = [optInAddress]
     const expectedResponseB = [serviceA, serviceB, serviceC]
 
-    expect(filterOptInServices(serviceListA, includeListA).length).toEqual(2)
-    expect(filterOptInServices(serviceListA, includeListA)).toEqual(
+    expect(filterOptInServices(includeListA, serviceListA).length).toEqual(2)
+    expect(filterOptInServices(includeListA, serviceListA)).toEqual(
       expectedResponseA
     )
-    expect(filterOptInServices(serviceListB, includeListB).length).toEqual(3)
-    expect(filterOptInServices(serviceListB, includeListB)).toEqual(
+    expect(filterOptInServices(includeListB, serviceListB).length).toEqual(3)
+    expect(filterOptInServices(includeListB, serviceListB)).toEqual(
       expectedResponseB
     )
   })
@@ -223,5 +239,73 @@ describe('services helpers: sortByAddress', () => {
     const services = [serviceA, serviceB]
 
     expect(sortByAddress(services, address)).toEqual(services)
+  })
+})
+
+describe('services helpers: filterServicesByPlatform', () => {
+  it('should filter services if they do not have required platform', () => {
+    const platform = USER_AGENTS_SUBSTRINGS.CHROME
+
+    const serviceA = {
+      type: 'authn',
+      method: 'EXT/RPC',
+      provider: {
+        address: 'test-address',
+      },
+    }
+
+    const serviceB = {
+      type: 'authn',
+      method: 'EXT/RPC',
+      provider: {
+        address: '0x123',
+      },
+    }
+
+    const serviceC = {
+      type: 'authn',
+      method: 'IFRAME/RPC',
+      provider: {
+        address: '0xC',
+      },
+    }
+
+    const services = [serviceA, serviceB, serviceC]
+    const expectedRes = [serviceA, serviceB, serviceC]
+
+    expect(filterServicesByPlatform(platform, services)).toEqual(expectedRes)
+  })
+
+  it('should not return platform required services if no platform defined', () => {
+    const platform = null
+
+    const serviceA = {
+      type: 'authn',
+      method: 'EXT/RPC',
+      provider: {
+        address: 'test-address',
+      },
+    }
+
+    const serviceB = {
+      type: 'authn',
+      method: 'EXT/RPC',
+      provider: {
+        address: '0x123',
+      },
+    }
+
+    const serviceC = {
+      type: 'authn',
+      method: 'IFRAME/RPC',
+      provider: {
+        address: '0xC',
+      },
+    }
+
+    const services = [serviceA, serviceB, serviceC]
+    const expectedRes = [serviceB, serviceC]
+
+    expect(filterServicesByPlatform(platform, services)).toEqual(expectedRes)
   })
 })

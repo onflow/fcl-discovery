@@ -1,20 +1,30 @@
-import Enum from 'enum-xyz'
+export const NETWORKS = {
+  CANARYNET: 'canarynet',
+  TESTNET: 'testnet',
+  MAINNET: 'mainnet',
+}
 
-const { canarynet, testnet, mainnet, authn } = Enum.String
+export const SERVICE_TYPES = {
+  AUTHN: 'authn',
+}
 
-export const NETWORKS = { canarynet, testnet, mainnet }
-export const SERVICE_TYPES = { authn }
+export const SERVICE_METHODS = {
+  EXTENSION: 'EXT/RPC',
+}
 
 export const PATHS = {
-  mainnet: '/authn',
-  testnet: '/testnet/authn',
-  canarynet: '/canarynet/authn',
+  MAINNET: '/authn',
+  TESTNET: '/testnet/authn',
+  CANARYNET: '/canarynet/authn',
 }
 
 export const SUPPORTED_VERSIONS = {
   FILTERING: '0.0.78-alpha.10', // Version that supports include in FCL config
-  EXTENSIONS: '0.0.78-alpha.10', // Version that supports browser extension redirects
+  EXTENSIONS: '0.0.79-alpha.0', // Version that supports browser extension redirects
   APP_CONFIG: '0.0.79-alpha.4', // Version that supports displaying your app config
+  UNINSTALLED_EXTENSIONS: '1.0.0', // Version that supports uninstalled extensions
+  UNINSTALLED_EXTENSIONS_API: '1.2.0', // Version that supports uninstalled extensions on Discovery API
+  PLATFORM: '1.0.0', // Version that supports platform
 }
 
 export const COLORS = {
@@ -30,4 +40,8 @@ const LOCAL_STORAGE_VERSION = 'v1'
 
 export const LOCAL_STORAGE_KEYS = {
   LAST_INSTALLED: `discovery:${LOCAL_STORAGE_VERSION}:ext:lastUsed`,
+}
+
+export const USER_AGENTS_SUBSTRINGS = {
+  CHROME: 'Chrome',
 }

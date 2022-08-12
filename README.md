@@ -68,6 +68,7 @@ fcl.config({
 Flow compatible wallets wanting to add their wallets to Discovery can do so by creating a PR with the following:
 
 - Add your wallet's service information to the [services data file](https://github.com/onflow/fcl-discovery/blob/master/data/services.json)
+- Please provide any metadata related to your service if required ([see metadata docs](https://github.com/onflow/fcl-discovery/blob/master/docs/service-fields.md))
 - Provide a demo of your wallet that can be tested and is connected to Testnet
 
 For more information/examples on how to build a Flow compatible wallet, check out the following links:
