@@ -40,7 +40,7 @@ async function handler(req, res) {
   await runMiddleware(req, res, cors)
 
   const { slug, discoveryType } = req.query
-  const { fclVersion, include, extensions, userAgent } = req.body
+  const { fclVersion, include, extensions, userAgent, clientServices } = req.body
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug).toLowerCase()
   const isFilteringSupported = isGreaterThanOrEqualToVersion(
@@ -83,6 +83,7 @@ async function handler(req, res) {
     when(always(areExtensionsSupported), services =>
       combineServices(services, extensions, true)
     ),
+    services => [...services, ...clientServices], // TODO: this should use combineServices
     serviceOfTypeAuthn,
     // Filter out extensions if not supported because they were added on the FCL side in previous versions
     ifElse(
