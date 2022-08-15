@@ -1,6 +1,10 @@
 {
   "name": "fcl-discovery",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.14.2",
+    "npm": "8.5.0"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev -p 3002",
@@ -10,8 +14,7 @@
     "test:watch": "jest --watch",
     "lint": "npm run lint:prettier",
     "lint:prettier": "prettier --check .",
-    "lintfix": "prettier --write --list-different .",
-    "prepare": "husky install"
+    "lintfix": "prettier --write --list-different ."
   },
   "dependencies": {
     "@onflow/fcl": "1.0.2",
@@ -29,7 +32,6 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "babel-plugin-styled-components": "^2.0.7",
-    "husky": "^8.0.1",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
     "prettier": "^2.6.2"
