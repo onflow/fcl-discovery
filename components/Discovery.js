@@ -45,7 +45,6 @@ export const Discovery = ({
   walletInclude,
   clientServices,
 }) => {
-  console.log('clientServices =====', clientServices)
   const requestUrl = `/api${PATHS[network.toUpperCase()]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
     fetcher(url, {
