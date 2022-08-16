@@ -3,10 +3,15 @@ import styled from 'styled-components'
 import {
   COLORS,
   LOCAL_STORAGE_KEYS,
+  SERVICE_METHODS,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
 import { getProviderMetadataByAddress } from '../helpers/metadata'
-import { isExtension, isExtensionInstalled } from '../helpers/services'
+import {
+  isExtension,
+  isExtensionInstalled,
+  serviceListOfType,
+} from '../helpers/services'
 import { truncateString } from '../helpers/strings'
 import { getPlatform } from '../helpers/userAgent'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
@@ -160,31 +165,23 @@ export default function ServiceCard({
   service,
   lastUsed = false,
 }) {
-  const { extensions, appVersion } = useFCL()
+  const { appVersion } = useFCL()
   const [_, setLastUsed] = useLocalStorage(
     LOCAL_STORAGE_KEYS.LAST_INSTALLED,
     null
   )
   const serviceWebsite = service?.provider?.website
   const hasWebsite = Boolean(service?.provider?.website)
+  const installLink = service?.provider?.install_link
   const isExtensionService = isExtension(service)
-  const isExtensionServiceInstalled = isExtensionInstalled(
-    extensions,
-    service?.provider?.address
-  )
-  const providerMetadata = getProviderMetadataByAddress(
-    service?.provider?.address
-  )
-  const platform = getPlatform()?.toLowerCase()
+  const isExtensionServiceInstalled = Boolean(service?.provider?.is_installed)
 
   const onSelect = () => {
     if (!service) return
 
-    setLastUsed(service?.provider?.address) // TODO: Handle WC without an address
+    setLastUsed(service?.provider?.address)
 
     if (isExtensionService && !isExtensionServiceInstalled) {
-      const installLink = providerMetadata?.platforms[platform]?.install_link
-
       if (installLink) {
         // Extensions require reload of page to inject script into dapp with data
         // Redirecting dapp to install page forces page to be refreshed when returning

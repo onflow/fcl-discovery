@@ -39,3 +39,14 @@ export const isGreaterThanOrEqualToVersion = (version, supportedVersion) => {
 
   return false
 }
+
+export const findMatchingPipeVersion = (version, servicePipes) => {
+  for (const data of servicePipes) {
+    if (
+      isGreaterThanOrEqualToVersion(version, data.minVersion) &&
+      !isGreaterThanOrEqualToVersion(version, data.maxVersion)
+    ) {
+      return data.pipe
+    }
+  }
+}
