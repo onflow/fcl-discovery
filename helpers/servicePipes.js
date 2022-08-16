@@ -26,7 +26,7 @@ export const getServicePipes = ({
   return [
     {
       minVersion: '0.0.0',
-      maxVersion: '1.1.0',
+      maxVersion: '1.2.0',
       pipe: () => {
         // In newer versions, we'll have extensions sent
         // In older versions they were added on the FCL side
@@ -73,7 +73,7 @@ export const getServicePipes = ({
       },
     },
     {
-      minVersion: '1.1.1',
+      minVersion: '1.2.1',
       maxVersion: null,
       pipe: pipe(
         services => combineServices(services, clientServices),
