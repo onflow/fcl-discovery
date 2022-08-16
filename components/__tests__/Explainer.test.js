@@ -1,20 +1,11 @@
 import { render } from '@testing-library/react'
 import Explainer from '../Explainer'
-import * as hooks from '../../hooks/useFCL'
+import { useFCL } from '../../hooks/useFCL'
+jest.mock('../../hooks/useFCL')
 
 describe('Component: Explainer', () => {
-  let fclHookSpy
-
-  beforeEach(() => {
-    fclHookSpy = jest.spyOn(hooks, 'useFCL')
-  })
-
-  afterEach(() => {
-    fclHookSpy.mockRestore()
-  })
-
   test('should render the component with app title', () => {
-    fclHookSpy.mockImplementation(() => ({
+    useFCL.mockImplementation(() => ({
       appConfig: {
         title: 'Test App',
       },
@@ -25,7 +16,7 @@ describe('Component: Explainer', () => {
   })
 
   test('should render app as unknown in Explainer component if no title', () => {
-    fclHookSpy.mockImplementation(() => ({
+    useFCL.mockImplementation(() => ({
       appConfig: {
         title: null,
       },
