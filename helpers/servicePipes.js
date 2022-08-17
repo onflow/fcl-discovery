@@ -23,54 +23,52 @@ export const getServicePipes = ({
 }) => {
   const platform = getPlatformFromUserAgent(userAgent)
 
+  // In newer versions, we'll have extensions sent
+  // In older versions they were added on the FCL side
+  // If below certain version, there is no user agent
+  const isFilteringSupported = isGreaterThanOrEqualToVersion(
+    fclVersion,
+    SUPPORTED_VERSIONS.FILTERING
+  )
+  const areExtensionsSupported = isGreaterThanOrEqualToVersion(
+    fclVersion,
+    SUPPORTED_VERSIONS.EXTENSIONS
+  )
+  const areUninstalledExtensionsSupported = isGreaterThanOrEqualToVersion(
+    fclVersion,
+    discoveryType === 'UI'
+      ? SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS
+      : SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS_API
+  )
+  const extensions = serviceListOfType(
+    clientServices,
+    SERVICE_METHODS.EXTENSION
+  )
+
   return [
     {
       minVersion: '0.0.0',
       maxVersion: '1.2.0',
-      pipe: () => {
-        // In newer versions, we'll have extensions sent
-        // In older versions they were added on the FCL side
-        // If below certain version, there is no user agent
-        const isFilteringSupported = isGreaterThanOrEqualToVersion(
-          fclVersion,
-          SUPPORTED_VERSIONS.FILTERING
+      pipe: pipe(
+        // Remove opt in services unless marked as include, if supported
+        when(
+          always(isFilteringSupported),
+          partial(filterOptInServices, include)
+        ),
+        // Add installation data
+        partial(appendInstallData, platform, extensions),
+        // Add extensions if supported
+        when(always(areExtensionsSupported), services =>
+          combineServices(services, extensions, true)
+        ),
+        serviceOfTypeAuthn,
+        // Filter out extensions if not supported because they were added on the FCL side in previous versions
+        ifElse(
+          always(areUninstalledExtensionsSupported),
+          partial(filterServicesByPlatform, platform),
+          partial(reject, isExtension)
         )
-        const areExtensionsSupported = isGreaterThanOrEqualToVersion(
-          fclVersion,
-          SUPPORTED_VERSIONS.EXTENSIONS
-        )
-        const areUninstalledExtensionsSupported = isGreaterThanOrEqualToVersion(
-          fclVersion,
-          discoveryType === 'UI'
-            ? SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS
-            : SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS_API
-        )
-        const extensions = serviceListOfType(
-          clientServices,
-          SERVICE_METHODS.EXTENSION
-        )
-
-        return pipe(
-          // Remove opt in services unless marked as include, if supported
-          when(
-            always(isFilteringSupported),
-            partial(filterOptInServices, include)
-          ),
-          // Add installation data
-          partial(appendInstallData, platform, extensions),
-          // Add extensions if supported
-          when(always(areExtensionsSupported), services =>
-            combineServices(services, extensions, true)
-          ),
-          serviceOfTypeAuthn,
-          // Filter out extensions if not supported because they were added on the FCL side in previous versions
-          ifElse(
-            always(areUninstalledExtensionsSupported),
-            partial(filterServicesByPlatform, platform),
-            partial(reject, isExtension)
-          )
-        )
-      },
+      ),
     },
     {
       minVersion: '1.2.1',
