@@ -47,8 +47,7 @@ export const getServicePipes = ({
 
   return [
     {
-      minVersion: '0.0.0',
-      maxVersion: '1.2.0',
+      supportedVersion: '0.0.0',
       pipe: pipe(
         // Remove opt in services unless marked as include, if supported
         when(
@@ -71,8 +70,7 @@ export const getServicePipes = ({
       ),
     },
     {
-      minVersion: '1.2.1',
-      maxVersion: null,
+      supportedVersion: '1.2.1',
       pipe: pipe(
         services => combineServices(services, clientServices),
         // Remove opt in services unless marked as include, if supported

@@ -41,12 +41,17 @@ export const isGreaterThanOrEqualToVersion = (version, supportedVersion) => {
 }
 
 export const findMatchingPipeVersion = (version, servicePipes) => {
-  for (const data of servicePipes) {
+  for (const [index, servicePipe] of servicePipes.entries()) {
+    const nextServicePipe = servicePipes.at(index + 1)
+    if (!nextServicePipe && isGreaterThanOrEqualToVersion(version, servicePipe.supportedVersion)) return servicePipe.pipe
+
     if (
-      isGreaterThanOrEqualToVersion(version, data.minVersion) &&
-      !isGreaterThanOrEqualToVersion(version, data.maxVersion)
+      isGreaterThanOrEqualToVersion(version, servicePipe.supportedVersion) &&
+      !isGreaterThanOrEqualToVersion(version, nextServicePipe.supportedVersion)
     ) {
       return data.pipe
     }
   }
+
+  throw new Error('Incompatible FCL version')
 }
