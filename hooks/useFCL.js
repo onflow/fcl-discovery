@@ -19,7 +19,7 @@ export function useFCL() {
       // config?.client?.extensions starts in fcl v1
       const appFclVersion = config?.client?.fclVersion || fclVersion || null
       const services =
-        config?.client?.discoveryServices ||
+        config?.client?.clientServices ||
         config?.client?.extensions ||
         body?.extensions ||
         []
