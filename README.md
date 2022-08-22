@@ -2,7 +2,7 @@
 
 When building an dapp on Flow using [@onflow/fcl](https://github.com/onflow/fcl-js), Discovery eliminates the need for dapp developers to write code to integrate their user's preferred wallet into their application. Instead, @onflow/fcl and this repo uses a secure discovery protocol that wallets can implement to connect to @onflow/fcl. The end result is dapps using @onflow/fcl automatically integrate all compatible wallets without their developers needing to write any custom code!
 
-To read more about consuming/using this repo via FCL, visit the [Discovery docs](https://docs.onflow.org/fcl/reference/api/#discovery).
+To read more about consuming/using this repo via FCL, visit the [Discovery docs](https://developers.flow.com/tools/fcl-js/reference/discovery).
 
 ## Getting Started
 
@@ -48,6 +48,15 @@ fcl.config({
 })
 ```
 
+**Opt-In Wallet Addresses on Testnet and Mainnet**
+
+| Service           | Testnet            | Mainnet            |
+| ------------------| ------------------ | ------------------ |
+| `Dapper Wallet`   | 0x82ec283f88a62e65 | 0xead892083b3e2c6c |
+| `Ledger`          | 0x9d2e44203cb13051 | 0xe5cd26afebe62781 |
+
+For more information on including opt-in wallets, see [the FCL docs](https://developers.flow.com/tools/fcl-js/reference/api#more-configuration).
+
 ### App Title & Icon
 
 **Starting in FCL v0.0.79-alpha.4**
@@ -81,6 +90,6 @@ For more information/examples on how to build a Flow compatible wallet, check ou
 
 To learn more about the repo, take a look at the following resources:
 
-- [Discovery](https://docs.onflow.org/fcl/reference/api/#discovery) - Documentation for using Discovery with FCL.
-- [FCL](https://docs.onflow.org/fcl/) - Learn more about Flow's FCL
+- [Discovery](https://developers.flow.com/tools/fcl-js/reference/api#discovery) - Documentation for using Discovery with FCL.
+- [FCL](https://developers.flow.com/tools/fcl-js) - Learn more about Flow's FCL
 - [Next.js Documentation](https://nextjs.org/docs) - This app is built with Next. Learn about Next.js features and API.
