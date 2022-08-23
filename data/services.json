@@ -76,9 +76,9 @@
       "f_type": "Service",
       "f_vsn": "1.0.0",
       "type": "authn",
-      "method": "HTTP/POST",
+      "method": "POP/RPC",
       "uid": "blocto#authn",
-      "endpoint": "https://flow-wallet-testnet.blocto.app/api/flow/authn",
+      "endpoint": "https://flow-wallet-testnet.blocto.app/authn",
       "provider": {
         "address": "0xf086a545ce3c552d",
         "name": "Blocto",
