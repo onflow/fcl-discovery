@@ -9,7 +9,8 @@ import {
   isExtension,
   serviceListOfType,
   serviceOfTypeAuthn,
-} from '../helpers/services'
+  filterUniqueServices,
+} from './services'
 import { SERVICE_METHODS, SUPPORTED_VERSIONS } from './constants'
 import { getPlatformFromUserAgent } from './userAgent'
 import { isGreaterThanOrEqualToVersion } from './version'
@@ -60,6 +61,7 @@ export const getServicePipes = ({
         when(always(areExtensionsSupported), services =>
           combineServices(services, extensions, true)
         ),
+        filterUniqueServices({ address: true, uid: false }),
         serviceOfTypeAuthn,
         // Filter out extensions if not supported because they were added on the FCL side in previous versions
         ifElse(
@@ -70,9 +72,10 @@ export const getServicePipes = ({
       ),
     },
     {
-      supportedVersion: '1.2.1',
+      supportedVersion: '1.3.0-alpha.3',
       pipe: pipe(
         services => combineServices(services, clientServices),
+        filterUniqueServices({ address: true, uid: true }),
         // Remove opt in services unless marked as include, if supported
         partial(filterOptInServices, include),
         // Add installation data
