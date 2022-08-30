@@ -29,7 +29,7 @@ export const combineServices = (
   } else {
     combined = existingServices.concat(newServices)
   }
-  return combined //filterUniqueServices(combined)
+  return combined
 }
 
 export const serviceListOfType = (services = [], type) =>
