@@ -23,6 +23,7 @@ export function useFCL() {
         config?.client?.extensions ||
         body?.extensions ||
         []
+      const supportedStrategies = config?.client?.supportedStrategies || []
 
       if (config?.app) {
         setAppConfig(config.app)
