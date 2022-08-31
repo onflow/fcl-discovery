@@ -10,7 +10,7 @@ import {
   serviceListOfType,
   serviceOfTypeAuthn,
   filterUniqueServices,
-  filterSupportedStragies,
+  filterSupportedStrategies,
 } from './services'
 import { SERVICE_METHODS, SUPPORTED_VERSIONS } from './constants'
 import { getPlatformFromUserAgent } from './userAgent'
