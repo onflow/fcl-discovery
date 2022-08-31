@@ -10,6 +10,7 @@ import {
   serviceListOfType,
   serviceOfTypeAuthn,
   filterUniqueServices,
+  filterSupportedStragies,
 } from './services'
 import { SERVICE_METHODS, SUPPORTED_VERSIONS } from './constants'
 import { getPlatformFromUserAgent } from './userAgent'
@@ -21,6 +22,7 @@ export const getServicePipes = ({
   include,
   userAgent,
   clientServices,
+  supportedStrategies,
 }) => {
   const platform = getPlatformFromUserAgent(userAgent)
 
@@ -74,6 +76,7 @@ export const getServicePipes = ({
     {
       supportedVersion: '1.3.0-alpha.3',
       pipe: pipe(
+        filterSupportedStragies(supportedStrategies),
         services => combineServices(services, clientServices),
         filterUniqueServices({ address: true, uid: true }),
         // Remove opt in services unless marked as include, if supported

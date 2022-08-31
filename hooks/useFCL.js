@@ -9,6 +9,7 @@ export function useFCL() {
   const [appVersion, setAppVersion] = useState(null)
   const [walletInclude, setWalletInclude] = useState([])
   const [clientServices, setClientServices] = useState([])
+  const [supportedStrategies, setSupportedStrategies] = useState([])
 
   useEffect(() => {
     setHasInitialized(true)
@@ -23,7 +24,7 @@ export function useFCL() {
         config?.client?.extensions ||
         body?.extensions ||
         []
-      const supportedStrategies = config?.client?.supportedStrategies || []
+      const clientSupportedStragies = config?.client?.supportedStrategies || []
 
       if (config?.app) {
         setAppConfig(config.app)
@@ -41,6 +42,10 @@ export function useFCL() {
       if (services) {
         setClientServices(services)
       }
+      
+      if (clientSupportedStragies) {
+        setSupportedStrategies(clientSupportedStragies)
+      }
 
       setLoading(false)
     })
@@ -54,5 +59,6 @@ export function useFCL() {
     appVersion,
     walletInclude,
     clientServices,
+    supportedStrategies,
   }
 }

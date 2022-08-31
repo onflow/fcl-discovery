@@ -4,6 +4,10 @@ import {
   getProviderMetadataByAddress,
 } from './metadata'
 
+export const filterSupportedStragies = (supportedStrategies = []) => (services = []) => {
+  return services.filter(s => supportedStrategies.includes(s.method))
+}
+
 export const filterUniqueServices =
   ({ address = true, uid = false }) =>
   services => {

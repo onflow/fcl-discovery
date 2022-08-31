@@ -59,6 +59,7 @@ async function handler(req, res) {
     userAgent,
     extensions,
     clientServices,
+    supportedStrategies,
   })
   const versionPipe = findMatchingPipeVersion(fclVersion, servicePipes)
   const services = versionPipe(servicesJson[network])
