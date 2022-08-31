@@ -43,7 +43,7 @@ export function useFCL() {
         setClientServices(services)
       }
       
-      if (clientSupportedStragies) {
+      if (clientSupportedStrategies) {
         setSupportedStrategies(clientSupportedStragies)
       }
 
