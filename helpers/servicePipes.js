@@ -76,7 +76,7 @@ export const getServicePipes = ({
     {
       supportedVersion: '1.3.0-alpha.3',
       pipe: pipe(
-        filterSupportedStragies(supportedStrategies),
+        filterSupportedStrategies(supportedStrategies),
         services => combineServices(services, clientServices),
         filterUniqueServices({ address: true, uid: true }),
         // Remove opt in services unless marked as include, if supported
