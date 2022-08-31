@@ -44,7 +44,7 @@ export function useFCL() {
       }
       
       if (clientSupportedStrategies) {
-        setSupportedStrategies(clientSupportedStragies)
+        setSupportedStrategies(clientSupportedStrategies)
       }
 
       setLoading(false)
