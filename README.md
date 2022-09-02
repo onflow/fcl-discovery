@@ -50,10 +50,10 @@ fcl.config({
 
 **Opt-In Wallet Addresses on Testnet and Mainnet**
 
-| Service           | Testnet            | Mainnet            |
-| ------------------| ------------------ | ------------------ |
-| `Dapper Wallet`   | 0x82ec283f88a62e65 | 0xead892083b3e2c6c |
-| `Ledger`          | 0x9d2e44203cb13051 | 0xe5cd26afebe62781 |
+| Service         | Testnet            | Mainnet            |
+| --------------- | ------------------ | ------------------ |
+| `Dapper Wallet` | 0x82ec283f88a62e65 | 0xead892083b3e2c6c |
+| `Ledger`        | 0x9d2e44203cb13051 | 0xe5cd26afebe62781 |
 
 For more information on including opt-in wallets, see [the FCL docs](https://developers.flow.com/tools/fcl-js/reference/api#more-configuration).
 
