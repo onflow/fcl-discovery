@@ -49,7 +49,7 @@ export const findMatchingPipeVersion = (version, servicePipes) => {
       isGreaterThanOrEqualToVersion(version, servicePipe.supportedVersion) &&
       !isGreaterThanOrEqualToVersion(version, nextServicePipe.supportedVersion)
     ) {
-      return data.pipe
+      return servicePipe.pipe
     }
   }
 
