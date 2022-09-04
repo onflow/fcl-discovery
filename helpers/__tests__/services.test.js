@@ -59,7 +59,9 @@ describe('services helpers: filterUniqueServices', () => {
 
     const serviceList = [serviceA, serviceB, serviceC, serviceD]
     const expectedList = [serviceA, serviceB, serviceC]
-    const filteredList = filterUniqueServices({ address: true, uid: false })(serviceList)
+    const filteredList = filterUniqueServices({ address: true, uid: false })(
+      serviceList
+    )
 
     expect(filteredList).toEqual(expectedList)
     expect(filteredList.length).toEqual(3)
@@ -102,7 +104,9 @@ describe('services helpers: filterUniqueServices', () => {
 
     const serviceList = [serviceA, serviceB, serviceC, serviceD]
     const expectedList = [serviceA, serviceB, serviceC]
-    const filteredList = filterUniqueServices({ address: true, uid: true })(serviceList)
+    const filteredList = filterUniqueServices({ address: true, uid: true })(
+      serviceList
+    )
 
     expect(filteredList).toEqual(expectedList)
     expect(filteredList.length).toEqual(3)

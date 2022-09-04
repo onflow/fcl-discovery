@@ -24,7 +24,8 @@ export function useFCL() {
         config?.client?.extensions ||
         body?.extensions ||
         []
-      const clientSupportedStrategies = config?.client?.supportedStrategies || []
+      const clientSupportedStrategies =
+        config?.client?.supportedStrategies || []
 
       if (config?.app) {
         setAppConfig(config.app)
@@ -42,7 +43,7 @@ export function useFCL() {
       if (services) {
         setClientServices(services)
       }
-      
+
       if (clientSupportedStrategies) {
         setSupportedStrategies(clientSupportedStrategies)
       }
