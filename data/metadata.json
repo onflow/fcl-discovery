@@ -12,5 +12,12 @@
         "install_link": "https://chrome.google.com/webstore/detail/lilico/hpclkefagolihohboafpheddmmgdffjm"
       }
     }
+  },
+  "0x95b85a9ef4daabb1": {
+    "platforms": {
+      "chrome": {
+        "install_link": "https://chrome.google.com/webstore/detail/nufi/gpnihlnnodeiiaakbikldcihojploeca"
+      }
+    }
   }
 }
