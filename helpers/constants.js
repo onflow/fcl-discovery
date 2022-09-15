@@ -25,6 +25,7 @@ export const SUPPORTED_VERSIONS = {
   UNINSTALLED_EXTENSIONS: '1.0.0', // Version that supports uninstalled extensions
   UNINSTALLED_EXTENSIONS_API: '1.2.0', // Version that supports uninstalled extensions on Discovery API
   PLATFORM: '1.0.0', // Version that supports platform
+  PLUGIN_SERVICES: '1.2.0', // Version that supports plugin services TODO: up this after development
 }
 
 export const COLORS = {

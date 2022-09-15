@@ -3,6 +3,7 @@ import {
   combineServices,
   filterOptInServices,
   filterServicesByPlatform,
+  filterUniqueServices,
   getServiceByAddress,
   serviceListOfType,
   sortByAddress,
@@ -22,34 +23,124 @@ jest.mock(
   { virtual: true }
 )
 
-describe('services helpers: combineServices', () => {
-  it('should combine services with right ordering and filter unique', () => {
+describe('services helpers: filterUniqueServices', () => {
+  it('should filter services by address', () => {
     const serviceA = {
-      endpoint: 'https://flow-wallet.blocto.app/authn',
+      endpoint: 'https://walletone.com/authn',
       provider: {
         address: 1,
-        name: 'Blocto',
+        name: 'Wallet One',
       },
     }
 
     const serviceB = {
-      endpoint: 'https://fcl-ledger.onflow.org/mainnet/authn',
+      endpoint: 'https://wallettwo.com/authn',
       provider: {
         address: 2,
-        name: 'Ledger',
+        name: 'Wallet Two',
       },
     }
 
     const serviceC = {
-      endpoint: 'liquality',
+      endpoint: 'https://walletthree.com/authn',
       provider: {
         address: 3,
-        name: 'Liquality Wallet Extension',
+        name: 'Wallet Three',
+      },
+    }
+
+    const serviceD = {
+      endpoint: 'https://walletthree.com/authn',
+      provider: {
+        address: 3,
+        name: 'Wallet Three',
+      },
+    }
+
+    const serviceList = [serviceA, serviceB, serviceC, serviceD]
+    const expectedList = [serviceA, serviceB, serviceC]
+    const filteredList = filterUniqueServices({ address: true, uid: false })(
+      serviceList
+    )
+
+    expect(filteredList).toEqual(expectedList)
+    expect(filteredList.length).toEqual(3)
+  })
+
+  it('should filter services by uid or address', () => {
+    const serviceA = {
+      endpoint: 'https://walletone.com/authn',
+      provider: {
+        address: 1,
+        name: 'Wallet One',
+      },
+    }
+
+    const serviceB = {
+      endpoint: 'https://wallettwo.com/authn',
+      provider: {
+        address: 2,
+        name: 'Wallet Two',
+      },
+    }
+
+    const serviceC = {
+      endpoint: 'https://walletthree.com/authn',
+      uid: 'walletthree#authn',
+      provider: {
+        address: null,
+        name: 'Wallet Three',
+      },
+    }
+
+    const serviceD = {
+      endpoint: 'https://walletthree.com/authn',
+      uid: 'walletthree#authn',
+      provider: {
+        address: null,
+        name: 'Wallet Three',
+      },
+    }
+
+    const serviceList = [serviceA, serviceB, serviceC, serviceD]
+    const expectedList = [serviceA, serviceB, serviceC]
+    const filteredList = filterUniqueServices({ address: true, uid: true })(
+      serviceList
+    )
+
+    expect(filteredList).toEqual(expectedList)
+    expect(filteredList.length).toEqual(3)
+  })
+})
+
+describe('services helpers: combineServices', () => {
+  it('should combine services with right ordering', () => {
+    const serviceA = {
+      endpoint: 'https://walletone.com/authn',
+      provider: {
+        address: 1,
+        name: 'Wallet One',
+      },
+    }
+
+    const serviceB = {
+      endpoint: 'https://wallettwo.com/authn',
+      provider: {
+        address: 2,
+        name: 'Wallet Two',
+      },
+    }
+
+    const serviceC = {
+      endpoint: 'https://walletthree.com/authn',
+      provider: {
+        address: 3,
+        name: 'Wallet Three',
       },
     }
 
     const serviceListOne = [serviceA, serviceB]
-    const serviceListTwo = [serviceC, serviceC]
+    const serviceListTwo = [serviceC]
     const expectedListOne = [serviceA, serviceB, serviceC]
     const expectedListTwo = [serviceC, serviceA, serviceB]
 

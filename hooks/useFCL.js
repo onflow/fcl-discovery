@@ -7,8 +7,9 @@ export function useFCL() {
   const [appConfig, setAppConfig] = useState()
   const [clientConfig, setClientConfig] = useState()
   const [appVersion, setAppVersion] = useState(null)
-  const [extensions, setExtensions] = useState([])
   const [walletInclude, setWalletInclude] = useState([])
+  const [clientServices, setClientServices] = useState([])
+  const [supportedStrategies, setSupportedStrategies] = useState([])
 
   useEffect(() => {
     setHasInitialized(true)
@@ -18,8 +19,13 @@ export function useFCL() {
       // config.client.fclVersion is only available starting in version 0.0.79-alpha.4
       // config?.client?.extensions starts in fcl v1
       const appFclVersion = config?.client?.fclVersion || fclVersion || null
-      const clientExtensions =
-        config?.client?.extensions || body?.extensions || []
+      const services =
+        config?.client?.clientServices ||
+        config?.client?.extensions ||
+        body?.extensions ||
+        []
+      const clientSupportedStrategies =
+        config?.client?.supportedStrategies || []
 
       if (config?.app) {
         setAppConfig(config.app)
@@ -30,9 +36,16 @@ export function useFCL() {
       }
 
       if (appFclVersion) {
-        setExtensions(clientExtensions)
         setAppVersion(appFclVersion)
         setWalletInclude(config.discoveryAuthnInclude || [])
+      }
+
+      if (services) {
+        setClientServices(services)
+      }
+
+      if (clientSupportedStrategies) {
+        setSupportedStrategies(clientSupportedStrategies)
       }
 
       setLoading(false)
@@ -45,7 +58,8 @@ export function useFCL() {
     appConfig,
     clientConfig,
     appVersion,
-    extensions,
     walletInclude,
+    clientServices,
+    supportedStrategies,
   }
 }

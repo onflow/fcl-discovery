@@ -1,19 +1,8 @@
-import { useMemo } from 'react'
 import useSWR from 'swr'
 import styled from 'styled-components'
-import {
-  combineServices,
-  filterServicesForInstalledExtensions,
-  serviceOfTypeAuthn,
-  sortByAddress,
-} from '../helpers/services'
-import {
-  LOCAL_STORAGE_KEYS,
-  PATHS,
-  SUPPORTED_VERSIONS,
-} from '../helpers/constants'
+import { sortByAddress } from '../helpers/services'
+import { LOCAL_STORAGE_KEYS, PATHS } from '../helpers/constants'
 import ServiceCard from './ServiceCard'
-import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import Header from './Headers/Header'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { getUserAgent } from '../helpers/userAgent'
@@ -43,6 +32,8 @@ export const Discovery = ({
   appVersion,
   extensions,
   walletInclude,
+  clientServices,
+  supportedStrategies,
 }) => {
   const requestUrl = `/api${PATHS[network.toUpperCase()]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
@@ -52,6 +43,8 @@ export const Discovery = ({
       include: walletInclude,
       extensions,
       userAgent: getUserAgent(),
+      clientServices, // TODO: maybe combine this with extensions except version support then needs to be fixed in later step
+      supportedStrategies,
     })
   )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)

@@ -1,17 +1,28 @@
 import { SERVICE_METHODS, SERVICE_TYPES } from './constants'
-import { getInstallLinkFromMetadata, getProviderMetadataByAddress } from './metadata'
+import {
+  getInstallLinkFromMetadata,
+  getProviderMetadataByAddress,
+} from './metadata'
 
-const filterUniqueServices = services => {
-  let foundIds = []
-  return services.filter(p => {
-    if (foundIds.includes(p.provider.address)) {
-      return false
-    } else {
-      foundIds.push(p.provider.address)
+export const filterSupportedStrategies =
+  (supportedStrategies = []) =>
+  (services = []) => {
+    return services.filter(s => supportedStrategies.includes(s.method))
+  }
+
+export const filterUniqueServices =
+  ({ address = true, uid = false }) =>
+  services => {
+    let foundIds = []
+    return services.filter(p => {
+      const hasAddress = foundIds.includes(p.provider?.address)
+      const hasUid = foundIds.includes(p?.uid)
+      if ((address && hasAddress) || (uid && hasUid)) return false
+      if (p.provider.address) foundIds.push(p.provider.address)
+      if (p.uid) foundIds.push(p.uid)
       return true
-    }
-  })
-}
+    })
+  }
 
 export const combineServices = (
   existingServices = [],
@@ -24,7 +35,7 @@ export const combineServices = (
   } else {
     combined = existingServices.concat(newServices)
   }
-  return filterUniqueServices(combined)
+  return combined
 }
 
 export const serviceListOfType = (services = [], type) =>
