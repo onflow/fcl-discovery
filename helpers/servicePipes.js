@@ -7,7 +7,7 @@ import {
   filterOptInServices,
   filterServicesByPlatform,
   isExtension,
-  serviceListOfType,
+  serviceListOfMethod,
   serviceOfTypeAuthn,
   filterUniqueServices,
   filterSupportedStrategies,
@@ -43,7 +43,7 @@ export const getServicePipes = ({
       ? SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS
       : SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS_API
   )
-  const extensions = serviceListOfType(
+  const extensions = serviceListOfMethod(
     clientServices,
     SERVICE_METHODS.EXTENSION
   )
