@@ -57,12 +57,12 @@ export const getServicePipes = ({
           always(isFilteringSupported),
           partial(filterOptInServices, include)
         ),
-        // Add installation data
-        partial(appendInstallData, platform, extensions),
         // Add extensions if supported
         when(always(areExtensionsSupported), services =>
           combineServices(services, extensions, true)
         ),
+        // Add installation data
+        partial(appendInstallData, platform, extensions),
         filterUniqueServices({ address: true, uid: false }),
         serviceOfTypeAuthn,
         // Filter out extensions if not supported because they were added on the FCL side in previous versions
