@@ -44,6 +44,9 @@ export const serviceListOfType = (services = [], type) =>
 export const serviceOfTypeAuthn = services =>
   serviceListOfType(services, SERVICE_TYPES.AUTHN)
 
+export const serviceListOfMethod = (services = [], method) =>
+  services.filter(service => service.method === method)
+
 // If it's an optIn service, make sure it's been asked to be included
 export function filterOptInServices(includeList = [], services = []) {
   return services.filter(service => {
