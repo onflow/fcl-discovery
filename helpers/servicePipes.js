@@ -82,6 +82,7 @@ export const getServicePipes = ({
         // Remove opt in services unless marked as include, if supported
         partial(filterOptInServices, include),
         // Add installation data
+        partial(filterServicesByPlatform, platform),
         partial(appendInstallData, platform, clientServices),
         // Add services if supported
         serviceOfTypeAuthn
