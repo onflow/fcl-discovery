@@ -41,6 +41,10 @@ async function handler(req, res) {
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug).toLowerCase()
   const discoveryRequestType = discoveryType || 'API'
+  const services =
+    clientServices ||
+    extensions ||
+    []
 
   if (!isValid) {
     return res.status(400).json({ message: 'Invalid Network' })
@@ -57,14 +61,13 @@ async function handler(req, res) {
     discoveryType,
     include,
     userAgent,
-    extensions,
-    clientServices,
+    clientServices: services,
     supportedStrategies,
   })
   const versionPipe = findMatchingPipeVersion(fclVersion, servicePipes)
-  const services = versionPipe(servicesJson[network])
+  const discoveryServices = versionPipe(servicesJson[network])
 
-  return res.status(200).json(services)
+  return res.status(200).json(discoveryServices)
 }
 
 export default Sentry.withSentry(handler)
