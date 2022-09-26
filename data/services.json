@@ -84,6 +84,23 @@
         "description": "A Web3 crypto wallet for Cardano, Flow and Solana. Store, stake and connect to Dapps.",
         "website": "https://nu.fi"
       }
+    },
+    {
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "EXT/RPC",
+      "uid": "flipper#authn",
+      "endpoint": "chrome-extension://lmmpaefggfcmnoddemmgdppddppnmhek/index.html",
+      "provider": {
+        "address": "0x4204aa9c92ab68a1",
+        "name": "Flipper",
+        "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMy42MzY0IDBDNi4xMDUxNCAwIDAgNi4xMDUyMiAwIDEzLjYzNjRWNDYuMzYzNkMwIDUzLjg5NDggNi4xMDUxNCA2MCAxMy42MzY0IDYwSDQ2LjM2MzZDNTMuODk0OSA2MCA2MCA1My44OTQ4IDYwIDQ2LjM2MzZWMTMuNjM2NEM2MCA2LjEwNTIyIDUzLjg5NDkgMCA0Ni4zNjM2IDBIMTMuNjM2NFpNNDMuMzMzMyAxMEgzMFYyMy4zMzMzSDE2LjY2NjdMMzAgMzYuNjY2N0gxNi42NjY3VjUwSDMwVjM2LjY2NjdINDMuMzMzM0wzMCAyMy4zMzMzSDQzLjMzMzNWMTBaIiBmaWxsPSIjNkM1MkZGIi8+CjxwYXRoIGQ9Ik00My4zMzMzIDEwSDMwVjIzLjMzMzNINDMuMzMzM1YxMFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0zMCAyMy4zMzMzSDE2LjY2NjdMMzAgMzYuNjY2N0g0My4zMzMzTDMwIDIzLjMzMzNaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMzAgMzYuNjY2N0gxNi42NjY3VjUwSDMwVjM2LjY2NjdaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K",
+        "description": "A wallet for your favorite blockchain apps and games",
+        "color": "#6C52FF",
+        "supportEmail": "developer@flipper.org",
+        "website": "https://flipper.org"
+      }
     }
   ],
   "testnet": [
@@ -156,6 +173,23 @@
         "color": "#1e2029",
         "supportEmail": "support@ledger.com",
         "website": "https://ledger.com"
+      }
+    },
+    {
+      "f_type": "Service",
+      "f_vsn": "1.0.0",
+      "type": "authn",
+      "method": "EXT/RPC",
+      "uid": "flipper-developer#authn",
+      "endpoint": "chrome-extension://nkjhfapihbllbhhneonipcinhdlcmfgn/index.html",
+      "provider": {
+        "address": "0xbc18ed89bd780d7f",
+        "name": "Flipper Developer",
+        "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMC45MDkxIDBDNC44ODQxNyAwIDAgNC44ODQxNyAwIDEwLjkwOTFWMzcuMDkwOUMwIDQzLjExNTggNC44ODQxNyA0OCAxMC45MDkxIDQ4SDM3LjA5MDlDNDMuMTE1OCA0OCA0OCA0My4xMTU4IDQ4IDM3LjA5MDlWMTAuOTA5MUM0OCA0Ljg4NDE3IDQzLjExNTggMCAzNy4wOTA5IDBIMTAuOTA5MVpNMjQuMDIzNiAyOS4zNjhIMzQuNjgzMkwyMy45OTkxIDE4LjY4MzZIMTMuMzM5OEwyMy45NzAyIDI5LjMxNDZIMjMuOTk5MVYyOS4zNDM1TDI0LjAyMzYgMjkuMzY4Wk0xMy4zMTI1IDI5LjM2OTFIMjMuOTk2OVY0MC4wMDAySDEzLjMxMjVWMjkuMzY5MVpNMzQuNjg0NCA4SDI0VjE4LjY4NDRIMzQuNjg0NFY4WiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTEzLjMxMjUgMjkuMzY5MUgyMy45OTY5VjQwLjAwMDJIMTMuMzEyNVYyOS4zNjkxWiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTI0LjAyMzYgMjkuMzY4SDM0LjY4MzJMMjQgMTguNjg0NEwyMy45OTkxIDE4LjY4MzZIMTMuMzM5OEwyMy45NzAyIDI5LjMxNDZIMjMuOTk5MVYyOS4zNDM1TDI0LjAyMzYgMjkuMzY4WiIgZmlsbD0id2hpdGUiLz4KPHBhdGggZD0iTTM0LjY4NDQgOEgyNFYxOC42ODQ0SDM0LjY4NDRWOFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=",
+        "description": "A wallet for your favorite blockchain apps and games",
+        "color": "#000000",
+        "supportEmail": "developer@flipper.org",
+        "website": "https://flipper.org"
       }
     }
   ],
