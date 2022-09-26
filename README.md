@@ -79,6 +79,7 @@ Flow compatible wallets wanting to add their wallets to Discovery can do so by c
 - Add your wallet's service information to the [services data file](https://github.com/onflow/fcl-discovery/blob/master/data/services.json)
 - Please provide any metadata related to your service if required ([see metadata docs](https://github.com/onflow/fcl-discovery/blob/master/docs/service-fields.md))
 - Provide a demo of your wallet that can be tested and is connected to Testnet
+- Specify if your wallet is opt-in or not. Opt-in wallets are those that don't have support for authentication, authorization, and user signature services.
 
 For more information/examples on how to build a Flow compatible wallet, check out the following links:
 
