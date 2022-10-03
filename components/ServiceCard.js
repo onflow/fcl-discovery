@@ -5,9 +5,7 @@ import {
   LOCAL_STORAGE_KEYS,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
-import {
-  isExtension,
-} from '../helpers/services'
+import { isExtension } from '../helpers/services'
 import { truncateString } from '../helpers/strings'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { useFCL } from '../hooks/useFCL'
