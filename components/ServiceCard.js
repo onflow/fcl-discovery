@@ -21,7 +21,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage'
 const RowContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
 
   &:last-child {
     margin-bottom: 0;
