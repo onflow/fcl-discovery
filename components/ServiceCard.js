@@ -110,8 +110,8 @@ const ServiceCardRightColumn = styled.div`
 `
 
 const ServiceCardIconWrapper = styled.div`
-  height: 3.8rem;
-  min-width: 3.8rem;
+  height: 3.3rem;
+  min-width: 3.3rem;
   display: flex;
   justify-content: center;
   align-items: center;
