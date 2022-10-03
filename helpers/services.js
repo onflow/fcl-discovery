@@ -3,6 +3,7 @@ import {
   getInstallLinkFromMetadata,
   getProviderMetadataByAddress,
 } from './metadata'
+import { replacePort } from './urls'
 
 export const filterSupportedStrategies =
   (supportedStrategies = []) =>
@@ -122,5 +123,13 @@ export function appendInstallData(platform, extensions = [], services = []) {
     }
 
     return clone
+  })
+}
+
+export const overrideServicePorts = (shouldOverride, portOverride, services = []) => {
+  if (!shouldOverride) return services
+  return services.map(s => {
+    s.endpoint = replacePort(s.endpoint, portOverride)
+    return s
   })
 }

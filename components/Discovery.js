@@ -34,6 +34,7 @@ export const Discovery = ({
   walletInclude,
   clientServices,
   supportedStrategies,
+  port
 }) => {
   const requestUrl = `/api${PATHS[network.toUpperCase()]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
@@ -45,6 +46,8 @@ export const Discovery = ({
       userAgent: getUserAgent(),
       clientServices, // TODO: maybe combine this with extensions except version support then needs to be fixed in later step
       supportedStrategies,
+      network,
+      port
     })
   )
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
