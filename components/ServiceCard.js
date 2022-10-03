@@ -3,17 +3,12 @@ import styled from 'styled-components'
 import {
   COLORS,
   LOCAL_STORAGE_KEYS,
-  SERVICE_METHODS,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
-import { getProviderMetadataByAddress } from '../helpers/metadata'
 import {
   isExtension,
-  isExtensionInstalled,
-  serviceListOfType,
 } from '../helpers/services'
 import { truncateString } from '../helpers/strings'
-import { getPlatform } from '../helpers/userAgent'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
