@@ -3,17 +3,10 @@ import styled from 'styled-components'
 import {
   COLORS,
   LOCAL_STORAGE_KEYS,
-  SERVICE_METHODS,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
-import { getProviderMetadataByAddress } from '../helpers/metadata'
-import {
-  isExtension,
-  isExtensionInstalled,
-  serviceListOfType,
-} from '../helpers/services'
+import { isExtension } from '../helpers/services'
 import { truncateString } from '../helpers/strings'
-import { getPlatform } from '../helpers/userAgent'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -21,7 +14,7 @@ import { useLocalStorage } from '../hooks/useLocalStorage'
 const RowContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
 
   &:last-child {
     margin-bottom: 0;
@@ -110,8 +103,8 @@ const ServiceCardRightColumn = styled.div`
 `
 
 const ServiceCardIconWrapper = styled.div`
-  height: 3.8rem;
-  min-width: 3.8rem;
+  height: 3.3rem;
+  min-width: 3.3rem;
   display: flex;
   justify-content: center;
   align-items: center;
