@@ -37,7 +37,11 @@ export function useFCL() {
 
       if (appFclVersion) {
         setAppVersion(appFclVersion)
-        setWalletInclude(config.discoveryAuthnInclude || [])
+        setWalletInclude(
+          config?.discoveryAuthnInclude ||
+          config?.client?.discoveryAuthnInclude ||
+          []
+        )
       }
 
       if (services) {
