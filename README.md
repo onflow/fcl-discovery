@@ -14,7 +14,20 @@ npm run dev
 yarn dev
 ```
 
-### Discovery Routes
+Then add Discovery to your FCL app:
+
+```
+import * as fcl from "@onflow/fcl"
+
+fcl.config({
+  "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
+  "discovery.authn.endpoint": "https://fcl-discovery.onflow.org/api/testnet/authn"
+})
+```
+
+## Networks
+
+### Discovery UI URLs
 
 | Environment | Example                               |
 | ----------- | ------------------------------------- |
@@ -28,49 +41,9 @@ yarn dev
 | Mainnet     | `http://localhost:3000/api/authn`         |
 | Testnet     | `http://localhost:3000/api/testnet/authn` |
 
-## Configuration (For FCL)
+## More Configuration
 
-These are examples on how to set configuration from [FCL](https://docs.onflow.org/fcl/) in your application.
-
-### Include Opt In Wallets
-
-**Starting in FCL v0.0.78-alpha.10**
-
-To include opt-in wallets from FCL:
-
-```
-import * as fcl from "@onflow/fcl"
-
-fcl.config({
-  "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn",
-  "discovery.authn.endpoint": "https://fcl-discovery.onflow.org/api/testnet/authn",
-  "discovery.authn.include": ["0x123"] // Service account address
-})
-```
-
-**Opt-In Wallet Addresses on Testnet and Mainnet**
-
-| Service         | Testnet            | Mainnet            |
-| --------------- | ------------------ | ------------------ |
-| `Dapper Wallet` | 0x82ec283f88a62e65 | 0xead892083b3e2c6c |
-| `Ledger`        | 0x9d2e44203cb13051 | 0xe5cd26afebe62781 |
-
-For more information on including opt-in wallets, see [the FCL docs](https://developers.flow.com/tools/fcl-js/reference/api#more-configuration).
-
-### App Title & Icon
-
-**Starting in FCL v0.0.79-alpha.4**
-
-To set an app title and icon from FCL:
-
-```
-import * as fcl from "@onflow/fcl"
-
-fcl.config({
-  "app.detail.title": "Test App",
-  "app.detail.icon": "https://placekitten.com/g/200/200"
-})
-```
+For more configuration options, please see the [**documentation**](https://developers.flow.com/tools/fcl-js/reference/discovery).
 
 ## Adding a Wallet to Discovery
 
