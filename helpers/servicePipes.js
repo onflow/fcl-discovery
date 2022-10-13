@@ -11,8 +11,9 @@ import {
   serviceOfTypeAuthn,
   filterUniqueServices,
   filterSupportedStrategies,
+  overrideServicePorts,
 } from './services'
-import { SERVICE_METHODS, SUPPORTED_VERSIONS } from './constants'
+import { NETWORKS, SERVICE_METHODS, SUPPORTED_VERSIONS } from './constants'
 import { getPlatformFromUserAgent } from './userAgent'
 import { isGreaterThanOrEqualToVersion } from './version'
 
@@ -23,8 +24,11 @@ export const getServicePipes = ({
   userAgent,
   clientServices,
   supportedStrategies,
+  network,
+  portOverride,
 }) => {
   const platform = getPlatformFromUserAgent(userAgent)
+  const isLocal = network === NETWORKS.LOCAL
 
   // In newer versions, we'll have extensions sent
   // In older versions they were added on the FCL side
@@ -85,7 +89,9 @@ export const getServicePipes = ({
         partial(filterServicesByPlatform, platform),
         partial(appendInstallData, platform, clientServices),
         // Add services if supported
-        serviceOfTypeAuthn
+        serviceOfTypeAuthn,
+        // Allow port override option if local
+        partial(overrideServicePorts, isLocal, portOverride)
       ),
     },
   ]

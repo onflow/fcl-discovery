@@ -17,7 +17,7 @@ const AppContainer = styled.div`
 
 const Router = () => {
   const router = useRouter()
-  const { path } = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn']
+  const { path, port } = router.query // path: ['authn'] ['testnet', 'authn'] ['canarynet', 'authn']
   const {
     hasInitialized,
     loading,
@@ -42,6 +42,7 @@ const Router = () => {
           walletInclude={walletInclude}
           clientServices={clientServices}
           supportedStrategies={supportedStrategies}
+          port={port}
         />
       )}
     </AppContainer>
