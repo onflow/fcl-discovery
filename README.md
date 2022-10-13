@@ -18,17 +18,17 @@ yarn dev
 
 | Environment | Example                               |
 | ----------- | ------------------------------------- |
-| Mainnet     | `http://localhost:3000/authn`         |
-| Testnet     | `http://localhost:3000/testnet/authn` |
-| Local       | `http://localhost:3000/local/authn`   |
+| Mainnet     | `http://localhost:3002/authn`         |
+| Testnet     | `http://localhost:3002/testnet/authn` |
+| Local       | `http://localhost:3002/local/authn`   |
 
 ### Discovery API Endpoints
 
 | Environment | Example                                   |
 | ----------- | ----------------------------------------- |
-| Mainnet     | `http://localhost:3000/api/authn`         |
-| Testnet     | `http://localhost:3000/api/testnet/authn` |
-| Local       | `http://localhost:3000/api/local/authn`   |
+| Mainnet     | `http://localhost:3002/api/authn`         |
+| Testnet     | `http://localhost:3002/api/testnet/authn` |
+| Local       | `http://localhost:3002/api/local/authn`   |
 
 > Note: Local will return Dev Wallet as a service for developing locally with the default port of 8701. If you'd like to override the default port add ?port=0000 with the port being whatever you'd like to override it to.
 
