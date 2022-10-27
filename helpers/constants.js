@@ -15,6 +15,7 @@ export const SERVICE_METHODS = {
 
 export const PATHS = {
   MAINNET: '/authn',
+  MAINNET_EXPLICIT: '/mainnet/authn',
   TESTNET: '/testnet/authn',
   CANARYNET: '/canarynet/authn',
   LOCAL: '/local/authn'
