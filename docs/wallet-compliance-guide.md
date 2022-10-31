@@ -18,7 +18,9 @@ Wallets may additionally choose to support other FCL services (pre-authz, provab
 
 These standards ensure a high quality user experience on Flow for applications that choose to use FCL Discovery for wallet discovery. 
 
-End users expect that wallets on FCL Discovery function as expected, and application developers that use FCL Discovery depend on it to ensure wallets meet the minimum required functionality. Other opt-in services are not expected to be provided to application developers by wallets, and thus are not requird by this standard.
+End users expect that wallets on FCL Discovery function as expected, and application developers that use FCL Discovery depend on it to ensure wallets meet the minimum required functionality. Other opt-in services are not expected to be provided by default to application developers by wallets, and thus are not required by this standard.
+
+If a wallet does not meet the minimum required functionality outlined in this guide, or is otherwise limited in functionality, either in terms of transactions it accepts to sign or applications if will support, then that wallet _may_ still be accepted as an opt-in wallet in FCL Discovery.
 
 This acceptance criteria ensures FCL Discovery meets the needs and expectations of the users and developers that depend on it. 
 
