@@ -1,6 +1,6 @@
 # Wallet Compliance Guide
 
-This guide contains a set of critera wallets on Flow must meet in order to be accepted and included in Flow's FCL Wallet Discovery.
+This guide contains a set of criteria wallets on Flow must meet in order to be accepted and included in Flow's FCL Wallet Discovery.
 
 ## Overview
 
@@ -14,7 +14,7 @@ At a minimum, wallets on Flow must provide support for FCL's:
 
 - **User Signature** service: https://github.com/onflow/fcl-js/blob/master/packages/fcl/src/wallet-provider-spec/draft-v4.md#user-signature-service
 
-Wallets may additionally choose to support other FCL services (pre-authz, provable authentication etc), but these additional services are not reqiured to be included in Flow's FCL Wallet Descovery.
+Wallets may additionally choose to support other FCL services (pre-authz, provable authentication etc), but these additional services are not required to be included in Flow's FCL Wallet Discovery.
 
 These standards ensure a high quality user experience on Flow for applications that choose to use FCL Discovery for wallet discovery. 
 
