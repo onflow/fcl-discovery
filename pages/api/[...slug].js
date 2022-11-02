@@ -29,7 +29,7 @@ function runMiddleware(req, res, fn) {
 async function handler(req, res) {
   await runMiddleware(req, res, cors)
 
-  const { slug, discoveryType } = req.query
+  const { slug, discoveryType, port: portQuery } = req.query
   const {
     fclVersion,
     include,
@@ -37,6 +37,7 @@ async function handler(req, res) {
     userAgent,
     clientServices,
     supportedStrategies,
+    port: portBody
   } = req.body
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug).toLowerCase()
@@ -63,6 +64,8 @@ async function handler(req, res) {
     userAgent,
     clientServices: services,
     supportedStrategies,
+    network,
+    portOverride: portQuery || portBody
   })
   const versionPipe = findMatchingPipeVersion(fclVersion, servicePipes)
   const discoveryServices = versionPipe(servicesJson[network])

@@ -29,17 +29,21 @@ fcl.config({
 
 ### Discovery UI URLs
 
-| Environment | Example                               |
-| ----------- | ------------------------------------- |
-| Mainnet     | `http://localhost:3000/authn`         |
-| Testnet     | `http://localhost:3000/testnet/authn` |
+| Environment | Example                                                                |
+| ----------- | ---------------------------------------------------------------------- |
+| Mainnet     | `http://localhost:3002/authn` or `http://localhost:3002/mainnet/authn` |
+| Testnet     | `http://localhost:3002/testnet/authn`                                  |
+| Local       | `http://localhost:3002/local/authn`                                    |
 
 ### Discovery API Endpoints
 
-| Environment | Example                                   |
-| ----------- | ----------------------------------------- |
-| Mainnet     | `http://localhost:3000/api/authn`         |
-| Testnet     | `http://localhost:3000/api/testnet/authn` |
+| Environment | Example                                                                        |
+| ----------- | ------------------------------------------------------------------------------ |
+| Mainnet     | `http://localhost:3002/api/authn` or `http://localhost:3002/api/mainnet/authn` |
+| Testnet     | `http://localhost:3002/api/testnet/authn`                                      |
+| Local       | `http://localhost:3002/api/local/authn`                                        |
+
+> Note: Local will return Dev Wallet as a service for developing locally with the default port of 8701. If you'd like to override the default port add ?port=0000 with the port being whatever you'd like to override it to.
 
 ## More Configuration
 
@@ -53,6 +57,8 @@ Flow compatible wallets wanting to add their wallets to Discovery can do so by c
 - Please provide any metadata related to your service if required ([see metadata docs](https://github.com/onflow/fcl-discovery/blob/master/docs/service-fields.md))
 - Provide a demo of your wallet that can be tested and is connected to Testnet
 - Specify if your wallet is opt-in or not. Opt-in wallets are those that don't have support for authentication, authorization, and user signature services.
+
+Before adding your wallet to Discovery, ensure your wallet meets the minimum [acceptance criteria](https://github.com/onflow/fcl-discovery/blob/master/docs/wallet-compliance-guide.md).
 
 For more information/examples on how to build a Flow compatible wallet, check out the following links:
 

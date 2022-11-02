@@ -2,6 +2,7 @@ export const NETWORKS = {
   CANARYNET: 'canarynet',
   TESTNET: 'testnet',
   MAINNET: 'mainnet',
+  LOCAL: 'local'
 }
 
 export const SERVICE_TYPES = {
@@ -14,8 +15,10 @@ export const SERVICE_METHODS = {
 
 export const PATHS = {
   MAINNET: '/authn',
+  MAINNET_EXPLICIT: '/mainnet/authn',
   TESTNET: '/testnet/authn',
   CANARYNET: '/canarynet/authn',
+  LOCAL: '/local/authn'
 }
 
 export const SUPPORTED_VERSIONS = {
