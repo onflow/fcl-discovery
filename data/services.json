@@ -182,6 +182,7 @@
       "method": "EXT/RPC",
       "uid": "flipper-developer#authn",
       "endpoint": "chrome-extension://nkjhfapihbllbhhneonipcinhdlcmfgn/index.html",
+      "optIn": true,
       "provider": {
         "address": "0xbc18ed89bd780d7f",
         "name": "Flipper Developer",
