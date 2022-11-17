@@ -212,7 +212,7 @@ export default function ServiceCard({
             <ServiceCardIconWrapper>
               <ServiceCardIcon icon={icon} />
             </ServiceCardIconWrapper>
-            <ServiceCardName>{truncateString(name, 15)}</ServiceCardName>
+            <ServiceCardName>{truncateString(name, 14)}</ServiceCardName>
             {isExtensionService && isExtensionServiceInstalled && (
               <ServiceCardTags>
                 <DotSeperator> · </DotSeperator>
