@@ -86,6 +86,7 @@
       }
     }
   ],
+  "sandboxnet": [],
   "testnet": [
     {
       "f_type": "Service",
