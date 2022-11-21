@@ -1,6 +1,7 @@
 export const NETWORKS = {
   CANARYNET: 'canarynet',
   TESTNET: 'testnet',
+  SANDBOXNET: 'sandboxnet',
   MAINNET: 'mainnet',
   LOCAL: 'local'
 }
@@ -17,6 +18,7 @@ export const PATHS = {
   MAINNET: '/authn',
   MAINNET_EXPLICIT: '/mainnet/authn',
   TESTNET: '/testnet/authn',
+  SANDBOXNET: '/sandboxnet/authn',
   CANARYNET: '/canarynet/authn',
   LOCAL: '/local/authn'
 }
