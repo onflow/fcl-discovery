@@ -26,5 +26,12 @@
         "install_link": "https://chrome.google.com/webstore/detail/flipper/lmmpaefggfcmnoddemmgdppddppnmhek"
       }
     }
+  },
+  "0xbc18ed89bd780d7f": {
+    "platforms": {
+      "chrome": {
+        "install_link": "https://chrome.google.com/webstore/detail/flipper/nkjhfapihbllbhhneonipcinhdlcmfgn"
+      }
+    }
   }
 }
