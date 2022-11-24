@@ -19,5 +19,19 @@
         "install_link": "https://chrome.google.com/webstore/detail/nufi/gpnihlnnodeiiaakbikldcihojploeca"
       }
     }
+  },
+  "0x4204aa9c92ab68a1": {
+    "platforms": {
+      "chrome": {
+        "install_link": "https://chrome.google.com/webstore/detail/flipper/lmmpaefggfcmnoddemmgdppddppnmhek"
+      }
+    }
+  },
+  "0xbc18ed89bd780d7f": {
+    "platforms": {
+      "chrome": {
+        "install_link": "https://chrome.google.com/webstore/detail/flipper/nkjhfapihbllbhhneonipcinhdlcmfgn"
+      }
+    }
   }
 }
