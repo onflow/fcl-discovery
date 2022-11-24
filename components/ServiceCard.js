@@ -72,11 +72,11 @@ const ServiceCardContainer = styled.a`
 
 const ServiceContainerTag = styled.div`
   position: absolute;
-  margin: -25px 0 0 10px;
+  margin: -20px 0 0 10px;
   background: white;
   font-size: 0.8rem;
   color: ${COLORS.GREY};
-  padding: 5px;
+  padding: 0 5px;
 `
 
 const ServiceCardRow = styled.div`
