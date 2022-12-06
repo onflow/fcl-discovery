@@ -13,7 +13,12 @@ import {
   filterSupportedStrategies,
   overrideServicePorts,
 } from './services'
-import { NETWORKS, SERVICE_METHODS, SUPPORTED_VERSIONS } from './constants'
+import {
+  NETWORKS,
+  FCL_SERVICE_METHODS,
+  FCL_SERVICE_METHOD_VALUES,
+  SUPPORTED_VERSIONS,
+} from './constants'
 import { getPlatformFromUserAgent } from './userAgent'
 import { isGreaterThanOrEqualToVersion } from './version'
 
@@ -49,13 +54,15 @@ export const getServicePipes = ({
   )
   const extensions = serviceListOfMethod(
     clientServices,
-    SERVICE_METHODS.EXTENSION
+    FCL_SERVICE_METHODS.EXTENSION
   )
 
   return [
     {
       supportedVersion: '0.0.0',
       pipe: pipe(
+        // Only support default FCL methods in this version
+        filterSupportedStrategies(FCL_SERVICE_METHOD_VALUES),
         // Remove opt in services unless marked as include, if supported
         when(
           always(isFilteringSupported),

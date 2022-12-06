@@ -1,4 +1,4 @@
-import { SERVICE_METHODS, SERVICE_TYPES } from './constants'
+import { FCL_SERVICE_METHODS, SERVICE_TYPES } from './constants'
 import {
   getInstallLinkFromMetadata,
   getProviderMetadataByAddress,
@@ -76,13 +76,13 @@ export function sortByAddress(services = [], selectedAddress) {
 }
 
 export const isExtension = service =>
-  service?.method === SERVICE_METHODS.EXTENSION
+  service?.method === FCL_SERVICE_METHODS.EXTENSION
 
 export const isExtensionInstalled = (extensions, address) =>
   extensions.some(extension => extension?.provider?.address === address)
 
 export const requiresPlatform = service => {
-  const requiredPlatformTypes = [SERVICE_METHODS.EXTENSION]
+  const requiredPlatformTypes = [FCL_SERVICE_METHODS.EXTENSION]
   return requiredPlatformTypes.includes(service?.method)
 }
 
@@ -126,7 +126,11 @@ export function appendInstallData(platform, extensions = [], services = []) {
   })
 }
 
-export const overrideServicePorts = (shouldOverride, portOverride, services = []) => {
+export const overrideServicePorts = (
+  shouldOverride,
+  portOverride,
+  services = []
+) => {
   if (!shouldOverride) return services
   return services.map(s => {
     s.endpoint = replacePort(s.endpoint, portOverride)
