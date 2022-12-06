@@ -13,6 +13,7 @@ export const SERVICE_TYPES = {
 export const FCL_SERVICE_METHODS = {
   IFRAME: 'IFRAME/RPC',
   POP: 'POP/RPC',
+  TAB: 'TAB/RPC',
   HTTP: 'HTTP/POST',
   EXTENSION: 'EXT/RPC',
 }
