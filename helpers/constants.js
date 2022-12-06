@@ -3,16 +3,21 @@ export const NETWORKS = {
   TESTNET: 'testnet',
   SANDBOXNET: 'sandboxnet',
   MAINNET: 'mainnet',
-  LOCAL: 'local'
+  LOCAL: 'local',
 }
 
 export const SERVICE_TYPES = {
   AUTHN: 'authn',
 }
 
-export const SERVICE_METHODS = {
+export const FCL_SERVICE_METHODS = {
+  IFRAME: 'IFRAME/RPC',
+  POP: 'POP/RPC',
+  HTTP: 'HTTP/POST',
   EXTENSION: 'EXT/RPC',
 }
+
+export const FCL_SERVICE_METHOD_VALUES = Object.values(FCL_SERVICE_METHODS)
 
 export const PATHS = {
   MAINNET: '/authn',
@@ -20,7 +25,7 @@ export const PATHS = {
   TESTNET: '/testnet/authn',
   SANDBOXNET: '/sandboxnet/authn',
   CANARYNET: '/canarynet/authn',
-  LOCAL: '/local/authn'
+  LOCAL: '/local/authn',
 }
 
 export const SUPPORTED_VERSIONS = {
