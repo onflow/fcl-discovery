@@ -27,36 +27,38 @@ export function useFCL() {
           []
         const clientSupportedStrategies =
           config?.client?.supportedStrategies || []
-  
+
         if (config?.app) {
           setAppConfig(config.app)
         }
-  
+
         if (config?.client) {
           setClientConfig(config.client)
         }
-  
+
         if (appFclVersion) {
           setAppVersion(appFclVersion)
           setWalletInclude(
             config?.discoveryAuthnInclude ||
-            config?.client?.discoveryAuthnInclude ||
-            []
+              config?.client?.discoveryAuthnInclude ||
+              []
           )
         }
-  
+
         if (services) {
           setClientServices(services)
         }
-  
+
         if (clientSupportedStrategies) {
           setSupportedStrategies(clientSupportedStrategies)
         }
-  
+
         setLoading(false)
       })
-    } catch(_) {
-      console.log("Error occured, please see docs: https://developers.flow.com/tools/fcl-js/reference/discovery")
+    } catch (_) {
+      console.log(
+        'Error occured, please see docs: https://developers.flow.com/tools/fcl-js/reference/discovery'
+      )
     }
   }, [])
 
