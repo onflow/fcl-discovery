@@ -11,6 +11,10 @@ export default function Home() {
           <strong>Testnet:</strong>{' '}
           https://fcl-discovery.onflow.org/api/testnet/authn
         </div>
+        <div>
+          <strong>Local:</strong>{' '}
+          https://fcl-discovery.onflow.org/api/local/authn
+        </div>
       </div>
     </div>
   )
