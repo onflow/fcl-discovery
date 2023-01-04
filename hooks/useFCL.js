@@ -15,45 +15,49 @@ export function useFCL() {
     setHasInitialized(true)
     setLoading(true)
 
-    WalletUtils.ready(({ fclVersion, body, config }) => {
-      // config.client.fclVersion is only available starting in version 0.0.79-alpha.4
-      // config?.client?.extensions starts in fcl v1
-      const appFclVersion = config?.client?.fclVersion || fclVersion || null
-      const services =
-        config?.client?.clientServices ||
-        config?.client?.extensions ||
-        body?.extensions ||
-        []
-      const clientSupportedStrategies =
-        config?.client?.supportedStrategies || []
-
-      if (config?.app) {
-        setAppConfig(config.app)
-      }
-
-      if (config?.client) {
-        setClientConfig(config.client)
-      }
-
-      if (appFclVersion) {
-        setAppVersion(appFclVersion)
-        setWalletInclude(
-          config?.discoveryAuthnInclude ||
-          config?.client?.discoveryAuthnInclude ||
+    try {
+      WalletUtils.ready(({ fclVersion, body, config }) => {
+        // config.client.fclVersion is only available starting in version 0.0.79-alpha.4
+        // config?.client?.extensions starts in fcl v1
+        const appFclVersion = config?.client?.fclVersion || fclVersion || null
+        const services =
+          config?.client?.clientServices ||
+          config?.client?.extensions ||
+          body?.extensions ||
           []
-        )
-      }
-
-      if (services) {
-        setClientServices(services)
-      }
-
-      if (clientSupportedStrategies) {
-        setSupportedStrategies(clientSupportedStrategies)
-      }
-
-      setLoading(false)
-    })
+        const clientSupportedStrategies =
+          config?.client?.supportedStrategies || []
+  
+        if (config?.app) {
+          setAppConfig(config.app)
+        }
+  
+        if (config?.client) {
+          setClientConfig(config.client)
+        }
+  
+        if (appFclVersion) {
+          setAppVersion(appFclVersion)
+          setWalletInclude(
+            config?.discoveryAuthnInclude ||
+            config?.client?.discoveryAuthnInclude ||
+            []
+          )
+        }
+  
+        if (services) {
+          setClientServices(services)
+        }
+  
+        if (clientSupportedStrategies) {
+          setSupportedStrategies(clientSupportedStrategies)
+        }
+  
+        setLoading(false)
+      })
+    } catch(_) {
+      console.log("Error occured, please see docs: https://developers.flow.com/tools/fcl-js/reference/discovery")
+    }
   }, [])
 
   return {
