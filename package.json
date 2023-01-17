@@ -17,9 +17,13 @@
     "lintfix": "prettier --write --list-different ."
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.4.9",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@onflow/fcl": "1.0.2",
     "@sentry/nextjs": "^6.19.7",
     "cors": "^2.8.5",
+    "framer-motion": "^8.4.6",
     "mixpanel": "^0.14.0",
     "next": "^12.1.6",
     "rambda": "^7.1.4",
