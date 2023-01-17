@@ -1,4 +1,4 @@
-import { Image } from '@chakra-ui/react'
+import { Image, Text, Heading, HStack, Stack } from '@chakra-ui/react'
 import { useFCL } from '../../hooks/useFCL'
 
 export default function AppHeaderTwo() {
@@ -6,22 +6,22 @@ export default function AppHeaderTwo() {
   const title = appConfig?.title ? `Connect to ${appConfig?.title}`: 'Connect'
 
   return (
-    <div>
-      <div>{title}</div>
-      <div>
+    <Stack>
+      <Heading as='h2' size='md'>{title}</Heading>
+      <HStack>
         {appConfig?.icon &&
           <Image 
             src={appConfig.icon} alt="Logo"
             borderRadius={50}
-            boxSize='40px'
+            boxSize='35px'
           />
         }
         {clientConfig?.hostname &&
-          <span>
+          <Text color='grey'>
             {clientConfig.hostname}
-          </span>
+          </Text>
         }
-      </div>
-    </div>
+      </HStack>
+    </Stack>
   )
 }
