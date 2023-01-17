@@ -10,6 +10,8 @@ import { truncateString } from '../helpers/strings'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
+import { Box, Icon } from '@chakra-ui/react'
+import { FiInfo } from 'react-icons/fi'
 
 const RowContainer = styled.div`
   display: flex;
@@ -18,18 +20,6 @@ const RowContainer = styled.div`
 
   &:last-child {
     margin-bottom: 0;
-  }
-`
-
-const MoreSection = styled.div`
-  margin-right: 10px;
-  cursor: pointer;
-  width: 1.6rem;
-  height: 1.6rem;
-  transition: 0.1s ease-in transform;
-
-  &:hover {
-    transform: scale(1.1);
   }
 `
 
@@ -147,10 +137,6 @@ const DotSeperator = styled.div`
 
 const ServiceCardTag = styled.div``
 
-const ArrowContainer = styled.div``
-
-const ArrowSvg = styled.img``
-
 export default function ServiceCard({
   isEnabled,
   icon,
@@ -193,18 +179,14 @@ export default function ServiceCard({
     }
   }
 
-  const openMoreInfo = () => {
+  const openMoreInfo = e => {
+    e.stopPropagation()
     if (!hasWebsite) return
     window.open(serviceWebsite, '_blank')
   }
 
   return (
     <RowContainer>
-      <MoreSection onClick={openMoreInfo}>
-        {hasWebsite && (
-          <MoreImg src="/images/question-mark.svg" alt="Learn More" />
-        )}
-      </MoreSection>
       <ServiceCardContainer enabled={isEnabled} onClick={onSelect}>
         {lastUsed && <ServiceContainerTag>Last Used</ServiceContainerTag>}
         <ServiceCardRow>
@@ -227,9 +209,18 @@ export default function ServiceCard({
             )}
           </ServiceCardLeftColumn>
           <ServiceCardRightColumn>
-            <ArrowContainer>
-              <ArrowSvg src="/images/arrow-right.svg" alt="Select" />
-            </ArrowContainer>
+            {hasWebsite && (
+              <Box 
+                color='grey' 
+                _hover={{ 
+                  transform: 'scale(1.1)', 
+                  transitionDuration: '0.2s', 
+                  transitionTimingFunction: 'ease-in-out' 
+                }}
+                onClick={openMoreInfo}>
+                <Icon as={FiInfo} boxSize={25} />
+              </Box>
+            )}
           </ServiceCardRightColumn>
         </ServiceCardRow>
       </ServiceCardContainer>
