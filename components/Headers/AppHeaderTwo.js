@@ -6,7 +6,7 @@ export default function AppHeaderTwo() {
   const title = appConfig?.title ? `Connect to ${appConfig?.title}`: 'Connect'
 
   return (
-    <Stack>
+    <Stack marginBottom={25}>
       <Heading as='h2' size='md'>{title}</Heading>
       <HStack>
         {appConfig?.icon &&
