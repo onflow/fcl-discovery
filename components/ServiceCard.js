@@ -1,141 +1,14 @@
 import { WalletUtils } from '@onflow/fcl'
-import styled from 'styled-components'
 import {
-  COLORS,
   LOCAL_STORAGE_KEYS,
   SUPPORTED_VERSIONS,
 } from '../helpers/constants'
 import { isExtension } from '../helpers/services'
-import { truncateString } from '../helpers/strings'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
-import { Box, Icon } from '@chakra-ui/react'
+import { Box, Card, CardBody, Flex, HStack, Icon, Image, Spacer, Tag, Text } from '@chakra-ui/react'
 import { FiInfo } from 'react-icons/fi'
-
-const RowContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.9rem;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`
-
-const MoreImg = styled.img`
-  width: 1.6rem;
-  height: 1.6rem;
-`
-
-const ServiceCardContainer = styled.a`
-  position: relative;
-  width: 100%;
-
-  padding: 0.5rem 1rem 0.5rem 1rem;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
-  border: 0.5px solid ${COLORS.GREY_LIGHTER};
-  box-sizing: border-box;
-  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
-  border-radius: 15px;
-
-  opacity: ${props => (props.enabled ? '1' : '0.7')};
-  cursor: ${props => (props.enabled ? 'pointer' : 'unset')};
-
-  text-decoration: none;
-  user-select: none;
-
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  transition: 0.1s ease-in transform;
-
-  &:hover {
-    transform: scale(1.01);
-  }
-`
-
-const ServiceContainerTag = styled.div`
-  position: absolute;
-  margin: -20px 0 0 10px;
-  background: white;
-  font-size: 0.8rem;
-  color: ${COLORS.GREY};
-  padding: 0 5px;
-`
-
-const ServiceCardRow = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const ServiceCardLeftColumn = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-`
-
-const ServiceCardRightColumn = styled.div`
-  padding: 0 10px 0 5px;
-
-  @media (max-width: 480px) {
-    display: none;
-  }
-`
-
-const ServiceCardIconWrapper = styled.div`
-  height: 3.3rem;
-  min-width: 3.3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
-const ServiceCardIcon = styled.div`
-  height: 3rem;
-  min-width: 3rem;
-
-  border-radius: 0.5rem;
-
-  background-color: ${({ color, icon }) => (!icon ? color : 'unset')};
-  background-image: url(${({ icon }) => icon});
-  background-size: cover;
-`
-
-const ServiceCardName = styled.div`
-  font-size: 1.4rem;
-  color: ${COLORS.BLACK};
-  font-weight: 600;
-
-  @media (max-width: 480px) {
-    font-size: 1.1rem;
-  }
-`
-
-const ServiceCardTags = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 0.8rem;
-  color: ${COLORS.GREY};
-  margin-top: 4px;
-`
-
-const DotSeperator = styled.div`
-  padding: 0 5px;
-  font-size: 1.4rem;
-  margin-top: -2px;
-`
-
-const ServiceCardTag = styled.div``
 
 export default function ServiceCard({
   isEnabled,
@@ -186,44 +59,44 @@ export default function ServiceCard({
   }
 
   return (
-    <RowContainer>
-      <ServiceCardContainer enabled={isEnabled} onClick={onSelect}>
-        {lastUsed && <ServiceContainerTag>Last Used</ServiceContainerTag>}
-        <ServiceCardRow>
-          <ServiceCardLeftColumn>
-            <ServiceCardIconWrapper>
-              <ServiceCardIcon icon={icon} />
-            </ServiceCardIconWrapper>
-            <ServiceCardName>{truncateString(name, 14)}</ServiceCardName>
+    <Card 
+      size='sm' 
+      as='button'
+      _hover={{ 
+        transform: 'scale(1.01)', 
+        transitionDuration: '0.2s', 
+        transitionTimingFunction: 'ease-in-out' 
+      }}
+      enabled={isEnabled} 
+      onClick={onSelect}>
+      <CardBody width='100%'>
+        <Flex alignItems='center' justifyContent='space-between'>
+          <HStack>
+            <Image src={icon} alt={name} borderRadius='full' boxSize='3rem' />
+            <Text noOfLines={1} fontSize='xl' as='b'>{name}</Text>
             {isExtensionService && isExtensionServiceInstalled && (
-              <ServiceCardTags>
-                <DotSeperator> · </DotSeperator>
-                <ServiceCardTag>Installed</ServiceCardTag>
-              </ServiceCardTags>
+              <Tag size='sm'>Installed</Tag>
             )}
             {isExtensionService && !isExtensionServiceInstalled && (
-              <ServiceCardTags>
-                <DotSeperator> · </DotSeperator>
-                <ServiceCardTag>Install Extension</ServiceCardTag>
-              </ServiceCardTags>
+              <Tag size='sm'>Install Extension</Tag>
             )}
-          </ServiceCardLeftColumn>
-          <ServiceCardRightColumn>
-            {hasWebsite && (
-              <Box 
-                color='grey' 
-                _hover={{ 
-                  transform: 'scale(1.1)', 
-                  transitionDuration: '0.2s', 
-                  transitionTimingFunction: 'ease-in-out' 
-                }}
-                onClick={openMoreInfo}>
-                <Icon as={FiInfo} boxSize={25} />
-              </Box>
-            )}
-          </ServiceCardRightColumn>
-        </ServiceCardRow>
-      </ServiceCardContainer>
-    </RowContainer>
+            {lastUsed && <Tag size='sm'>Last Used</Tag>}
+          </HStack>
+          <Spacer />
+          {hasWebsite && (
+            <Box 
+              color='lightgrey' 
+              _hover={{ 
+                transform: 'scale(1.1)', 
+                transitionDuration: '0.2s', 
+                transitionTimingFunction: 'ease-in-out' 
+              }}
+              onClick={openMoreInfo}>
+              <Icon as={FiInfo} boxSize='1.5rem' />
+            </Box>
+          )}
+        </Flex>
+      </CardBody>
+    </Card>
   )
 }

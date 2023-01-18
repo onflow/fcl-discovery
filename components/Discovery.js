@@ -6,16 +6,7 @@ import ServiceCard from './ServiceCard'
 import Header from './Headers/Header'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { getUserAgent } from '../helpers/userAgent'
-
-const DiscoveryContainer = styled.div`
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  overflow-y: auto;
-  padding: 5px 10px 20px 5px;
-`
-
-const ProvidersList = styled.div``
+import { Container, Stack } from '@chakra-ui/react'
 
 const fetcher = (url, opts) => {
   return fetch(url, {
@@ -57,9 +48,9 @@ export const Discovery = ({
   if (error) return <div>Error Loading Data</div>
 
   return (
-    <DiscoveryContainer>
+    <Container>
       <Header />
-      <ProvidersList>
+      <Stack>
         {services.length === 0 && <div>No Wallets Found</div>}
         {services.map((service, index) => {
           return (
@@ -72,7 +63,7 @@ export const Discovery = ({
             />
           )
         })}
-      </ProvidersList>
-    </DiscoveryContainer>
+      </Stack>
+    </Container>
   )
 }
