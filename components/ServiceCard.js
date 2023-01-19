@@ -73,7 +73,7 @@ export default function ServiceCard({
         <Flex alignItems='center' justifyContent='space-between'>
           <HStack>
             <Image src={icon} alt={name} borderRadius='full' boxSize='3rem' />
-            <Text noOfLines={1} fontSize='xl' as='b'>{name}</Text>
+            <Text noOfLines={1} fontSize='lg' as='b'>{name}</Text>
             {isExtensionService && isExtensionServiceInstalled && (
               <Tag size='sm'>Installed</Tag>
             )}

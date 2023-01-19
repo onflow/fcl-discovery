@@ -13,7 +13,7 @@ export default function AppHeaderTwo() {
           <Image 
             src={appConfig.icon} alt="Logo"
             borderRadius={50}
-            boxSize='35px'
+            boxSize='25px'
           />
         }
         {clientConfig?.hostname &&
