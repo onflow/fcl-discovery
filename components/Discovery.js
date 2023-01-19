@@ -1,5 +1,4 @@
 import useSWR from 'swr'
-import styled from 'styled-components'
 import { sortByAddress } from '../helpers/services'
 import { LOCAL_STORAGE_KEYS, PATHS } from '../helpers/constants'
 import ServiceCard from './ServiceCard'
