@@ -5,6 +5,7 @@ import {
 } from '../helpers/constants'
 import { isExtension } from '../helpers/services'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
+import { truncateString } from '../helpers/strings'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { Box, Card, CardBody, Flex, HStack, Icon, Image, Spacer, Tag, Text } from '@chakra-ui/react'
@@ -73,7 +74,7 @@ export default function ServiceCard({
         <Flex alignItems='center' justifyContent='space-between'>
           <HStack>
             <Image src={icon} alt={name} borderRadius='full' boxSize='3rem' />
-            <Text noOfLines={1} fontSize='lg' as='b'>{name}</Text>
+            <Text fontSize='lg' as='b'>{truncateString(name, 13)}</Text>
             {isExtensionService && isExtensionServiceInstalled && (
               <Tag size='sm'>Installed</Tag>
             )}
