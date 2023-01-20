@@ -2,39 +2,42 @@
 
 exports[`Component: Header should NOT render the configurable component if version is too low 1`] = `
 <div
-  class="sc-bczRLJ eJWKtT"
+  class="chakra-stack css-184jys2"
 >
-  <div
-    class="sc-gsnTZi kDRAhc"
-  >
-    <img
-      alt="Flow Logo"
-      class="sc-dkzDqf kEzBlf"
-      src="/logo.svg"
-    />
-  </div>
   <h2
-    class="sc-hKMtZM ksKXfP"
+    class="chakra-heading css-0"
   >
-    Choose a Provider
+    Connect
   </h2>
+  <div
+    class="chakra-stack css-84zodg"
+  >
+    <p
+      class="chakra-text css-mwent8"
+    >
+      Unknown
+    </p>
+  </div>
 </div>
 `;
 
 exports[`Component: Header should render the configurable component if version is old enough 1`] = `
 <div
-  class="sc-eCYdqJ hZPPJe"
+  class="css-gmuwbf"
 >
   <div
-    class="sc-gKXOVf hnasIS"
+    class="css-1j99xrl"
   >
     <img
-      class="sc-iBkjds dwyhjr"
-      src="/images/default-img.svg"
+      alt="Logo"
+      class="chakra-image css-kl8a02"
+      src="/logo.svg"
     />
+    <p
+      class="chakra-text css-mwent8"
+    >
+      Choose a Provider
+    </p>
   </div>
-  <div
-    class="sc-ftvSup bolNmJ"
-  />
 </div>
 `;

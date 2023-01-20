@@ -2,21 +2,21 @@
 
 exports[`Component: FlowHeader should render the FlowHeader component 1`] = `
 <div
-  class="sc-bczRLJ eJWKtT"
+  class="css-gmuwbf"
 >
   <div
-    class="sc-gsnTZi kDRAhc"
+    class="css-1j99xrl"
   >
     <img
-      alt="Flow Logo"
-      class="sc-dkzDqf kEzBlf"
+      alt="Logo"
+      class="chakra-image css-kl8a02"
       src="/logo.svg"
     />
+    <p
+      class="chakra-text css-mwent8"
+    >
+      Choose a Provider
+    </p>
   </div>
-  <h2
-    class="sc-hKMtZM ksKXfP"
-  >
-    Choose a Provider
-  </h2>
 </div>
 `;

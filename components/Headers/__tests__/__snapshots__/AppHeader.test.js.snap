@@ -1,36 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: AppHeader should render the default image in the component if no icon 1`] = `
+exports[`Component: AppHeader should handle missing info and show unknown if no data 1`] = `
 <div
-  class="sc-bczRLJ dIvpJ"
+  class="chakra-stack css-184jys2"
 >
-  <div
-    class="sc-dkzDqf hDaBCz"
+  <h2
+    class="chakra-heading css-0"
   >
-    <img
-      class="sc-hKMtZM eFtwgT"
-      src="/images/default-img.svg"
-    />
-  </div>
+    Connect
+  </h2>
   <div
-    class="sc-eCYdqJ hBueAj"
-  />
+    class="chakra-stack css-84zodg"
+  >
+    <p
+      class="chakra-text css-mwent8"
+    >
+      Unknown
+    </p>
+  </div>
 </div>
 `;
 
 exports[`Component: AppHeader should render the the component with icon 1`] = `
 <div
-  class="sc-bczRLJ dIvpJ"
+  class="chakra-stack css-184jys2"
 >
-  <img
-    alt="Logo"
-    class="sc-gsnTZi dJWCEM"
-    src="test.png"
-  />
-  <div
-    class="sc-eCYdqJ hBueAj"
+  <h2
+    class="chakra-heading css-0"
   >
-    www.onflow.org
+    Connect to Test App
+  </h2>
+  <div
+    class="chakra-stack css-84zodg"
+  >
+    <img
+      alt="Logo"
+      class="chakra-image css-dqjekp"
+      src="test.png"
+    />
+    <p
+      class="chakra-text css-mwent8"
+    >
+      www.onflow.org
+    </p>
   </div>
 </div>
 `;

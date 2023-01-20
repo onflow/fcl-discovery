@@ -8,6 +8,7 @@ describe('Component: AppHeader', () => {
     useFCL.mockImplementation(() => {
       return {
         appConfig: {
+          title: 'Test App',
           icon: 'test.png',
         },
         clientConfig: {
@@ -20,11 +21,15 @@ describe('Component: AppHeader', () => {
     expect(container.firstChild).toMatchSnapshot()
   })
 
-  test('should render the default image in the component if no icon', () => {
+  test('should handle missing info and show unknown if no data', () => {
     useFCL.mockImplementation(() => {
       return {
         appConfig: {
+          title: null,
           icon: null,
+        },
+        clientConfig: {
+          hostname: null,
         },
       }
     })
