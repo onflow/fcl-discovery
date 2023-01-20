@@ -28,6 +28,32 @@ exports[`Component: Header should render the configurable component if version i
   <h2
     class="chakra-heading css-0"
   >
+    Connect to Test App
+  </h2>
+  <div
+    class="chakra-stack css-84zodg"
+  >
+    <img
+      alt="Logo"
+      class="chakra-image css-dqjekp"
+      src="test.png"
+    />
+    <p
+      class="chakra-text css-mwent8"
+    >
+      www.onflow.org
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Component: Header should show the DeveloperMessage if config is missing 1`] = `
+<div
+  class="chakra-stack css-184jys2"
+>
+  <h2
+    class="chakra-heading css-0"
+  >
     Connect
   </h2>
   <div
