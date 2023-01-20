@@ -2,27 +2,6 @@
 
 exports[`Component: Header should NOT render the configurable component if version is too low 1`] = `
 <div
-  class="chakra-stack css-184jys2"
->
-  <h2
-    class="chakra-heading css-0"
-  >
-    Connect
-  </h2>
-  <div
-    class="chakra-stack css-84zodg"
-  >
-    <p
-      class="chakra-text css-mwent8"
-    >
-      Unknown
-    </p>
-  </div>
-</div>
-`;
-
-exports[`Component: Header should render the configurable component if version is old enough 1`] = `
-<div
   class="css-gmuwbf"
 >
   <div
@@ -37,6 +16,27 @@ exports[`Component: Header should render the configurable component if version i
       class="chakra-text css-mwent8"
     >
       Choose a Provider
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Component: Header should render the configurable component if version is old enough 1`] = `
+<div
+  class="chakra-stack css-184jys2"
+>
+  <h2
+    class="chakra-heading css-0"
+  >
+    Connect
+  </h2>
+  <div
+    class="chakra-stack css-84zodg"
+  >
+    <p
+      class="chakra-text css-mwent8"
+    >
+      Unknown
     </p>
   </div>
 </div>
