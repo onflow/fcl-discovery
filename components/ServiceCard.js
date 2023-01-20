@@ -1,14 +1,22 @@
 import { WalletUtils } from '@onflow/fcl'
-import {
-  LOCAL_STORAGE_KEYS,
-  SUPPORTED_VERSIONS,
-} from '../helpers/constants'
+import { LOCAL_STORAGE_KEYS, SUPPORTED_VERSIONS } from '../helpers/constants'
 import { isExtension } from '../helpers/services'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { truncateString } from '../helpers/strings'
 import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
-import { Box, Card, CardBody, Flex, HStack, Icon, Image, Spacer, Tag, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Card,
+  CardBody,
+  Flex,
+  HStack,
+  Icon,
+  Image,
+  Spacer,
+  Tag,
+  Text,
+} from '@chakra-ui/react'
 import { FiInfo } from 'react-icons/fi'
 
 export default function ServiceCard({
@@ -60,40 +68,44 @@ export default function ServiceCard({
   }
 
   return (
-    <Card 
-      size='sm' 
-      as='button'
-      _hover={{ 
-        transform: 'scale(1.01)', 
-        transitionDuration: '0.2s', 
-        transitionTimingFunction: 'ease-in-out' 
+    <Card
+      size="sm"
+      as="button"
+      _hover={{
+        transform: 'scale(1.01)',
+        transitionDuration: '0.2s',
+        transitionTimingFunction: 'ease-in-out',
       }}
-      enabled={isEnabled} 
-      onClick={onSelect}>
-      <CardBody width='100%'>
-        <Flex alignItems='center' justifyContent='space-between'>
+      enabled={isEnabled}
+      onClick={onSelect}
+    >
+      <CardBody width="100%">
+        <Flex alignItems="center" justifyContent="space-between">
           <HStack>
-            <Image src={icon} alt={name} borderRadius='full' boxSize='3rem' />
-            <Text fontSize='lg' as='b'>{truncateString(name, 13)}</Text>
+            <Image src={icon} alt={name} borderRadius="full" boxSize="3rem" />
+            <Text fontSize="lg" as="b">
+              {truncateString(name, 13)}
+            </Text>
             {isExtensionService && isExtensionServiceInstalled && (
-              <Tag size='sm'>Installed</Tag>
+              <Tag size="sm">Installed</Tag>
             )}
             {isExtensionService && !isExtensionServiceInstalled && (
-              <Tag size='sm'>Install Extension</Tag>
+              <Tag size="sm">Install Extension</Tag>
             )}
-            {lastUsed && <Tag size='sm'>Last Used</Tag>}
+            {lastUsed && <Tag size="sm">Last Used</Tag>}
           </HStack>
           <Spacer />
           {hasWebsite && (
-            <Box 
-              color='lightgrey' 
-              _hover={{ 
-                transform: 'scale(1.1)', 
-                transitionDuration: '0.2s', 
-                transitionTimingFunction: 'ease-in-out' 
+            <Box
+              color="lightgrey"
+              _hover={{
+                transform: 'scale(1.1)',
+                transitionDuration: '0.2s',
+                transitionTimingFunction: 'ease-in-out',
               }}
-              onClick={openMoreInfo}>
-              <Icon as={FiInfo} boxSize='1.5rem' />
+              onClick={openMoreInfo}
+            >
+              <Icon as={FiInfo} boxSize="1.5rem" />
             </Box>
           )}
         </Flex>

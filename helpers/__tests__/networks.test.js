@@ -1,4 +1,4 @@
-import { isTestnet } from "../networks"
+import { isTestnet } from '../networks'
 
 describe('Helpers: networks', () => {
   let windowSpy
@@ -15,7 +15,7 @@ describe('Helpers: networks', () => {
     windowSpy.mockImplementation(() => ({
       location: {
         pathname: '/testnet/authn',
-      }
+      },
     }))
 
     expect(isTestnet()).toBe(true)
@@ -25,7 +25,7 @@ describe('Helpers: networks', () => {
     windowSpy.mockImplementation(() => ({
       location: {
         pathname: '/mainnet/authn',
-      }
+      },
     }))
 
     expect(isTestnet()).toBe(false)

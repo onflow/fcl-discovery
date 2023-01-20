@@ -12,8 +12,8 @@ import {
 const theme = extendTheme({
   styles: {
     global: {
-      'body': {
-        backgroundColor: 'transparent'
+      body: {
+        backgroundColor: 'transparent',
       },
     },
   },
@@ -24,10 +24,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <ChakraProvider theme={theme}>
         <Modal isOpen={true} onClose={handleCancel} isCentered>
-          <ModalOverlay
-            bg='blackAlpha.300'
-            backdropFilter='blur(10px)'
-          />
+          <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
           <ModalContent>
             <ModalCloseButton />
             <ModalBody paddingTop={5} paddingBottom={5}>

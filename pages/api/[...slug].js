@@ -37,15 +37,12 @@ async function handler(req, res) {
     userAgent,
     clientServices,
     supportedStrategies,
-    port: portBody
+    port: portBody,
   } = req.body
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug).toLowerCase()
   const discoveryRequestType = discoveryType || 'API'
-  const services =
-    clientServices ||
-    extensions ||
-    []
+  const services = clientServices || extensions || []
 
   if (!isValid) {
     return res.status(400).json({ message: 'Invalid Network' })
@@ -65,7 +62,7 @@ async function handler(req, res) {
     clientServices: services,
     supportedStrategies,
     network,
-    portOverride: portQuery || portBody
+    portOverride: portQuery || portBody,
   })
   const versionPipe = findMatchingPipeVersion(fclVersion, servicePipes)
   const discoveryServices = versionPipe(servicesJson[network])
