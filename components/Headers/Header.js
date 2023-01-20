@@ -3,8 +3,6 @@ import AppHeader from './AppHeader'
 import { useFCL } from '../../hooks/useFCL'
 import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import { SUPPORTED_VERSIONS } from '../../helpers/constants'
-import Explainer from '../Explainer'
-import AppHeaderTwo from './AppHeaderTwo'
 
 export default function Header() {
   const { appVersion } = useFCL()
@@ -17,9 +15,7 @@ export default function Header() {
     <>
       {isAppHeaderSupported ? (
         <>
-          <AppHeaderTwo />
           <AppHeader />
-          <Explainer />
         </>
       ) : (
         <FlowHeader />
