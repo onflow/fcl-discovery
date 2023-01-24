@@ -19,7 +19,7 @@ const Router = () => {
   const network = getNetworkFromPath(path)
 
   return (
-    <div isSet={Boolean(path)}>
+    <div>
       {!path && <div />}
       {path && !isValid && <div>Page Not Found</div>}
       {path && isValid && hasInitialized && !loading && (
