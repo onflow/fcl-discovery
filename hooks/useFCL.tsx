@@ -20,8 +20,8 @@ export const useFCL = (): {
 } => {
   const [hasInitialized, setHasInitialized] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [appConfig, setAppConfig] = useState<{[key: string]: any}>()
-  const [clientConfig, setClientConfig] = useState<{[key: string]: any}>()
+  const [appConfig, setAppConfig] = useState<{ [key: string]: any }>()
+  const [clientConfig, setClientConfig] = useState<{ [key: string]: any }>()
   const [appVersion, setAppVersion] = useState<string>(null)
   const [walletInclude, setWalletInclude] = useState<string[]>([])
   const [clientServices, setClientServices] = useState<Service[]>([])
@@ -32,7 +32,7 @@ export const useFCL = (): {
     setLoading(true)
 
     try {
-      WalletUtils.ready(({ fclVersion, body, config } : WalletUtilsProps) => {
+      WalletUtils.ready(({ fclVersion, body, config }: WalletUtilsProps) => {
         // config.client.fclVersion is only available starting in version 0.0.79-alpha.4
         // config?.client?.extensions starts in fcl v1
         const appFclVersion = config?.client?.fclVersion || fclVersion || null

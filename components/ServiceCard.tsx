@@ -33,7 +33,7 @@ export default function ServiceCard({
   name,
   service,
   lastUsed = false,
-} : Props) {
+}: Props) {
   const { appVersion } = useFCL()
   const [_, setLastUsed] = useLocalStorage(
     LOCAL_STORAGE_KEYS.LAST_INSTALLED,
@@ -115,6 +115,5 @@ export default function ServiceCard({
         </Flex>
       </CardBody>
     </Card>
-    
   )
 }

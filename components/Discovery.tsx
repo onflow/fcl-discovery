@@ -60,7 +60,7 @@ export const Discovery = ({
   return (
     <Container paddingTop={5} paddingBottom={5}>
       <Header />
-      <Stack spacing='12px'>
+      <Stack spacing="12px">
         {services.length === 0 && <div>No Wallets Found</div>}
         {services.map((service, index) => {
           return (
