@@ -18,14 +18,22 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { FiInfo } from 'react-icons/fi'
+import { Service } from '../types'
+
+type Props = {
+  isEnabled: boolean
+  icon: string
+  name: string
+  service: Service
+  lastUsed: boolean
+}
 
 export default function ServiceCard({
-  isEnabled,
   icon,
   name,
   service,
   lastUsed = false,
-}) {
+} : Props) {
   const { appVersion } = useFCL()
   const [_, setLastUsed] = useLocalStorage(
     LOCAL_STORAGE_KEYS.LAST_INSTALLED,
@@ -76,7 +84,6 @@ export default function ServiceCard({
         transitionDuration: '0.2s',
         transitionTimingFunction: 'ease-in-out',
       }}
-      enabled={isEnabled}
       onClick={onSelect}
     >
       <CardBody width="100%">
@@ -86,9 +93,6 @@ export default function ServiceCard({
             <Text fontSize="lg" as="b">
               {truncateString(name, 13)}
             </Text>
-            {isExtensionService && isExtensionServiceInstalled && (
-              <Tag size="sm">Installed</Tag>
-            )}
             {isExtensionService && !isExtensionServiceInstalled && (
               <Tag size="sm">Install Extension</Tag>
             )}
@@ -111,5 +115,6 @@ export default function ServiceCard({
         </Flex>
       </CardBody>
     </Card>
+    
   )
 }

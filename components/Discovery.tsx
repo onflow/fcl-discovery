@@ -6,6 +6,7 @@ import Header from './Headers/Header'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { getUserAgent } from '../helpers/userAgent'
 import { Container, Stack } from '@chakra-ui/react'
+import { Service, Strategy } from '../types'
 
 const fetcher = (url, opts) => {
   return fetch(url, {
@@ -17,6 +18,16 @@ const fetcher = (url, opts) => {
   }).then(d => d.json())
 }
 
+type Props = {
+  network: string
+  appVersion: string
+  extensions: Service[]
+  walletInclude: string[]
+  clientServices: Service[]
+  supportedStrategies: Strategy[]
+  port: number
+}
+
 export const Discovery = ({
   network,
   appVersion,
@@ -25,7 +36,7 @@ export const Discovery = ({
   clientServices,
   supportedStrategies,
   port,
-}) => {
+}: Props) => {
   const requestUrl = `/api${PATHS[network.toUpperCase()]}?discoveryType=UI`
   const { data, error } = useSWR(requestUrl, url =>
     fetcher(url, {
@@ -47,15 +58,14 @@ export const Discovery = ({
   if (error) return <div>Error Loading Data</div>
 
   return (
-    <Container>
+    <Container paddingTop={5} paddingBottom={5}>
       <Header />
-      <Stack>
+      <Stack spacing='12px'>
         {services.length === 0 && <div>No Wallets Found</div>}
         {services.map((service, index) => {
           return (
             <ServiceCard
               key={service?.provider?.address ?? index}
-              isEnabled={Boolean(service.provider)}
               {...service.provider}
               service={service}
               lastUsed={service?.provider?.address === lastUsed}
