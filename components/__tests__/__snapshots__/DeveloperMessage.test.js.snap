@@ -1,15 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: DeveloperMessage should render the DeveloperMessage component 1`] = `
+.emotion-0 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 3px;
+}
+
+.emotion-1 {
+  display: inherit;
+}
+
+.emotion-2 {
+  display: inline-block;
+  line-height: 1em;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: currentColor;
+  vertical-align: middle;
+  height: 100%;
+  width: 100%;
+}
+
+.emotion-4 {
+  display: inline;
+}
+
+.emotion-6 {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  line-height: 1em;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: currentColor;
+  vertical-align: middle;
+  -webkit-margin-start: 2px;
+  margin-inline-start: 2px;
+  -webkit-margin-end: 2px;
+  margin-inline-end: 2px;
+}
+
 <div
-  class="chakra-alert css-1khj809"
+  class="chakra-alert emotion-0"
   role="alert"
 >
   <span
-    class="chakra-alert__icon css-1c6vscd"
+    class="chakra-alert__icon emotion-1"
   >
     <svg
-      class="chakra-icon css-qk6lof"
+      class="chakra-icon emotion-2"
       focusable="false"
       viewBox="0 0 24 24"
     >
@@ -20,24 +71,24 @@ exports[`Component: DeveloperMessage should render the DeveloperMessage componen
     </svg>
   </span>
   <div
-    class="chakra-alert__title css-0"
+    class="chakra-alert__title emotion-3"
   >
     Missing Config
   </div>
   <div
-    class="chakra-alert__desc css-6n7j50"
+    class="chakra-alert__desc emotion-4"
   >
     See how to set your app title and icon
      
     <a
-      class="chakra-link css-0"
+      class="chakra-link emotion-3"
       href="https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration"
       rel="noopener"
       target="_blank"
     >
       here 
       <svg
-        class="chakra-icon css-2y6psj"
+        class="chakra-icon emotion-6"
         focusable="false"
         viewBox="0 0 24 24"
       >

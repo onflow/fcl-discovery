@@ -1,19 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: AppHeader should handle missing info and show unknown if no data 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.emotion-0>*:not(style)~*:not(style) {
+  margin-top: 0.5rem;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.emotion-2>*:not(style)~*:not(style) {
+  margin-top: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0.5rem;
+  margin-inline-start: 0.5rem;
+}
+
+.emotion-3 {
+  color: grey;
+}
+
 <div
-  class="chakra-stack css-184jys2"
+  class="chakra-stack emotion-0"
 >
   <h2
-    class="chakra-heading css-0"
+    class="chakra-heading emotion-1"
   >
     Connect
   </h2>
   <div
-    class="chakra-stack css-84zodg"
+    class="chakra-stack emotion-2"
   >
     <p
-      class="chakra-text css-mwent8"
+      class="chakra-text emotion-3"
     >
       Unknown
     </p>
@@ -22,24 +69,77 @@ exports[`Component: AppHeader should handle missing info and show unknown if no 
 `;
 
 exports[`Component: AppHeader should render the the component with icon 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.emotion-0>*:not(style)~*:not(style) {
+  margin-top: 0.5rem;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.emotion-2>*:not(style)~*:not(style) {
+  margin-top: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0.5rem;
+  margin-inline-start: 0.5rem;
+}
+
+.emotion-3 {
+  border-radius: 50px;
+  width: 25px;
+  height: 25px;
+}
+
+.emotion-4 {
+  color: grey;
+}
+
 <div
-  class="chakra-stack css-184jys2"
+  class="chakra-stack emotion-0"
 >
   <h2
-    class="chakra-heading css-0"
+    class="chakra-heading emotion-1"
   >
     Connect to Test App
   </h2>
   <div
-    class="chakra-stack css-84zodg"
+    class="chakra-stack emotion-2"
   >
     <img
       alt="Logo"
-      class="chakra-image css-dqjekp"
+      class="chakra-image emotion-3"
       src="test.png"
     />
     <p
-      class="chakra-text css-mwent8"
+      class="chakra-text emotion-4"
     >
       www.onflow.org
     </p>

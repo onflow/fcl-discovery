@@ -1,19 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: Header should NOT render the configurable component if version is too low 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.emotion-2 {
+  width: 140px;
+  height: auto;
+  margin-bottom: 3px;
+}
+
+.emotion-3 {
+  color: grey;
+}
+
 <div
-  class="css-gmuwbf"
+  class="emotion-0"
 >
   <div
-    class="css-1j99xrl"
+    class="emotion-1"
   >
     <img
       alt="Logo"
-      class="chakra-image css-kl8a02"
+      class="chakra-image emotion-2"
       src="/logo.svg"
     />
     <p
-      class="chakra-text css-mwent8"
+      class="chakra-text emotion-3"
     >
       Choose a Provider
     </p>
@@ -22,24 +62,77 @@ exports[`Component: Header should NOT render the configurable component if versi
 `;
 
 exports[`Component: Header should render the configurable component if version is old enough 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.emotion-0>*:not(style)~*:not(style) {
+  margin-top: 0.5rem;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.emotion-2>*:not(style)~*:not(style) {
+  margin-top: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0.5rem;
+  margin-inline-start: 0.5rem;
+}
+
+.emotion-3 {
+  border-radius: 50px;
+  width: 25px;
+  height: 25px;
+}
+
+.emotion-4 {
+  color: grey;
+}
+
 <div
-  class="chakra-stack css-184jys2"
+  class="chakra-stack emotion-0"
 >
   <h2
-    class="chakra-heading css-0"
+    class="chakra-heading emotion-1"
   >
     Connect to Test App
   </h2>
   <div
-    class="chakra-stack css-84zodg"
+    class="chakra-stack emotion-2"
   >
     <img
       alt="Logo"
-      class="chakra-image css-dqjekp"
+      class="chakra-image emotion-3"
       src="test.png"
     />
     <p
-      class="chakra-text css-mwent8"
+      class="chakra-text emotion-4"
     >
       www.onflow.org
     </p>
@@ -48,19 +141,66 @@ exports[`Component: Header should render the configurable component if version i
 `;
 
 exports[`Component: Header should show the DeveloperMessage if config is missing 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.emotion-0>*:not(style)~*:not(style) {
+  margin-top: 0.5rem;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0px;
+  margin-inline-start: 0px;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+.emotion-2>*:not(style)~*:not(style) {
+  margin-top: 0px;
+  -webkit-margin-end: 0px;
+  margin-inline-end: 0px;
+  margin-bottom: 0px;
+  -webkit-margin-start: 0.5rem;
+  margin-inline-start: 0.5rem;
+}
+
+.emotion-3 {
+  color: grey;
+}
+
 <div
-  class="chakra-stack css-184jys2"
+  class="chakra-stack emotion-0"
 >
   <h2
-    class="chakra-heading css-0"
+    class="chakra-heading emotion-1"
   >
     Connect
   </h2>
   <div
-    class="chakra-stack css-84zodg"
+    class="chakra-stack emotion-2"
   >
     <p
-      class="chakra-text css-mwent8"
+      class="chakra-text emotion-3"
     >
       Unknown
     </p>
