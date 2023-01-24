@@ -27,7 +27,8 @@ exports[`Component: DeveloperMessage should render the DeveloperMessage componen
   <div
     class="chakra-alert__desc css-6n7j50"
   >
-    See how to set your app title and icon 
+    See how to set your app title and icon
+     
     <a
       class="chakra-link css-0"
       href="https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration"
