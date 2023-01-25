@@ -1,6 +1,9 @@
-import { ServicesPipe, VersionServicePipe } from "../types"
+import { ServicesPipe, VersionServicePipe } from '../types'
 
-export const isGreaterThanOrEqualToVersion = (version: string, supportedVersion: string): boolean => {
+export const isGreaterThanOrEqualToVersion = (
+  version: string,
+  supportedVersion: string
+): boolean => {
   if (!version || !supportedVersion) return false
 
   const [versionNoAlpha, newAlpha] = version.split('-')
@@ -42,7 +45,10 @@ export const isGreaterThanOrEqualToVersion = (version: string, supportedVersion:
   return false
 }
 
-export const findMatchingPipeVersion = (version: string, servicePipes: VersionServicePipe[]): ServicesPipe => {
+export const findMatchingPipeVersion = (
+  version: string,
+  servicePipes: VersionServicePipe[]
+): ServicesPipe => {
   for (const [index, servicePipe] of servicePipes.entries()) {
     const nextServicePipe = servicePipes.at(index + 1)
     if (
