@@ -29,7 +29,7 @@ function runMiddleware(req, res, fn) {
 async function handler(req, res) {
   await runMiddleware(req, res, cors)
 
-  const { slug, discoveryType, port: portQuery } = req.query
+  const { slug, discoveryType, port: portQuery, host: hostQuery } = req.query
   const {
     fclVersion,
     include,
@@ -38,6 +38,7 @@ async function handler(req, res) {
     clientServices,
     supportedStrategies,
     port: portBody,
+    host: hostBody,
   } = req.body
   const isValid = isValidPath(slug)
   const network = getNetworkFromPath(slug).toLowerCase()
@@ -48,11 +49,7 @@ async function handler(req, res) {
     return res.status(400).json({ message: 'Invalid Network' })
   }
 
-  mixpanel.track('Wallet Discovery Request', {
-    type: discoveryRequestType,
-    network,
-    fclVersion,
-  })
+
 
   const servicePipes = getServicePipes({
     fclVersion,
@@ -63,6 +60,7 @@ async function handler(req, res) {
     supportedStrategies,
     network,
     portOverride: portQuery || portBody,
+    hostOverride: hostQuery || hostBody,
   })
   const versionPipe = findMatchingPipeVersion(fclVersion, servicePipes)
   const discoveryServices = versionPipe(servicesJson[network])

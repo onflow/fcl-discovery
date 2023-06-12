@@ -3,7 +3,7 @@ import {
   getInstallLinkFromMetadata,
   getProviderMetadataByAddress,
 } from './metadata'
-import { replacePort } from './urls'
+import { replaceHost, replacePort } from './urls'
 
 export const filterSupportedStrategies =
   (supportedStrategies = []) =>
@@ -134,6 +134,18 @@ export const overrideServicePorts = (
   if (!shouldOverride) return services
   return services.map(s => {
     s.endpoint = replacePort(s.endpoint, portOverride)
+    return s
+  })
+}
+
+export const overrideServiceHost = (
+  shouldOverride,
+  hostOverride,
+  services = []
+) => {
+  if (!shouldOverride) return services
+  return services.map(s => {
+    s.endpoint = replaceHost(s.endpoint, hostOverride)
     return s
   })
 }
