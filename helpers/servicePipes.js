@@ -12,6 +12,7 @@ import {
   filterUniqueServices,
   filterSupportedStrategies,
   overrideServicePorts,
+  overrideServiceHost,
 } from './services'
 import {
   NETWORKS,
@@ -31,6 +32,7 @@ export const getServicePipes = ({
   supportedStrategies,
   network,
   portOverride,
+  hostOverride,
 }) => {
   const platform = getPlatformFromUserAgent(userAgent)
   const isLocal = network === NETWORKS.LOCAL
@@ -98,7 +100,9 @@ export const getServicePipes = ({
         // Add services if supported
         serviceOfTypeAuthn,
         // Allow port override option if local
-        partial(overrideServicePorts, isLocal, portOverride)
+        partial(overrideServicePorts, isLocal && portOverride, portOverride),
+        // Allow host override option if local
+        partial(overrideServiceHost, isLocal && hostOverride, hostOverride)
       ),
     },
   ]

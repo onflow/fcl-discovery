@@ -271,9 +271,9 @@
       "f_type": "Service",
       "f_vsn": "1.0.0",
       "type": "authn",
-      "method": "IFRAME/RPC",
+      "method": "HTTP/POST",
       "uid": "devwallet#authn",
-      "endpoint": "http://localhost:8701/fcl/authn",
+      "endpoint": "http://localhost:8701/api/authn",
       "provider": {
         "address": "0xDevWallet",
         "name": "Dev Wallet",
