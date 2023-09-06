@@ -1,21 +1,27 @@
+import Enum from "enum-xyz"
+
+const {  AUTHN, CANARYNET, TESTNET, SANDBOXNET, MAINNET, LOCAL } = Enum.String({ casing: "lowercase" })
+
 export const NETWORKS = {
-  CANARYNET: 'canarynet',
-  TESTNET: 'testnet',
-  SANDBOXNET: 'sandboxnet',
-  MAINNET: 'mainnet',
-  LOCAL: 'local',
+  CANARYNET,
+  TESTNET,
+  SANDBOXNET,
+  MAINNET,
+  LOCAL,
 }
 
-export const SERVICE_TYPES = {
-  AUTHN: 'authn',
-}
+export const SERVICE_TYPES = { AUTHN }
+
+const { IFRAME, POP, TAB, HTTP, EXT } = Enum.String({
+  transform: (value) => `${value}/RPC`
+})
 
 export const FCL_SERVICE_METHODS = {
-  IFRAME: 'IFRAME/RPC',
-  POP: 'POP/RPC',
-  TAB: 'TAB/RPC',
-  HTTP: 'HTTP/POST',
-  EXTENSION: 'EXT/RPC',
+  IFRAME,
+  POP,
+  TAB,
+  HTTP,
+  EXT,
 }
 
 export const FCL_SERVICE_METHOD_VALUES = Object.values(FCL_SERVICE_METHODS)
@@ -37,6 +43,7 @@ export const SUPPORTED_VERSIONS = {
   UNINSTALLED_EXTENSIONS_API: '1.2.0', // Version that supports uninstalled extensions on Discovery API
   PLATFORM: '1.0.0', // Version that supports platform
   PLUGIN_SERVICES: '1.2.0', // Version that supports plugin services TODO: up this after development
+  SUGGESTED_FEATURES: '1.2.0', // Version that supports suggested features
 }
 
 export const COLORS = {

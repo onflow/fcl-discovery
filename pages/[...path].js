@@ -14,6 +14,7 @@ const Router = () => {
     walletInclude,
     clientServices,
     supportedStrategies,
+    clientConfig,
   } = useFCL()
   const isValid = isValidPath(path)
   const network = getNetworkFromPath(path)
@@ -30,6 +31,7 @@ const Router = () => {
           walletInclude={walletInclude}
           clientServices={clientServices}
           supportedStrategies={supportedStrategies}
+          clientConfig={clientConfig}
           port={port}
         />
       )}

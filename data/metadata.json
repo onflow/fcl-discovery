@@ -7,10 +7,28 @@
     }
   },
   "0x33f75ff0b830dcec": {
+    "features": {
+      "supported": ["self-custody", "mobile"]
+    },
     "platforms": {
       "chrome": {
         "install_link": "https://chrome.google.com/webstore/detail/lilico/hpclkefagolihohboafpheddmmgdffjm"
       }
+    }
+  },
+  "0xf086a545ce3c552d": {
+    "features": {
+      "supported": ["custodial", "mobile"]
+    }
+  },
+  "0x9d2e44203cb13051": {
+    "features": {
+      "supported": ["self-custody", "hardware"]
+    }
+  },
+  "0x82ec283f88a62e65": {
+    "features": {
+      "supported": ["custodial"]
     }
   },
   "0x95b85a9ef4daabb1": {
@@ -18,6 +36,9 @@
       "chrome": {
         "install_link": "https://chrome.google.com/webstore/detail/nufi/gpnihlnnodeiiaakbikldcihojploeca"
       }
+    },
+    "features": {
+      "supported": ["self-custody"]
     }
   },
   "0x4204aa9c92ab68a1": {
@@ -25,13 +46,24 @@
       "chrome": {
         "install_link": "https://chrome.google.com/webstore/detail/flipper/lmmpaefggfcmnoddemmgdppddppnmhek"
       }
+    },
+    "features": {
+      "supported": ["self-custody"]
     }
   },
   "0xbc18ed89bd780d7f": {
+    "features": {
+      "supported": ["self-custody"]
+    },
     "platforms": {
       "chrome": {
         "install_link": "https://chrome.google.com/webstore/detail/flipper/nkjhfapihbllbhhneonipcinhdlcmfgn"
       }
+    }
+  },
+  "0x6e8140bb1b8c70f1": {
+    "features": {
+      "supported": ["mobile"]
     }
   }
 }
