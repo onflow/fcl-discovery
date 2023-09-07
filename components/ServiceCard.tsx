@@ -55,7 +55,6 @@ export default function ServiceCard({
   )
   const suggestedFeatures = clientConfig?.discoveryFeaturesSuggested || []
 
-  console.log('supportedFeatures ===', supportedFeatures)
 
   const onSelect = () => {
     if (!service) return
