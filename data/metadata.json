@@ -8,7 +8,7 @@
   },
   "0x33f75ff0b830dcec": {
     "features": {
-      "supported": ["self-custody", "mobile"]
+      "supported": ["self-custody"]
     },
     "platforms": {
       "chrome": {
@@ -18,7 +18,7 @@
   },
   "0xf086a545ce3c552d": {
     "features": {
-      "supported": ["custodial", "mobile"]
+      "supported": ["custodial"]
     }
   },
   "0x9d2e44203cb13051": {
@@ -59,11 +59,6 @@
       "chrome": {
         "install_link": "https://chrome.google.com/webstore/detail/flipper/nkjhfapihbllbhhneonipcinhdlcmfgn"
       }
-    }
-  },
-  "0x6e8140bb1b8c70f1": {
-    "features": {
-      "supported": ["mobile"]
     }
   }
 }
