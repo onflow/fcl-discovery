@@ -1,9 +1,9 @@
-import Enum from "enum-xyz"
+import Enum from 'enum-xyz'
 
-const {  AUTHN, CANARYNET, TESTNET, SANDBOXNET, MAINNET, LOCAL } = Enum.String({ casing: "lowercase" })
+const {  AUTHN, CANARYNET, TESTNET, SANDBOXNET, MAINNET, LOCAL } = Enum.String({ casing: 'lowercase' })
 
 export const NETWORKS = {
-  CANARYNET,
+  CANARYNET, // canarynet
   TESTNET,
   SANDBOXNET,
   MAINNET,
@@ -17,7 +17,7 @@ const { IFRAME, POP, TAB, HTTP, EXT } = Enum.String({
 })
 
 export const FCL_SERVICE_METHODS = {
-  IFRAME,
+  IFRAME, // IFRAME/RPC
   POP,
   TAB,
   HTTP,
@@ -43,7 +43,7 @@ export const SUPPORTED_VERSIONS = {
   UNINSTALLED_EXTENSIONS_API: '1.2.0', // Version that supports uninstalled extensions on Discovery API
   PLATFORM: '1.0.0', // Version that supports platform
   PLUGIN_SERVICES: '1.2.0', // Version that supports plugin services TODO: up this after development
-  SUGGESTED_FEATURES: '1.7.0', // Version that supports suggested features
+  SUGGESTED_FEATURES: '1.2.0', // Version that supports suggested features
 }
 
 export const COLORS = {

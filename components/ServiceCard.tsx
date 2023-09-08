@@ -15,6 +15,7 @@ import {
   IconButton,
   Image,
   Spacer,
+  Stack,
   Tag,
   Text,
 } from '@chakra-ui/react'
@@ -104,28 +105,36 @@ export default function ServiceCard({
     >
       <CardBody width="100%">
         <Flex alignItems="center" justifyContent="space-between">
-          <HStack>
-            <Image src={icon} alt={name} borderRadius="full" boxSize="3rem" />
-            <Text fontSize="lg" as="b">
-              {truncateString(name, 10)}
-            </Text>
-            {isExtensionService && !isExtensionServiceInstalled && (
-              <Tag size="sm" colorScheme='cyan'>Install Extension</Tag>
-            )}
-            {lastUsed && <Tag size="sm" colorScheme='cyan'>Last Used</Tag>}
-            {isFeaturesSupported && hasSuggestedFeatures && (
-              <IconButton
-                isRound={true}
-                variant='solid'
-                colorScheme='teal'
-                aria-label='Done'
-                fontSize='sm'
-                size={'xs'}
-                icon={<CheckIcon />}
-              />
-            )}
-          </HStack>
-          <Spacer />
+          <Stack>
+            <Flex alignItems="center" justifyContent="space-between">
+              <HStack>
+                <Image src={icon} alt={name} borderRadius="full" boxSize="2.7rem" />
+                <Text fontSize="lg" as="b">
+                  {truncateString(name, 10)}
+                </Text>
+                {isExtensionService && !isExtensionServiceInstalled && (
+                  <Tag size="sm" colorScheme='cyan'>Install Extension</Tag>
+                )}
+                {lastUsed && <Tag size="sm" colorScheme='cyan'>Last Used</Tag>}
+                {isFeaturesSupported && hasSuggestedFeatures && (
+                  <IconButton
+                    isRound={true}
+                    variant='solid'
+                    colorScheme='teal'
+                    aria-label='Done'
+                    fontSize='sm'
+                    size={'xs'}
+                    icon={<CheckIcon />}
+                  />
+                )}
+              </HStack>
+            </Flex>
+            <HStack mt={2}>
+              {supportedFeatures.map((feature, index) => {
+                return <Tag size="sm" colorScheme='gray'>{feature}</Tag>
+              })}
+            </HStack>
+          </Stack>
           {hasWebsite && (
             <Box
               color="lightgrey"
@@ -140,11 +149,6 @@ export default function ServiceCard({
             </Box>
           )}
         </Flex>
-        <HStack mt={2}>
-          {supportedFeatures.map((feature, index) => {
-            return <Tag size="sm" colorScheme='gray'>{feature}</Tag>
-          })}
-        </HStack>
       </CardBody>
     </Card>
   )
