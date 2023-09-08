@@ -1,0 +1,14 @@
+[
+    {
+        "name": "self-custody",
+        "description": "Users manage their own keys, giving them full control of their crypto assets. Safekeeping responsibility rests with the user."
+    },
+    {
+        "name": "hardware",
+        "description": "Keys are stored on a physical device, apart from online devices. This enhances security as keys are exposed online only during transactions."
+    },
+    {
+        "name": "custodial",
+        "description": "Keys are held by the wallet. It's convenient but relies on the wallet's trustworthiness, and users don't have full control."
+    }
+]

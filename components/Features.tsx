@@ -1,10 +1,12 @@
 import { Box, HStack, Tag, Text, IconButton } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
 import { useFCL } from '../hooks/useFCL'
+import FEATURES_LIST from '../data/features.json'
 
 export default function Features() {
   const { clientConfig } = useFCL()
-  const suggestedFeatures = clientConfig?.discoveryFeaturesSuggested || []
+  const featuresListKeys = FEATURES_LIST.map(f => f.name)
+  const suggestedFeatures = clientConfig?.discoveryFeaturesSuggested?.filter(f => featuresListKeys.includes(f)) || []
 
   return (
     <Box mb={5}>

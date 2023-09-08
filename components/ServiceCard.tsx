@@ -24,6 +24,7 @@ import { Service } from '../types'
 import { getProviderMetadataByAddress } from '../helpers/metadata'
 import { CheckIcon } from '@chakra-ui/icons'
 import { useMemo } from 'react'
+import FEATURES_LIST from '../data/features.json'
 
 type Props = {
   isEnabled: boolean
@@ -54,7 +55,8 @@ export default function ServiceCard({
     appVersion,
     SUPPORTED_VERSIONS.SUGGESTED_FEATURES
   )
-  const suggestedFeatures = clientConfig?.discoveryFeaturesSuggested || []
+  const featuresListKeys = FEATURES_LIST.map(f => f.name)
+  const suggestedFeatures = clientConfig?.discoveryFeaturesSuggested?.filter(f => featuresListKeys.includes(f)) || []
 
 
   const onSelect = () => {
