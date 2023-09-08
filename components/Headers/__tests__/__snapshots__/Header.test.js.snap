@@ -70,16 +70,8 @@ exports[`Component: Header should render the configurable component if version i
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  gap: 0.5rem;
   margin-bottom: 25px;
-}
-
-.emotion-0>*:not(style)~*:not(style) {
-  margin-top: 0.5rem;
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
 }
 
 .emotion-2 {
@@ -94,15 +86,7 @@ exports[`Component: Header should render the configurable component if version i
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-}
-
-.emotion-2>*:not(style)~*:not(style) {
-  margin-top: 0px;
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0.5rem;
-  margin-inline-start: 0.5rem;
+  gap: 0.5rem;
 }
 
 .emotion-3 {
@@ -149,16 +133,8 @@ exports[`Component: Header should show the DeveloperMessage if config is missing
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  gap: 0.5rem;
   margin-bottom: 25px;
-}
-
-.emotion-0>*:not(style)~*:not(style) {
-  margin-top: 0.5rem;
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0px;
-  margin-inline-start: 0px;
 }
 
 .emotion-2 {
@@ -173,15 +149,7 @@ exports[`Component: Header should show the DeveloperMessage if config is missing
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
-}
-
-.emotion-2>*:not(style)~*:not(style) {
-  margin-top: 0px;
-  -webkit-margin-end: 0px;
-  margin-inline-end: 0px;
-  margin-bottom: 0px;
-  -webkit-margin-start: 0.5rem;
-  margin-inline-start: 0.5rem;
+  gap: 0.5rem;
 }
 
 .emotion-3 {
