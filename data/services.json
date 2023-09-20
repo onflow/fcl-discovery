@@ -107,7 +107,7 @@
       "f_vsn": "1.0.0",
       "type": "authn",
       "method": "WC/RPC",
-      "uid": "https://link.lilico.app/wc",
+      "uid": "https://fcw-link.lilico.app/wc",
       "endpoint": "flow_authn",
       "provider": {
         "address": "0xc7efa8c33fceee03",
@@ -234,7 +234,7 @@
       "f_vsn": "1.0.0",
       "type": "authn",
       "method": "WC/RPC",
-      "uid": "https://link.lilico.app/wc",
+      "uid": "https://fcw-link.lilico.app/wc",
       "endpoint": "flow_authn",
       "provider": {
         "address": "0xc7efa8c33fceee03",
