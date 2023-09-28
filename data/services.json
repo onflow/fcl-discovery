@@ -173,7 +173,7 @@
         "description": "Your entrance to the blockchain world.",
         "color": "#0075FF",
         "supportEmail": "support@blocto.app",
-        "authn_endpoint": "https://flow-wallet-testnet.blocto.app/authn",
+        "authn_endpoint": "https://wallet-v2-dev.blocto.app/-/flow/authn",
         "website": "https://blocto.io/"
       }
     },
