@@ -132,7 +132,7 @@ export default function ServiceCard({
               </HStack>
             </Flex>
             <HStack mt={2}>
-              {supportedFeatures.map((feature, index) => {
+              {isFeaturesSupported && supportedFeatures.map((feature, index) => {
                 return <Tag key={index} size="sm" colorScheme='gray'>{feature}</Tag>
               })}
             </HStack>
