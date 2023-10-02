@@ -8,7 +8,7 @@
   },
   "0x33f75ff0b830dcec": {
     "features": {
-      "supported": ["self-custody"]
+      "supported": ["account-linking"]
     },
     "platforms": {
       "chrome": {
@@ -16,19 +16,24 @@
       }
     }
   },
+  "0x6e8140bb1b8c70f1": {
+    "features": {
+      "supported": ["account-linking"]
+    }
+  },
   "0xf086a545ce3c552d": {
     "features": {
-      "supported": ["custodial"]
+      "supported": []
     }
   },
   "0x9d2e44203cb13051": {
     "features": {
-      "supported": ["self-custody", "hardware"]
+      "supported": []
     }
   },
   "0x82ec283f88a62e65": {
     "features": {
-      "supported": ["custodial"]
+      "supported": []
     }
   },
   "0x95b85a9ef4daabb1": {
@@ -38,7 +43,7 @@
       }
     },
     "features": {
-      "supported": ["self-custody"]
+      "supported": []
     }
   },
   "0x4204aa9c92ab68a1": {
@@ -48,12 +53,12 @@
       }
     },
     "features": {
-      "supported": ["self-custody"]
+      "supported": []
     }
   },
   "0xbc18ed89bd780d7f": {
     "features": {
-      "supported": ["self-custody"]
+      "supported": []
     },
     "platforms": {
       "chrome": {
