@@ -54,10 +54,12 @@ exports[`Component: DeveloperMessage should render the DeveloperMessage componen
 
 <div
   class="chakra-alert emotion-0"
+  data-status="warning"
   role="alert"
 >
   <span
     class="chakra-alert__icon emotion-1"
+    data-status="warning"
   >
     <svg
       class="chakra-icon emotion-2"
@@ -72,11 +74,13 @@ exports[`Component: DeveloperMessage should render the DeveloperMessage componen
   </span>
   <div
     class="chakra-alert__title emotion-3"
+    data-status="warning"
   >
     Missing Config
   </div>
   <div
     class="chakra-alert__desc emotion-4"
+    data-status="warning"
   >
     See how to set your app title and icon
      

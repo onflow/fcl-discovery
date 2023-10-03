@@ -54,7 +54,7 @@ export const getServicePipes = ({
   )
   const extensions = serviceListOfMethod(
     clientServices,
-    FCL_SERVICE_METHODS.EXTENSION
+    FCL_SERVICE_METHODS.EXT
   )
 
   return [

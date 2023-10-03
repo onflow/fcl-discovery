@@ -76,13 +76,13 @@ export function sortByAddress(services = [], selectedAddress) {
 }
 
 export const isExtension = service =>
-  service?.method === FCL_SERVICE_METHODS.EXTENSION
+  service?.method === FCL_SERVICE_METHODS.EXT
 
 export const isExtensionInstalled = (extensions, address) =>
   extensions.some(extension => extension?.provider?.address === address)
 
 export const requiresPlatform = service => {
-  const requiredPlatformTypes = [FCL_SERVICE_METHODS.EXTENSION]
+  const requiredPlatformTypes = [FCL_SERVICE_METHODS.EXT]
   return requiredPlatformTypes.includes(service?.method)
 }
 

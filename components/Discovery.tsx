@@ -1,12 +1,14 @@
 import useSWR from 'swr'
 import { sortByAddress } from '../helpers/services'
-import { LOCAL_STORAGE_KEYS, PATHS } from '../helpers/constants'
+import { LOCAL_STORAGE_KEYS, PATHS, SUPPORTED_VERSIONS } from '../helpers/constants'
 import ServiceCard from './ServiceCard'
 import Header from './Headers/Header'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { getUserAgent } from '../helpers/userAgent'
-import { Container, Stack } from '@chakra-ui/react'
+import { Container, Text, Stack } from '@chakra-ui/react'
 import { Service, Strategy } from '../types'
+import Features from './Features'
+import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 
 const fetcher = (url, opts) => {
   return fetch(url, {
@@ -25,6 +27,7 @@ type Props = {
   walletInclude: string[]
   clientServices: Service[]
   supportedStrategies: Strategy[]
+  clientConfig: { [key: string]: any }
   port: number
 }
 
@@ -35,6 +38,7 @@ export const Discovery = ({
   walletInclude,
   clientServices,
   supportedStrategies,
+  clientConfig,
   port,
 }: Props) => {
   const requestUrl = `/api${PATHS[network.toUpperCase()]}?discoveryType=UI`
@@ -43,6 +47,9 @@ export const Discovery = ({
       type: ['authn'],
       fclVersion: appVersion,
       include: walletInclude,
+      features: {
+        suggested: clientConfig?.discoveryFeaturesSuggested || []
+      },
       extensions,
       userAgent: getUserAgent(),
       clientServices, // TODO: maybe combine this with extensions except version support then needs to be fixed in later step
@@ -54,12 +61,18 @@ export const Discovery = ({
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
   const services = sortByAddress(data, lastUsed)
 
+  const isFeaturesSupported = isGreaterThanOrEqualToVersion(
+    appVersion,
+    SUPPORTED_VERSIONS.SUGGESTED_FEATURES
+  )
+
   if (!data) return <div />
   if (error) return <div>Error Loading Data</div>
 
   return (
     <Container paddingTop={5} paddingBottom={5}>
       <Header />
+      {isFeaturesSupported && <Features />}
       <Stack spacing="12px">
         {services.length === 0 && <div>No Wallets Found</div>}
         {services.map((service, index) => {
