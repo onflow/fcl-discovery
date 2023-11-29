@@ -90,16 +90,16 @@
       "f_vsn": "1.0.0",
       "type": "authn",
       "method": "EXT/RPC",
-      "uid": "flipper#authn",
+      "uid": "shadow#authn",
       "endpoint": "chrome-extension://lmmpaefggfcmnoddemmgdppddppnmhek/index.html",
       "provider": {
         "address": "0x4204aa9c92ab68a1",
-        "name": "Flipper",
-        "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMy42MzY0IDBDNi4xMDUxNCAwIDAgNi4xMDUyMiAwIDEzLjYzNjRWNDYuMzYzNkMwIDUzLjg5NDggNi4xMDUxNCA2MCAxMy42MzY0IDYwSDQ2LjM2MzZDNTMuODk0OSA2MCA2MCA1My44OTQ4IDYwIDQ2LjM2MzZWMTMuNjM2NEM2MCA2LjEwNTIyIDUzLjg5NDkgMCA0Ni4zNjM2IDBIMTMuNjM2NFpNNDMuMzMzMyAxMEgzMFYyMy4zMzMzSDE2LjY2NjdMMzAgMzYuNjY2N0gxNi42NjY3VjUwSDMwVjM2LjY2NjdINDMuMzMzM0wzMCAyMy4zMzMzSDQzLjMzMzNWMTBaIiBmaWxsPSIjNkM1MkZGIi8+CjxwYXRoIGQ9Ik00My4zMzMzIDEwSDMwVjIzLjMzMzNINDMuMzMzM1YxMFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0zMCAyMy4zMzMzSDE2LjY2NjdMMzAgMzYuNjY2N0g0My4zMzMzTDMwIDIzLjMzMzNaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNMzAgMzYuNjY2N0gxNi42NjY3VjUwSDMwVjM2LjY2NjdaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K",
-        "description": "A wallet for your favorite blockchain apps and games",
-        "color": "#6C52FF",
-        "supportEmail": "developer@flipper.org",
-        "website": "https://flipper.org"
+        "name": "Shadow",
+        "icon": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik05LjM3NjMxIDQuMDkzMDlDOS4wOTE2MiA0LjA5MzA5IDguODE4NiA0LjIwNjE4IDguNjE3MyA0LjQwNzQ4TDAuMzkyOTg5IDEyLjYzMThDLTAuMTMxMDM4IDEzLjE1NTggLTAuMTMwOTkxIDE0LjAwNTQgMC4zOTMwOTcgMTQuNTI5NEw4LjkzMjggMjMuMDY3Mkw1LjAwOTI4IDI2Ljk5MDdDNC42NzExOCAyNy4zMjg4IDQuOTEwNjQgMjcuOTA2OSA1LjM4ODc5IDI3LjkwNjlMMjIuNjIzNiAyNy45MDY5QzIyLjkwODMgMjcuOTA2OSAyMy4xODEzIDI3Ljc5MzggMjMuMzgyNiAyNy41OTI1TDMxLjYwNyAxOS4zNjgxQzMyLjEzMSAxOC44NDQxIDMyLjEzMSAxNy45OTQ2IDMxLjYwNyAxNy40NzA2TDIzLjA2ODIgOC45MzE3NUwyNi45OTA2IDUuMDA5M0MyNy4zMjg3IDQuNjcxMiAyNy4wODkzIDQuMDkzMDkgMjYuNjExMSA0LjA5MzA5SDkuMzc2MzFaTTIwLjA0MjkgMTIuODg5NkgyMi40OTA3QzIyLjkzNTMgMTIuODg5NiAyMy4yOTU4IDEzLjI1IDIzLjI5NTggMTMuNjk0NlYxOC4xNzE1QzIzLjI5NTggMTguNjE2MSAyMi45MzUzIDE4Ljk3NjUgMjIuNDkwNyAxOC45NzY1SDIwLjA0MjlDMTkuNTk4MyAxOC45NzY1IDE5LjIzNzggMTguNjE2MSAxOS4yMzc4IDE4LjE3MTVWMTMuNjk0NkMxOS4yMzc4IDEzLjI1IDE5LjU5ODMgMTIuODg5NiAyMC4wNDI5IDEyLjg4OTZaTTE0LjY3NTkgMTIuODg5NkgxMi4yMjgxQzExLjc4MzQgMTIuODg5NiAxMS40MjMgMTMuMjUgMTEuNDIzIDEzLjY5NDZWMTguMTcxNUMxMS40MjMgMTguNjE2MSAxMS43ODM0IDE4Ljk3NjUgMTIuMjI4MSAxOC45NzY1SDE0LjY3NTlDMTUuMTIwNSAxOC45NzY1IDE1LjQ4MDkgMTguNjE2MSAxNS40ODA5IDE4LjE3MTVWMTMuNjk0NkMxNS40ODA5IDEzLjI1IDE1LjEyMDUgMTIuODg5NiAxNC42NzU5IDEyLjg4OTZaIiBmaWxsPSIjQjc5REZGIi8+Cjwvc3ZnPgo=",
+        "description": "Shadow wallet, your Web3 sidekick. Store your assets, transact with friends, and connect to apps on multiple chains.",
+        "color": "#B79DFF",
+        "supportEmail": "support@shadow.is",
+        "website": "https://shadow.is/wallet"
       }
     },
     {
