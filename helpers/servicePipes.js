@@ -33,7 +33,7 @@ export const getServicePipes = ({
   portOverride,
 }) => {
   const platform = getPlatformFromUserAgent(userAgent)
-  const isLocal = network === NETWORKS.LOCAL
+  const isLocal = network === NETWORKS.LOCAL || network === NETWORKS.EMULATOR
 
   // In newer versions, we'll have extensions sent
   // In older versions they were added on the FCL side
