@@ -49,7 +49,7 @@ fcl.config({
 
 ## More Configuration
 
-For more configuration options, please see the [**documentation**](https://developers.flow.com/tools/fcl-js/reference/discovery).
+For more configuration options, please see the [**documentation**](https://developers.flow.com/tools/clients/fcl-js/discovery).
 
 ## Adding a Wallet to Discovery
 
