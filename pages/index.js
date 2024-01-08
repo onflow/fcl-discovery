@@ -15,6 +15,10 @@ export default function Home() {
           <strong>Local:</strong>{' '}
           https://fcl-discovery.onflow.org/api/local/authn
         </div>
+        <div>
+          <strong>Emulator:</strong>{' '}
+          https://fcl-discovery.onflow.org/api/emulator/authn
+        </div>
       </div>
     </div>
   )

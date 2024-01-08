@@ -6,6 +6,7 @@ import { findMatchingPipeVersion } from '../../helpers/version'
 import Sentry from '../../config/sentry.server'
 import mixpanel from '../../config/mixpanel.server'
 import { getServicePipes } from '../../helpers/servicePipes'
+import { NETWORKS } from '../../helpers/constants'
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -65,7 +66,10 @@ async function handler(req, res) {
     portOverride: portQuery || portBody,
   })
   const versionPipe = findMatchingPipeVersion(fclVersion, servicePipes)
-  const discoveryServices = versionPipe(servicesJson[network])
+  
+  // support emulator and use local service configuration
+  const netConfig = network === NETWORKS.EMULATOR ? NETWORKS.LOCAL : network
+  const discoveryServices = versionPipe(servicesJson[netConfig])
 
   return res.status(200).json(discoveryServices)
 }
