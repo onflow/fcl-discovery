@@ -7,26 +7,31 @@ export default function Features() {
   const { clientConfig } = useFCL()
   const featuresListKeys = FEATURES_LIST.map(f => f.name)
   const suggestedFeatures = clientConfig?.discoveryFeaturesSuggested?.filter(f => featuresListKeys.includes(f)) || []
+  const hasSuggestedFeatures = suggestedFeatures.length > 0
 
   return (
     <Box mb={5}>
-        <HStack mb={3}>
-          <Text fontSize='sm' as='b'>Wallet Requirements</Text>
-          <IconButton
-            isRound={true}
-            variant='solid'
-            colorScheme='teal'
-            aria-label='Done'
-            fontSize='sm'
-            size={'xs'}
-            icon={<CheckIcon />}
-          />
-        </HStack>
-        <HStack>
-          {suggestedFeatures.map((suggestion, index) => (
-            <Tag key={index} size='sm'>{suggestion}</Tag>
-          ))}
-        </HStack>
+        {hasSuggestedFeatures && 
+          <>
+            <HStack mb={3}>
+              <Text fontSize='sm' as='b'>Wallet Requirements</Text>
+              <IconButton
+                isRound={true}
+                variant='solid'
+                colorScheme='teal'
+                aria-label='Done'
+                fontSize='sm'
+                size={'xs'}
+                icon={<CheckIcon />}
+              />
+            </HStack>
+            <HStack>
+              {suggestedFeatures.map((suggestion, index) => (
+                <Tag key={index} size='sm'>{suggestion}</Tag>
+              ))}
+            </HStack>
+          </>
+        }
     </Box>
   )
 }
