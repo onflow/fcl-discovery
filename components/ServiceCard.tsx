@@ -82,11 +82,11 @@ export default function ServiceCard({
       window.location.href = `${service.endpoint}${window.location.search}`
     }
   }
-
+  
   const hasSuggestedFeatures = useMemo(() => {
+    if (suggestedFeatures.length === 0) return false
     return suggestedFeatures.every(feature => supportedFeatures.includes(feature))
   }, [suggestedFeatures, supportedFeatures])
-  
 
   const openMoreInfo = e => {
     e.stopPropagation()
