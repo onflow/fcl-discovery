@@ -33,6 +33,7 @@ fcl.config({
 | ----------- | ---------------------------------------------------------------------- |
 | Mainnet     | `http://localhost:3002/authn` or `http://localhost:3002/mainnet/authn` |
 | Testnet     | `http://localhost:3002/testnet/authn`                                  |
+| Crescendo   | `http://localhost:3002/crescendo/authn`                                |
 | Local       | `http://localhost:3002/local/authn`                                    |
 | Emulator    | `http://localhost:3002/emulator/authn`                                 |
 
@@ -42,6 +43,7 @@ fcl.config({
 | ----------- | ------------------------------------------------------------------------------ |
 | Mainnet     | `http://localhost:3002/api/authn` or `http://localhost:3002/api/mainnet/authn` |
 | Testnet     | `http://localhost:3002/api/testnet/authn`                                      |
+| Crescendo   | `http://localhost:3002/api/crescendo/authn`                                    |
 | Local       | `http://localhost:3002/api/local/authn`                                        |
 | Emulator    | `http://localhost:3002/api/emulator/authn`                                     |
 

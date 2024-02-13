@@ -6,19 +6,25 @@ describe('paths helpers: createPathFromArray', () => {
     const arrTwo = ['mainnet', 'authn']
     const arrThree = ['testnet', 'authn']
     const arrFour = ['canarynet', 'authn']
-    const arrFive = ['sandboxnet', 'authn']
+    const arrFive = ['crescendo', 'authn']
+    const arrSix= ['local', 'authn']
+    const arrSeven = ['emulator', 'authn']
 
     const expectedResponseOne = '/authn'
     const expectedResponseTwo = '/mainnet/authn'
     const expectedResponseThree = '/testnet/authn'
     const expectedResponseFour = '/canarynet/authn'
-    const expectedResponseFive = '/sandboxnet/authn'
+    const expectedResponseFive = '/crescendo/authn'
+    const expectedResponseSix = '/local/authn'
+    const expectedResponseSeven = '/emulator/authn'
 
     expect(createPathFromArray(arrOne)).toEqual(expectedResponseOne)
     expect(createPathFromArray(arrTwo)).toEqual(expectedResponseTwo)
     expect(createPathFromArray(arrThree)).toEqual(expectedResponseThree)
     expect(createPathFromArray(arrFour)).toEqual(expectedResponseFour)
     expect(createPathFromArray(arrFive)).toEqual(expectedResponseFive)
+    expect(createPathFromArray(arrSix)).toEqual(expectedResponseSix)
+    expect(createPathFromArray(arrSeven)).toEqual(expectedResponseSeven)
   })
 })
 
@@ -29,7 +35,9 @@ describe('paths helpers: isValidPath', () => {
     const pathThree = ['testnet', 'authn']
     const pathFour = ['canarynet', 'authn']
     const pathFive = ['foo', 'bar']
-    const pathSix = ['sandboxnet', 'authn']
+    const pathSix = ['crescendo', 'authn']
+    const pathSeven = ['local', 'authn']
+    const pathEight = ['emulator', 'authn']
 
     expect(isValidPath(pathOne)).toBe(true)
     expect(isValidPath(pathTwo)).toBe(true)
@@ -37,6 +45,8 @@ describe('paths helpers: isValidPath', () => {
     expect(isValidPath(pathFour)).toBe(true)
     expect(isValidPath(pathFive)).toBe(false)
     expect(isValidPath(pathSix)).toBe(true)
+    expect(isValidPath(pathSeven)).toBe(true)
+    expect(isValidPath(pathEight)).toBe(true)
     expect(isValidPath(null)).toBe(false)
   })
 })

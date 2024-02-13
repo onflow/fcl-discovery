@@ -12,6 +12,10 @@ export default function Home() {
           https://fcl-discovery.onflow.org/api/testnet/authn
         </div>
         <div>
+          <strong>Crescendo:</strong>{' '}
+          https://fcl-discovery.onflow.org/api/crescendo/authn
+        </div>
+        <div>
           <strong>Local:</strong>{' '}
           https://fcl-discovery.onflow.org/api/local/authn
         </div>
