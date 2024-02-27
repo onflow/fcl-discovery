@@ -6,7 +6,7 @@ describe('paths helpers: createPathFromArray', () => {
     const arrTwo = ['mainnet', 'authn']
     const arrThree = ['testnet', 'authn']
     const arrFour = ['canarynet', 'authn']
-    const arrFive = ['crescendo', 'authn']
+    const arrFive = ['previewnet', 'authn']
     const arrSix= ['local', 'authn']
     const arrSeven = ['emulator', 'authn']
 
@@ -14,7 +14,7 @@ describe('paths helpers: createPathFromArray', () => {
     const expectedResponseTwo = '/mainnet/authn'
     const expectedResponseThree = '/testnet/authn'
     const expectedResponseFour = '/canarynet/authn'
-    const expectedResponseFive = '/crescendo/authn'
+    const expectedResponseFive = '/previewnet/authn'
     const expectedResponseSix = '/local/authn'
     const expectedResponseSeven = '/emulator/authn'
 
@@ -35,7 +35,7 @@ describe('paths helpers: isValidPath', () => {
     const pathThree = ['testnet', 'authn']
     const pathFour = ['canarynet', 'authn']
     const pathFive = ['foo', 'bar']
-    const pathSix = ['crescendo', 'authn']
+    const pathSix = ['previewnet', 'authn']
     const pathSeven = ['local', 'authn']
     const pathEight = ['emulator', 'authn']
 
