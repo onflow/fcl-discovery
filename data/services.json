@@ -314,7 +314,7 @@
     },
     {
       "f_type": "Service",
-      "f_vsn": "1.4.1",
+      "f_vsn": "1.0.0",
       "type": "authn",
       "method": "HTTP/POST",
       "uid": "devwallethttppost#authnpost",
