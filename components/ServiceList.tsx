@@ -35,7 +35,7 @@ export default function ServiceList({ services }: ServiceListProps) {
   )
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={4}>
       {lastUsedService && (
         <ServiceGroup
           title="Last Used"

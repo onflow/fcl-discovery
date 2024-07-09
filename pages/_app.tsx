@@ -1,21 +1,10 @@
-import { CloseIcon } from '@chakra-ui/icons'
 import { handleCancel } from '../helpers/window'
-import {
-  Box,
-  Button,
-  ChakraProvider,
-  Flex,
-  IconButton,
-  ModalHeader,
-  Text,
-} from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react'
 import {
   extendTheme,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalBody,
-  ModalCloseButton,
 } from '@chakra-ui/react'
 import { useCallback, useState } from 'react'
 
@@ -63,39 +52,15 @@ function MyApp({ Component, pageProps }) {
       <Modal isOpen={isOpen} onClose={handleOnClose} isCentered>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
-          maxH="700px"
           borderRadius="2xl"
-          display="flex"
           flexDirection="column"
-          padding={0}
+          w="auto"
+          h="auto"
+          maxW="none"
+          maxH="none"
+          display="flex"
         >
-          <ModalHeader>
-            <Flex alignItems="center" position="relative">
-              <Text position="absolute" left="50%" transform="translateX(-50%)">
-                Connect Wallet
-              </Text>
-
-              <IconButton
-                onClick={handleOnClose}
-                icon={<CloseIcon fontSize="1em" />}
-                aria-label="Close Modal"
-                borderRadius="full"
-                bg="gray.100"
-                color="black"
-                ml="auto"
-                size="sm"
-              ></IconButton>
-            </Flex>
-          </ModalHeader>
-          <ModalBody
-            flex="1"
-            h="0"
-            display="flex"
-            flexDirection="column"
-            padding={0}
-          >
-            <Component {...pageProps} />
-          </ModalBody>
+          <Component {...pageProps} />
         </ModalContent>
       </Modal>
     </ChakraProvider>

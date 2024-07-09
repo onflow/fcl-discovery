@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import Discovery from '../components/Discovery'
+import Discovery from '../components/views/Discovery'
 import { isValidPath, getNetworkFromPath } from '../helpers/paths'
 import { useFcl } from '../hooks/useFcl'
 import { ConfigProvider } from '../contexts/ConfigContext'
