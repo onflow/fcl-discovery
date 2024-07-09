@@ -74,4 +74,4 @@ async function handler(req, res) {
   return res.status(200).json(discoveryServices)
 }
 
-export default Sentry.withSentry(handler)
+export default Sentry.wrapApiHandlerWithSentry(handler)
