@@ -4,7 +4,6 @@ import servicesJson from '../../data/services.json'
 import { isValidPath, getNetworkFromPath } from '../../helpers/paths'
 import { findMatchingPipeVersion } from '../../helpers/version'
 import Sentry from '../../config/sentry.server'
-import mixpanel from '../../config/mixpanel.server'
 import { getServicePipes } from '../../helpers/servicePipes'
 import { NETWORKS } from '../../helpers/constants'
 
@@ -49,12 +48,6 @@ async function handler(req, res) {
     return res.status(400).json({ message: 'Invalid Network' })
   }
 
-  mixpanel.track('Wallet Discovery Request', {
-    type: discoveryRequestType,
-    network,
-    fclVersion,
-  })
-
   const servicePipes = getServicePipes({
     fclVersion,
     discoveryType,
@@ -66,7 +59,7 @@ async function handler(req, res) {
     portOverride: portQuery || portBody,
   })
   const versionPipe = findMatchingPipeVersion(fclVersion, servicePipes)
-  
+
   // support emulator and use local service configuration
   const netConfig = network === NETWORKS.EMULATOR ? NETWORKS.LOCAL : network
   const discoveryServices = versionPipe(servicesJson[netConfig])

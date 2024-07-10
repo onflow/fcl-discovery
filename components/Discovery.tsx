@@ -1,66 +1,20 @@
-import useSWR from 'swr'
 import { sortByAddress } from '../helpers/services'
-import { LOCAL_STORAGE_KEYS, PATHS, SUPPORTED_VERSIONS } from '../helpers/constants'
+import { LOCAL_STORAGE_KEYS, SUPPORTED_VERSIONS } from '../helpers/constants'
 import ServiceCard from './ServiceCard'
 import Header from './Headers/Header'
 import { useLocalStorage } from '../hooks/useLocalStorage'
-import { getUserAgent } from '../helpers/userAgent'
-import { Container, Text, Stack } from '@chakra-ui/react'
-import { Service, Strategy } from '../types'
+import { Container, Stack } from '@chakra-ui/react'
 import Features from './Features'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
+import { useWallets } from '../hooks/useWallets'
+import { useConfig } from '../contexts/ConfigContext'
 
-const fetcher = (url, opts) => {
-  return fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(opts),
-  }).then(d => d.json())
-}
-
-type Props = {
-  network: string
-  appVersion: string
-  extensions: Service[]
-  walletInclude: string[]
-  clientServices: Service[]
-  supportedStrategies: Strategy[]
-  clientConfig: { [key: string]: any }
-  port: number
-}
-
-export const Discovery = ({
-  network,
-  appVersion,
-  extensions,
-  walletInclude,
-  clientServices,
-  supportedStrategies,
-  clientConfig,
-  port,
-}: Props) => {
-  const requestUrl = `/api${PATHS[network.toUpperCase()]}?discoveryType=UI`
-  const { data, error } = useSWR(requestUrl, url =>
-    fetcher(url, {
-      type: ['authn'],
-      fclVersion: appVersion,
-      include: walletInclude,
-      features: {
-        suggested: clientConfig?.discoveryFeaturesSuggested || []
-      },
-      extensions,
-      userAgent: getUserAgent(),
-      clientServices, // TODO: maybe combine this with extensions except version support then needs to be fixed in later step
-      supportedStrategies,
-      network,
-      port,
-    })
-  )
+export const Discovery = () => {
+  const { wallets: data, error } = useWallets()
   const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
   const services = sortByAddress(data, lastUsed)
 
+  const { appVersion } = useConfig()
   const isFeaturesSupported = isGreaterThanOrEqualToVersion(
     appVersion,
     SUPPORTED_VERSIONS.SUGGESTED_FEATURES

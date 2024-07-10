@@ -1,7 +1,6 @@
-import { render } from '@testing-library/react'
+import { render as defaultRender } from '@testing-library/react'
 import Header from '../Header'
-import { useFCL } from '../../../hooks/useFCL'
-jest.mock('../../../hooks/useFCL')
+import { ConfigProvider } from '../../../contexts/ConfigContext'
 
 jest.mock(
   '../../helpers/networks',
@@ -12,57 +11,51 @@ jest.mock(
 )
 
 describe('Component: Header', () => {
-  test('should render the configurable component if version is old enough', () => {
-    useFCL.mockImplementation(() => {
-      return {
-        appVersion: '1.0.0',
-        appConfig: {
-          title: 'Test App',
-          icon: 'test.png',
-        },
-        clientConfig: {
-          hostname: 'www.onflow.org',
-        },
-      }
-    })
+  const render = config => component => {
+    return defaultRender(
+      <ConfigProvider {...config}>{component}</ConfigProvider>
+    )
+  }
 
-    const { container } = render(<Header />)
+  test('should render the configurable component if version is old enough', () => {
+    const { container } = render({
+      appVersion: '1.0.0',
+      appConfig: {
+        title: 'Test App',
+        icon: 'test.png',
+      },
+      clientConfig: {
+        hostname: 'www.onflow.org',
+      },
+    })(<Header />)
     expect(container.firstChild).toMatchSnapshot()
   })
 
   test('should NOT render the configurable component if version is too low', () => {
-    useFCL.mockImplementation(() => {
-      return {
-        appVersion: '0.0.77',
-        appConfig: {
-          title: 'Test App',
-          icon: 'test.png',
-        },
-        clientConfig: {
-          hostname: 'www.onflow.org',
-        },
-      }
-    })
-
-    const { container } = render(<Header />)
+    const { container } = render({
+      appVersion: '0.0.77',
+      appConfig: {
+        title: 'Test App',
+        icon: 'test.png',
+      },
+      clientConfig: {
+        hostname: 'www.onflow.org',
+      },
+    })(<Header />)
     expect(container.firstChild).toMatchSnapshot()
   })
 
   test('should show the DeveloperMessage if config is missing', () => {
-    useFCL.mockImplementation(() => {
-      return {
-        appVersion: '1.0.0',
-        appConfig: {
-          title: null,
-          icon: null,
-        },
-        clientConfig: {
-          hostname: null,
-        },
-      }
-    })
-
-    const { container } = render(<Header />)
+    const { container } = render({
+      appVersion: '1.0.0',
+      appConfig: {
+        title: null,
+        icon: null,
+      },
+      clientConfig: {
+        hostname: null,
+      },
+    })(<Header />)
     expect(container.firstChild).toMatchSnapshot()
   })
 })

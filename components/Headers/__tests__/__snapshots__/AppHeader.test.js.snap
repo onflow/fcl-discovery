@@ -81,12 +81,6 @@ exports[`Component: AppHeader should render the the component with icon 1`] = `
 }
 
 .emotion-3 {
-  border-radius: 50px;
-  width: 25px;
-  height: 25px;
-}
-
-.emotion-4 {
   color: grey;
 }
 
@@ -96,20 +90,15 @@ exports[`Component: AppHeader should render the the component with icon 1`] = `
   <h2
     class="chakra-heading emotion-1"
   >
-    Connect to Test App
+    Connect
   </h2>
   <div
     class="chakra-stack emotion-2"
   >
-    <img
-      alt="Logo"
-      class="chakra-image emotion-3"
-      src="test.png"
-    />
     <p
-      class="chakra-text emotion-4"
+      class="chakra-text emotion-3"
     >
-      www.onflow.org
+      Unknown
     </p>
   </div>
 </div>

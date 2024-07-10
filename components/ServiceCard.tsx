@@ -3,7 +3,6 @@ import { LOCAL_STORAGE_KEYS, SUPPORTED_VERSIONS } from '../helpers/constants'
 import { isExtension } from '../helpers/services'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { truncateString } from '../helpers/strings'
-import { useFCL } from '../hooks/useFCL'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import {
   Box,
@@ -23,8 +22,9 @@ import { FiInfo } from 'react-icons/fi'
 import { Service } from '../types'
 import { getProviderMetadataByAddress } from '../helpers/metadata'
 import { CheckIcon } from '@chakra-ui/icons'
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import FEATURES_LIST from '../data/features.json'
+import { ConfigContext } from '../contexts/ConfigContext'
 
 type Props = {
   isEnabled: boolean
@@ -40,7 +40,7 @@ export default function ServiceCard({
   service,
   lastUsed = false,
 }: Props) {
-  const { appVersion, clientConfig } = useFCL()
+  const { appVersion, clientConfig } = useContext(ConfigContext)
   const [_, setLastUsed] = useLocalStorage(
     LOCAL_STORAGE_KEYS.LAST_INSTALLED,
     null
@@ -50,14 +50,18 @@ export default function ServiceCard({
   const installLink = service?.provider?.install_link
   const isExtensionService = isExtension(service)
   const isExtensionServiceInstalled = Boolean(service?.provider?.is_installed)
-  const supportedFeatures = getProviderMetadataByAddress(service?.provider?.address)?.features?.supported || []
+  const supportedFeatures =
+    getProviderMetadataByAddress(service?.provider?.address)?.features
+      ?.supported || []
   const isFeaturesSupported = isGreaterThanOrEqualToVersion(
     appVersion,
     SUPPORTED_VERSIONS.SUGGESTED_FEATURES
   )
   const featuresListKeys = FEATURES_LIST.map(f => f.name)
-  const suggestedFeatures = clientConfig?.discoveryFeaturesSuggested?.filter(f => featuresListKeys.includes(f)) || []
-
+  const suggestedFeatures =
+    clientConfig?.discoveryFeaturesSuggested?.filter(f =>
+      featuresListKeys.includes(f)
+    ) || []
 
   const onSelect = () => {
     if (!service) return
@@ -82,10 +86,12 @@ export default function ServiceCard({
       window.location.href = `${service.endpoint}${window.location.search}`
     }
   }
-  
+
   const hasSuggestedFeatures = useMemo(() => {
     if (suggestedFeatures.length === 0) return false
-    return suggestedFeatures.every(feature => supportedFeatures.includes(feature))
+    return suggestedFeatures.every(feature =>
+      supportedFeatures.includes(feature)
+    )
   }, [suggestedFeatures, supportedFeatures])
 
   const openMoreInfo = e => {
@@ -110,21 +116,32 @@ export default function ServiceCard({
           <Stack>
             <Flex alignItems="center" justifyContent="space-between">
               <HStack>
-                <Image src={icon} alt={name} borderRadius="full" boxSize="2.7rem" />
+                <Image
+                  src={icon}
+                  alt={name}
+                  borderRadius="full"
+                  boxSize="2.7rem"
+                />
                 <Text fontSize="lg" as="b">
                   {truncateString(name, 10)}
                 </Text>
                 {isExtensionService && !isExtensionServiceInstalled && (
-                  <Tag size="sm" colorScheme='cyan'>Install Extension</Tag>
+                  <Tag size="sm" colorScheme="cyan">
+                    Install Extension
+                  </Tag>
                 )}
-                {lastUsed && <Tag size="sm" colorScheme='cyan'>Last Used</Tag>}
+                {lastUsed && (
+                  <Tag size="sm" colorScheme="cyan">
+                    Last Used
+                  </Tag>
+                )}
                 {isFeaturesSupported && hasSuggestedFeatures && (
                   <IconButton
                     isRound={true}
-                    variant='solid'
-                    colorScheme='teal'
-                    aria-label='Done'
-                    fontSize='sm'
+                    variant="solid"
+                    colorScheme="teal"
+                    aria-label="Done"
+                    fontSize="sm"
                     size={'xs'}
                     icon={<CheckIcon />}
                   />
@@ -134,7 +151,11 @@ export default function ServiceCard({
             {isFeaturesSupported && (
               <HStack mt={2}>
                 {supportedFeatures.map((feature, index) => {
-                  return <Tag key={index} size="sm" colorScheme='gray'>{feature}</Tag>
+                  return (
+                    <Tag key={index} size="sm" colorScheme="gray">
+                      {feature}
+                    </Tag>
+                  )
                 })}
               </HStack>
             )}
