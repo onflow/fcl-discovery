@@ -45,5 +45,5 @@ export function useWallets() {
     fetcher(url, body)
   )
 
-  return { wallets, error }
+  return { wallets, error, isLoading: !wallets && !error }
 }
