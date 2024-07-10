@@ -1,14 +1,14 @@
 import FlowHeader from './FlowHeader'
 import AppHeader from './AppHeader'
 import DeveloperMessage from '../DeveloperMessage'
-import { useFCL } from '../../hooks/useFCL'
 import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import { SUPPORTED_VERSIONS } from '../../helpers/constants'
 import { isTestnet as isTestnetFn } from '../../helpers/networks'
+import { useConfig } from '../../contexts/ConfigContext'
 
 export default function Header() {
   const isTestnet = isTestnetFn()
-  const { appConfig, appVersion } = useFCL()
+  const { appConfig, appVersion } = useConfig()
   const isMissingConfig = !(appConfig?.icon && appConfig?.title)
   const showDeveloperMessage =
     isTestnet &&
