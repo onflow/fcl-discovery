@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Stack, Text } from '@chakra-ui/react'
 import { Service } from '../types'
 import ServiceCard from './ServiceCard'
 
@@ -14,20 +14,22 @@ export default function ServiceGroup({
   titleProps,
 }: ServiceGroupProps) {
   return (
-    <Flex direction="column">
+    <Stack spacing={1}>
       <Text fontSize="lg" fontWeight="bold" mb={2} {...titleProps}>
         {title}
       </Text>
-      {services.map((service, index) => {
-        return (
-          <ServiceCard
-            key={service?.provider?.address ?? index}
-            service={service}
-            name={service?.provider?.name ?? ''}
-            icon={service?.provider?.icon ?? ''}
-          />
-        )
-      })}
-    </Flex>
+      <Stack spacing={2}>
+        {services.map((service, index) => {
+          return (
+            <ServiceCard
+              key={service?.provider?.address ?? index}
+              service={service}
+              name={service?.provider?.name ?? ''}
+              icon={service?.provider?.icon ?? ''}
+            />
+          )
+        })}
+      </Stack>
+    </Stack>
   )
 }

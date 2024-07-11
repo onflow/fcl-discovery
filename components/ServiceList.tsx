@@ -35,13 +35,13 @@ export default function ServiceList({ services }: ServiceListProps) {
   )
 
   return (
-    <Stack spacing={5}>
+    <Stack spacing={2}>
       {lastUsedService && (
         <ServiceGroup
           title="Last Used"
           services={[lastUsedService]}
           titleProps={{
-            color: 'blue.500',
+            color: 'blue.400',
           }}
         />
       )}

@@ -22,20 +22,18 @@ export default function Discovery() {
         display="flex"
         flexDirection="column"
         overflow="scroll"
-        paddingX={8}
-        paddingBottom={6}
+        px={8}
+        pb={4}
       >
         {/* TODO: this to be replaced with a filter bar & auto-suggest */}
         {/* isFeaturesSupported && <Features /> */}
         <ServiceList services={wallets} />
       </Container>
 
-      <Divider />
+      <Divider borderColor="gray.300" />
 
       <HStack justifyContent="space-between" alignItems="center" padding={6}>
-        <Text fontSize="sm" color="gray.500">
-          Don't have a wallet?
-        </Text>
+        <Text fontSize="sm">Don't have a wallet?</Text>
 
         <Link href="https://fcl.dev" isExternal>
           <Text fontSize="sm" color="blue.500">

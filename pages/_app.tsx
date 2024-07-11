@@ -63,8 +63,8 @@ function MyApp({ Component, pageProps }) {
       <Modal isOpen={isOpen} onClose={handleOnClose} isCentered>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
-          h={470}
-          borderRadius="xl"
+          maxH="700px"
+          borderRadius="2xl"
           display="flex"
           flexDirection="column"
           padding={0}
