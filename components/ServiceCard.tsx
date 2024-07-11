@@ -23,6 +23,8 @@ type Props = {
 }
 
 export default function ServiceCard({ icon, name, service }: Props) {
+  const { appVersion } = useConfig()
+
   const installLink = service?.provider?.install_link
   const isExtensionService = isExtension(service)
   const isExtensionServiceInstalled = Boolean(service?.provider?.is_installed)
