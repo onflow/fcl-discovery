@@ -76,9 +76,12 @@ export default function ServiceCard({ icon, name, service }: Props) {
                   src={icon}
                   alt={name}
                   borderRadius="md"
-                  border="1px solid lightgrey"
-                  boxSize="2.5rem"
+                  borderWidth="1px"
+                  borderColor="gray.200"
+                  borderStyle="solid"
+                  boxSize="2.7rem"
                   alignSelf="start"
+                  my="auto"
                 />
                 <Flex direction="column" textAlign="left">
                   <Text fontSize="lg" as="b">
@@ -89,9 +92,7 @@ export default function ServiceCard({ icon, name, service }: Props) {
                     <Text fontSize="sm" color="gray.500">
                       Install Extension
                     </Text>
-                  ) : (
-                    <Text visibility="hidden">Placeholder</Text>
-                  )}
+                  ) : null}
                 </Flex>
               </HStack>
             </Flex>
