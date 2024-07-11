@@ -1,4 +1,4 @@
-import { Stack, VStack } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import ServiceGroup from './ServiceGroup'
 import { useLastUsed } from '../hooks/useLastUsed'
 import { Service } from '../types'
@@ -35,7 +35,7 @@ export default function ServiceList({ services }: ServiceListProps) {
   )
 
   return (
-    <Stack overflow="scroll">
+    <Stack overflow="scroll" spacing={2}>
       {lastUsedService && (
         <ServiceGroup
           title="Last Used"

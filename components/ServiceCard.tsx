@@ -13,11 +13,8 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { Service } from '../types'
-import { getProviderMetadataByAddress } from '../helpers/metadata'
-import { useMemo } from 'react'
 import { useConfig } from '../contexts/ConfigContext'
 import { useLastUsed } from '../hooks/useLastUsed'
-import FEATURES_LIST from '../data/features.json'
 
 type Props = {
   icon: string
@@ -26,23 +23,9 @@ type Props = {
 }
 
 export default function ServiceCard({ icon, name, service }: Props) {
-  const { appVersion, clientConfig } = useConfig()
-
   const installLink = service?.provider?.install_link
   const isExtensionService = isExtension(service)
   const isExtensionServiceInstalled = Boolean(service?.provider?.is_installed)
-  const supportedFeatures =
-    getProviderMetadataByAddress(service?.provider?.address)?.features
-      ?.supported || []
-  const isFeaturesSupported = isGreaterThanOrEqualToVersion(
-    appVersion,
-    SUPPORTED_VERSIONS.SUGGESTED_FEATURES
-  )
-  const featuresListKeys = FEATURES_LIST.map(f => f.name)
-  const suggestedFeatures =
-    clientConfig?.discoveryFeaturesSuggested?.filter(f =>
-      featuresListKeys.includes(f)
-    ) || []
 
   const { setLastUsed } = useLastUsed()
 
@@ -69,13 +52,6 @@ export default function ServiceCard({ icon, name, service }: Props) {
       window.location.href = `${service.endpoint}${window.location.search}`
     }
   }
-
-  const hasSuggestedFeatures = useMemo(() => {
-    if (suggestedFeatures.length === 0) return false
-    return suggestedFeatures.every(feature =>
-      supportedFeatures.includes(feature)
-    )
-  }, [suggestedFeatures, supportedFeatures])
 
   return (
     <Card
@@ -111,25 +87,7 @@ export default function ServiceCard({ icon, name, service }: Props) {
                     <Text fontSize="sm" color="gray.500">
                       Install Extension
                     </Text>
-                  ) : (
-                    <HStack mt={1}>
-                      {supportedFeatures.map((feature, index) => {
-                        return (
-                          <Tag
-                            key={index}
-                            size="sm"
-                            colorScheme={feature.color}
-                            fontSize="xs"
-                          >
-                            {feature}
-                          </Tag>
-                        )
-                      })}
-                      <Tag size="sm" fontSize="xs" visibility="hidden">
-                        placeholder
-                      </Tag>
-                    </HStack>
-                  )}
+                  ) : null}
                 </Flex>
               </HStack>
             </Flex>

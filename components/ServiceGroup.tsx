@@ -14,7 +14,7 @@ export default function ServiceGroup({
   titleProps,
 }: ServiceGroupProps) {
   return (
-    <Flex direction="column" mb={4}>
+    <Flex direction="column">
       <Text fontSize="lg" fontWeight="bold" mb={2} {...titleProps}>
         {title}
       </Text>

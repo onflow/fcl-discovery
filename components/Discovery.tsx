@@ -4,7 +4,6 @@ import Features from './Features'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import { useState } from 'react'
 import ServiceList from './ServiceList'
-import features from '../data/features.json'
 import { useWallets } from '../hooks/useWallets'
 import { useConfig } from '../contexts/ConfigContext'
 
