@@ -6,7 +6,6 @@ import {
   filterUniqueServices,
   getServiceByAddress,
   serviceListOfType,
-  sortByAddress,
 } from '../services'
 
 jest.mock(
@@ -216,120 +215,6 @@ describe('services helpers: filterOptInServices', () => {
     expect(filterOptInServices(includeListB, serviceListB)).toEqual(
       expectedResponseB
     )
-  })
-})
-
-describe('services helpers: getServiceByAddress', () => {
-  it('should pick correct address', () => {
-    const address = '0xB'
-
-    const serviceA = {
-      type: 'authn',
-      provider: {
-        address: '0xA',
-      },
-    }
-
-    const serviceB = {
-      type: 'authn',
-      provider: {
-        address: address,
-      },
-    }
-
-    const serviceC = {
-      type: 'authn',
-      provider: {
-        address: '0xC',
-      },
-    }
-
-    const services = [serviceA, serviceB, serviceC]
-
-    expect(getServiceByAddress(services, address)).toEqual(serviceB)
-  })
-})
-
-describe('services helpers: sortByAddress', () => {
-  it('should put selected installed first', () => {
-    const address = '0xB'
-
-    const serviceA = {
-      type: 'authn',
-      provider: {
-        address: '0xA',
-      },
-    }
-
-    const serviceB = {
-      type: 'authn',
-      provider: {
-        address: address,
-      },
-    }
-
-    const serviceC = {
-      type: 'authn',
-      provider: {
-        address: '0xC',
-      },
-    }
-
-    const services = [serviceA, serviceB, serviceC]
-    const expectedRes = [serviceB, serviceA, serviceC]
-
-    expect(sortByAddress(services, address)).toEqual(expectedRes)
-  })
-
-  it('if no selected address it should return services as is', () => {
-    const address = null
-
-    const serviceA = {
-      type: 'authn',
-      provider: {
-        address: '0xA',
-      },
-    }
-
-    const serviceB = {
-      type: 'authn',
-      provider: {
-        address: '0xB',
-      },
-    }
-
-    const serviceC = {
-      type: 'authn',
-      provider: {
-        address: '0xC',
-      },
-    }
-
-    const services = [serviceA, serviceB, serviceC]
-
-    expect(sortByAddress(services, address)).toEqual(services)
-  })
-
-  it('if selected address is not in services it should return services as is', () => {
-    const address = '0xC'
-
-    const serviceA = {
-      type: 'authn',
-      provider: {
-        address: '0xA',
-      },
-    }
-
-    const serviceB = {
-      type: 'authn',
-      provider: {
-        address: '0xB',
-      },
-    }
-
-    const services = [serviceA, serviceB]
-
-    expect(sortByAddress(services, address)).toEqual(services)
   })
 })
 

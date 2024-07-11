@@ -1,6 +1,7 @@
 import Enum from 'enum-xyz'
 
-const {  AUTHN, CANARYNET, TESTNET, PREVIEWNET, MAINNET, LOCAL, EMULATOR } = Enum.String({ casing: 'lowercase' })
+const { AUTHN, CANARYNET, TESTNET, PREVIEWNET, MAINNET, LOCAL, EMULATOR } =
+  Enum.String({ casing: 'lowercase' })
 
 export const NETWORKS = {
   CANARYNET, // canarynet
@@ -8,13 +9,13 @@ export const NETWORKS = {
   PREVIEWNET,
   MAINNET,
   LOCAL,
-  EMULATOR
+  EMULATOR,
 }
 
 export const SERVICE_TYPES = { AUTHN }
 
 const { IFRAME, POP, TAB, HTTP, EXT } = Enum.String({
-  transform: (value) => `${value}/RPC`
+  transform: value => `${value}/RPC`,
 })
 
 export const FCL_SERVICE_METHODS = {
@@ -60,7 +61,7 @@ export const COLORS = {
 const LOCAL_STORAGE_VERSION = 'v1'
 
 export const LOCAL_STORAGE_KEYS = {
-  LAST_INSTALLED: `discovery:${LOCAL_STORAGE_VERSION}:ext:lastUsed`,
+  LAST_USED: `discovery:${LOCAL_STORAGE_VERSION}:ext:lastUsed`,
 }
 
 export const USER_AGENTS_SUBSTRINGS = {
