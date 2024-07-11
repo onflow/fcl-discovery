@@ -35,7 +35,7 @@ export default function ServiceList({ services }: ServiceListProps) {
   )
 
   return (
-    <Stack overflow="scroll" spacing={2}>
+    <Stack spacing={5}>
       {lastUsedService && (
         <ServiceGroup
           title="Last Used"

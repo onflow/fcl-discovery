@@ -1,8 +1,6 @@
 import { SUPPORTED_VERSIONS } from '../helpers/constants'
 import { Container, Divider, HStack, Link, Stack, Text } from '@chakra-ui/react'
-import Features from './Features'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
-import { useState } from 'react'
 import ServiceList from './ServiceList'
 import { useWallets } from '../hooks/useWallets'
 import { useConfig } from '../contexts/ConfigContext'
@@ -15,11 +13,6 @@ export default function Discovery() {
     SUPPORTED_VERSIONS.SUGGESTED_FEATURES
   )
 
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([])
-  const handleSelectedFiltersChange = (selectedFilters: string[]) => {
-    setSelectedFilters(selectedFilters)
-  }
-
   if (!wallets) return <div />
   if (error) return <div>Error Loading Data</div>
 
@@ -30,9 +23,10 @@ export default function Discovery() {
         flexDirection="column"
         overflow="scroll"
         paddingX={8}
+        paddingBottom={6}
       >
-        {/* TODO: future of this? */}
-        {isFeaturesSupported && <Features />}
+        {/* TODO: this to be replaced with a filter bar & auto-suggest */}
+        {/* isFeaturesSupported && <Features /> */}
         <ServiceList services={wallets} />
       </Container>
 

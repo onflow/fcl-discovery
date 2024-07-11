@@ -87,7 +87,9 @@ export default function ServiceCard({ icon, name, service }: Props) {
                     <Text fontSize="sm" color="gray.500">
                       Install Extension
                     </Text>
-                  ) : null}
+                  ) : (
+                    <Text visibility="hidden">Placeholder</Text>
+                  )}
                 </Flex>
               </HStack>
             </Flex>
