@@ -1,6 +1,6 @@
 import { Stack } from '@chakra-ui/react'
 import ServiceGroup from './ServiceGroup'
-import { useLastUsed } from '../hooks/useLastUsed'
+import { useLastUsedState } from '../hooks/useLastUsedState'
 import { Service } from '../types'
 import { useMemo } from 'react'
 
@@ -9,7 +9,7 @@ interface ServiceListProps {
 }
 
 export default function ServiceList({ services }: ServiceListProps) {
-  const { lastUsed: lastUsedAddr } = useLastUsed()
+  const { lastUsed: lastUsedAddr } = useLastUsedState()
 
   // Get the last used service, installed services, and recommended services
   const { lastUsedService, installedServices, recommendedServices } = useMemo(

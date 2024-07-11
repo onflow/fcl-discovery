@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { Service } from '../types'
 import { useConfig } from '../contexts/ConfigContext'
-import { useLastUsed } from '../hooks/useLastUsed'
+import { useLastUsedState } from '../hooks/useLastUsedState'
 
 type Props = {
   icon: string
@@ -29,7 +29,7 @@ export default function ServiceCard({ icon, name, service }: Props) {
   const isExtensionService = isExtension(service)
   const isExtensionServiceInstalled = Boolean(service?.provider?.is_installed)
 
-  const { setLastUsed } = useLastUsed()
+  const { setLastUsed } = useLastUsedState()
 
   const onSelect = () => {
     if (!service) return
