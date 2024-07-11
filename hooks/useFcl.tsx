@@ -75,5 +75,6 @@ export function useFcl() {
   return {
     error,
     config,
+    isLoading: !config && !error,
   }
 }

@@ -1,45 +1,55 @@
-import { sortByAddress } from '../helpers/services'
-import { LOCAL_STORAGE_KEYS, SUPPORTED_VERSIONS } from '../helpers/constants'
-import ServiceCard from './ServiceCard'
-import Header from './Headers/Header'
-import { useLocalStorage } from '../hooks/useLocalStorage'
-import { Container, Stack } from '@chakra-ui/react'
+import { SUPPORTED_VERSIONS } from '../helpers/constants'
+import { Container, Divider, HStack, Link, Stack, Text } from '@chakra-ui/react'
 import Features from './Features'
 import { isGreaterThanOrEqualToVersion } from '../helpers/version'
+import { useState } from 'react'
+import ServiceList from './ServiceList'
+import features from '../data/features.json'
 import { useWallets } from '../hooks/useWallets'
 import { useConfig } from '../contexts/ConfigContext'
 
-export const Discovery = () => {
-  const { wallets: data, error } = useWallets()
-  const [lastUsed, _] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_INSTALLED, null)
-  const services = sortByAddress(data, lastUsed)
-
+export default function Discovery() {
+  const { wallets, error } = useWallets()
   const { appVersion } = useConfig()
   const isFeaturesSupported = isGreaterThanOrEqualToVersion(
     appVersion,
     SUPPORTED_VERSIONS.SUGGESTED_FEATURES
   )
 
-  if (!data) return <div />
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([])
+  const handleSelectedFiltersChange = (selectedFilters: string[]) => {
+    setSelectedFilters(selectedFilters)
+  }
+
+  if (!wallets) return <div />
   if (error) return <div>Error Loading Data</div>
 
   return (
-    <Container paddingTop={5} paddingBottom={5}>
-      <Header />
-      {isFeaturesSupported && <Features />}
-      <Stack spacing="12px">
-        {services.length === 0 && <div>No Wallets Found</div>}
-        {services.map((service, index) => {
-          return (
-            <ServiceCard
-              key={service?.provider?.address ?? index}
-              {...service.provider}
-              service={service}
-              lastUsed={service?.provider?.address === lastUsed}
-            />
-          )
-        })}
-      </Stack>
-    </Container>
+    <Stack overflow="hidden" spacing={0}>
+      <Container
+        display="flex"
+        flexDirection="column"
+        overflow="scroll"
+        paddingX={8}
+      >
+        {/* TODO: future of this? */}
+        {isFeaturesSupported && <Features />}
+        <ServiceList services={wallets} />
+      </Container>
+
+      <Divider />
+
+      <HStack justifyContent="space-between" alignItems="center" padding={6}>
+        <Text fontSize="sm" color="gray.500">
+          Don't have a wallet?
+        </Text>
+
+        <Link href="https://fcl.dev" isExternal>
+          <Text fontSize="sm" color="blue.500">
+            Learn More
+          </Text>
+        </Link>
+      </HStack>
+    </Stack>
   )
 }
