@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: FlowHeader should render the FlowHeader component 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.emotion-2 {
+  width: 140px;
+  height: auto;
+  margin-bottom: 3px;
+}
+
+.emotion-3 {
+  color: grey;
+}
+
+<div
+  class="emotion-0"
+>
+  <div
+    class="emotion-1"
+  >
+    <img
+      alt="Logo"
+      class="chakra-image emotion-2"
+      src="/logo.svg"
+    />
+    <p
+      class="chakra-text emotion-3"
+    >
+      Choose a Provider
+    </p>
+  </div>
+</div>
+`;
