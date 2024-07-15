@@ -2,17 +2,18 @@ import useSWR from 'swr'
 import { PATHS } from '../helpers/constants'
 import { useConfig } from '../contexts/ConfigContext'
 import { getUserAgent } from '../helpers/userAgent'
+import { Service } from '../types'
 
 const genKey = (url: string, opts: any) => [url, JSON.stringify(opts)]
 
-const fetcher = async (url: string, opts: any) => {
+const fetcher = async <T>(url: string, opts: any) => {
   return fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(opts),
-  }).then(d => d.json())
+  }).then(d => d.json() as Promise<T>)
 }
 
 export function useWallets() {
@@ -42,7 +43,7 @@ export function useWallets() {
   }
 
   const { data: wallets, error } = useSWR(genKey(requestUrl, body), url =>
-    fetcher(url, body)
+    fetcher<Service[]>(url, body)
   )
 
   return { wallets, error, isLoading: !wallets && !error }
