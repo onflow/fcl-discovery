@@ -1,13 +1,12 @@
 import {
   Button,
-  Container,
   Divider,
+  Flex,
   HStack,
   Stack,
   Text,
   useModalContext,
 } from '@chakra-ui/react'
-import Features from '../Features'
 import ServiceList from '../ServiceList'
 import ViewLayout from '../ViewLayout'
 import { useWallets } from '../../hooks/useWallets'
@@ -33,19 +32,18 @@ export default function WalletSelection({ onSwitchToLearnMore }: Props) {
       header={{ title: 'Select a Wallet', onClose: () => modal.onClose() }}
     >
       <Stack spacing={0} flexGrow={1}>
-        <Container
-          display="flex"
-          flexDirection="column"
+        <Flex
+          dir="column"
           overflow="scroll"
           px={8}
           pb={6}
           flex={1}
           flexGrow={1}
         >
-          {/* TODO: replace this */}
+          {/* TODO: replace this in future PR with Filter Bar */}
           {/*isFeaturesSupported && <Features />*/}
           <ServiceList services={wallets} />
-        </Container>
+        </Flex>
 
         <Divider color="gray.300" />
 

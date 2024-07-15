@@ -10,9 +10,11 @@ interface GetWalletProps {
 export default function GetWallet({ onBack, onCloseModal }: GetWalletProps) {
   return (
     <ViewLayout header={{ title: 'Get Wallet', onBack, onClose: onCloseModal }}>
-      <Stack spacing={8} px={8} pb={6} flexGrow={1}>
-        <GetWalletList />
-        <VStack spacing={0} textAlign="center">
+      <Stack spacing={0} flexGrow={1}>
+        <Stack spacing={8} px={8} pb={6} flexGrow={1} overflow="scroll">
+          <GetWalletList />
+        </Stack>
+        <VStack spacing={0} textAlign="center" p={8}>
           <Text fontSize="md" fontWeight="bold" mb={2}>
             Not what you're looking for?
           </Text>

@@ -97,7 +97,6 @@ export default function GetWalletCard({ icon, name, service }: Props) {
           ml="auto"
           alignSelf="center"
           borderRadius="full"
-          textTransform="uppercase"
         >
           Get
         </Button>

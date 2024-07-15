@@ -1,8 +1,8 @@
 import { Box, useModalContext } from '@chakra-ui/react'
 import { useState } from 'react'
-import { useWallets } from '../../hooks/useWallets'
-import GetWallet from './GetWallet'
-import WalletSelection from './WalletSelection'
+import { useWallets } from '../hooks/useWallets'
+import GetWallet from './views/GetWallet'
+import WalletSelection from './views/WalletSelection'
 
 export default function Discovery() {
   const { wallets, error } = useWallets()
