@@ -6,12 +6,14 @@ interface ServiceGroupProps {
   title: string
   services: Service[]
   titleProps?: React.ComponentProps<typeof Text>
+  cardProps?: React.ComponentProps<typeof ServiceCard>
 }
 
 export default function ServiceGroup({
   title,
   services,
   titleProps,
+  cardProps,
 }: ServiceGroupProps) {
   return (
     <Stack spacing={1}>
@@ -26,6 +28,7 @@ export default function ServiceGroup({
               service={service}
               name={service?.provider?.name ?? ''}
               icon={service?.provider?.icon ?? ''}
+              {...cardProps}
             />
           )
         })}
