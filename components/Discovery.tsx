@@ -1,4 +1,4 @@
-import { Box, useModalContext } from '@chakra-ui/react'
+import { Flex, useModalContext } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
 import GetWallet from './views/GetWallet'
@@ -13,7 +13,7 @@ export default function Discovery() {
   if (error) return <div>Error Loading Data</div>
 
   return (
-    <Box w={470} maxH={600}>
+    <Flex w={470} maxH={600} direction="column">
       {learnMoreOpen ? (
         <GetWallet
           onBack={() => setLearnMoreOpen(false)}
@@ -22,6 +22,6 @@ export default function Discovery() {
       ) : (
         <WalletSelection onSwitchToLearnMore={() => setLearnMoreOpen(true)} />
       )}
-    </Box>
+    </Flex>
   )
 }

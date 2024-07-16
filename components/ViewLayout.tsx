@@ -7,13 +7,9 @@ type ViewLayoutProps = {
   header?: ComponentProps<typeof ViewHeader>
 }
 
-export default function ViewLayout({
-  children,
-  header,
-  ...props
-}: ViewLayoutProps) {
+export default function ViewLayout({ children, header }: ViewLayoutProps) {
   return (
-    <Stack direction="column" h="full" spacing={0}>
+    <Stack spacing={0} overflow="hidden">
       {header && <ViewHeader {...header} />}
       {children}
     </Stack>

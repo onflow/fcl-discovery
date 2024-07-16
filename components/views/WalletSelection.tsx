@@ -31,19 +31,12 @@ export default function WalletSelection({ onSwitchToLearnMore }: Props) {
     <ViewLayout
       header={{ title: 'Select a Wallet', onClose: () => modal.onClose() }}
     >
-      <Stack spacing={0} flexGrow={1}>
-        <Flex
-          dir="column"
-          overflow="scroll"
-          px={8}
-          pb={6}
-          flex={1}
-          flexGrow={1}
-        >
+      <Stack spacing={0} flexGrow={1} overflow="hidden">
+        <Stack overflow="scroll" px={8} pb={6} flexGrow={1}>
           {/* TODO: replace this in future PR with Filter Bar */}
           {/*isFeaturesSupported && <Features />*/}
           <ServiceList services={wallets} />
-        </Flex>
+        </Stack>
 
         <Divider color="gray.300" />
 

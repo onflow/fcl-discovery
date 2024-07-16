@@ -10,7 +10,7 @@ interface GetWalletProps {
 export default function GetWallet({ onBack, onCloseModal }: GetWalletProps) {
   return (
     <ViewLayout header={{ title: 'Get Wallet', onBack, onClose: onCloseModal }}>
-      <Stack spacing={0} flexGrow={1}>
+      <Stack spacing={0} flexGrow={1} overflow="hidden">
         <Stack spacing={8} px={8} pb={6} flexGrow={1} overflow="scroll">
           <GetWalletList />
         </Stack>
