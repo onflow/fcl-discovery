@@ -33,7 +33,7 @@ export default function GetWalletCard({ icon, name, service }: Props) {
               <Image
                 src={icon}
                 alt={name}
-                borderRadius="md"
+                borderRadius="lg"
                 borderWidth="1px"
                 borderColor="gray.200"
                 borderStyle="solid"
