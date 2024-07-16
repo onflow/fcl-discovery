@@ -16,8 +16,8 @@ export default function GetWallet({ onBack, onCloseModal }: GetWalletProps) {
         <Stack spacing={8} px={8} pb={6} flexGrow={1} overflow="scroll">
           <GetWalletList />
         </Stack>
-        <Container textAlign="center" p={6} maxW="xs">
-          <Text fontSize="md" fontWeight="bold" mb={2}>
+        <Container textAlign="center" p={8} maxW="xs">
+          <Text fontSize="md" fontWeight="bold" mb={1}>
             Not what you're looking for?
           </Text>
           <Text fontSize="sm" color="gray.500">
