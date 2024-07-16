@@ -25,19 +25,21 @@ export default function ViewHeader({ title, onClose, onBack }: HeaderProps) {
       {onBack && (
         <IconButton
           onClick={onBack}
-          icon={<IoChevronBack fontSize="1em" />}
+          icon={<IoChevronBack />}
           aria-label="Close Modal"
           borderRadius="full"
-          bg="gray.100"
-          color="black"
+          variant="ghost"
           size="sm"
+          color="blue.500"
+          fontWeight="bold"
+          fontSize="1.5rem"
         ></IconButton>
       )}
 
       {onClose && (
         <IconButton
           onClick={onClose}
-          icon={<CloseIcon fontSize="1em" />}
+          icon={<CloseIcon />}
           aria-label="Close Modal"
           borderRadius="full"
           bg="gray.100"

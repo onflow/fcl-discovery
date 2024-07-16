@@ -1,4 +1,4 @@
-import { Stack, Text, VStack } from '@chakra-ui/react'
+import { Container, Stack, Text, VStack } from '@chakra-ui/react'
 import ViewLayout from '../ViewLayout'
 import GetWalletList from '../GetWalletList'
 
@@ -9,12 +9,14 @@ interface GetWalletProps {
 
 export default function GetWallet({ onBack, onCloseModal }: GetWalletProps) {
   return (
-    <ViewLayout header={{ title: 'Get Wallet', onBack, onClose: onCloseModal }}>
+    <ViewLayout
+      header={{ title: 'Get a Wallet', onBack, onClose: onCloseModal }}
+    >
       <Stack spacing={0} flexGrow={1} overflow="hidden">
         <Stack spacing={8} px={8} pb={6} flexGrow={1} overflow="scroll">
           <GetWalletList />
         </Stack>
-        <VStack spacing={0} textAlign="center" p={8}>
+        <Container textAlign="center" p={6} maxW="xs">
           <Text fontSize="md" fontWeight="bold" mb={2}>
             Not what you're looking for?
           </Text>
@@ -22,7 +24,7 @@ export default function GetWallet({ onBack, onCloseModal }: GetWalletProps) {
             Select a wallet on the left to get started with a different wallet
             provider.
           </Text>
-        </VStack>
+        </Container>
       </Stack>
     </ViewLayout>
   )
