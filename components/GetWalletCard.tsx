@@ -1,7 +1,4 @@
-import { WalletUtils } from '@onflow/fcl'
-import { SUPPORTED_VERSIONS } from '../helpers/constants'
 import { isExtension } from '../helpers/services'
-import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import {
   Button,
   Card,
@@ -15,7 +12,6 @@ import {
   Link,
 } from '@chakra-ui/react'
 import { Service } from '../types'
-import { useConfig } from '../contexts/ConfigContext'
 import NextLink from 'next/link'
 
 type Props = {
@@ -25,33 +21,8 @@ type Props = {
 }
 
 export default function GetWalletCard({ icon, name, service }: Props) {
-  const { appVersion } = useConfig()
-
-  const installLink = service?.provider?.install_link
   const isExtensionService = isExtension(service)
   const isExtensionServiceInstalled = Boolean(service?.provider?.is_installed)
-
-  const onSelect = () => {
-    if (!service) return
-
-    if (isExtensionService && !isExtensionServiceInstalled) {
-      if (installLink) {
-        // Extensions require reload of page to inject script into dapp with data
-        // Redirecting dapp to install page forces page to be refreshed when returning
-        window.parent.location.href = installLink
-      }
-      return
-    }
-
-    if (
-      appVersion &&
-      isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.EXTENSIONS)
-    ) {
-      WalletUtils.redirect(service)
-    } else {
-      window.location.href = `${service.endpoint}${window.location.search}`
-    }
-  }
 
   return (
     <Card size="md" variant="unstyled">
@@ -90,7 +61,6 @@ export default function GetWalletCard({ icon, name, service }: Props) {
           href={service.provider.install_link || service.provider.website}
           target="_blank"
           as={NextLink}
-          onClick={onSelect}
           variant="outline"
           size="sm"
           colorScheme="blue"
