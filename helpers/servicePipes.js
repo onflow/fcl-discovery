@@ -13,7 +13,6 @@ import {
   filterSupportedStrategies,
   overrideServicePorts,
   walletToProvider,
-  convertLegacyServices,
   injectClientServices,
 } from './services'
 import {
@@ -62,7 +61,7 @@ export const getServicePipes = ({
   )
 
   return [
-    // TODO: Make sure that extensions use the legacyProviderOverrides
+    // TODO: Make sure that extensions use the provider
     {
       supportedVersion: '0.0.0',
       pipe: pipe(
@@ -138,11 +137,11 @@ export const extractWalletServices = (wallets = []) =>
 
 export const removeWalletFromServices = services =>
   services.map(service => {
-    const { wallet, legacyProviderOverrides, ...rest } = service
+    const { wallet, provider, ...rest } = service
     return {
       ...rest,
       provider: {
-        ...walletToProvider(wallet, legacyProviderOverrides),
+        ...walletToProvider(wallet),
         ...service.provider,
       },
     }

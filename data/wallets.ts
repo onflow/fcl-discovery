@@ -10,7 +10,7 @@ import nufi from './wallets/nufi/nufi'
 import shadow from './wallets/shadow/shadow'
 
 type ServiceConfig = Omit<Service, 'provider'> & {
-  legacyProviderOverrides?: Partial<Provider>
+  provider?: Partial<Provider>
 }
 
 export interface Wallet {

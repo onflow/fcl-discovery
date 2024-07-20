@@ -1,4 +1,4 @@
-import { clone, map, pipe } from 'rambda'
+import { clone, identity, ifElse, map, pipe } from 'rambda'
 import { wallets } from '../data/wallets'
 import { FCL_SERVICE_METHODS, SERVICE_TYPES } from './constants'
 import { replacePort } from './urls'
@@ -13,8 +13,7 @@ export const injectClientServices =
   (clientServices = []) =>
   services => {
     const walletMap = services.reduce((acc, service) => {
-      const addr =
-        service?.legacyProviderOverrides?.address || service?.wallet?.address
+      const addr = service?.provider?.address || service?.wallet?.address
       const uid = service?.uid
       if (addr) acc[addr] = service.wallet
       if (uid) acc[uid] = service.wallet
@@ -26,8 +25,6 @@ export const injectClientServices =
         const wallet = walletMap[service?.provider?.address]
         if (wallet) {
           service.wallet = wallet
-          service.legacyProviderOverrides = service.provider
-          delete service.provider
           return service
         } else {
           return service
@@ -57,7 +54,7 @@ export const filterUniqueServices =
   services => {
     let foundIds = []
     return services.filter(p => {
-      const pAddr = p?.legacyProviderOverrides?.address
+      const pAddr = p?.provider?.address
       const pUid = p?.uid
       const hasAddress = foundIds.includes(pAddr)
       const hasUid = foundIds.includes(pUid)
@@ -82,12 +79,13 @@ export const combineServices = (
   return combined
 }
 
+// TODO: flesh out
 export const convertLegacyServices = (services = []) => {
   return services.map(service => {
     const { provider, ...rest } = service
     return {
       ...rest,
-      legacyProviderOverrides: provider,
+      provider: provider,
     }
   })
 }
@@ -106,7 +104,7 @@ export function filterOptInServices(includeList = [], services = []) {
   return services.filter(service => {
     if (service.optIn)
       return includeList.includes(
-        service?.legacyProviderOverrides?.address || service?.wallet?.address
+        service?.provider?.address || service?.wallet?.address
       )
     return true
   })
@@ -115,8 +113,14 @@ export function filterOptInServices(includeList = [], services = []) {
 export const isExtension = service =>
   service?.method === FCL_SERVICE_METHODS.EXT
 
-export const isExtensionInstalled = (extensions, address) =>
-  extensions.some(extension => extension?.provider?.address === address)
+export const isExtensionInstalled = (extensions, service) =>
+  extensions.some(extension => {
+    const extAddr = extension?.provider?.address
+    const srvAddr = service?.provider?.address
+    const extUid = extension?.uid
+    const srvUid = service?.uid
+    return (extAddr === srvAddr && extAddr) || (extUid === srvUid && extUid)
+  })
 
 export const requiresPlatform = service => {
   const requiredPlatformTypes = [FCL_SERVICE_METHODS.EXT]
@@ -135,26 +139,29 @@ export function filterServicesByPlatform(platform, services = []) {
 
 // TODO: We shouldn't actually need to filter this in new version, may need to preserve behaviour for legacy Discovery API usage
 export function appendInstallData(platform, extensions = [], services = []) {
-  return services.map(s => {
-    if (requiresPlatform(s)) {
-      const service = clone(s)
-      service.provider = service.provider || {}
-      service.provider['requires_install'] = true
+  return map(
+    ifElse(
+      requiresPlatform,
+      pipe(clone, service => {
+        service.provider = service.provider || {}
+        service.provider['requires_install'] = true
 
-      service.provider['is_installed'] = isExtensionInstalled(
-        extensions,
-        service?.provider?.address
-      )
+        service.provider['is_installed'] = isExtensionInstalled(
+          extensions,
+          service
+        )
 
-      const installLink =
-        service?.wallet?.installLink?.[platform?.toLowerCase()]
+        const installLink =
+          service?.wallet?.installLink?.[platform?.toLowerCase()]
 
-      if (installLink) {
-        service.provider['install_link'] = installLink
-      }
-    }
-    return s
-  })
+        if (installLink) {
+          service.provider['install_link'] = installLink
+        }
+        return service
+      }),
+      identity
+    )
+  )(services)
 }
 
 export const overrideServicePorts = (
@@ -170,18 +177,14 @@ export const overrideServicePorts = (
 }
 
 // Convert a wallet object to a provider object which can be attached to legacy services
-export const walletToProvider = (wallet, overrides = {}) => {
-  const w = {
-    ...wallet,
-    ...overrides,
-  }
+export const walletToProvider = wallet => {
   return {
-    name: w.name,
-    address: w.address,
-    description: w.description,
-    icon: w.icon,
-    color: w.color,
-    website: w.website,
+    name: wallet.name,
+    address: wallet.address,
+    description: wallet.description,
+    icon: wallet.icon,
+    color: wallet.color,
+    website: wallet.website,
   }
 }
 

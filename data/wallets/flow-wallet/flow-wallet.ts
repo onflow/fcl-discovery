@@ -26,7 +26,7 @@ const flowWallet: Wallet = {
         uid: 'fcw#authn',
         endpoint:
           'chrome-extension://hpclkefagolihohboafpheddmmgdffjm/popup.html',
-        legacyProviderOverrides: {
+        provider: {
           // Legacy override for systems using old /api/authn endpoint
           address: '0x33f75ff0b830dcec',
         },
@@ -38,7 +38,7 @@ const flowWallet: Wallet = {
         method: 'WC/RPC',
         uid: 'https://fcw-link.lilico.app/wc',
         endpoint: 'flow_authn',
-        legacyProviderOverrides: {
+        provider: {
           // Legacy override for systems using old /api/authn endpoint
           name: 'Flow Wallet Mobile',
           address: '0xc7efa8c33fceee03',
@@ -54,7 +54,7 @@ const flowWallet: Wallet = {
         uid: 'fcw#authn',
         endpoint:
           'chrome-extension://hpclkefagolihohboafpheddmmgdffjm/popup.html',
-        legacyProviderOverrides: {
+        provider: {
           // Legacy override for systems using old /api/authn endpoint
           address: '0x33f75ff0b830dcec',
         },
@@ -66,7 +66,7 @@ const flowWallet: Wallet = {
         method: 'WC/RPC',
         uid: 'https://fcw-link.lilico.app/wc',
         endpoint: 'flow_authn',
-        legacyProviderOverrides: {
+        provider: {
           // Legacy override for systems using old /api/authn endpoint
           name: 'Flow Wallet Mobile',
           address: '0xc7efa8c33fceee03',
@@ -82,7 +82,7 @@ const flowWallet: Wallet = {
         uid: 'fcw#authn',
         endpoint:
           'chrome-extension://hpclkefagolihohboafpheddmmgdffjm/popup.html',
-        legacyProviderOverrides: {
+        provider: {
           // Legacy override for systems using old /api/authn endpoint
           address: '0x33f75ff0b830dcec',
         },
@@ -94,7 +94,7 @@ const flowWallet: Wallet = {
         method: 'WC/RPC',
         uid: 'https://fcw-link.lilico.app/wc',
         endpoint: 'flow_authn',
-        legacyProviderOverrides: {
+        provider: {
           // Legacy override for systems using old /api/authn endpoint
           name: 'Flow Wallet Mobile',
           address: '0xc7efa8c33fceee03',

@@ -32,7 +32,7 @@ const dapperWallet: Wallet = {
         endpoint:
           'https://staging.accounts.meetdapper.com/fcl/authn-restricted',
         optIn: true,
-        legacyProviderOverrides: {
+        provider: {
           address: '0x82ec283f88a62e65',
         },
       },
