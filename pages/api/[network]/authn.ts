@@ -1,11 +1,20 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import Cors from 'cors'
-import servicesJson from '../../data/services.json'
-import { isValidPath, getNetworkFromPath } from '../../helpers/paths'
-import { findMatchingPipeVersion } from '../../helpers/version'
-import Sentry from '../../config/sentry.server'
-import { getServicePipes } from '../../helpers/servicePipes'
-import { NETWORKS } from '../../helpers/constants'
+import { wallets } from '../../../data/wallets'
+import { isValidPath } from '../../../helpers/paths'
+import { findMatchingPipeVersion } from '../../../helpers/version'
+import Sentry from '../../../config/sentry.server'
+import {
+  removeWalletFromServices,
+  extractWalletServices,
+  getServicePipes,
+  walletsForNetwork,
+  walletIconsToBase64,
+} from '../../../helpers/servicePipes'
+import { NETWORKS } from '../../../helpers/constants'
+import { pipe } from 'rambda'
+import fs from 'fs'
+import path from 'path'
 
 // Initializing the cors middleware
 const cors = Cors({
@@ -26,10 +35,26 @@ function runMiddleware(req, res, fn) {
   })
 }
 
+function imageToBase64(imagePath) {
+  try {
+    let imgExt = path.extname(imagePath).slice(1)
+    if (imgExt === 'jpg') {
+      imgExt = 'jpeg'
+    } else if (imgExt === 'svg') {
+      imgExt += '+xml'
+    }
+    const file = fs.readFileSync(imagePath).toString('base64')
+    return `data:image/${imgExt};base64,${file}`
+  } catch (error) {
+    console.error('Error converting image to Base64:', error)
+    return null
+  }
+}
+
 async function handler(req, res) {
   await runMiddleware(req, res, cors)
 
-  const { slug, discoveryType, port: portQuery } = req.query
+  const { network: rawNetwork, discoveryType, port: portQuery } = req.query
   const {
     fclVersion,
     include,
@@ -39,8 +64,8 @@ async function handler(req, res) {
     supportedStrategies,
     port: portBody,
   } = req.body
-  const isValid = isValidPath(slug)
-  const network = getNetworkFromPath(slug).toLowerCase()
+  const isValid = Object.values(NETWORKS).includes(rawNetwork)
+  const network = rawNetwork.toLowerCase()
   const discoveryRequestType = discoveryType || 'API'
   const services = clientServices || extensions || []
 
@@ -60,9 +85,17 @@ async function handler(req, res) {
   })
   const versionPipe = findMatchingPipeVersion(fclVersion, servicePipes)
 
-  // support emulator and use local service configuration
+  // Support emulator and use local service configuration
   const netConfig = network === NETWORKS.EMULATOR ? NETWORKS.LOCAL : network
-  const discoveryServices = versionPipe(servicesJson[netConfig])
+
+  // Extract authn services from wallets
+  const discoveryServices = pipe(
+    walletIconsToBase64,
+    walletsForNetwork(netConfig),
+    extractWalletServices,
+    versionPipe,
+    removeWalletFromServices
+  )(wallets)
 
   return res.status(200).json(discoveryServices)
 }

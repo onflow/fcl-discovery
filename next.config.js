@@ -4,12 +4,12 @@ module.exports = {
     ignoreDuringBuilds: true,
   },
   swcMinify: true,
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
-    return {
-      '/authn': { page: '/mainnet/authn', query: { network: 'mainnet' } },
-    }
+  async rewrites() {
+    return [
+      {
+        source: '/api/authn',
+        destination: '/api/mainnet/authn',
+      },
+    ]
   },
 }

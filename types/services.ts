@@ -17,6 +17,7 @@ export type Service = {
   uid?: string
   endpoint: string
   provider: Provider & Metadata
+  optIn?: boolean
 }
 
 export type Metadata = {

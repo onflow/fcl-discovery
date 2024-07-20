@@ -67,3 +67,31 @@ export const LOCAL_STORAGE_KEYS = {
 export const USER_AGENTS_SUBSTRINGS = {
   CHROME: 'Chrome',
 }
+
+export const AVAILABLE_FEATURES = [
+  {
+    id: 'mobile',
+    name: 'Mobile',
+    description: 'This wallet is available on mobile devices.',
+  },
+  {
+    id: 'extension',
+    name: 'Extension',
+    description: 'This wallet is available as a browser extension.',
+  },
+  {
+    id: 'web',
+    name: 'Web',
+    description: 'This wallet is available as a web-wallet.',
+  },
+  {
+    id: 'hardware',
+    name: 'Hardware',
+    description: 'This wallet is a hardware wallet.',
+  },
+  {
+    id: 'evm',
+    name: 'EVM',
+    description: 'This wallet supports the Ethereum Virtual Machine.',
+  },
+] as const

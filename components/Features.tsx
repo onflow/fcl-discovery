@@ -1,11 +1,11 @@
 import { Box, HStack, Tag, Text, IconButton } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
-import FEATURES_LIST from '../data/features.json'
+import { AVAILABLE_FEATURES } from '../helpers/constants'
 import { useConfig } from '../contexts/ConfigContext'
 
 export default function Features() {
   const { clientConfig } = useConfig()
-  const featuresListKeys = FEATURES_LIST.map(f => f.name)
+  const featuresListKeys = AVAILABLE_FEATURES.map(f => f.id)
   const suggestedFeatures =
     clientConfig?.discoveryFeaturesSuggested?.filter(f =>
       featuresListKeys.includes(f)

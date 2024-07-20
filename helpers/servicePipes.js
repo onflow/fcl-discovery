@@ -12,6 +12,9 @@ import {
   filterUniqueServices,
   filterSupportedStrategies,
   overrideServicePorts,
+  walletToProvider,
+  convertLegacyServices,
+  injectClientServices,
 } from './services'
 import {
   NETWORKS,
@@ -19,8 +22,9 @@ import {
   FCL_SERVICE_METHOD_VALUES,
   SUPPORTED_VERSIONS,
 } from './constants'
-import { getPlatformFromUserAgent } from './userAgent'
+import { getBrowserFromUserAgent } from './platform'
 import { isGreaterThanOrEqualToVersion } from './version'
+import { nextJsImageToBase64 } from './image'
 
 export const getServicePipes = ({
   fclVersion,
@@ -32,7 +36,7 @@ export const getServicePipes = ({
   network,
   portOverride,
 }) => {
-  const platform = getPlatformFromUserAgent(userAgent)
+  const platform = getBrowserFromUserAgent(userAgent)
   const isLocal = network === NETWORKS.LOCAL || network === NETWORKS.EMULATOR
 
   // In newer versions, we'll have extensions sent
@@ -58,6 +62,7 @@ export const getServicePipes = ({
   )
 
   return [
+    // TODO: Make sure that extensions use the legacyProviderOverrides
     {
       supportedVersion: '0.0.0',
       pipe: pipe(
@@ -88,8 +93,8 @@ export const getServicePipes = ({
       supportedVersion: '1.3.0-alpha.3',
       pipe: pipe(
         filterSupportedStrategies(supportedStrategies),
-        services => combineServices(services, clientServices),
-        filterUniqueServices({ address: true, uid: true }),
+        // Inject any client services, replace existing services if necessary
+        injectClientServices(clientServices),
         // Remove opt in services unless marked as include, if supported
         partial(filterOptInServices, include),
         // Add installation data
@@ -103,3 +108,42 @@ export const getServicePipes = ({
     },
   ]
 }
+
+export const walletsForNetwork =
+  network =>
+  (wallets = []) =>
+    wallets
+      .filter(wallet => wallet.services[network])
+      .map(wallet => ({
+        ...wallet,
+        services: wallet.services[network],
+      }))
+
+export const walletIconsToBase64 = wallets =>
+  wallets.map(wallet => ({
+    ...wallet,
+    icon: wallet.icon ? nextJsImageToBase64(wallet.icon) : undefined,
+  }))
+
+export const extractWalletServices = (wallets = []) =>
+  wallets.reduce((acc, wallet) => {
+    acc.push(
+      ...wallet.services.map(service => ({
+        ...service,
+        wallet: wallet,
+      }))
+    )
+    return acc
+  }, [])
+
+export const removeWalletFromServices = services =>
+  services.map(service => {
+    const { wallet, legacyProviderOverrides, ...rest } = service
+    return {
+      ...rest,
+      provider: {
+        ...walletToProvider(wallet, legacyProviderOverrides),
+        ...service.provider,
+      },
+    }
+  })
