@@ -45,7 +45,10 @@ export const legacyInjectedProviderToWallet = (service, wallet) => {
   return {
     ...rest,
     wallet,
-    provider: walletToProvider(wallet, provider),
+    provider: {
+      ...walletToProvider(wallet),
+      ...service.provider,
+    },
   }
 }
 
@@ -77,17 +80,6 @@ export const combineServices = (
     combined = existingServices.concat(newServices)
   }
   return combined
-}
-
-// TODO: flesh out
-export const convertLegacyServices = (services = []) => {
-  return services.map(service => {
-    const { provider, ...rest } = service
-    return {
-      ...rest,
-      provider: provider,
-    }
-  })
 }
 
 export const serviceListOfType = (services = [], type) =>
