@@ -35,7 +35,7 @@ export default function WalletSelection({ onSwitchToLearnMore }: Props) {
         <Stack overflow="scroll" px={8} pb={6} flexGrow={1}>
           {/* TODO: replace this in future PR with Filter Bar */}
           {/*isFeaturesSupported && <Features />*/}
-          <ServiceList services={wallets} />
+          <ServiceList wallets={wallets} />
         </Stack>
 
         <Divider color="gray.300" />
