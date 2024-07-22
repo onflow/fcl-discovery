@@ -135,6 +135,30 @@ export const extractWalletServices = (wallets = []) =>
     return acc
   }, [])
 
+export const collectWalletsFromServices = services =>
+  services.reduce((acc, service) => {
+    const { address: wAddr, uid: wUid } = service?.wallet || {}
+    const existingWallet = acc.find(
+      ({ address, uid }) =>
+        (address === wAddr && wAddr) || (uid === wUid && wUid)
+    )
+
+    if (!walletExists && (wAddr || wUid)) {
+      const wallet = {
+        ...service.wallet,
+        services: [service],
+      }
+      acc.push(wallet)
+    } else if (!wAddr && !wUid) {
+      throw new Error('Wallet must have an address or uid')
+    } else if (walletExists) {
+      // Append service without reference to wallet
+      const { wallet, ...serviceWithoutWallet } = service
+      acc[acc.indexOf(existingWallet)].services.push(serviceWithoutWallet)
+    }
+    return acc
+  }, [])
+
 export const removeWalletFromServices = services =>
   services.map(service => {
     const { wallet, provider, ...rest } = service

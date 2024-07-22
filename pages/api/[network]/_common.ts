@@ -58,8 +58,7 @@ export async function discoveryServicesMiddleware(req, res, next) {
     walletIconsToBase64,
     walletsForNetwork(netConfig),
     extractWalletServices,
-    versionPipe,
-    removeWalletFromServices
+    versionPipe
   )(wallets)
 
   req.discoveryServices = discoveryServices
