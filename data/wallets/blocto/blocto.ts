@@ -1,7 +1,7 @@
-import { Wallet } from '../../wallets'
+import { WalletConfig } from '../../wallets'
 import BloctoIcon from './blocto.svg'
 
-const blocto: Wallet = {
+const blocto: WalletConfig = {
   name: 'Blocto',
   uid: 'blocto',
   address: '0x55ad22f01ef568a1',

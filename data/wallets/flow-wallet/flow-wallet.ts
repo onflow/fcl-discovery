@@ -1,7 +1,7 @@
-import { Wallet } from '../../wallets'
+import { WalletConfig } from '../../wallets'
 import FlowWalletIcon from './flow-wallet.png'
 
-const flowWallet: Wallet = {
+const flowWallet: WalletConfig = {
   name: 'Flow Wallet',
   uid: 'flow-wallet',
   address: '0x33f75ff0b830dcec',
@@ -40,7 +40,7 @@ const flowWallet: Wallet = {
         endpoint: 'flow_authn',
         provider: {
           // Legacy override for systems using old /api/authn endpoint
-          name: 'Flow Wallet Mobile',
+          name: 'Flow WalletConfigMobile',
           address: '0xc7efa8c33fceee03',
         },
       },
@@ -68,7 +68,7 @@ const flowWallet: Wallet = {
         endpoint: 'flow_authn',
         provider: {
           // Legacy override for systems using old /api/authn endpoint
-          name: 'Flow Wallet Mobile',
+          name: 'Flow WalletConfigMobile',
           address: '0xc7efa8c33fceee03',
         },
       },
@@ -96,7 +96,7 @@ const flowWallet: Wallet = {
         endpoint: 'flow_authn',
         provider: {
           // Legacy override for systems using old /api/authn endpoint
-          name: 'Flow Wallet Mobile',
+          name: 'Flow WalletConfigMobile',
           address: '0xc7efa8c33fceee03',
         },
       },

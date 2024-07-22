@@ -13,7 +13,7 @@ type ServiceConfig = Omit<Service, 'provider'> & {
   provider?: Partial<Provider>
 }
 
-export interface Wallet {
+export interface BaseWallet {
   name: string
   uid: string
   address: string
@@ -27,6 +27,10 @@ export interface Wallet {
     browser?: string
     mobile?: string
   }
+  features?: typeof AVAILABLE_FEATURES[number]['id'][]
+}
+
+export interface WalletConfig extends BaseWallet {
   services: {
     mainnet?: ServiceConfig[]
     testnet?: ServiceConfig[]
@@ -34,10 +38,13 @@ export interface Wallet {
     canarynet?: ServiceConfig[]
     local?: ServiceConfig[]
   }
-  features?: typeof AVAILABLE_FEATURES[number]['id'][]
 }
 
-export const wallets: Wallet[] = [
+export interface Wallet extends BaseWallet {
+  services: Service[]
+}
+
+export const wallets: WalletConfig[] = [
   blocto,
   dapperWallet,
   devWallet,

@@ -1,7 +1,7 @@
-import { Wallet } from '../../wallets'
+import { WalletConfig } from '../../wallets'
 import LedgerIcon from './ledger.jpeg'
 
-const ledger: Wallet = {
+const ledger: WalletConfig = {
   name: 'Ledger',
   uid: 'ledger',
   address: '0xe5cd26afebe62781',

@@ -1,7 +1,7 @@
-import { Wallet } from '../../wallets'
+import { WalletConfig } from '../../wallets'
 import NuFiIcon from './nufi.svg'
 
-const nufi: Wallet = {
+const nufi: WalletConfig = {
   address: '0x95b85a9ef4daabb1',
   name: 'NuFi',
   uid: 'nufi',

@@ -1,7 +1,7 @@
-import { Wallet } from '../../wallets'
+import { WalletConfig } from '../../wallets'
 import DapperWalletIcon from './dapper-wallet.svg'
 
-const dapperWallet: Wallet = {
+const dapperWallet: WalletConfig = {
   address: '0xead892083b3e2c6c',
   name: 'Dapper Wallet',
   uid: 'dapper-wallet',

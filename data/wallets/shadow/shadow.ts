@@ -1,7 +1,7 @@
-import { Wallet } from '../../wallets'
+import { WalletConfig } from '../../wallets'
 import ShadowIcon from './shadow.svg'
 
-const shadow: Wallet = {
+const shadow: WalletConfig = {
   address: '0x4204aa9c92ab68a1',
   name: 'Shadow',
   uid: 'shadow',

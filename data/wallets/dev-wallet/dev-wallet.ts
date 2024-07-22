@@ -1,12 +1,12 @@
-import { Wallet } from '../../wallets'
+import { WalletConfig } from '../../wallets'
 import DevWalletIcon from './dev-wallet.png'
 
-const devWallet: Wallet = {
+const devWallet: WalletConfig = {
   name: 'Dev Wallet',
   uid: 'dev-wallet',
   address: '0xDevWallet',
   description:
-    'Make sure you have Dev Wallet running on Port 8702, unless override specified.',
+    'Make sure you have Dev WalletConfigrunning on Port 8702, unless override specified.',
   icon: DevWalletIcon,
   color: '#FF5A9D',
   website: 'https://core.flow.com',
