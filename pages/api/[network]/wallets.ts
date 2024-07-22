@@ -1,3 +1,4 @@
+import Sentry from '../../../config/sentry.server'
 import { collectWalletsFromServices } from '../../../helpers/servicePipes'
 import { cors, discoveryServicesMiddleware, runMiddleware } from './_common'
 

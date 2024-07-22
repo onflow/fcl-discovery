@@ -18,7 +18,6 @@ export interface BaseWallet {
   uid: string
   address: string
   description: string
-  icon: StaticImageData
   color?: string
   supportEmail?: string
   website: string
@@ -31,6 +30,7 @@ export interface BaseWallet {
 }
 
 export interface WalletConfig extends BaseWallet {
+  icon: StaticImageData
   services: {
     mainnet?: ServiceConfig[]
     testnet?: ServiceConfig[]
@@ -41,6 +41,7 @@ export interface WalletConfig extends BaseWallet {
 }
 
 export interface Wallet extends BaseWallet {
+  icon: string
   services: Service[]
 }
 

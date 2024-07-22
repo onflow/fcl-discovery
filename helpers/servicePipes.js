@@ -143,15 +143,16 @@ export const collectWalletsFromServices = services =>
         (address === wAddr && wAddr) || (uid === wUid && wUid)
     )
 
-    if (!walletExists && (wAddr || wUid)) {
+    if (!existingWallet && (wAddr || wUid)) {
+      const { wallet: rawWallet, ...serviceWithoutWallet } = service
       const wallet = {
-        ...service.wallet,
-        services: [service],
+        ...rawWallet,
+        services: [serviceWithoutWallet],
       }
       acc.push(wallet)
     } else if (!wAddr && !wUid) {
       throw new Error('Wallet must have an address or uid')
-    } else if (walletExists) {
+    } else if (!!existingWallet) {
       // Append service without reference to wallet
       const { wallet, ...serviceWithoutWallet } = service
       acc[acc.indexOf(existingWallet)].services.push(serviceWithoutWallet)
