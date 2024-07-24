@@ -26,10 +26,10 @@ export const getWalletPipe = ({
   )
 
 export const transformWalletServices =
-  (factory: ServicesPipeFactory) => (wallets: Wallet[]) =>
+  (servicePipeFactory: ServicesPipeFactory) => (wallets: Wallet[]) =>
     pipe(
       extractWalletServices(true),
-      (services: ServiceWithWallet[]) => factory({ wallets })(services),
+      servicePipeFactory({ wallets }),
       collectWalletsFromServices(wallets)
     )(wallets)
 

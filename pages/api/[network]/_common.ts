@@ -58,6 +58,8 @@ export async function getWalletsFromRequest(req: NextApiRequest) {
   // Support emulator and use local service configuration
   const netConfig = network === NETWORKS.EMULATOR ? NETWORKS.LOCAL : network
 
+  console.log(versionPipeFactory)
+
   // Get the pipe for processing wallets
   const walletPipe = getWalletPipe({
     network: netConfig,

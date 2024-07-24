@@ -61,7 +61,7 @@ export const getServicePipes = ({
     // TODO: Make sure that extensions use the provider
     {
       supportedVersion: '0.0.0',
-      pipe:
+      makePipe:
         ({ wallets }) =>
         services =>
           pipe(
@@ -90,9 +90,9 @@ export const getServicePipes = ({
     },
     {
       supportedVersion: '1.3.0-alpha.3',
-      pipe:
+      makePipe:
         ({ wallets }) =>
-        ({ services }) =>
+        services =>
           pipe(
             filterSupportedStrategies(supportedStrategies),
             // Remove opt in services unless marked as include, if supported
