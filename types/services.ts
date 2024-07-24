@@ -1,3 +1,5 @@
+import { ServiceWithWallet } from '../helpers/walletPipes'
+
 export type Provider = {
   address?: string
   name?: string
@@ -24,7 +26,7 @@ export type Metadata = {
   install_link: string
 }
 
-export type ServicesPipe = (services: Service[]) => Service[]
+export type ServicesPipe = (services: ServiceWithWallet[]) => ServiceWithWallet[]
 
 export interface VersionServicePipe {
   supportedVersion: string

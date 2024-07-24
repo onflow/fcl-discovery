@@ -11,12 +11,13 @@ export const filterSupportedStrategies =
 
 export const injectClientServices =
   (clientServices = []) =>
-  services => {
+  (services, { wallets }) => {
     const walletMap = services.reduce((acc, service) => {
-      const addr = service?.provider?.address || service?.wallet?.address
+      const wallet = wallets.find(w => w.uid === service.walletUid)
+      const addr = service?.provider?.address || wallet?.address
       const uid = service?.uid
-      if (addr) acc[addr] = service.wallet
-      if (uid) acc[uid] = service.wallet
+      if (addr) acc[addr] = wallet
+      if (uid) acc[uid] = wallet
       return acc
     }, {})
 
@@ -24,7 +25,7 @@ export const injectClientServices =
       pipe(clone, service => {
         const wallet = walletMap[service?.provider?.address]
         if (wallet) {
-          service.wallet = wallet
+          service.walletUid = wallet.uid
           return service
         } else {
           return service
@@ -38,19 +39,6 @@ export const injectClientServices =
       ...services,
     ])
   }
-
-// TODO: services without a corresponding wallet need to have a provider
-export const legacyInjectedProviderToWallet = (service, wallet) => {
-  const { provider, ...rest } = service
-  return {
-    ...rest,
-    wallet,
-    provider: {
-      ...walletToProvider(wallet),
-      ...service.provider,
-    },
-  }
-}
 
 export const filterUniqueServices =
   ({ address = true, uid = false }) =>
@@ -92,15 +80,18 @@ export const serviceListOfMethod = (services = [], method) =>
   services.filter(service => service.method === method)
 
 // If it's an optIn service, make sure it's been asked to be included
-export function filterOptInServices(includeList = [], services = []) {
-  return services.filter(service => {
-    if (service.optIn)
-      return includeList.includes(
-        service?.provider?.address || service?.wallet?.address
-      )
-    return true
-  })
-}
+export const filterOptInServices =
+  ({ wallets }) =>
+  (includeList = [], services = []) =>
+    services.filter(service => {
+      if (service.optIn) {
+        const wallet = wallets?.find(w => w.uid === service.walletUid)
+        return includeList.includes(
+          service?.provider?.address || wallet?.address
+        )
+      }
+      return true
+    })
 
 export const isExtension = service =>
   service?.method === FCL_SERVICE_METHODS.EXT
@@ -120,41 +111,44 @@ export const requiresPlatform = service => {
 }
 
 // TODO: We shouldn't actually need to filter this in new version, may need to preserve behaviour for legacy Discovery API usage
-export function filterServicesByPlatform(platform, services = []) {
-  return services.filter(service => {
-    if (!requiresPlatform(service)) return true
+export const filterServicesByPlatform =
+  ({ wallets }) =>
+  (platform, services = []) =>
+    services.filter(service => {
+      if (!requiresPlatform(service)) return true
 
-    const providerPlatforms = Object.keys(service?.wallet?.installLink || {})
-    return providerPlatforms.includes(platform?.toLowerCase())
-  })
-}
+      const wallet = wallets?.find(w => w.uid === service.walletUid)
+      const providerPlatforms = Object.keys(wallet?.installLink || {})
+      return providerPlatforms.includes(platform?.toLowerCase())
+    })
 
 // TODO: We shouldn't actually need to filter this in new version, may need to preserve behaviour for legacy Discovery API usage
-export function appendInstallData(platform, extensions = [], services = []) {
-  return map(
-    ifElse(
-      requiresPlatform,
-      pipe(clone, service => {
-        service.provider = service.provider || {}
-        service.provider['requires_install'] = true
+export const appendInstallData =
+  ({ wallets }) =>
+  (platform, extensions = [], services = []) =>
+    map(
+      ifElse(
+        requiresPlatform,
+        pipe(clone, service => {
+          service.provider = service.provider || {}
+          service.provider['requires_install'] = true
 
-        service.provider['is_installed'] = isExtensionInstalled(
-          extensions,
-          service
-        )
+          service.provider['is_installed'] = isExtensionInstalled(
+            extensions,
+            service
+          )
 
-        const installLink =
-          service?.wallet?.installLink?.[platform?.toLowerCase()]
+          const wallet = wallets.find(w => w.uid === service.walletUid)
+          const installLink = wallet?.installLink?.[platform?.toLowerCase()]
 
-        if (installLink) {
-          service.provider['install_link'] = installLink
-        }
-        return service
-      }),
-      identity
-    )
-  )(services)
-}
+          if (installLink) {
+            service.provider['install_link'] = installLink
+          }
+          return service
+        }),
+        identity
+      )
+    )(services)
 
 export const overrideServicePorts = (
   shouldOverride,
@@ -165,25 +159,5 @@ export const overrideServicePorts = (
   return services.map(s => {
     s.endpoint = replacePort(s.endpoint, portOverride)
     return s
-  })
-}
-
-// Convert a wallet object to a provider object which can be attached to legacy services
-export const walletToProvider = wallet => {
-  return {
-    name: wallet.name,
-    address: wallet.address,
-    description: wallet.description,
-    icon: wallet.icon,
-    color: wallet.color,
-    website: wallet.website,
-  }
-}
-
-export const getWalletForService = service => {
-  return wallets.find(wallet => {
-    return wallet.services.some(
-      s => s.uid === service?.uid || s.address === service?.provider?.address
-    )
   })
 }

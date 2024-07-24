@@ -39,6 +39,7 @@
     "@emotion/jest": "^11.10.5",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
+    "@types/cors": "^2.8.17",
     "babel-plugin-styled-components": "^2.0.7",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",

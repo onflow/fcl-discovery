@@ -2,24 +2,26 @@
 import Cors from 'cors'
 import { wallets } from '../../../data/wallets'
 import { findMatchingPipeVersion } from '../../../helpers/version'
-import Sentry from '../../../config/sentry.server'
-import {
-  removeWalletFromServices,
-  extractWalletServices,
-  getServicePipes,
-  walletsForNetwork,
-  walletIconsToBase64,
-} from '../../../helpers/servicePipes'
+import { getServicePipes } from '../../../helpers/servicePipes'
 import { NETWORKS } from '../../../helpers/constants'
-import { pipe } from 'rambda'
+import { getWalletPipe } from '../../../helpers/walletPipes'
+import { NextApiRequest } from 'next'
 
 // Initializing the cors middleware
 export const cors = Cors({
   methods: ['POST'],
 })
 
-export async function discoveryServicesMiddleware(req, res, next) {
-  const { network: rawNetwork, discoveryType, port: portQuery } = req.query
+export async function getWalletsFromRequest(req: NextApiRequest) {
+  const {
+    network: rawNetwork,
+    discoveryType,
+    port: portQuery,
+  } = req.query as {
+    network: string
+    discoveryType: string
+    port: string
+  }
   const {
     fclVersion,
     include,
@@ -35,7 +37,7 @@ export async function discoveryServicesMiddleware(req, res, next) {
   const services = clientServices || extensions || []
 
   if (!isValid) {
-    return res.status(400).json({ error: 'Invalid network' })
+    throw new Error('Invalid network')
   }
 
   const servicePipes = getServicePipes({
@@ -53,16 +55,14 @@ export async function discoveryServicesMiddleware(req, res, next) {
   // Support emulator and use local service configuration
   const netConfig = network === NETWORKS.EMULATOR ? NETWORKS.LOCAL : network
 
-  // Extract authn services from wallets
-  const discoveryServices = pipe(
-    walletIconsToBase64,
-    walletsForNetwork(netConfig),
-    extractWalletServices,
-    versionPipe
-  )(wallets)
+  // Get the pipe for processing wallets
+  const walletPipe = getWalletPipe({
+    network: netConfig,
+    clientServices,
+    servicePipe: versionPipe,
+  })
 
-  req.discoveryServices = discoveryServices
-  next()
+  return walletPipe(wallets)
 }
 
 // Helper method to wait for a middleware to execute before continuing

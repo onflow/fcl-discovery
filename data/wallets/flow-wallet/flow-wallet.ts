@@ -40,7 +40,7 @@ const flowWallet: WalletConfig = {
         endpoint: 'flow_authn',
         provider: {
           // Legacy override for systems using old /api/authn endpoint
-          name: 'Flow WalletConfigMobile',
+          name: 'Flow Wallet Mobile',
           address: '0xc7efa8c33fceee03',
         },
       },
@@ -68,7 +68,7 @@ const flowWallet: WalletConfig = {
         endpoint: 'flow_authn',
         provider: {
           // Legacy override for systems using old /api/authn endpoint
-          name: 'Flow WalletConfigMobile',
+          name: 'Flow Wallet Mobile',
           address: '0xc7efa8c33fceee03',
         },
       },
@@ -96,7 +96,7 @@ const flowWallet: WalletConfig = {
         endpoint: 'flow_authn',
         provider: {
           // Legacy override for systems using old /api/authn endpoint
-          name: 'Flow WalletConfigMobile',
+          name: 'Flow Wallet Mobile',
           address: '0xc7efa8c33fceee03',
         },
       },

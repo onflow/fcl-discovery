@@ -1,14 +1,32 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { NextApiHandler } from 'next'
 import Sentry from '../../../config/sentry.server'
-import { removeWalletFromServices } from '../../../helpers/servicePipes'
-import { cors, discoveryServicesMiddleware, runMiddleware } from './_common'
+import { walletToProvider } from '../../../helpers/walletPipes'
+import { cors, getWalletsFromRequest, runMiddleware } from './_common'
+import { Wallet } from '../../../data/wallets'
 
-async function handler(req, res) {
+const handler: NextApiHandler = async (req, res) => {
   await runMiddleware(req, res, cors)
-  await runMiddleware(req, res, discoveryServicesMiddleware)
 
-  const { discoveryServices } = req
-  return res.status(200).json(removeWalletFromServices(discoveryServices))
+  const discoveryWallets = await getWalletsFromRequest(req)
+  const discoveryServices = extractWalletServices(discoveryWallets)
+
+  return res.status(200).json(discoveryServices)
+}
+
+function extractWalletServices(wallets: Wallet[]) {
+  return wallets.reduce((acc, wallet) => {
+    acc.push(
+      ...wallet.services.map(service => ({
+        ...service,
+        provider: {
+          ...walletToProvider(wallet),
+          ...service.provider,
+        },
+      }))
+    )
+    return acc
+  }, [])
 }
 
 export default Sentry.wrapApiHandlerWithSentry(handler)
