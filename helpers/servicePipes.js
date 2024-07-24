@@ -1,6 +1,6 @@
 // Version key is the highest the pipe supports
 
-import { always, clone, ifElse, map, partial, pipe, reject, when } from 'rambda'
+import { always, ifElse, partial, pipe, reject, when } from 'rambda'
 import {
   combineServices,
   isExtension,
@@ -9,7 +9,6 @@ import {
   filterUniqueServices,
   filterSupportedStrategies,
   overrideServicePorts,
-  walletToProvider,
   appendInstallData,
   filterServicesByPlatform,
   filterOptInServices,
@@ -62,46 +61,50 @@ export const getServicePipes = ({
     // TODO: Make sure that extensions use the provider
     {
       supportedVersion: '0.0.0',
-      pipe: (services, { wallets }) =>
-        pipe(
-          // Only support default FCL methods in this version
-          filterSupportedStrategies(FCL_SERVICE_METHOD_VALUES),
-          // Remove opt in services unless marked as include, if supported
-          when(
-            always(isFilteringSupported),
-            partial(filterOptInServices({ wallets }), include)
-          ),
-          // Add extensions if supported
-          when(always(areExtensionsSupported), services =>
-            combineServices(services, extensions, true)
-          ),
-          // Add installation data
-          partial(appendInstallData, platform, extensions),
-          filterUniqueServices({ address: true, uid: false }),
-          serviceOfTypeAuthn,
-          // Filter out extensions if not supported because they were added on the FCL side in previous versions
-          ifElse(
-            always(areUninstalledExtensionsSupported),
-            partial(filterServicesByPlatform({ wallets }), platform),
-            partial(reject, isExtension)
-          )
-        )(services),
+      pipe:
+        ({ wallets }) =>
+        services =>
+          pipe(
+            // Only support default FCL methods in this version
+            filterSupportedStrategies(FCL_SERVICE_METHOD_VALUES),
+            // Remove opt in services unless marked as include, if supported
+            when(
+              always(isFilteringSupported),
+              partial(filterOptInServices({ wallets }), include)
+            ),
+            // Add extensions if supported
+            when(always(areExtensionsSupported), services =>
+              combineServices(services, extensions, true)
+            ),
+            // Add installation data
+            partial(appendInstallData, platform, extensions),
+            filterUniqueServices({ address: true, uid: false }),
+            serviceOfTypeAuthn,
+            // Filter out extensions if not supported because they were added on the FCL side in previous versions
+            ifElse(
+              always(areUninstalledExtensionsSupported),
+              partial(filterServicesByPlatform({ wallets }), platform),
+              partial(reject, isExtension)
+            )
+          )(services),
     },
     {
       supportedVersion: '1.3.0-alpha.3',
-      pipe: (services, { wallets }) =>
-        pipe(
-          filterSupportedStrategies(supportedStrategies),
-          // Remove opt in services unless marked as include, if supported
-          partial(filterOptInServices({ wallets }), include),
-          // Add installation data
-          partial(filterServicesByPlatform({ wallets }), platform),
-          partial(appendInstallData({ wallets }), platform, clientServices),
-          // Add services if supported
-          serviceOfTypeAuthn,
-          // Allow port override option if local
-          partial(overrideServicePorts, isLocal, portOverride)
-        )(services),
+      pipe:
+        ({ wallets }) =>
+        ({ services }) =>
+          pipe(
+            filterSupportedStrategies(supportedStrategies),
+            // Remove opt in services unless marked as include, if supported
+            partial(filterOptInServices({ wallets }), include),
+            // Add installation data
+            partial(filterServicesByPlatform({ wallets }), platform),
+            partial(appendInstallData({ wallets }), platform, clientServices),
+            // Add services if supported
+            serviceOfTypeAuthn,
+            // Allow port override option if local
+            partial(overrideServicePorts, isLocal, portOverride)
+          )(services),
     },
   ]
 }

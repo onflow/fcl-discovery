@@ -2,8 +2,8 @@
 import Cors from 'cors'
 import { wallets } from '../../../data/wallets'
 import { findMatchingPipeVersion } from '../../../helpers/version'
-import { getServicePipes } from '../../../helpers/servicePipes'
 import { NETWORKS } from '../../../helpers/constants'
+import { getServicePipes } from '../../../helpers/servicePipes'
 import { getWalletPipe } from '../../../helpers/walletPipes'
 import { NextApiRequest } from 'next'
 
@@ -50,7 +50,10 @@ export async function getWalletsFromRequest(req: NextApiRequest) {
     network,
     portOverride: portQuery || portBody,
   })
-  const versionPipe = findMatchingPipeVersion(fclVersion, servicePipes)
+  const versionPipeFactory = findMatchingPipeVersion(
+    fclVersion,
+    servicePipes as any
+  )
 
   // Support emulator and use local service configuration
   const netConfig = network === NETWORKS.EMULATOR ? NETWORKS.LOCAL : network
@@ -59,7 +62,7 @@ export async function getWalletsFromRequest(req: NextApiRequest) {
   const walletPipe = getWalletPipe({
     network: netConfig,
     clientServices,
-    servicePipe: versionPipe,
+    servicePipeFactory: versionPipeFactory,
   })
 
   return walletPipe(wallets)

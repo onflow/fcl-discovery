@@ -1,38 +1,35 @@
 import { clone, identity, partial, pipe } from 'rambda'
 import { filterUniqueServices } from './services'
 import { nextJsImageToBase64 } from './image'
-import { Service } from '../types'
+import { Service, ServicesPipeFactory } from '../types'
 import { Wallet, WalletConfig } from '../data/wallets'
 
 export type ServiceWithWallet = Service & { walletUid: string }
 type WalletConfigWithProcessedIcon = Omit<WalletConfig, 'icon'> & {
   icon: string
 }
-type WalletServiceTransformPipe = (
-  services: ServiceWithWallet[],
-  context: {
-    wallets: Wallet[]
-  }
-) => ServiceWithWallet[]
 
 export const getWalletPipe = ({
   network,
   clientServices,
-  servicePipe = identity<ServiceWithWallet[]>,
+  servicePipeFactory,
+}: {
+  network: string
+  clientServices: ServiceWithWallet[]
+  servicePipeFactory: ServicesPipeFactory
 }) =>
   pipe(
     walletIconsToBase64,
     walletsForNetwork(network),
     partial(injectClientServices, clientServices),
-    transformWalletServices(servicePipe)
+    transformWalletServices(servicePipeFactory)
   )
 
 export const transformWalletServices =
-  (fn: WalletServiceTransformPipe = identity) =>
-  (wallets: Wallet[]) =>
+  (factory: ServicesPipeFactory) => (wallets: Wallet[]) =>
     pipe(
       extractWalletServices(true),
-      (services: ServiceWithWallet[]) => fn(services, { wallets }),
+      (services: ServiceWithWallet[]) => factory({ wallets })(services),
       collectWalletsFromServices(wallets)
     )(wallets)
 

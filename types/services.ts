@@ -1,3 +1,4 @@
+import { Wallet } from '../data/wallets'
 import { ServiceWithWallet } from '../helpers/walletPipes'
 
 export type Provider = {
@@ -26,9 +27,13 @@ export type Metadata = {
   install_link: string
 }
 
-export type ServicesPipe = (services: ServiceWithWallet[]) => ServiceWithWallet[]
+export type ServicesPipeFactory = ({
+  wallets,
+}: {
+  wallets: Wallet[]
+}) => (services: ServiceWithWallet[]) => ServiceWithWallet[]
 
 export interface VersionServicePipe {
   supportedVersion: string
-  pipe: ServicesPipe
+  makePipe: ServicesPipeFactory
 }

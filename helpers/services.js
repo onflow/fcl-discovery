@@ -126,10 +126,11 @@ export const filterServicesByPlatform =
 export const appendInstallData =
   ({ wallets }) =>
   (platform, extensions = [], services = []) =>
-    map(
+    services.map(
       ifElse(
         requiresPlatform,
-        pipe(clone, service => {
+        srv => {
+          const service = clone(srv)
           service.provider = service.provider || {}
           service.provider['requires_install'] = true
 
@@ -145,10 +146,10 @@ export const appendInstallData =
             service.provider['install_link'] = installLink
           }
           return service
-        }),
+        },
         identity
       )
-    )(services)
+    )
 
 export const overrideServicePorts = (
   shouldOverride,
