@@ -1,8 +1,8 @@
-import { clone, partial, pipe } from 'rambda'
-import { filterUniqueServices } from './services'
+import { partial, pipe } from 'rambda'
 import { nextJsImageToBase64 } from './image'
 import { Service, ServicesPipeFactory } from '../types'
 import { Wallet, WalletConfig } from '../data/wallets'
+import { injectClientServices } from './inject-wallets'
 
 export type ServiceWithWallet = Service & { walletUid: string }
 export type WalletConfigWithIcon = Omit<WalletConfig, 'icon'> & {
@@ -30,7 +30,7 @@ export const transformWalletServices =
     pipe(
       extractWalletServices(true),
       makeServicesPipe({ wallets }),
-      collectWalletsFromServices(wallets)
+      collectWalletsFromServices({ wallets })
     )(wallets)
 
 export const extractWalletServices =
@@ -45,55 +45,6 @@ export const extractWalletServices =
       )
       return acc
     }, [])
-
-// TODO: does this belong here?
-export const injectClientServices = (
-  clientServices: ServiceWithWallet[] = [],
-  wallets: Wallet[] = []
-) => {
-  const { walletMap, services } = wallets.reduce(
-    ({ walletMap, services }, wallet) => {
-      wallet.services?.forEach(service => {
-        const addr = service?.provider?.address || wallet?.address
-        const uid = service?.uid
-        if (addr) walletMap[addr] = wallet.uid
-        if (uid) walletMap[uid] = wallet.uid
-      })
-      return {
-        walletMap,
-        services: [
-          ...services,
-          ...wallet.services.map(service => ({
-            ...service,
-            walletUid: wallet.uid,
-          })),
-        ],
-      }
-    },
-    { walletMap: {}, services: [] }
-  )
-
-  const injectedServices = clientServices.map(srv => {
-    const service = clone(srv)
-    const walletUid = walletMap[service?.provider?.address]
-    if (walletUid) {
-      service.walletUid = walletUid
-    } else {
-      // TODO: Handle this case
-      throw new Error(
-        `Wallet not found for service with address ${service?.provider?.address}`
-      )
-    }
-    return service
-  })
-
-  const unique = filterUniqueServices({ address: true, uid: false })([
-    ...injectedServices,
-    ...services,
-  ])
-
-  return collectWalletsFromServices(wallets)(unique)
-}
 
 export const walletsForNetwork =
   (network: string) =>
@@ -114,7 +65,8 @@ export const walletIconsToBase64 = (
   }))
 
 export const collectWalletsFromServices =
-  (wallets: Wallet[]) => (services: ServiceWithWallet[]) =>
+  ({ wallets }: { wallets: Wallet[] }) =>
+  (services: ServiceWithWallet[]) =>
     services.reduce((acc, service) => {
       const existingWalletIdx = acc.findIndex(
         wallet => wallet.uid === service.walletUid

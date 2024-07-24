@@ -70,20 +70,20 @@ export const getServicePipes = ({
             // Remove opt in services unless marked as include, if supported
             when(
               always(isFilteringSupported),
-              partial(filterOptInServices({ wallets }), include)
+              filterOptInServices({ wallets, includeList: include })
             ),
             // Add extensions if supported
             when(always(areExtensionsSupported), services =>
               combineServices(services, extensions, true)
             ),
             // Add installation data
-            partial(appendInstallData, platform, extensions),
+            appendInstallData({ wallets, platform, extensions }),
             filterUniqueServices({ address: true, uid: false }),
             serviceOfTypeAuthn,
             // Filter out extensions if not supported because they were added on the FCL side in previous versions
             ifElse(
               always(areUninstalledExtensionsSupported),
-              partial(filterServicesByPlatform({ wallets }), platform),
+              filterServicesByPlatform({ wallets, platform }),
               partial(reject, isExtension)
             )
           )(services),
@@ -96,10 +96,14 @@ export const getServicePipes = ({
           pipe(
             filterSupportedStrategies(supportedStrategies),
             // Remove opt in services unless marked as include, if supported
-            partial(filterOptInServices({ wallets }), include),
+            filterOptInServices({ wallets, includeList: include }),
             // Add installation data
-            partial(filterServicesByPlatform({ wallets }), platform),
-            partial(appendInstallData({ wallets }), platform, clientServices),
+            filterServicesByPlatform({ wallets, platform }),
+            appendInstallData({
+              wallets,
+              platform,
+              extensions: clientServices,
+            }),
             // Add services if supported
             serviceOfTypeAuthn,
             // Allow port override option if local
