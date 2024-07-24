@@ -3,8 +3,8 @@ import Cors from 'cors'
 import { wallets } from '../../../data/wallets'
 import { findMatchingPipeVersion } from '../../../helpers/version'
 import { NETWORKS } from '../../../helpers/constants'
-import { getServicePipes } from '../../../helpers/servicePipes'
-import { getWalletPipe } from '../../../helpers/walletPipes'
+import { getServicePipes } from '../../../helpers/service-pipes'
+import { getWalletPipe } from '../../../helpers/wallets'
 import { NextApiRequest } from 'next'
 
 // Initializing the cors middleware
@@ -57,7 +57,7 @@ export async function getWalletsFromRequest(req: NextApiRequest) {
 
   // Support emulator and use local service configuration
   const netConfig = network === NETWORKS.EMULATOR ? NETWORKS.LOCAL : network
-  
+
   // Get the pipe for processing wallets
   const walletPipe = getWalletPipe({
     network: netConfig,

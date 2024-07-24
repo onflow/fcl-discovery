@@ -1,5 +1,5 @@
 import { Wallet } from '../data/wallets'
-import { ServiceWithWallet } from '../helpers/walletPipes'
+import { ServiceWithWallet } from '../helpers/wallets'
 
 export type Provider = {
   address?: string

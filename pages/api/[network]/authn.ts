@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { NextApiHandler } from 'next'
 import Sentry from '../../../config/sentry.server'
-import { walletToProvider } from '../../../helpers/walletPipes'
+import { walletToProvider } from '../../../helpers/wallets'
 import { cors, getWalletsFromRequest, runMiddleware } from './_common'
 import { Wallet } from '../../../data/wallets'
 

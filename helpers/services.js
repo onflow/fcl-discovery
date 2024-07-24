@@ -9,37 +9,6 @@ export const filterSupportedStrategies =
     return services.filter(s => supportedStrategies.includes(s.method))
   }
 
-export const injectClientServices =
-  (clientServices = []) =>
-  (services, { wallets }) => {
-    const walletMap = services.reduce((acc, service) => {
-      const wallet = wallets.find(w => w.uid === service.walletUid)
-      const addr = service?.provider?.address || wallet?.address
-      const uid = service?.uid
-      if (addr) acc[addr] = wallet
-      if (uid) acc[uid] = wallet
-      return acc
-    }, {})
-
-    const injectedServices = map(
-      pipe(clone, service => {
-        const wallet = walletMap[service?.provider?.address]
-        if (wallet) {
-          service.walletUid = wallet.uid
-          return service
-        } else {
-          return service
-        }
-      }),
-      clientServices
-    )
-
-    return filterUniqueServices({ address: true, uid: false })([
-      ...injectedServices,
-      ...services,
-    ])
-  }
-
 export const filterUniqueServices =
   ({ address = true, uid = false }) =>
   services => {

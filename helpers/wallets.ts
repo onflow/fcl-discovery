@@ -1,11 +1,11 @@
-import { clone, identity, partial, pipe } from 'rambda'
+import { clone, partial, pipe } from 'rambda'
 import { filterUniqueServices } from './services'
 import { nextJsImageToBase64 } from './image'
 import { Service, ServicesPipeFactory } from '../types'
 import { Wallet, WalletConfig } from '../data/wallets'
 
 export type ServiceWithWallet = Service & { walletUid: string }
-type WalletConfigWithProcessedIcon = Omit<WalletConfig, 'icon'> & {
+export type WalletConfigWithIcon = Omit<WalletConfig, 'icon'> & {
   icon: string
 }
 
@@ -46,6 +46,7 @@ export const extractWalletServices =
       return acc
     }, [])
 
+// TODO: does this belong here?
 export const injectClientServices = (
   clientServices: ServiceWithWallet[] = [],
   wallets: Wallet[] = []
@@ -96,7 +97,7 @@ export const injectClientServices = (
 
 export const walletsForNetwork =
   (network: string) =>
-  (wallets: WalletConfigWithProcessedIcon[] = []): Wallet[] =>
+  (wallets: WalletConfigWithIcon[] = []): Wallet[] =>
     wallets
       .filter(wallet => wallet.services[network])
       .map(wallet => ({
@@ -106,7 +107,7 @@ export const walletsForNetwork =
 
 export const walletIconsToBase64 = (
   wallets: WalletConfig[]
-): WalletConfigWithProcessedIcon[] =>
+): WalletConfigWithIcon[] =>
   wallets.map((wallet: WalletConfig) => ({
     ...wallet,
     icon: wallet.icon ? nextJsImageToBase64(wallet.icon) : undefined,
