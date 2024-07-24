@@ -1,4 +1,3 @@
-import Sentry from '../../../config/sentry.server'
 import { cors, getWalletsFromRequest, runMiddleware } from './_common'
 
 async function handler(req, res) {
@@ -8,4 +7,4 @@ async function handler(req, res) {
   return res.status(200).json(discoveryWallets)
 }
 
-export default Sentry.wrapApiHandlerWithSentry(handler)
+export default handler
