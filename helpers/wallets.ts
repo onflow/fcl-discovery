@@ -23,23 +23,21 @@ export const getWalletPipe = ({
 export const transformWalletServices =
   (makeServicesPipe: ServicesPipeFactory) => (wallets: Wallet[]) =>
     pipe(
-      extractWalletServices(true),
+      extractWalletServices,
       makeServicesPipe({ wallets }),
       collectWalletsFromServices({ wallets })
     )(wallets)
 
-export const extractWalletServices =
-  <T extends boolean>(withId: T) =>
-  (wallets: Wallet[]): (T extends true ? ServiceWithWallet : Service)[] =>
-    wallets.reduce((acc, wallet) => {
-      acc.push(
-        ...wallet.services.map(service => ({
-          ...service,
-          walletUid: withId ? wallet.uid : undefined,
-        }))
-      )
-      return acc
-    }, [])
+export const extractWalletServices = (wallets: Wallet[]): ServiceWithWallet[] =>
+  wallets.reduce((acc, wallet) => {
+    acc.push(
+      ...wallet.services.map(service => ({
+        ...service,
+        walletUid: wallet.uid,
+      }))
+    )
+    return acc
+  }, [])
 
 export const walletsForNetwork =
   (network: string) =>

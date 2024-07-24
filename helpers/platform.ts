@@ -1,4 +1,4 @@
-import { FCL_SERVICE_METHODS, USER_AGENTS_SUBSTRINGS } from './constants'
+import { USER_AGENTS_SUBSTRINGS } from './constants'
 
 export const getUserAgent = () => window?.navigator?.userAgent
 

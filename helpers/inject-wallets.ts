@@ -1,6 +1,6 @@
-import { clone, concat, filter, flip, ifElse, map, pipe } from 'rambda'
+import { clone, concat, filter, flip, map, pipe } from 'rambda'
 import { Wallet } from '../data/wallets'
-import { Provider, Service } from '../types'
+import { Service } from '../types'
 import { ServiceWithWallet } from './wallets'
 import { filterUniqueServices } from './services'
 
@@ -95,7 +95,7 @@ export const deriveWalletsFromUnknownServices = ([
         services.push(service)
         return [services, newWallets]
       }
-      const newWallet = legacyProviderToWallet(service.provider)
+      const newWallet = injectedServiceToWallet(service)
       newWallets[newWallet.uid] = newWallet
       services.push({
         ...service,
@@ -105,10 +105,12 @@ export const deriveWalletsFromUnknownServices = ([
     [[], clone(newWallets)] as InjectionPipeValue
   )
 
-export const legacyProviderToWallet = (provider: Provider) => {
+// Support legacy injected services which do not have an associated wallet known
+export const injectedServiceToWallet = (service: Service) => {
+  const provider = service.provider
   const wallet: Wallet = {
     name: provider.name || 'Unknown Wallet',
-    uid: provider.address,
+    uid: provider.address || service.uid,
     address: provider.address,
     description: provider.description || '',
     color: provider.color || '',
@@ -116,7 +118,7 @@ export const legacyProviderToWallet = (provider: Provider) => {
     supportEmail: provider.supportEmail,
     icon: provider.icon || '',
     installLink: {
-      chrome: provider?.install_link || '',
+      chrome: provider?.['install_link'] || '',
     },
     services: [],
   }

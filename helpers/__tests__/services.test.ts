@@ -1,7 +1,5 @@
-import blocto from '../../data/wallets/blocto/blocto'
-import flowWallet from '../../data/wallets/flow-wallet/flow-wallet'
-import { USER_AGENTS_SUBSTRINGS } from '../constants'
-import { legacyProviderToWallet } from '../inject-wallets'
+import { Service } from '../../types'
+import { injectedServiceToWallet } from '../inject-wallets'
 import {
   combineServices,
   filterOptInServices,
@@ -9,7 +7,7 @@ import {
   filterUniqueServices,
   serviceListOfType,
 } from '../services'
-import { walletsForNetwork } from '../wallets'
+import { extractWalletServices } from '../wallets'
 
 jest.mock(
   '../../data/metadata.json',
@@ -185,6 +183,7 @@ describe('services helpers: filterOptInServices', () => {
     const optInAddress = '0xC'
 
     const serviceA = {
+      uid: 'a',
       type: 'authn',
       provider: {
         address: '0xA',
@@ -192,6 +191,7 @@ describe('services helpers: filterOptInServices', () => {
     }
 
     const serviceB = {
+      uid: 'b',
       type: 'authz',
       provider: {
         address: '0xB',
@@ -199,6 +199,7 @@ describe('services helpers: filterOptInServices', () => {
     }
 
     const serviceC = {
+      uid: 'c',
       type: 'pre-authz',
       optIn: true,
       provider: {
@@ -214,8 +215,12 @@ describe('services helpers: filterOptInServices', () => {
     const includeListB = [optInAddress]
     const expectedResponseB = [serviceA, serviceB, serviceC]
 
-    const walletsA = serviceListA.map(x => legacyProviderToWallet(x.provider))
-    const walletsB = serviceListB.map(x => legacyProviderToWallet(x.provider))
+    const walletsA = serviceListA.map(x =>
+      injectedServiceToWallet(x as Service)
+    )
+    const walletsB = serviceListB.map(x =>
+      injectedServiceToWallet(x as Service)
+    )
 
     const filterOptInServicesA = filterOptInServices({
       wallets: walletsA,
@@ -227,7 +232,7 @@ describe('services helpers: filterOptInServices', () => {
     })
 
     expect(filterOptInServicesA(serviceListA).length).toEqual(2)
-    expect(filterOptInServicesB(serviceListA)).toEqual(expectedResponseA)
+    expect(filterOptInServicesA(serviceListA)).toEqual(expectedResponseA)
     expect(filterOptInServicesB(serviceListB).length).toEqual(3)
     expect(filterOptInServicesB(serviceListB)).toEqual(expectedResponseB)
   })
@@ -235,34 +240,43 @@ describe('services helpers: filterOptInServices', () => {
 
 describe('services helpers: filterServicesByPlatform', () => {
   it('should filter services if they do not have required platform', () => {
-    const platform = USER_AGENTS_SUBSTRINGS.CHROME
+    const platform = 'chrome'
 
     const serviceA = {
+      uid: 'a',
       type: 'authn',
       method: 'EXT/RPC',
       provider: {
         address: 'test-address',
       },
+      walletUid: 'test-address',
     }
 
     const serviceB = {
+      uid: 'b',
       type: 'authn',
       method: 'EXT/RPC',
       provider: {
         address: '0x123',
       },
+      walletUid: '0x123',
     }
 
     const serviceC = {
+      uid: 'c',
       type: 'authn',
       method: 'IFRAME/RPC',
       provider: {
         address: '0xC',
       },
+      walletUid: '0xC',
     }
 
-    const services = [serviceA, serviceB, serviceC]
-    const wallets = services.map(x => legacyProviderToWallet(x.provider))
+    const wallets = [serviceA, serviceB, serviceC].map(x => ({
+      ...injectedServiceToWallet(x as any),
+      services: [x],
+    }))
+    const services = extractWalletServices(wallets as any)
     const expectedRes = [serviceA, serviceB, serviceC]
 
     expect(filterServicesByPlatform({ wallets, platform })(services)).toEqual(

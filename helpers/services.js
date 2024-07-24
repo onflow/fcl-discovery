@@ -75,6 +75,8 @@ export const filterServicesByPlatform = ({ wallets, platform }) =>
     if (!requiresPlatform(service)) return true
 
     const wallet = wallets?.find(w => w.uid === service.walletUid)
+    if (!wallet.installLink) return true
+
     const providerPlatforms = Object.keys(wallet?.installLink || {})
     return providerPlatforms.includes(platform?.toLowerCase())
   })

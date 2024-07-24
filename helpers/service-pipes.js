@@ -32,7 +32,7 @@ export const getServicePipes = ({
   network,
   portOverride,
 }) => {
-  const platform = getBrowserFromUserAgent(userAgent)
+  const platform = getBrowserFromUserAgent(userAgent).toLowerCase()
   const isLocal = network === NETWORKS.LOCAL || network === NETWORKS.EMULATOR
 
   // In newer versions, we'll have extensions sent

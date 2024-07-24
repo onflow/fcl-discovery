@@ -1,5 +1,5 @@
-import { BaseWallet, Wallet, WalletConfig } from '../../data/wallets'
-import { Service } from '../../types'
+import { BaseWallet, Wallet, WalletConfig } from '../../../data/wallets'
+import { Service } from '../../../types'
 
 type WalletFixture = {
   base: () => BaseWallet
