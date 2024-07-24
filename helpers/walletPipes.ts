@@ -12,24 +12,24 @@ type WalletConfigWithProcessedIcon = Omit<WalletConfig, 'icon'> & {
 export const getWalletPipe = ({
   network,
   clientServices,
-  servicePipeFactory,
+  makeServicesPipe,
 }: {
   network: string
   clientServices: ServiceWithWallet[]
-  servicePipeFactory: ServicesPipeFactory
+  makeServicesPipe: ServicesPipeFactory
 }) =>
   pipe(
     walletIconsToBase64,
     walletsForNetwork(network),
     partial(injectClientServices, clientServices),
-    transformWalletServices(servicePipeFactory)
+    transformWalletServices(makeServicesPipe)
   )
 
 export const transformWalletServices =
-  (servicePipeFactory: ServicesPipeFactory) => (wallets: Wallet[]) =>
+  (makeServicesPipe: ServicesPipeFactory) => (wallets: Wallet[]) =>
     pipe(
       extractWalletServices(true),
-      servicePipeFactory({ wallets }),
+      makeServicesPipe({ wallets }),
       collectWalletsFromServices(wallets)
     )(wallets)
 

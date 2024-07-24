@@ -50,21 +50,19 @@ export async function getWalletsFromRequest(req: NextApiRequest) {
     network,
     portOverride: portQuery || portBody,
   })
-  const versionPipeFactory = findMatchingPipeVersion(
+  const makeServicesPipe = findMatchingPipeVersion(
     fclVersion,
     servicePipes as any
   )
 
   // Support emulator and use local service configuration
   const netConfig = network === NETWORKS.EMULATOR ? NETWORKS.LOCAL : network
-
-  console.log(versionPipeFactory)
-
+  
   // Get the pipe for processing wallets
   const walletPipe = getWalletPipe({
     network: netConfig,
     clientServices,
-    servicePipeFactory: versionPipeFactory,
+    makeServicesPipe,
   })
 
   return walletPipe(wallets)
