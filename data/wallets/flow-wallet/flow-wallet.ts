@@ -1,3 +1,4 @@
+import { nextJsImageToBase64 } from '../../../helpers/image'
 import { WalletConfig } from '../../wallets'
 import FlowWalletIcon from './flow-wallet.png'
 
@@ -6,7 +7,7 @@ const flowWallet: WalletConfig = {
   uid: 'flow-wallet',
   address: '0x33f75ff0b830dcec',
   description: 'Digital wallet created for everyone.',
-  icon: FlowWalletIcon,
+  icon: nextJsImageToBase64(FlowWalletIcon),
   color: '#41CC5D',
   supportEmail: 'support@flow.com',
   website: 'https://core.flow.com',

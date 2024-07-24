@@ -1,3 +1,4 @@
+import { nextJsImageToBase64 } from '../../../helpers/image'
 import { WalletConfig } from '../../wallets'
 import NuFiIcon from './nufi.svg'
 
@@ -5,7 +6,7 @@ const nufi: WalletConfig = {
   address: '0x95b85a9ef4daabb1',
   name: 'NuFi',
   uid: 'nufi',
-  icon: NuFiIcon,
+  icon: nextJsImageToBase64(NuFiIcon),
   description:
     'A Web3 crypto wallet for Cardano, Flow and Solana. Store, stake and connect to Dapps.',
   website: 'https://nu.fi',

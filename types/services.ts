@@ -24,7 +24,7 @@ export type Service = {
 }
 
 export type Metadata = {
-  install_link: string
+  install_link?: string
 }
 
 export type ServicesPipeFactory = ({

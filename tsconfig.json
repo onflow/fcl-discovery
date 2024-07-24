@@ -15,6 +15,11 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "helpers/__tests__/networks.test.js"
+  ],
   "exclude": ["node_modules"]
 }

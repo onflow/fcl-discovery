@@ -1,3 +1,4 @@
+import { nextJsImageToBase64 } from '../../../helpers/image'
 import { WalletConfig } from '../../wallets'
 import DevWalletIcon from './dev-wallet.png'
 
@@ -7,7 +8,7 @@ const devWallet: WalletConfig = {
   address: '0xDevWallet',
   description:
     'Make sure you have Dev WalletConfigrunning on Port 8702, unless override specified.',
-  icon: DevWalletIcon,
+  icon: nextJsImageToBase64(DevWalletIcon),
   color: '#FF5A9D',
   website: 'https://core.flow.com',
   services: {

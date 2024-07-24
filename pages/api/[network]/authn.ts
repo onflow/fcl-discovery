@@ -14,6 +14,7 @@ const handler: NextApiHandler = async (req, res) => {
   return res.status(200).json(discoveryServices)
 }
 
+// Extraction of wallet services with provider for legacy endpoint
 function extractAllWalletServices(wallets: Wallet[]) {
   return wallets.reduce((acc, wallet) => {
     acc.push(

@@ -1,13 +1,9 @@
-import { partial, pipe } from 'rambda'
-import { nextJsImageToBase64 } from './image'
+import { pipe } from 'rambda'
 import { Service, ServicesPipeFactory } from '../types'
 import { Wallet, WalletConfig } from '../data/wallets'
 import { injectClientServices } from './inject-wallets'
 
 export type ServiceWithWallet = Service & { walletUid: string }
-export type WalletConfigWithIcon = Omit<WalletConfig, 'icon'> & {
-  icon: string
-}
 
 export const getWalletPipe = ({
   network,
@@ -19,9 +15,8 @@ export const getWalletPipe = ({
   makeServicesPipe: ServicesPipeFactory
 }) =>
   pipe(
-    walletIconsToBase64,
     walletsForNetwork(network),
-    partial(injectClientServices, clientServices),
+    injectClientServices(clientServices),
     transformWalletServices(makeServicesPipe)
   )
 
@@ -48,21 +43,13 @@ export const extractWalletServices =
 
 export const walletsForNetwork =
   (network: string) =>
-  (wallets: WalletConfigWithIcon[] = []): Wallet[] =>
+  (wallets: WalletConfig[] = []): Wallet[] =>
     wallets
       .filter(wallet => wallet.services[network])
       .map(wallet => ({
         ...wallet,
         services: wallet.services[network],
       }))
-
-export const walletIconsToBase64 = (
-  wallets: WalletConfig[]
-): WalletConfigWithIcon[] =>
-  wallets.map((wallet: WalletConfig) => ({
-    ...wallet,
-    icon: wallet.icon ? nextJsImageToBase64(wallet.icon) : undefined,
-  }))
 
 export const collectWalletsFromServices =
   ({ wallets }: { wallets: Wallet[] }) =>

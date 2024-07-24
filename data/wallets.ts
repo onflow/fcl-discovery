@@ -16,6 +16,7 @@ type ServiceConfig = Omit<Service, 'provider'> & {
 export interface BaseWallet {
   name: string
   uid: string
+  icon: string
   address: string
   description: string
   color?: string
@@ -30,7 +31,6 @@ export interface BaseWallet {
 }
 
 export interface WalletConfig extends BaseWallet {
-  icon: StaticImageData
   services: {
     mainnet?: ServiceConfig[]
     testnet?: ServiceConfig[]
@@ -41,7 +41,6 @@ export interface WalletConfig extends BaseWallet {
 }
 
 export interface Wallet extends BaseWallet {
-  icon: string
   services: Service[]
 }
 

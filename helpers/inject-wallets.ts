@@ -1,4 +1,4 @@
-import { clone, concat, pipe } from 'rambda'
+import { clone, concat, filter, flip, ifElse, map, pipe } from 'rambda'
 import { Wallet } from '../data/wallets'
 import { Provider, Service } from '../types'
 import { ServiceWithWallet } from './wallets'
@@ -14,34 +14,38 @@ type WalletIdMap = {
   providerAddressToWalletUid: Record<string, string>
 }
 
-export const injectClientServices = (
-  clientServices: Service[] = [],
-  wallets: Wallet[] = []
-) => {
-  const [injectedServices, newWallets] = pipe(
-    assignServiceWallets(wallets),
-    deriveWalletsFromUnknownServices
-  )([clientServices, {}])
+export const injectClientServices =
+  (clientServices: Service[] = []) =>
+  (wallets: Wallet[] = []) => {
+    const [injectedServices, newWallets] = pipe(
+      assignServiceWallets(wallets),
+      deriveWalletsFromUnknownServices
+    )([clientServices, {}])
 
-  const updatedWallets = concat(wallets, Object.values(newWallets))
+    const updatedWallets = concat(wallets, Object.values(newWallets))
 
-  return updatedWallets.map(wallet => {
-    const newServices = (injectedServices as ServiceWithWallet[]).filter(
-      service => service.walletUid === wallet.uid
-    )
-    if (!newServices.length) {
-      return wallet
-    }
+    return updatedWallets.map(wallet => {
+      const newServices = pipe(
+        // Find corresponding services
+        filter(
+          (service: ServiceWithWallet) => service.walletUid === wallet.uid
+        ),
+        // Remove wallet uid
+        map(({ walletUid: _, ...service }) => service),
+        // Add original services
+        flip(concat<Service>)(wallet.services),
+        // Filter out duplicates
+        filterUniqueServices({
+          address: true,
+          uid: true,
+        })
+      )(injectedServices as ServiceWithWallet[])
 
-    const newWallet = clone(wallet)
-    newWallet.services = filterUniqueServices({
-      address: true,
-      uid: true,
-    })(concat(newServices, wallet.services))
-
-    return newWallet
-  })
-}
+      const newWallet = clone(wallet)
+      newWallet.services = newServices
+      return newWallet
+    })
+  }
 
 export const generateWalletIdMap = (wallets: Wallet[]) =>
   wallets.reduce(
@@ -95,7 +99,6 @@ export const deriveWalletsFromUnknownServices = ([
       newWallets[newWallet.uid] = newWallet
       services.push({
         ...service,
-        walletUid: newWallet.uid,
       })
       return [services, newWallets]
     },
@@ -112,6 +115,9 @@ export const legacyProviderToWallet = (provider: Provider) => {
     website: provider.website || '',
     supportEmail: provider.supportEmail,
     icon: provider.icon || '',
+    installLink: {
+      chrome: provider?.install_link || '',
+    },
     services: [],
   }
   return wallet
