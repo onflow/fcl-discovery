@@ -9,12 +9,12 @@ const handler: NextApiHandler = async (req, res) => {
   await runMiddleware(req, res, cors)
 
   const discoveryWallets = await getWalletsFromRequest(req)
-  const discoveryServices = extractWalletServices(discoveryWallets)
+  const discoveryServices = extractAllWalletServices(discoveryWallets)
 
   return res.status(200).json(discoveryServices)
 }
 
-function extractWalletServices(wallets: Wallet[]) {
+function extractAllWalletServices(wallets: Wallet[]) {
   return wallets.reduce((acc, wallet) => {
     acc.push(
       ...wallet.services.map(service => ({
