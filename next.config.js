@@ -5,11 +5,21 @@ module.exports = {
   },
   swcMinify: true,
   async rewrites() {
-    return [
-      {
-        source: '/api/authn',
-        destination: '/api/mainnet/authn',
-      },
-    ]
+    return {
+      afterFiles: [
+        {
+          source: '/api/authn',
+          destination: '/api/mainnet/authn',
+        },
+        {
+          source: '/api/wallets',
+          destination: '/api/mainnet/wallets',
+        },
+        {
+          source: '/authn',
+          destination: '/mainnet/authn',
+        },
+      ],
+    }
   },
 }

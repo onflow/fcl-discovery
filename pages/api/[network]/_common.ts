@@ -14,7 +14,7 @@ export const cors = Cors({
 
 export async function getWalletsFromRequest(req: NextApiRequest) {
   const {
-    network: rawNetwork,
+    network,
     discoveryType,
     port: portQuery,
   } = req.query as {
@@ -31,12 +31,11 @@ export async function getWalletsFromRequest(req: NextApiRequest) {
     supportedStrategies,
     port: portBody,
   } = req.body
-  const isValid = Object.values(NETWORKS).includes(rawNetwork)
-  const network = rawNetwork.toLowerCase()
+  const isValidNetwork = Object.values(NETWORKS).includes(network)
   const discoveryRequestType = discoveryType || 'API'
   const services = clientServices || extensions || []
 
-  if (!isValid) {
+  if (!isValidNetwork) {
     throw new Error('Invalid network')
   }
 
