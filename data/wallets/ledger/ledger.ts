@@ -32,6 +32,9 @@ const ledger: WalletConfig = {
         uid: 'ledger#authn',
         endpoint: 'https://fcl-ledger.onflow.org/testnet/authn',
         optIn: true,
+        provider: {
+          address: '0x9d2e44203cb13051',
+        },
       },
     ],
     canarynet: [
