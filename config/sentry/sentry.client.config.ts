@@ -5,6 +5,8 @@
 import * as Sentry from '@sentry/nextjs'
 import { sentryBaseConfig } from './sentry.base.config'
 
+console.log(process.env.NEXT_PUBLIC_SENTRY_DSN)
+
 Sentry.init({
   // Inherit base config
   ...sentryBaseConfig,
