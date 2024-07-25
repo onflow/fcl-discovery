@@ -1,4 +1,3 @@
-import { StaticImageData } from 'next/image'
 import { Provider, Service } from '../types'
 import { AVAILABLE_FEATURES } from '../helpers/constants'
 import blocto from './wallets/blocto/blocto'

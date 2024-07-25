@@ -1,4 +1,5 @@
-import { Wallet } from '../data/wallets'
+import { IdentityFunction } from 'rambda'
+import { Wallet, WalletConfig } from '../data/wallets'
 import { ServiceWithWallet } from '../helpers/wallets'
 
 export type Provider = {
@@ -27,13 +28,8 @@ export type Metadata = {
   install_link?: string
 }
 
-export type ServicesPipeFactory = ({
-  wallets,
-}: {
-  wallets: Wallet[]
-}) => (services: ServiceWithWallet[]) => ServiceWithWallet[]
-
-export interface VersionServicePipe {
+export type WalletPipe = (wallets: WalletConfig[]) => Wallet[]
+export interface VersionWalletPipe {
   supportedVersion: string
-  makePipe: ServicesPipeFactory
+  pipe: WalletPipe
 }

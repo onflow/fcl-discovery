@@ -47,6 +47,7 @@ export const injectClientServices =
     })
   }
 
+// Generate lookup table to map service uid/addr to wallet uid
 export const generateWalletIdMap = (wallets: Wallet[]) =>
   wallets.reduce(
     (acc, wallet) => {

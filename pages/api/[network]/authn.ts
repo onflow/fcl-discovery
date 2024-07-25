@@ -7,8 +7,15 @@ import { Wallet } from '../../../data/wallets'
 const handler: NextApiHandler = async (req, res) => {
   await runMiddleware(req, res, cors)
 
+  const start = performance.now()
   const discoveryWallets = await getWalletsFromRequest(req)
   const discoveryServices = extractAllWalletServices(discoveryWallets)
+
+  console.log(
+    `Discovery: ${discoveryServices.length} services in ${
+      performance.now() - start
+    }ms`
+  )
 
   return res.status(200).json(discoveryServices)
 }

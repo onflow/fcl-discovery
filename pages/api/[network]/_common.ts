@@ -3,8 +3,7 @@ import Cors from 'cors'
 import { wallets } from '../../../data/wallets'
 import { findMatchingPipeVersion } from '../../../helpers/version'
 import { NETWORKS } from '../../../helpers/constants'
-import { getServicePipes } from '../../../helpers/service-pipes'
-import { getWalletPipe } from '../../../helpers/wallets'
+import { getWalletPipes } from '../../../helpers/wallet-pipes'
 import { NextApiRequest } from 'next'
 
 // Initializing the cors middleware
@@ -39,30 +38,20 @@ export async function getWalletsFromRequest(req: NextApiRequest) {
     throw new Error('Invalid network')
   }
 
-  const servicePipes = getServicePipes({
+  // Support emulator and use local service configuration
+  const netConfig = network === NETWORKS.EMULATOR ? NETWORKS.LOCAL : network
+
+  const walletPipes = getWalletPipes({
     fclVersion,
-    discoveryType,
+    discoveryType: discoveryRequestType,
     include,
     userAgent,
     clientServices: services,
     supportedStrategies,
-    network,
+    network: netConfig,
     portOverride: portQuery || portBody,
   })
-  const makeServicesPipe = findMatchingPipeVersion(
-    fclVersion,
-    servicePipes as any
-  )
-
-  // Support emulator and use local service configuration
-  const netConfig = network === NETWORKS.EMULATOR ? NETWORKS.LOCAL : network
-
-  // Get the pipe for processing wallets
-  const walletPipe = getWalletPipe({
-    network: netConfig,
-    clientServices,
-    makeServicesPipe,
-  })
+  const walletPipe = findMatchingPipeVersion(fclVersion, walletPipes)
 
   return walletPipe(wallets)
 }

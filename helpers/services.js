@@ -1,14 +1,4 @@
-import {
-  always,
-  assoc,
-  clone,
-  evolve,
-  filter,
-  identity,
-  ifElse,
-  map,
-  partial,
-} from 'rambda'
+import { always, clone, evolve, filter, identity, ifElse, map } from 'rambda'
 import { FCL_SERVICE_METHODS, SERVICE_TYPES } from './constants'
 import { replacePort } from './urls'
 

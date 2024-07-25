@@ -1,26 +1,13 @@
 import { pipe } from 'rambda'
-import { Service, ServicesPipeFactory } from '../types'
+import { Service } from '../types'
 import { Wallet, WalletConfig } from '../data/wallets'
-import { injectClientServices } from './inject-wallets'
 
 export type ServiceWithWallet = Service & { walletUid: string }
+export type ServicesPipeFactory = (args: {
+  wallets: Wallet[]
+}) => (services: ServiceWithWallet[]) => ServiceWithWallet[]
 
-export const getWalletPipe = ({
-  network,
-  clientServices,
-  makeServicesPipe,
-}: {
-  network: string
-  clientServices: ServiceWithWallet[]
-  makeServicesPipe: ServicesPipeFactory
-}) =>
-  pipe(
-    walletsForNetwork(network),
-    injectClientServices(clientServices),
-    transformWalletServices(makeServicesPipe)
-  )
-
-export const transformWalletServices =
+export const pipeWalletServices =
   (makeServicesPipe: ServicesPipeFactory) => (wallets: Wallet[]) =>
     pipe(
       extractWalletServices,

@@ -1,13 +1,13 @@
 import { clone } from 'rambda'
 import {
   ServiceWithWallet,
-  transformWalletServices,
+  pipeWalletServices,
   walletsForNetwork,
 } from '../wallets'
 import { getMockWalletsConfig, getMockWalletsMainnet } from './helpers/fixtures'
 
 describe('wallets helpers', () => {
-  test('transformWalletServices: should pipe all wallet services', () => {
+  test('pipeWalletServices: should pipe all wallet services', () => {
     const wallets = getMockWalletsMainnet()
     const walletId = wallets[0].uid
     const mockResult = [
@@ -26,7 +26,7 @@ describe('wallets helpers', () => {
     const servicesPipe = jest.fn(() => clone(mockResult))
     const makeServicesPipe = jest.fn(() => servicesPipe)
 
-    const res = transformWalletServices(makeServicesPipe)(wallets)
+    const res = pipeWalletServices(makeServicesPipe)(wallets)
 
     // Expect wallets to be correct
     expect(makeServicesPipe).toHaveBeenCalledTimes(1)

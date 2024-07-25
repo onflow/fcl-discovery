@@ -14,16 +14,12 @@ export const NETWORKS = {
 
 export const SERVICE_TYPES = { AUTHN }
 
-const { IFRAME, POP, TAB, HTTP, EXT } = Enum.String({
-  transform: value => `${value}/RPC`,
-})
-
-export const FCL_SERVICE_METHODS = {
-  IFRAME, // IFRAME/RPC
-  POP,
-  TAB,
-  HTTP,
-  EXT,
+export enum FCL_SERVICE_METHODS {
+  IFRAME = 'IFRAME/RPC',
+  POP = 'POP/RPC',
+  TAB = 'TAB/RPC',
+  HTTP = 'HTTP/POST',
+  EXT = 'EXT/RPC',
 }
 
 export const FCL_SERVICE_METHOD_VALUES = Object.values(FCL_SERVICE_METHODS)
