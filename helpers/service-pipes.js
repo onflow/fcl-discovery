@@ -107,7 +107,7 @@ export const getServicePipes = ({
             // Add services if supported
             serviceOfTypeAuthn,
             // Allow port override option if local
-            partial(overrideServicePorts, isLocal, portOverride)
+            overrideServicePorts(isLocal, portOverride)
           )(services),
     },
   ]

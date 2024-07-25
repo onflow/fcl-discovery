@@ -1,4 +1,14 @@
-import { clone, filter, identity, ifElse, map } from 'rambda'
+import {
+  always,
+  assoc,
+  clone,
+  evolve,
+  filter,
+  identity,
+  ifElse,
+  map,
+  partial,
+} from 'rambda'
 import { FCL_SERVICE_METHODS, SERVICE_TYPES } from './constants'
 import { replacePort } from './urls'
 
@@ -108,14 +118,13 @@ export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
     )
   )
 
-export const overrideServicePorts = (
-  shouldOverride,
-  portOverride,
-  services = []
-) => {
-  if (!shouldOverride) return services
-  return services.map(s => {
-    s.endpoint = replacePort(s.endpoint, portOverride)
-    return s
-  })
-}
+export const overrideServicePorts = (shouldOverride, portOverride) =>
+  ifElse(
+    always(shouldOverride),
+    map(
+      evolve({
+        endpoint: e => replacePort(e, portOverride),
+      })
+    ),
+    identity
+  )
