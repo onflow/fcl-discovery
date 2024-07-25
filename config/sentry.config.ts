@@ -1,25 +1,8 @@
-// Base NextJS Configuration
-const nextJsConfig = {
-  reactStrictMode: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  swcMinify: true,
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
-    return {
-      '/authn': { page: '/mainnet/authn', query: { network: 'mainnet' } },
-    }
-  },
-}
+import {withSentryConfig as defaultWithSentryConfig } from "@sentry/nextjs"
 
-// Add Sentry Config
-const { withSentryConfig } = require("@sentry/nextjs");
-module.exports = withSentryConfig(
-  nextJsConfig,
-  {
+export const withSentryConfig = (nextJsConfig: any) => defaultWithSentryConfig(
+    nextJsConfig,
+    {
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options
 
@@ -53,4 +36,4 @@ module.exports = withSentryConfig(
     // https://vercel.com/docs/cron-jobs
     automaticVercelMonitors: true,
   }
-);
+)

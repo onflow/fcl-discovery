@@ -3,7 +3,6 @@ import Cors from 'cors'
 import servicesJson from '../../data/services.json'
 import { isValidPath, getNetworkFromPath } from '../../helpers/paths'
 import { findMatchingPipeVersion } from '../../helpers/version'
-import Sentry from '../../config/sentry.server'
 import { getServicePipes } from '../../helpers/servicePipes'
 import { NETWORKS } from '../../helpers/constants'
 
@@ -67,4 +66,4 @@ async function handler(req, res) {
   return res.status(200).json(discoveryServices)
 }
 
-export default Sentry.wrapApiHandlerWithSentry(handler)
+export default handler
