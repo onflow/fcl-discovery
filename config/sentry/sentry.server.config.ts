@@ -3,13 +3,14 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from '@sentry/nextjs'
+import { sentryBaseConfig } from './sentry.base.config'
 
 Sentry.init({
-  dsn: 'https://c9e35599e6334bbb8de8bd8c5e388e85@o114654.ingest.us.sentry.io/6361967',
+  // Inherit base config
+  ...sentryBaseConfig,
+
+  dsn: process.env.SENTRY_BACKEND_DSN,
 
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,
-
-  // Setting this option to true will print useful information to the console while you're setting up Sentry.
-  debug: false,
-})
+} as Sentry.NodeOptions)
