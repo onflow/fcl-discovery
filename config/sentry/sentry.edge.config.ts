@@ -10,8 +10,7 @@ Sentry.init({
   // Inherit base config
   ...sentryBaseConfig,
 
-  // TODO: generate a new DSN for backend
-  dsn: process.env.SENTRY_DSN,
+  dsn: process.env.SENTRY_DSN_BACKEND,
 
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1,
