@@ -1,6 +1,6 @@
 import { Service } from '../../types'
 import { injectClientServices } from '../inject-wallets'
-import { getMockWalletsMainnet, walletFixtures } from './helpers/fixtures'
+import { getMockWalletsMainnet, walletFixtures } from './_utils/fixtures'
 
 describe('wallet injection tests', () => {
   test('injectClientServices: should inject replacement service', () => {

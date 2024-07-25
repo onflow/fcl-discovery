@@ -4,7 +4,7 @@ import {
   pipeWalletServices,
   walletsForNetwork,
 } from '../wallets'
-import { getMockWalletsConfig, getMockWalletsMainnet } from './helpers/fixtures'
+import { getMockWalletsConfig, getMockWalletsMainnet } from './_utils/fixtures'
 
 describe('wallets helpers', () => {
   test('pipeWalletServices: should pipe all wallet services', () => {
