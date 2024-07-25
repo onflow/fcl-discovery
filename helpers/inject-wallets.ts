@@ -118,9 +118,6 @@ export const injectedServiceToWallet = (service: Service) => {
     website: provider.website || '',
     supportEmail: provider.supportEmail,
     icon: provider.icon || '',
-    installLink: {
-      chrome: provider?.['install_link'] || '',
-    },
     services: [],
   }
   return wallet
