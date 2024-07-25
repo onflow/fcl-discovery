@@ -4,6 +4,6 @@ export const sentryBaseConfig:
   | Sentry.BrowserOptions
   | Sentry.NodeOptions
   | Sentry.EdgeOptions = {
-  environment: process.env.VERCEL_ENV || process.env.NODE_ENV,
+  environment: process.env.NEXT_PUBLIC_VERCEL_ENV || process.env.NODE_ENV,
   enabled: process.env.NODE_ENV !== 'development',
 }
