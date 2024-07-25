@@ -81,7 +81,8 @@ export const filterServicesByPlatform = ({ wallets, platform }) =>
     return providerPlatforms.includes(platform?.toLowerCase())
   })
 
-// TODO: We should create a new schema for this
+// TODO: We should consider creating a new schema for this response to totally phase out service.provider in /api/wallets
+// TBD in future PR to v2 branch
 export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
   map(
     ifElse(

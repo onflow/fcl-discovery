@@ -3,7 +3,7 @@ import { Service } from '../types'
 import { Wallet, WalletConfig } from '../data/wallets'
 
 export type ServiceWithWallet = Service & { walletUid: string }
-export type ServicesPipeFactory = (args: {
+type ServicesPipeFactory = (args: {
   wallets: Wallet[]
 }) => (services: ServiceWithWallet[]) => ServiceWithWallet[]
 
@@ -68,4 +68,19 @@ export const walletToProvider = (wallet: Wallet) => {
     color: wallet.color,
     website: wallet.website,
   }
+}
+
+export function extractAllServicesWithProvider(wallets: Wallet[]) {
+  return wallets.reduce((acc, wallet) => {
+    acc.push(
+      ...wallet.services.map(service => ({
+        ...service,
+        provider: {
+          ...walletToProvider(wallet),
+          ...service.provider,
+        },
+      }))
+    )
+    return acc
+  }, [])
 }
