@@ -1,5 +1,5 @@
 import { USER_AGENTS_SUBSTRINGS } from '../constants'
-import { hasUserAgent } from '../userAgent'
+import { hasUserAgent } from '../platform'
 
 const chromeUserAgent =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'

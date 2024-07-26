@@ -14,16 +14,12 @@ export const NETWORKS = {
 
 export const SERVICE_TYPES = { AUTHN }
 
-const { IFRAME, POP, TAB, HTTP, EXT } = Enum.String({
-  transform: value => `${value}/RPC`,
-})
-
-export const FCL_SERVICE_METHODS = {
-  IFRAME, // IFRAME/RPC
-  POP,
-  TAB,
-  HTTP,
-  EXT,
+export enum FCL_SERVICE_METHODS {
+  IFRAME = 'IFRAME/RPC',
+  POP = 'POP/RPC',
+  TAB = 'TAB/RPC',
+  HTTP = 'HTTP/POST',
+  EXT = 'EXT/RPC',
 }
 
 export const FCL_SERVICE_METHOD_VALUES = Object.values(FCL_SERVICE_METHODS)
@@ -67,3 +63,31 @@ export const LOCAL_STORAGE_KEYS = {
 export const USER_AGENTS_SUBSTRINGS = {
   CHROME: 'Chrome',
 }
+
+export const AVAILABLE_FEATURES = [
+  {
+    id: 'mobile',
+    name: 'Mobile',
+    description: 'This wallet is available on mobile devices.',
+  },
+  {
+    id: 'extension',
+    name: 'Extension',
+    description: 'This wallet is available as a browser extension.',
+  },
+  {
+    id: 'web',
+    name: 'Web',
+    description: 'This wallet is available as a web-wallet.',
+  },
+  {
+    id: 'hardware',
+    name: 'Hardware',
+    description: 'This wallet is a hardware wallet.',
+  },
+  {
+    id: 'evm',
+    name: 'EVM',
+    description: 'This wallet supports the Ethereum Virtual Machine.',
+  },
+] as const

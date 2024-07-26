@@ -30,17 +30,17 @@ export function useFcl() {
         const state = {
           appConfig: config.app,
           clientConfig: config.client,
-          appVersion: config.client.fclVersion || fclVersion || null,
+          appVersion: config.client?.fclVersion || fclVersion || null,
           walletInclude:
             config.discoveryAuthnInclude ||
             config.client.discoveryAuthnInclude ||
             [],
           clientServices:
-            config.client.clientServices ||
-            config.client.extensions ||
+            config.client?.clientServices ||
+            config.client?.extensions ||
             body.extensions ||
             [],
-          supportedStrategies: config.client.supportedStrategies || [],
+          supportedStrategies: config.client?.supportedStrategies || [],
         } as FclConfig
 
         setConfig(state)

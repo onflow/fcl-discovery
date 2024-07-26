@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import { PATHS } from '../helpers/constants'
 import { useConfig } from '../contexts/ConfigContext'
-import { getUserAgent } from '../helpers/userAgent'
+import { getUserAgent } from '../helpers/platform'
 import { Service } from '../types'
 
 const genKey = (url: string, opts: any) => [url, JSON.stringify(opts)]

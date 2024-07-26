@@ -5,12 +5,22 @@ const nextJsConfig = {
     ignoreDuringBuilds: true,
   },
   swcMinify: true,
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
+  async rewrites() {
     return {
-      '/authn': { page: '/mainnet/authn', query: { network: 'mainnet' } },
+      afterFiles: [
+        {
+          source: '/api/authn',
+          destination: '/api/mainnet/authn',
+        },
+        {
+          source: '/api/wallets',
+          destination: '/api/mainnet/wallets',
+        },
+        {
+          source: '/authn',
+          destination: '/mainnet/authn',
+        },
+      ],
     }
   },
   env: {
