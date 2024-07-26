@@ -1,17 +1,17 @@
-import { Flex, Stack, Text } from '@chakra-ui/react'
-import { Service } from '../types'
+import { Stack, Text } from '@chakra-ui/react'
 import ServiceCard from './ServiceCard'
+import { Wallet } from '../data/wallets'
 
 interface ServiceGroupProps {
   title: string
-  services: Service[]
+  wallets: Wallet[]
   titleProps?: React.ComponentProps<typeof Text>
   cardProps?: React.ComponentProps<typeof ServiceCard>
 }
 
 export default function ServiceGroup({
   title,
-  services,
+  wallets,
   titleProps,
   cardProps,
 }: ServiceGroupProps) {
@@ -21,16 +21,8 @@ export default function ServiceGroup({
         {title}
       </Text>
       <Stack spacing={2}>
-        {services.map((service, index) => {
-          return (
-            <ServiceCard
-              key={service?.provider?.address ?? index}
-              service={service}
-              name={service?.provider?.name ?? ''}
-              icon={service?.provider?.icon ?? ''}
-              {...cardProps}
-            />
-          )
+        {wallets.map(wallet => {
+          return <ServiceCard key={wallet.uid} wallet={wallet} {...cardProps} />
         })}
       </Stack>
     </Stack>

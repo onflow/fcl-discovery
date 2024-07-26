@@ -1,57 +1,60 @@
 import { Stack } from '@chakra-ui/react'
 import ServiceGroup from './ServiceGroup'
-import { useLastUsedState } from '../hooks/useLastUsedState'
-import { Service } from '../types'
 import { useMemo } from 'react'
+import { Wallet } from '../data/wallets'
+import { isExtension } from '../helpers/services'
+import { useWalletHistory } from '../hooks/useWalletHistory'
 
 interface ServiceListProps {
-  services: Service[]
+  wallets: Wallet[]
 }
 
-export default function ServiceList({ services }: ServiceListProps) {
-  const { lastUsed: lastUsedAddr } = useLastUsedState()
+export default function ServiceList({ wallets }: ServiceListProps) {
+  const { isLastUsed } = useWalletHistory()
 
   // Get the last used service, installed services, and recommended services
-  const { lastUsedService, installedServices, recommendedServices } = useMemo(
+  const { lastUsedWallet, installedWallets, recommendedWallets } = useMemo(
     () =>
-      services.reduce(
-        (acc, service) => {
-          if (service.provider.address === lastUsedAddr && lastUsedAddr) {
-            acc.lastUsedService = service
-          } else if (service.provider.is_installed) {
-            acc.installedServices.push(service)
+      wallets.reduce(
+        (acc, wallet) => {
+          const extensionService = wallet.services.find(isExtension)
+
+          if (isLastUsed(wallet)) {
+            acc.lastUsedWallet = wallet
+          } else if (extensionService?.provider?.is_installed) {
+            acc.installedWallets.push(wallet)
           } else {
-            acc.recommendedServices.push(service)
+            acc.recommendedWallets.push(wallet)
           }
           return acc
         },
         {
-          lastUsedService: null,
-          installedServices: [] as Service[],
-          recommendedServices: [] as Service[],
+          lastUsedWallet: null as Wallet | null,
+          installedWallets: [] as Wallet[],
+          recommendedWallets: [] as Wallet[],
         }
       ),
-    [services, lastUsedAddr]
+    [wallets, isLastUsed]
   )
 
   return (
     <Stack spacing={4}>
-      {lastUsedService && (
+      {lastUsedWallet && (
         <ServiceGroup
           title="Last Used"
-          services={[lastUsedService]}
+          wallets={[lastUsedWallet]}
           titleProps={{
             color: 'blue.400',
           }}
         />
       )}
 
-      {installedServices.length > 0 && (
-        <ServiceGroup title="Installed" services={installedServices} />
+      {installedWallets.length > 0 && (
+        <ServiceGroup title="Installed" wallets={installedWallets} />
       )}
 
-      {recommendedServices.length > 0 && (
-        <ServiceGroup title="Recommended" services={recommendedServices} />
+      {recommendedWallets.length > 0 && (
+        <ServiceGroup title="Recommended" wallets={recommendedWallets} />
       )}
     </Stack>
   )

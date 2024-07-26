@@ -1,8 +1,7 @@
 import useSWR from 'swr'
-import { PATHS } from '../helpers/constants'
 import { useConfig } from '../contexts/ConfigContext'
 import { getUserAgent } from '../helpers/platform'
-import { Service } from '../types'
+import { Wallet } from '../data/wallets'
 
 const genKey = (url: string, opts: any) => [url, JSON.stringify(opts)]
 
@@ -27,7 +26,7 @@ export function useWallets() {
     port,
   } = useConfig()
 
-  const requestUrl = `/api${PATHS[network.toUpperCase()]}?discoveryType=UI`
+  const requestUrl = `/api/${network.toLowerCase()}/wallets?discoveryType=UI`
   const body = {
     type: ['authn'],
     fclVersion: appVersion,
@@ -43,7 +42,7 @@ export function useWallets() {
   }
 
   const { data: wallets, error } = useSWR(genKey(requestUrl, body), url =>
-    fetcher<Service[]>(url, body)
+    fetcher<Wallet[]>(url, body)
   )
 
   return { wallets, error, isLoading: !wallets && !error }
