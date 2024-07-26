@@ -13,11 +13,11 @@ export default function ViewHeader({ title, onClose, onBack }: HeaderProps) {
     <Flex alignItems="center" position="relative" p="4">
       <Text
         position="absolute"
-        left="50%"
-        transform="translateX(-50%)"
+        left="0"
+        right="0"
         fontSize="xl"
         fontWeight="bold"
-        my="auto"
+        textAlign="center"
       >
         {title}
       </Text>

@@ -1,30 +1,53 @@
-import { Container, Stack, Text, VStack } from '@chakra-ui/react'
+import { Stack } from '@chakra-ui/react'
 import ViewLayout from '../ViewLayout'
-import GetWalletList from '../GetWalletList'
+import WalletTypeCard from '../WalletTypeCard'
+import ChromeIcon from '../Icons/chrome.svg'
+import { Wallet } from '../../data/wallets'
 
 interface GetWalletProps {
-  onBack?: () => void
-  onCloseModal?: () => void
+  onBack: () => void
+  onCloseModal: () => void
+  onGetQRCode: (wallet: Wallet) => void
+  wallet: Wallet
 }
 
-export default function GetWallet({ onBack, onCloseModal }: GetWalletProps) {
+export default function GetWallet({
+  onBack,
+  onCloseModal,
+  wallet,
+  onGetQRCode,
+}: GetWalletProps) {
   return (
     <ViewLayout
-      header={{ title: 'Get a Wallet', onBack, onClose: onCloseModal }}
+      header={{
+        title: `Get ${wallet.name}`,
+        onBack,
+        onClose: onCloseModal,
+      }}
     >
-      <Stack spacing={0} flexGrow={1} overflow="hidden">
-        <Stack spacing={8} px={8} pb={6} flexGrow={1} overflow="scroll">
-          <GetWalletList />
-        </Stack>
-        <Container textAlign="center" p={8} maxW="xs">
-          <Text fontSize="md" fontWeight="bold" mb={1}>
-            Not what you're looking for?
-          </Text>
-          <Text fontSize="sm" color="gray.500">
-            Select a wallet on the left to get started with a different wallet
-            provider.
-          </Text>
-        </Container>
+      <Stack flexGrow={1} alignItems="center" spacing={4} px={6} pb={6}>
+        {wallet.installLink?.browser && (
+          <WalletTypeCard
+            variant="link"
+            icon={ChromeIcon}
+            title={`${wallet.name} for Chrome`}
+            description={
+              'Access your wallet directly from your preferred web browser.'
+            }
+            buttonText="Add to Chrome"
+            href={wallet.installLink.browser}
+          ></WalletTypeCard>
+        )}
+        {wallet.installLink?.mobile && (
+          <WalletTypeCard
+            variant="button"
+            icon={wallet.icon}
+            title={`${wallet.name} for Mobile`}
+            description={`Explore the Flow Blockchain using your mobile device.`}
+            buttonText="Get the App"
+            onButtonClick={() => onGetQRCode?.(wallet)}
+          ></WalletTypeCard>
+        )}
       </Stack>
     </ViewLayout>
   )
