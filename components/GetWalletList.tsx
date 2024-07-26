@@ -7,15 +7,8 @@ export default function GetWalletList() {
 
   return (
     <Stack spacing={4}>
-      {wallets.map((wallet, index) => {
-        return (
-          <GetWalletCard
-            key={wallet.provider.address ?? index}
-            service={wallet}
-            name={wallet?.provider?.name ?? ''}
-            icon={wallet?.provider?.icon ?? ''}
-          />
-        )
+      {wallets.map(wallet => {
+        return <GetWalletCard key={wallet.uid} wallet={wallet} />
       })}
     </Stack>
   )

@@ -1,7 +1,4 @@
-import { WalletUtils } from '@onflow/fcl'
-import { SUPPORTED_VERSIONS } from '../helpers/constants'
 import { isExtension } from '../helpers/services'
-import { isGreaterThanOrEqualToVersion } from '../helpers/version'
 import {
   Card,
   CardBody,
@@ -12,47 +9,19 @@ import {
   Tag,
   Text,
 } from '@chakra-ui/react'
-import { Service } from '../types'
-import { useConfig } from '../contexts/ConfigContext'
-import { useLastUsedState } from '../hooks/useLastUsedState'
+import { Wallet } from '../data/wallets'
 
-type Props = {
-  icon: string
-  name: string
-  service: Service
+interface ServiceCardProps {
+  wallet: Wallet
 }
 
-export default function ServiceCard({ icon, name, service }: Props) {
-  const { appVersion } = useConfig()
-
-  const installLink = service?.provider?.install_link
-  const isExtensionService = isExtension(service)
-  const isExtensionServiceInstalled = Boolean(service?.provider?.is_installed)
-
-  const { setLastUsed } = useLastUsedState()
+export default function ServiceCard({ wallet }: ServiceCardProps) {
+  const extensionService = wallet.services.find(isExtension)
+  const isExtensionService = !!extensionService
+  const isExtensionServiceInstalled = extensionService?.provider?.is_installed
 
   const onSelect = () => {
-    if (!service) return
-
-    setLastUsed(service?.provider?.address)
-
-    if (isExtensionService && !isExtensionServiceInstalled) {
-      if (installLink) {
-        // Extensions require reload of page to inject script into dapp with data
-        // Redirecting dapp to install page forces page to be refreshed when returning
-        window.parent.location.href = installLink
-      }
-      return
-    }
-
-    if (
-      appVersion &&
-      isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.EXTENSIONS)
-    ) {
-      WalletUtils.redirect(service)
-    } else {
-      window.location.href = `${service.endpoint}${window.location.search}`
-    }
+    // TODO: implement connect wallet logic, future PR
   }
 
   return (
@@ -73,8 +42,8 @@ export default function ServiceCard({ icon, name, service }: Props) {
             <Flex alignItems="center" justifyContent="space-between">
               <HStack>
                 <Image
-                  src={icon}
-                  alt={name}
+                  src={wallet.icon}
+                  alt={wallet.name}
                   borderRadius="lg"
                   borderWidth="1px"
                   borderColor="gray.200"
@@ -85,7 +54,7 @@ export default function ServiceCard({ icon, name, service }: Props) {
                 />
                 <Flex direction="column" textAlign="left">
                   <Text fontSize="lg" as="b">
-                    {name}
+                    {wallet.name}
                   </Text>
 
                   {isExtensionService && !isExtensionServiceInstalled ? (

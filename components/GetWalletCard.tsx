@@ -7,22 +7,19 @@ import {
   HStack,
   Image,
   Stack,
-  Tag,
   Text,
-  Link,
 } from '@chakra-ui/react'
-import { Service } from '../types'
 import NextLink from 'next/link'
+import { Wallet } from '../data/wallets'
 
 type Props = {
-  icon: string
-  name: string
-  service: Service
+  wallet: Wallet
 }
 
-export default function GetWalletCard({ icon, name, service }: Props) {
-  const isExtensionService = isExtension(service)
-  const isExtensionServiceInstalled = Boolean(service?.provider?.is_installed)
+export default function GetWalletCard({ wallet }: Props) {
+  const extensionService = wallet.services.find(isExtension)
+  const isExtensionService = !!extensionService
+  const isExtensionServiceInstalled = extensionService?.provider?.is_installed
 
   return (
     <Card size="md" variant="unstyled">
@@ -31,8 +28,8 @@ export default function GetWalletCard({ icon, name, service }: Props) {
           <Flex alignItems="center" justifyContent="space-between">
             <HStack>
               <Image
-                src={icon}
-                alt={name}
+                src={wallet.icon}
+                alt={wallet.name}
                 borderRadius="lg"
                 borderWidth="1px"
                 borderColor="gray.200"
@@ -43,7 +40,7 @@ export default function GetWalletCard({ icon, name, service }: Props) {
               />
               <Flex direction="column" textAlign="left">
                 <Text fontSize="lg" as="b">
-                  {name}
+                  {wallet.name}
                 </Text>
 
                 {isExtensionService && !isExtensionServiceInstalled ? (
@@ -58,7 +55,7 @@ export default function GetWalletCard({ icon, name, service }: Props) {
 
         {/* TODO: Needs to link to install page, will be addressed in future PR */}
         <Button
-          href={service.provider.install_link || service.provider.website}
+          href={wallet.website}
           target="_blank"
           as={NextLink}
           variant="outline"
