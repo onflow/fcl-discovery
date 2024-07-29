@@ -1,11 +1,11 @@
-export enum BrowserType {
-  CHROME = 'chrome',
-}
+import { BROWSERS } from './constants'
 
-export function getBrowserType(userAgent: string): BrowserType | null {
+export function getBrowserInfo(
+  userAgent: string
+): typeof BROWSERS[keyof typeof BROWSERS] {
   if (userAgent.includes('Chrome')) {
-    return BrowserType.CHROME
+    return BROWSERS.CHROME
   }
 
-  return null
+  return BROWSERS.BROWSER
 }

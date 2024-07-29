@@ -4,6 +4,7 @@ import WalletTypeCard from '../WalletTypeCard'
 import ChromeIcon from '../Icons/chrome.svg'
 import { Wallet } from '../../data/wallets'
 import { getBrowserFromUserAgent, getUserAgent } from '../../helpers/platform'
+import { getBrowserInfo } from '../../helpers/browsers'
 
 interface GetWalletProps {
   onBack: () => void
@@ -18,12 +19,9 @@ export default function GetWallet({
   wallet,
   onGetQRCode,
 }: GetWalletProps) {
-  const browser = getBrowserFromUserAgent(getUserAgent())
+  const browserInfo = getBrowserInfo(getUserAgent())
   const browserInstallLink =
-    wallet.installLink?.[browser] || wallet.installLink?.browser
-  const browserName = wallet.installLink?.[browser]
-    ? browser.charAt(0).toUpperCase() + browser.slice(1)
-    : 'Browser'
+    wallet.installLink?.[browserInfo.id] || wallet.installLink?.browser
 
   return (
     <ViewLayout
@@ -36,13 +34,13 @@ export default function GetWallet({
       <Stack flexGrow={1} alignItems="center" spacing={4} px={6} pb={6}>
         {wallet.installLink?.browser && (
           <WalletTypeCard
-            icon={ChromeIcon}
-            title={`${wallet.name} for ${browserName}}`}
+            icon={browserInfo.icon}
+            title={`${wallet.name} for ${browserInfo.name}}`}
             description={
               'Access your wallet directly from your preferred web browser.'
             }
             button={{
-              text: `Add to ${browserName}`,
+              text: `Add to ${browserInfo.name}`,
               href: browserInstallLink,
             }}
           ></WalletTypeCard>
