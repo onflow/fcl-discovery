@@ -35,7 +35,7 @@ export default function GetWallet({
         {wallet.installLink?.browser && (
           <WalletTypeCard
             icon={browserInfo.icon}
-            title={`${wallet.name} for ${browserInfo.name}}`}
+            title={`${wallet.name} for ${browserInfo.name}`}
             description={
               'Access your wallet directly from your preferred web browser.'
             }
