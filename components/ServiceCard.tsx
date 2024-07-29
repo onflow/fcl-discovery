@@ -6,23 +6,19 @@ import {
   HStack,
   Image,
   Stack,
-  Tag,
   Text,
 } from '@chakra-ui/react'
 import { Wallet } from '../data/wallets'
 
 interface ServiceCardProps {
   wallet: Wallet
+  onClick: () => void
 }
 
-export default function ServiceCard({ wallet }: ServiceCardProps) {
+export default function ServiceCard({ wallet, onClick }: ServiceCardProps) {
   const extensionService = wallet.services.find(isExtension)
   const isExtensionService = !!extensionService
   const isExtensionServiceInstalled = extensionService?.provider?.is_installed
-
-  const onSelect = () => {
-    // TODO: implement connect wallet logic, future PR
-  }
 
   return (
     <Card
@@ -33,7 +29,7 @@ export default function ServiceCard({ wallet }: ServiceCardProps) {
         transitionDuration: '0.2s',
         transitionTimingFunction: 'ease-in-out',
       }}
-      onClick={onSelect}
+      onClick={onClick}
       variant="unstyled"
     >
       <CardBody width="100%">

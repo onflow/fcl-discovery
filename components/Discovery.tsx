@@ -1,18 +1,20 @@
-import { Flex, useModalContext } from '@chakra-ui/react'
-import { useState } from 'react'
-import { useWallets } from '../hooks/useWallets'
-import { Wallet } from '../data/wallets'
-
 import WalletSelection from './views/WalletSelection'
 import ExploreWallets from './views/ExploreWallets'
 import GetWallet from './views/GetWallet'
 import ScanInstall from './views/ScanInstall'
+import ConnectWallet from './views/ConnectWallet'
+import { Flex, useModalContext } from '@chakra-ui/react'
+import { useState } from 'react'
+import { useWallets } from '../hooks/useWallets'
+import { Wallet } from '../data/wallets'
+import * as fcl from '@onflow/fcl'
 
 export enum VIEWS {
   WALLET_SELECTION,
   EXPLORE_WALLETS,
   GET_WALLET,
   SCAN_INSTALL,
+  CONNECT_WALLET,
   SCAN_CONNECT,
 }
 
@@ -31,6 +33,16 @@ export default function Discovery() {
       viewContent = (
         <WalletSelection
           onSwitchToLearnMore={() => setCurrentView(VIEWS.EXPLORE_WALLETS)}
+          onClickWallet={wallet => {
+            setSelectedWallet(wallet)
+            if (wallet.services.length === 1) {
+              // TODO: make sure WC/RPC behaviour is handled once integrated into Discovery
+              // (future PR)
+              fcl.WalletUtils.redirect(wallet.services[0])
+            } else {
+              setCurrentView(VIEWS.CONNECT_WALLET)
+            }
+          }}
         />
       )
       break
@@ -64,8 +76,17 @@ export default function Discovery() {
         <ScanInstall
           onBack={() => setCurrentView(VIEWS.WALLET_SELECTION)}
           onCloseModal={modal.onClose}
-          /* TODO: This should link to the CONNECT_WALLET view once added */
+          // TODO: Implement next page
           onContinue={() => setCurrentView(VIEWS.WALLET_SELECTION)}
+          wallet={selectedWallet}
+        />
+      )
+      break
+    case VIEWS.CONNECT_WALLET:
+      viewContent = (
+        <ConnectWallet
+          onBack={() => setCurrentView(VIEWS.WALLET_SELECTION)}
+          onCloseModal={modal.onClose}
           wallet={selectedWallet}
         />
       )

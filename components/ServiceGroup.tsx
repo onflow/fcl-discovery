@@ -7,6 +7,7 @@ interface ServiceGroupProps {
   wallets: Wallet[]
   titleProps?: React.ComponentProps<typeof Text>
   cardProps?: React.ComponentProps<typeof ServiceCard>
+  onClickWallet: (wallet: Wallet) => void
 }
 
 export default function ServiceGroup({
@@ -14,6 +15,7 @@ export default function ServiceGroup({
   wallets,
   titleProps,
   cardProps,
+  onClickWallet,
 }: ServiceGroupProps) {
   return (
     <Stack spacing={1}>
@@ -22,7 +24,14 @@ export default function ServiceGroup({
       </Text>
       <Stack spacing={2}>
         {wallets.map(wallet => {
-          return <ServiceCard key={wallet.uid} wallet={wallet} {...cardProps} />
+          return (
+            <ServiceCard
+              key={wallet.uid}
+              wallet={wallet}
+              onClick={() => onClickWallet(wallet)}
+              {...cardProps}
+            />
+          )
         })}
       </Stack>
     </Stack>

@@ -12,12 +12,17 @@ import { useWallets } from '../../hooks/useWallets'
 import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import { useConfig } from '../../contexts/ConfigContext'
 import { SUPPORTED_VERSIONS } from '../../helpers/constants'
+import { Wallet } from '../../data/wallets'
 
 type Props = {
+  onClickWallet: (wallet: Wallet) => void
   onSwitchToLearnMore: () => void
 }
 
-export default function WalletSelection({ onSwitchToLearnMore }: Props) {
+export default function WalletSelection({
+  onSwitchToLearnMore,
+  onClickWallet,
+}: Props) {
   const modal = useModalContext()
   const { wallets } = useWallets()
   const { appVersion } = useConfig()
@@ -34,7 +39,7 @@ export default function WalletSelection({ onSwitchToLearnMore }: Props) {
         <Stack overflow="scroll" px={8} pb={6} flexGrow={1}>
           {/* TODO: replace this in future PR with Filter Bar */}
           {/*isFeaturesSupported && <Features />*/}
-          <ServiceList wallets={wallets} />
+          <ServiceList onClickWallet={onClickWallet} wallets={wallets} />
         </Stack>
 
         <Divider color="gray.300" />
