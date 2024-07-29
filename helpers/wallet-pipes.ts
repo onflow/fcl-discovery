@@ -34,7 +34,7 @@ export const getWalletPipes = ({
   network,
   portOverride,
 }) => {
-  const platform = getBrowserFromUserAgent(userAgent).toLowerCase()
+  const platform = getBrowserFromUserAgent(userAgent)?.toLowerCase()
   const isLocal = network === NETWORKS.LOCAL || network === NETWORKS.EMULATOR
 
   // In newer versions, we'll have extensions sent

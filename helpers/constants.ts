@@ -102,6 +102,7 @@ export const BROWSERS = {
   BROWSER: {
     id: 'browser',
     name: 'Browser',
+    // TODO: We need a generic browser icon
     icon: ChromeIcon,
   },
 } as const
