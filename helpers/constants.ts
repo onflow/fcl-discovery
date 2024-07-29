@@ -1,4 +1,5 @@
 import Enum from 'enum-xyz'
+import ChromeIcon from '../components/Icons/chrome.svg'
 
 const { AUTHN, CANARYNET, TESTNET, PREVIEWNET, MAINNET, LOCAL, EMULATOR } =
   Enum.String({ casing: 'lowercase' })
@@ -91,3 +92,17 @@ export const AVAILABLE_FEATURES = [
     description: 'This wallet supports the Ethereum Virtual Machine.',
   },
 ] as const
+
+export const BROWSERS = {
+  CHROME: {
+    id: 'chrome',
+    name: 'Chrome',
+    icon: ChromeIcon,
+  },
+  BROWSER: {
+    id: 'browser',
+    name: 'Browser',
+    // TODO: We need a generic browser icon
+    icon: ChromeIcon,
+  },
+} as const

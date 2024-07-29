@@ -9,14 +9,15 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import NextLink from 'next/link'
 import { Wallet } from '../data/wallets'
+import HybridButton from './HybridButton'
 
 type Props = {
   wallet: Wallet
+  onButtonClick: () => void
 }
 
-export default function GetWalletCard({ wallet }: Props) {
+export default function GetWalletCard({ wallet, onButtonClick }: Props) {
   const extensionService = wallet.services.find(isExtension)
   const isExtensionService = !!extensionService
   const isExtensionServiceInstalled = extensionService?.provider?.is_installed
@@ -26,7 +27,7 @@ export default function GetWalletCard({ wallet }: Props) {
       <CardBody width="100%" display="flex">
         <Stack>
           <Flex alignItems="center" justifyContent="space-between">
-            <HStack>
+            <HStack spacing={3}>
               <Image
                 src={wallet.icon}
                 alt={wallet.name}
@@ -53,20 +54,21 @@ export default function GetWalletCard({ wallet }: Props) {
           </Flex>
         </Stack>
 
-        {/* TODO: Needs to link to install page, will be addressed in future PR */}
-        <Button
-          href={wallet.website}
-          target="_blank"
-          as={NextLink}
+        <HybridButton
           variant="outline"
           size="sm"
           colorScheme="blue"
           ml="auto"
           alignSelf="center"
           borderRadius="full"
+          {...(!wallet.installLink
+            ? { href: wallet.website }
+            : {
+                onClick: onButtonClick,
+              })}
         >
           Get
-        </Button>
+        </HybridButton>
       </CardBody>
     </Card>
   )

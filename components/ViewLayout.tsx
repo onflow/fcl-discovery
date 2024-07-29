@@ -9,7 +9,7 @@ type ViewLayoutProps = {
 
 export default function ViewLayout({ children, header }: ViewLayoutProps) {
   return (
-    <Stack spacing={0} overflow="hidden">
+    <Stack spacing={0} overflow="hidden" flexGrow={1}>
       {header && <ViewHeader {...header} />}
       {children}
     </Stack>
