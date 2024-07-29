@@ -1,60 +1,30 @@
-import { Button, HStack, Heading, Image, Stack, Text } from '@chakra-ui/react'
+import { HStack, Heading, Image, Stack, Text } from '@chakra-ui/react'
 import NextImage from 'next/image'
-import Link from 'next/link'
-import { ComponentProps } from 'react'
 import { isDataURL } from '../helpers/urls'
+import HybridButton from './HybridButton'
 
-type WalletTypeCardBaseProps = {
+type WalletTypeCardProps = {
   icon: string
   title: string
   description: string
-  buttonText: string
+  button: {
+    text: string
+  } & (
+    | {
+        href: string
+      }
+    | {
+        onClick: () => void
+      }
+  )
 }
 
-type LinkVariantProps = {
-  variant: 'link'
-  href: string
-} & WalletTypeCardBaseProps
-
-type ButtonVariantProps = {
-  variant: 'button'
-  onButtonClick: () => void
-} & WalletTypeCardBaseProps
-
-type WalletTypeCardProps = LinkVariantProps | ButtonVariantProps
-
-export function WalletTypeCard(props: LinkVariantProps)
-export function WalletTypeCard(props: ButtonVariantProps)
 export default function WalletTypeCard({
-  variant,
   icon,
   title,
   description,
-  buttonText,
-  ...otherProps
+  button: { text: buttonText, ...buttonProps },
 }: WalletTypeCardProps) {
-  let buttonProps: ComponentProps<typeof Button>
-  switch (variant) {
-    case 'link': {
-      const { href } = otherProps as LinkVariantProps
-      buttonProps = {
-        as: Link,
-        href,
-        target: '_blank',
-      }
-      break
-    }
-    case 'button': {
-      const { onButtonClick } = otherProps as ButtonVariantProps
-      buttonProps = {
-        onClick: onButtonClick,
-      }
-      break
-    }
-    default:
-      break
-  }
-
   return (
     <Stack
       borderWidth="1px"
@@ -76,7 +46,7 @@ export default function WalletTypeCard({
         <Stack pt={1}>
           <Heading size="sm">{title}</Heading>
           <Text color="gray.500">{description}</Text>
-          <Button
+          <HybridButton
             size="sm"
             colorScheme="blue"
             alignSelf="flex-start"
@@ -87,7 +57,7 @@ export default function WalletTypeCard({
             {...buttonProps}
           >
             {buttonText}
-          </Button>
+          </HybridButton>
         </Stack>
       </HStack>
     </Stack>

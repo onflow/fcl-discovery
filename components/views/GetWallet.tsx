@@ -28,24 +28,26 @@ export default function GetWallet({
       <Stack flexGrow={1} alignItems="center" spacing={4} px={6} pb={6}>
         {wallet.installLink?.browser && (
           <WalletTypeCard
-            variant="link"
             icon={ChromeIcon}
             title={`${wallet.name} for Chrome`}
             description={
               'Access your wallet directly from your preferred web browser.'
             }
-            buttonText="Add to Chrome"
-            href={wallet.installLink.browser}
+            button={{
+              text: 'Add to Chrome',
+              href: wallet.installLink.browser,
+            }}
           ></WalletTypeCard>
         )}
         {wallet.installLink?.mobile && (
           <WalletTypeCard
-            variant="button"
             icon={wallet.icon}
             title={`${wallet.name} for Mobile`}
             description={`Explore the Flow Blockchain using your mobile device.`}
-            buttonText="Get the App"
-            onButtonClick={() => onGetQRCode?.(wallet)}
+            button={{
+              text: 'Scan with Phone',
+              onClick: () => onGetQRCode?.(wallet),
+            }}
           ></WalletTypeCard>
         )}
       </Stack>

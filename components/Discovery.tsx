@@ -1,12 +1,12 @@
 import { Flex, useModalContext } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
+import { Wallet } from '../data/wallets'
 
 import WalletSelection from './views/WalletSelection'
 import ExploreWallets from './views/ExploreWallets'
 import GetWallet from './views/GetWallet'
 import ScanInstall from './views/ScanInstall'
-import { Wallet } from '../data/wallets'
 
 export enum VIEWS {
   WALLET_SELECTION,

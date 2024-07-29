@@ -10,6 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { Wallet } from '../data/wallets'
+import HybridButton from './HybridButton'
 
 type Props = {
   wallet: Wallet
@@ -53,18 +54,21 @@ export default function GetWalletCard({ wallet, onButtonClick }: Props) {
           </Flex>
         </Stack>
 
-        {/* TODO: Needs to link to install page, will be addressed in future PR */}
-        <Button
+        <HybridButton
           variant="outline"
           size="sm"
           colorScheme="blue"
           ml="auto"
           alignSelf="center"
           borderRadius="full"
-          onClick={onButtonClick}
+          {...(!wallet.installLink
+            ? { href: wallet.website }
+            : {
+                onClick: onButtonClick,
+              })}
         >
           Get
-        </Button>
+        </HybridButton>
       </CardBody>
     </Card>
   )
