@@ -32,7 +32,7 @@ export default function GetWallet({
       }}
     >
       <Stack flexGrow={1} alignItems="center" spacing={4} px={6} pb={6}>
-        {wallet.installLink?.browser && (
+        {browserInstallLink && (
           <WalletTypeCard
             icon={browserInfo.icon}
             title={`${wallet.name} for ${browserInfo.name}`}

@@ -42,6 +42,7 @@ export default function WalletTypeCard({
           alt={title}
           boxSize="5rem"
           alignSelf="start"
+          borderRadius="xl"
         />
         <Stack pt={1}>
           <Heading size="sm">{title}</Heading>
