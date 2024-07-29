@@ -54,7 +54,9 @@ export default function ConnectWallet({
                 }}
                 unstyled
               ></WalletTypeCard>
-              {i < wallet.services.length - 1 && <Divider w="80%" />}
+              {i < wallet.services.length - 1 && (
+                <Divider w="80%" color="gray.300" />
+              )}
             </Fragment>
           )
         })}

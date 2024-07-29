@@ -29,7 +29,6 @@ export default function WalletTypeCard({
 }: WalletTypeCardProps) {
   return (
     <Stack
-      borderWidth="1px"
       borderRadius="2xl"
       flex={1}
       width="100%"
