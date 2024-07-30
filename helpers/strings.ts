@@ -5,11 +5,3 @@ export const truncateString = (str: string, n: number) => {
     return str
   }
 }
-
-export const toTitleCase = (str: string) =>
-  str
-    ?.split(' ')
-    ?.map(c =>
-      c.length > 0 ? c[0].toUpperCase() + c.substring(1).toLowerCase() : c
-    )
-    ?.join(' ')
