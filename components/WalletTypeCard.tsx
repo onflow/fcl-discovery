@@ -7,6 +7,7 @@ type WalletTypeCardProps = {
   icon: string
   title: string
   description: string
+  unstyled?: boolean
   button: {
     text: string
   } & (
@@ -23,17 +24,22 @@ export default function WalletTypeCard({
   icon,
   title,
   description,
+  unstyled,
   button: { text: buttonText, ...buttonProps },
 }: WalletTypeCardProps) {
   return (
     <Stack
-      borderWidth="1px"
       borderRadius="2xl"
       flex={1}
       width="100%"
       justifyContent="center"
       alignItems="center"
-      backgroundColor="gray.100"
+      {...(!unstyled
+        ? {
+            borderWidth: '1px',
+            backgroundColor: 'gray.100',
+          }
+        : {})}
     >
       <HStack p={4} w="sm" spacing={8}>
         <Image

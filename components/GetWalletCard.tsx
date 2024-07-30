@@ -1,6 +1,5 @@
 import { isExtension } from '../helpers/services'
 import {
-  Button,
   Card,
   CardBody,
   Flex,
@@ -14,10 +13,10 @@ import HybridButton from './HybridButton'
 
 type Props = {
   wallet: Wallet
-  onButtonClick: () => void
+  onGetWallet?: () => void
 }
 
-export default function GetWalletCard({ wallet, onButtonClick }: Props) {
+export default function GetWalletCard({ wallet, onGetWallet }: Props) {
   const extensionService = wallet.services.find(isExtension)
   const isExtensionService = !!extensionService
   const isExtensionServiceInstalled = extensionService?.provider?.is_installed
@@ -64,7 +63,7 @@ export default function GetWalletCard({ wallet, onButtonClick }: Props) {
           {...(!wallet.installLink
             ? { href: wallet.website }
             : {
-                onClick: onButtonClick,
+                onClick: onGetWallet,
               })}
         >
           Get

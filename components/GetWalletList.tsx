@@ -17,7 +17,7 @@ export default function GetWalletList({ onGetWallet }: GetWalletListProps) {
           <GetWalletCard
             key={wallet.uid}
             wallet={wallet}
-            onButtonClick={() => onGetWallet(wallet)}
+            onGetWallet={() => onGetWallet(wallet)}
           />
         )
       })}
