@@ -29,6 +29,33 @@ export default function ConnectWallet({
   onCloseModal,
   wallet,
 }: GetWalletProps) {
+  const getServiceInfo = service => {
+    let title: string, description: string, buttonText: string
+    switch (wallet.services[0].method) {
+      case 'WC/RPC':
+        title = `${wallet.name} Mobile`
+        description = `Confirm the connection in the mobile app`
+        buttonText = `Scan with Phone`
+        break
+      case FCL_SERVICE_METHODS.EXT:
+        title = `${wallet.name} Extension`
+        description = `Confirm the connection in the browser extension`
+        buttonText = `Connect`
+        break
+      case FCL_SERVICE_METHODS.HTTP:
+      case FCL_SERVICE_METHODS.POP:
+      case FCL_SERVICE_METHODS.IFRAME:
+      case FCL_SERVICE_METHODS.TAB:
+        title = `Connect to ${wallet.name} Web Browser`
+        description = `Confirm the connection in the ${toLower(
+          CANNONICAL_SERVICE_NAMES[wallet.services[0].method]
+        )}`
+        buttonText = `Connect`
+        break
+    }
+    return { title, description, buttonText }
+  }
+
   return (
     <ViewLayout
       header={{
@@ -39,17 +66,15 @@ export default function ConnectWallet({
     >
       <Stack flexGrow={1} alignItems="center" spacing={4} px={6} pb={6}>
         {wallet.services.map((service, i) => {
-          const cannonicalName = CANNONICAL_SERVICE_NAMES[service.method]
+          const { title, description, buttonText } = getServiceInfo(service)
           return (
             <Fragment key={i}>
               <WalletTypeCard
                 icon={ChromeIcon}
-                title={`${wallet.name} ${toTitleCase(cannonicalName)}`}
-                description={`Confirm the connection in the ${toLower(
-                  cannonicalName
-                )}`}
+                title={title}
+                description={description}
                 button={{
-                  text: `Connect`,
+                  text: buttonText,
                   onClick: () => fcl.WalletUtils.redirect(service),
                 }}
                 unstyled
