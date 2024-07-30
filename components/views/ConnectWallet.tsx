@@ -27,7 +27,7 @@ export default function ConnectWallet({
   const connectToService = useCallback(
     async (service: Service) => {
       // WC/RPC is a special case where we need to show a QR code within Discovery
-      if (service.method === 'WC/RPC' && walletConnectUri) {
+      if (service.method === FCL_SERVICE_METHODS.WC && walletConnectUri) {
         onConnectQRCode()
       } else {
         fcl.WalletUtils.redirect(service)
