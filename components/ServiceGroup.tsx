@@ -8,6 +8,7 @@ interface ServiceGroupProps {
   titleProps?: React.ComponentProps<typeof Text>
   cardProps?: React.ComponentProps<typeof ServiceCard>
   onClickWallet: (wallet: Wallet) => void
+  selectedWallet?: Wallet | null
 }
 
 export default function ServiceGroup({
@@ -16,6 +17,7 @@ export default function ServiceGroup({
   titleProps,
   cardProps,
   onClickWallet,
+  selectedWallet,
 }: ServiceGroupProps) {
   return (
     <Stack spacing={1}>
@@ -29,6 +31,7 @@ export default function ServiceGroup({
               key={wallet.uid}
               wallet={wallet}
               onClick={() => onClickWallet(wallet)}
+              isSelected={selectedWallet?.uid === wallet.uid}
               {...cardProps}
             />
           )

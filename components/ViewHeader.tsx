@@ -10,7 +10,7 @@ type HeaderProps = {
 
 export default function ViewHeader({ title, onClose, onBack }: HeaderProps) {
   return (
-    <Flex alignItems="center" position="relative" p="4">
+    <Flex alignItems="center" position="relative" p="4" h="65px">
       <Text
         position="absolute"
         left="0"

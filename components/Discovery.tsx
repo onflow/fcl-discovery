@@ -4,8 +4,9 @@ import GetWallet from './views/GetWallet'
 import ScanInstall from './views/ScanInstall'
 import ConnectWallet from './views/ConnectWallet'
 import ScanConnect from './views/ScanConnect'
+import AboutWallets from './views/AboutWallets'
 
-import { Flex, useModalContext } from '@chakra-ui/react'
+import { useModalContext } from '@chakra-ui/react'
 import { ComponentProps, useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
 import { Wallet } from '../data/wallets'
@@ -64,7 +65,7 @@ export default function Discovery() {
       )
       headerProps = {
         title: 'Get a Wallet',
-        onBack: () => setCurrentView(VIEWS.WALLET_SELECTION),
+        onBack: () => setCurrentView(VIEWS.ABOUT_WALLETS),
       }
       break
     case VIEWS.GET_WALLET:
@@ -92,7 +93,7 @@ export default function Discovery() {
       )
       headerProps = {
         title: `Install ${selectedWallet?.name}`,
-        onBack: () => setCurrentView(VIEWS.WALLET_SELECTION),
+        onBack: () => setCurrentView(VIEWS.GET_WALLET),
       }
       break
     case VIEWS.CONNECT_WALLET:
@@ -104,26 +105,32 @@ export default function Discovery() {
       )
       headerProps = {
         title: `Connect to ${selectedWallet?.name}`,
-        onBack: () => setCurrentView(VIEWS.WALLET_SELECTION),
+        onBack: () => setCurrentView(VIEWS.ABOUT_WALLETS),
       }
       break
     case VIEWS.SCAN_CONNECT:
       viewContent = <ScanConnect wallet={selectedWallet} />
       headerProps = {
         title: `Connect to ${selectedWallet.name}`,
-        onBack: () => setCurrentView(VIEWS.WALLET_SELECTION),
+        onBack: () => setCurrentView(VIEWS.ABOUT_WALLETS),
       }
     case VIEWS.ABOUT_WALLETS:
-      viewContent = <div>TODO: About Wallets</div>
+      viewContent = (
+        <AboutWallets
+          onGetWallet={() => setCurrentView(VIEWS.EXPLORE_WALLETS)}
+        />
+      )
       headerProps = {}
       break
   }
 
   return (
     <ViewLayout
-      header={{ onClose: modal.onClose, ...headerProps }}
+      header={<ViewHeader {...{ onClose: modal.onClose, ...headerProps }} />}
+      sidebarHeader={<ViewHeader title="Select a Wallet" />}
       sidebar={
         <WalletSelection
+          selectedWallet={selectedWallet}
           onSwitchToLearnMore={() => setCurrentView(VIEWS.EXPLORE_WALLETS)}
           onClickWallet={wallet => {
             setSelectedWallet(wallet)

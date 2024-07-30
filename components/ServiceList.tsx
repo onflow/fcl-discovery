@@ -7,11 +7,13 @@ import { useWalletHistory } from '../hooks/useWalletHistory'
 
 interface ServiceListProps {
   wallets: Wallet[]
+  selectedWallet?: Wallet | null
   onClickWallet: (wallet: Wallet) => void
 }
 
 export default function ServiceList({
   wallets,
+  selectedWallet,
   onClickWallet,
 }: ServiceListProps) {
   const { isLastUsed } = useWalletHistory()
@@ -51,6 +53,7 @@ export default function ServiceList({
             color: 'blue.400',
           }}
           onClickWallet={onClickWallet}
+          selectedWallet={selectedWallet}
         />
       )}
 
@@ -59,6 +62,7 @@ export default function ServiceList({
           title="Installed"
           wallets={installedWallets}
           onClickWallet={onClickWallet}
+          selectedWallet={selectedWallet}
         />
       )}
 
@@ -67,6 +71,7 @@ export default function ServiceList({
           title="Recommended"
           wallets={recommendedWallets}
           onClickWallet={onClickWallet}
+          selectedWallet={selectedWallet}
         />
       )}
     </Stack>

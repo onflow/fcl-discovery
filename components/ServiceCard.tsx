@@ -13,9 +13,14 @@ import { Wallet } from '../data/wallets'
 interface ServiceCardProps {
   wallet: Wallet
   onClick: () => void
+  isSelected?: boolean
 }
 
-export default function ServiceCard({ wallet, onClick }: ServiceCardProps) {
+export default function ServiceCard({
+  wallet,
+  onClick,
+  isSelected,
+}: ServiceCardProps) {
   const extensionService = wallet.services.find(isExtension)
   const isExtensionService = !!extensionService
   const isExtensionServiceInstalled = extensionService?.provider?.is_installed
@@ -31,6 +36,8 @@ export default function ServiceCard({ wallet, onClick }: ServiceCardProps) {
       }}
       onClick={onClick}
       variant="unstyled"
+      borderRadius="xl"
+      backgroundColor={isSelected ? 'gray.100' : 'white'}
     >
       <CardBody width="100%">
         <Flex alignItems="center" justifyContent="space-between">
