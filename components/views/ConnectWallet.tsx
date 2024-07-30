@@ -7,6 +7,7 @@ import { FCL_SERVICE_METHODS } from '../../helpers/constants'
 import * as fcl from '@onflow/fcl'
 import { Fragment } from 'react'
 import { Service } from '../../types'
+import { toTitleCase } from '../../helpers/strings'
 
 interface GetWalletProps {
   onBack: () => void
@@ -20,16 +21,17 @@ export default function ConnectWallet({
   wallet,
 }: GetWalletProps) {
   const getServiceInfo = (service: Service) => {
+    const titleCasedName = toTitleCase(wallet.name)
     let title: string, description: string, buttonText: string, icon: string
     switch (service.method) {
-      case 'WC/RPC':
-        title = `${wallet.name} Mobile`
+      case FCL_SERVICE_METHODS.WC:
+        title = `${titleCasedName} Mobile`
         description = `Confirm the connection in the mobile app`
-        buttonText = `Scan with Phone`
+        buttonText = `Scan QR Code`
         icon = wallet.icon
         break
       case FCL_SERVICE_METHODS.EXT:
-        title = `${wallet.name} Extension`
+        title = `${titleCasedName} Extension`
         description = `Confirm the connection in the browser extension`
         buttonText = `Connect`
         icon = ChromeIcon
@@ -38,13 +40,13 @@ export default function ConnectWallet({
       case FCL_SERVICE_METHODS.POP:
       case FCL_SERVICE_METHODS.IFRAME:
       case FCL_SERVICE_METHODS.TAB:
-        title = `Connect to ${wallet.name}`
+        title = `Connect to ${titleCasedName}`
         description = `Confirm the connection in the web app`
         buttonText = `Connect`
         icon = ChromeIcon
         break
       default:
-        title = `Connect to ${wallet.name}`
+        title = `Connect to ${titleCasedName}`
         description = `Confirm the connection in your wallet`
         buttonText = `Connect`
     }

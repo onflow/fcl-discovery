@@ -15,7 +15,7 @@ import {
 import {
   NETWORKS,
   FCL_SERVICE_METHODS,
-  FCL_SERVICE_METHOD_VALUES,
+  DEFAULT_SERVICE_METHODS,
   SUPPORTED_VERSIONS,
 } from './constants'
 import { getBrowserFromUserAgent } from './platform'
@@ -71,7 +71,7 @@ export const getWalletPipes = ({
           ({ wallets }) =>
             pipe(
               // Only support default FCL methods in this version
-              filterSupportedStrategies(FCL_SERVICE_METHOD_VALUES),
+              filterSupportedStrategies(DEFAULT_SERVICE_METHODS),
               // Remove opt in services unless marked as include, if supported
               when(
                 always(isFilteringSupported),
