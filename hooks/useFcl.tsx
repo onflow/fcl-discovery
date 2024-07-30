@@ -15,6 +15,7 @@ export interface FclConfig {
   walletInclude: string[]
   clientServices: Service[]
   supportedStrategies: Strategy[]
+  walletConnectUri: string | null
 }
 
 export function useFcl() {
@@ -41,6 +42,7 @@ export function useFcl() {
             body.extensions ||
             [],
           supportedStrategies: config.client?.supportedStrategies || [],
+          walletConnectUri: config.client?.walletConnectUri || null,
         } as FclConfig
 
         setConfig(state)

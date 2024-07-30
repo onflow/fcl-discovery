@@ -3,6 +3,8 @@ import ExploreWallets from './views/ExploreWallets'
 import GetWallet from './views/GetWallet'
 import ScanInstall from './views/ScanInstall'
 import ConnectWallet from './views/ConnectWallet'
+import ScanConnect from './views/ScanConnect'
+
 import { Flex, useModalContext } from '@chakra-ui/react'
 import { useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
@@ -87,10 +89,19 @@ export default function Discovery() {
         <ConnectWallet
           onBack={() => setCurrentView(VIEWS.WALLET_SELECTION)}
           onCloseModal={modal.onClose}
+          onConnectQRCode={() => setCurrentView(VIEWS.SCAN_CONNECT)}
           wallet={selectedWallet}
         />
       )
       break
+    case VIEWS.SCAN_CONNECT:
+      viewContent = (
+        <ScanConnect
+          wallet={selectedWallet}
+          onBack={() => setCurrentView(VIEWS.WALLET_SELECTION)}
+          onCloseModal={modal.onClose}
+        />
+      )
   }
 
   return (
