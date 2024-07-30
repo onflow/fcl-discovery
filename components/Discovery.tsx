@@ -6,10 +6,12 @@ import ConnectWallet from './views/ConnectWallet'
 import ScanConnect from './views/ScanConnect'
 
 import { Flex, useModalContext } from '@chakra-ui/react'
-import { useState } from 'react'
+import { ComponentProps, useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
 import { Wallet } from '../data/wallets'
 import * as fcl from '@onflow/fcl'
+import ViewHeader from './ViewHeader'
+import ViewLayout from './ViewLayout'
 
 export enum VIEWS {
   WALLET_SELECTION,
@@ -18,11 +20,12 @@ export enum VIEWS {
   SCAN_INSTALL,
   CONNECT_WALLET,
   SCAN_CONNECT,
+  ABOUT_WALLETS,
 }
 
 export default function Discovery() {
   const { wallets, error } = useWallets()
-  const [currentView, setCurrentView] = useState<VIEWS>(VIEWS.WALLET_SELECTION)
+  const [currentView, setCurrentView] = useState<VIEWS>(VIEWS.ABOUT_WALLETS)
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
   const modal = useModalContext()
 
@@ -30,6 +33,7 @@ export default function Discovery() {
   if (error) return <div>Error Loading Data</div>
 
   let viewContent = <div />
+  let headerProps: ComponentProps<typeof ViewHeader> = {}
   switch (currentView) {
     case VIEWS.WALLET_SELECTION:
       viewContent = (
@@ -47,24 +51,25 @@ export default function Discovery() {
           }}
         />
       )
+      headerProps = { title: 'Select a Wallet' }
       break
     case VIEWS.EXPLORE_WALLETS:
       viewContent = (
         <ExploreWallets
-          onBack={() => setCurrentView(VIEWS.WALLET_SELECTION)}
-          onCloseModal={modal.onClose}
           onGetWallet={wallet => {
             setSelectedWallet(wallet)
             setCurrentView(VIEWS.GET_WALLET)
           }}
         />
       )
+      headerProps = {
+        title: 'Get a Wallet',
+        onBack: () => setCurrentView(VIEWS.WALLET_SELECTION),
+      }
       break
     case VIEWS.GET_WALLET:
       viewContent = (
         <GetWallet
-          onBack={() => setCurrentView(VIEWS.EXPLORE_WALLETS)}
-          onCloseModal={modal.onClose}
           wallet={selectedWallet}
           onGetQRCode={wallet => {
             setSelectedWallet(wallet)
@@ -72,41 +77,68 @@ export default function Discovery() {
           }}
         />
       )
+      headerProps = {
+        title: `Get ${selectedWallet?.name}`,
+        onBack: () => setCurrentView(VIEWS.EXPLORE_WALLETS),
+      }
       break
     case VIEWS.SCAN_INSTALL:
       viewContent = (
         <ScanInstall
-          onBack={() => setCurrentView(VIEWS.WALLET_SELECTION)}
-          onCloseModal={modal.onClose}
           // TODO: Implement next page
           onContinue={() => setCurrentView(VIEWS.WALLET_SELECTION)}
           wallet={selectedWallet}
         />
       )
+      headerProps = {
+        title: `Install ${selectedWallet?.name}`,
+        onBack: () => setCurrentView(VIEWS.WALLET_SELECTION),
+      }
       break
     case VIEWS.CONNECT_WALLET:
       viewContent = (
         <ConnectWallet
-          onBack={() => setCurrentView(VIEWS.WALLET_SELECTION)}
-          onCloseModal={modal.onClose}
           onConnectQRCode={() => setCurrentView(VIEWS.SCAN_CONNECT)}
           wallet={selectedWallet}
         />
       )
+      headerProps = {
+        title: `Connect to ${selectedWallet?.name}`,
+        onBack: () => setCurrentView(VIEWS.WALLET_SELECTION),
+      }
       break
     case VIEWS.SCAN_CONNECT:
-      viewContent = (
-        <ScanConnect
-          wallet={selectedWallet}
-          onBack={() => setCurrentView(VIEWS.WALLET_SELECTION)}
-          onCloseModal={modal.onClose}
-        />
-      )
+      viewContent = <ScanConnect wallet={selectedWallet} />
+      headerProps = {
+        title: `Connect to ${selectedWallet.name}`,
+        onBack: () => setCurrentView(VIEWS.WALLET_SELECTION),
+      }
+    case VIEWS.ABOUT_WALLETS:
+      viewContent = <div>TODO: About Wallets</div>
+      headerProps = {}
+      break
   }
 
   return (
-    <Flex w={470} h={600} maxH={600} direction="column">
+    <ViewLayout
+      header={{ onClose: modal.onClose, ...headerProps }}
+      sidebar={
+        <WalletSelection
+          onSwitchToLearnMore={() => setCurrentView(VIEWS.EXPLORE_WALLETS)}
+          onClickWallet={wallet => {
+            setSelectedWallet(wallet)
+            if (wallet.services.length === 1) {
+              // TODO: make sure WC/RPC behaviour is handled once integrated into Discovery
+              // (future PR)
+              fcl.WalletUtils.redirect(wallet.services[0])
+            } else {
+              setCurrentView(VIEWS.CONNECT_WALLET)
+            }
+          }}
+        />
+      }
+    >
       {viewContent}
-    </Flex>
+    </ViewLayout>
   )
 }

@@ -1,5 +1,4 @@
 import { Divider, Stack } from '@chakra-ui/react'
-import ViewLayout from '../ViewLayout'
 import WalletTypeCard from '../WalletTypeCard'
 import ChromeIcon from '../Icons/chrome.svg'
 import { Wallet } from '../../data/wallets'
@@ -10,19 +9,15 @@ import { Service } from '../../types'
 import { useConfig } from '../../contexts/ConfigContext'
 import { toTitleCase } from '../../helpers/strings'
 
-interface GetWalletProps {
-  onBack: () => void
-  onCloseModal: () => void
+interface ConnectWalletProps {
   onConnectQRCode: () => void
   wallet: Wallet
 }
 
 export default function ConnectWallet({
-  onBack,
-  onCloseModal,
   onConnectQRCode,
   wallet,
-}: GetWalletProps) {
+}: ConnectWalletProps) {
   const { walletConnectUri } = useConfig()
   const connectToService = useCallback(
     async (service: Service) => {
@@ -70,36 +65,27 @@ export default function ConnectWallet({
   }
 
   return (
-    <ViewLayout
-      header={{
-        title: `Connect to ${wallet.name}`,
-        onBack,
-        onClose: onCloseModal,
-      }}
-    >
-      <Stack flexGrow={1} alignItems="center" spacing={4} px={6} pb={6}>
-        {wallet.services.map((service, i) => {
-          const { title, description, buttonText, icon } =
-            getServiceInfo(service)
-          return (
-            <Fragment key={i}>
-              <WalletTypeCard
-                icon={icon}
-                title={title}
-                description={description}
-                button={{
-                  text: buttonText,
-                  onClick: () => connectToService(service),
-                }}
-                unstyled
-              ></WalletTypeCard>
-              {i < wallet.services.length - 1 && (
-                <Divider w="90%" borderColor="gray.300" />
-              )}
-            </Fragment>
-          )
-        })}
-      </Stack>
-    </ViewLayout>
+    <Stack flexGrow={1} alignItems="center" spacing={4} px={6} pb={6}>
+      {wallet.services.map((service, i) => {
+        const { title, description, buttonText, icon } = getServiceInfo(service)
+        return (
+          <Fragment key={i}>
+            <WalletTypeCard
+              icon={icon}
+              title={title}
+              description={description}
+              button={{
+                text: buttonText,
+                onClick: () => connectToService(service),
+              }}
+              unstyled
+            ></WalletTypeCard>
+            {i < wallet.services.length - 1 && (
+              <Divider w="90%" borderColor="gray.300" />
+            )}
+          </Fragment>
+        )
+      })}
+    </Stack>
   )
 }
