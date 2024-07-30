@@ -4,19 +4,9 @@ import WalletTypeCard from '../WalletTypeCard'
 import ChromeIcon from '../Icons/chrome.svg'
 import { Wallet } from '../../data/wallets'
 import { FCL_SERVICE_METHODS } from '../../helpers/constants'
-import { toTitleCase } from '../../helpers/strings'
 import { toLower } from 'rambda'
 import * as fcl from '@onflow/fcl'
 import { Fragment } from 'react'
-
-const CANNONICAL_SERVICE_NAMES = {
-  'WC/RPC': 'Mobile App',
-  [FCL_SERVICE_METHODS.EXT]: 'Browser Extension',
-  [FCL_SERVICE_METHODS.HTTP]: 'Web Browser',
-  [FCL_SERVICE_METHODS.TAB]: 'Web Browser',
-  [FCL_SERVICE_METHODS.POP]: 'Web Browser',
-  [FCL_SERVICE_METHODS.IFRAME]: 'Web Browser',
-}
 
 interface GetWalletProps {
   onBack: () => void
@@ -46,12 +36,14 @@ export default function ConnectWallet({
       case FCL_SERVICE_METHODS.POP:
       case FCL_SERVICE_METHODS.IFRAME:
       case FCL_SERVICE_METHODS.TAB:
-        title = `Connect to ${wallet.name} Web Browser`
-        description = `Confirm the connection in the ${toLower(
-          CANNONICAL_SERVICE_NAMES[wallet.services[0].method]
-        )}`
+        title = `Connect to ${wallet.name}`
+        description = `Confirm the connection in the web app`
         buttonText = `Connect`
         break
+      default:
+        title = `Connect to ${wallet.name}`
+        description = `Confirm the connection in your wallet`
+        buttonText = `Connect`
     }
     return { title, description, buttonText }
   }
