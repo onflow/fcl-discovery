@@ -1,5 +1,4 @@
 import useSWR from 'swr'
-import { PATHS } from '../helpers/constants'
 import { useConfig } from '../contexts/ConfigContext'
 import { getUserAgent } from '../helpers/platform'
 import { Wallet } from '../data/wallets'
