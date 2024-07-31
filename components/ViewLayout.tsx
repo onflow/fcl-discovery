@@ -1,4 +1,4 @@
-import { Container, Divider, Flex, Stack } from '@chakra-ui/react'
+import { Divider, Flex, Stack } from '@chakra-ui/react'
 import { ComponentProps, ReactNode } from 'react'
 
 type ViewLayoutProps = {
@@ -27,6 +27,7 @@ export default function ViewLayout({
         overflow="hidden"
         w="17.875rem"
         display={['none', null, 'flex']}
+        flexShrink={0}
       >
         {sidebarHeader}
         {sidebar}
@@ -34,9 +35,11 @@ export default function ViewLayout({
 
       <Divider orientation="vertical" display={['none', null, 'block']} />
 
-      <Stack spacing={0} overflow="hidden" flexGrow={1}>
+      <Stack spacing={0} flexGrow={1} overflow="hidden">
         {header}
-        {children}
+        <Stack overflow="auto" flexGrow={1} flexShrink={1}>
+          {children}
+        </Stack>
       </Stack>
     </Flex>
   )

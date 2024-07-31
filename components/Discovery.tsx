@@ -115,11 +115,7 @@ export default function Discovery() {
       headerProps = {
         title: `Get ${selectedWallet?.name}`,
         onBack: () => {
-          if (isCollapsed) {
-            setCurrentView(VIEWS.ABOUT_WALLETS)
-          } else {
-            setCurrentView(VIEWS.EXPLORE_WALLETS)
-          }
+          setCurrentView(VIEWS.EXPLORE_WALLETS)
           setSelectedWallet(null)
         },
       }
