@@ -17,15 +17,15 @@ export default function ViewLayout({
 }: ViewLayoutProps) {
   return (
     <Flex
-      w={['26rem', null, '46rem']}
-      h="min(32rem, calc(100vh - 4rem))"
+      w={['23rem', null, '45rem']}
+      h="min(32.5rem, calc(100vh - 4rem))"
       overflow="hidden"
       {...rootProps}
     >
       <Stack
         spacing={0}
         overflow="hidden"
-        w="18rem"
+        w="17.875rem"
         display={['none', null, 'flex']}
       >
         {sidebarHeader}

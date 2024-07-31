@@ -13,7 +13,7 @@ export default function AboutCard({
   description,
 }: AboutCardProps) {
   return (
-    <Flex gap={6} w={350} alignItems="center">
+    <Flex gap={6} maxW="22rem" alignItems="center">
       <Image
         as={NextImage}
         src={image as any}

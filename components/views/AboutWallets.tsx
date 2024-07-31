@@ -12,7 +12,14 @@ interface AboutWalletsProps {
 
 export default function AboutWallets({ onGetWallet }: AboutWalletsProps) {
   return (
-    <Stack align="center" spacing={8} overflow="auto" flexGrow={1} pb={8}>
+    <Stack
+      align="center"
+      spacing={8}
+      overflow="auto"
+      flexGrow={1}
+      pb={8}
+      px={6}
+    >
       <Heading textAlign="center" size="md" display={['none', null, 'block']}>
         What is a Wallet?
       </Heading>
