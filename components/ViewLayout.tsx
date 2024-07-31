@@ -1,17 +1,43 @@
-import { Stack } from '@chakra-ui/react'
-import ViewHeader from './ViewHeader'
+import { Container, Divider, Flex, Stack } from '@chakra-ui/react'
 import { ComponentProps, ReactNode } from 'react'
 
 type ViewLayoutProps = {
   children: ReactNode
-  header?: ComponentProps<typeof ViewHeader>
-}
+  header?: ReactNode
+  sidebar?: ReactNode
+  sidebarHeader?: ReactNode
+} & ComponentProps<typeof Stack>
 
-export default function ViewLayout({ children, header }: ViewLayoutProps) {
+export default function ViewLayout({
+  children,
+  header,
+  sidebar,
+  sidebarHeader,
+  ...rootProps
+}: ViewLayoutProps) {
   return (
-    <Stack spacing={0} overflow="hidden" flexGrow={1}>
-      {header && <ViewHeader {...header} />}
-      {children}
-    </Stack>
+    <Flex
+      w={['23rem', null, '45rem']}
+      h="min(32.5rem, calc(100vh - 4rem))"
+      overflow="hidden"
+      {...rootProps}
+    >
+      <Stack
+        spacing={0}
+        overflow="hidden"
+        w="17.875rem"
+        display={['none', null, 'flex']}
+      >
+        {sidebarHeader}
+        {sidebar}
+      </Stack>
+
+      <Divider orientation="vertical" display={['none', null, 'block']} />
+
+      <Stack spacing={0} overflow="hidden" flexGrow={1}>
+        {header}
+        {children}
+      </Stack>
+    </Flex>
   )
 }

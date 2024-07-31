@@ -7,7 +7,6 @@ import {
   ModalContent,
 } from '@chakra-ui/react'
 import { useCallback, useState } from 'react'
-import { SWRConfig } from 'swr'
 
 const theme = extendTheme({
   styles: {
@@ -53,7 +52,7 @@ function MyApp({ Component, pageProps }) {
       <Modal isOpen={isOpen} onClose={handleOnClose} isCentered>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
-          borderRadius="2xl"
+          borderRadius="3xl"
           flexDirection="column"
           w="auto"
           h="auto"
