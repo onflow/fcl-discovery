@@ -32,20 +32,19 @@ export default function Discovery() {
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
   const modal = useModalContext()
 
+  // WALLET_SELECTION does not exist when expanded
+  // We may need to adjust the current view when the sidebar is collapsed
   const isCollapsed = useIsCollapsed()
-  const prevIsCollapsed = useRef(isCollapsed)
-
   useEffect(() => {
-    // TODO: this is buggy.  Sometimes the ref doesn't update in time
-    if (prevIsCollapsed.current === isCollapsed) return
-    prevIsCollapsed.current = isCollapsed
-
-    if (currentView === VIEWS.ABOUT_WALLETS && isCollapsed) {
-      setCurrentView(VIEWS.WALLET_SELECTION)
-    } else if (currentView === VIEWS.WALLET_SELECTION && !isCollapsed) {
-      setCurrentView(VIEWS.ABOUT_WALLETS)
-    }
-  }, [currentView, isCollapsed])
+    setCurrentView(v => {
+      if (v === VIEWS.ABOUT_WALLETS && isCollapsed) {
+        return VIEWS.WALLET_SELECTION
+      } else if (v === VIEWS.WALLET_SELECTION && !isCollapsed) {
+        return VIEWS.ABOUT_WALLETS
+      }
+      return v
+    })
+  }, [isCollapsed])
 
   if (!wallets) return <div />
   if (error) return <div>Error Loading Data</div>
