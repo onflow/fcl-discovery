@@ -24,7 +24,7 @@ export default function ViewHeader({
       justifyContent="space-between"
       px={6}
       pt={4}
-      pb={6}
+      pb={4}
     >
       {!titleOnly && (
         <Flex flexGrow={1} flexBasis={0} justifyContent="flex-start">

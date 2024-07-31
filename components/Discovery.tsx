@@ -124,7 +124,13 @@ export default function Discovery() {
       viewContent = (
         <ScanInstall
           // TODO: Implement next page
-          onContinue={() => setCurrentView(VIEWS.WALLET_SELECTION)}
+          onContinue={() => {
+            if (isCollapsed) {
+              setCurrentView(VIEWS.CONNECT_WALLET)
+            } else {
+              setCurrentView(VIEWS.ABOUT_WALLETS)
+            }
+          }}
           wallet={selectedWallet}
         />
       )

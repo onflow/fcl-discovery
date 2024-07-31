@@ -9,7 +9,7 @@ interface ScanInstallProps {
 
 export default function ScanInstall({ onContinue, wallet }: ScanInstallProps) {
   return (
-    <Stack flexGrow={1} alignItems="center" spacing={8} padding={4}>
+    <Stack flexGrow={1} flexShrink={1} alignItems="center">
       <Text color="gray" fontWeight="bold" maxW="2xs" textAlign="center">
         Scan with your phone to install on iOS or Android
       </Text>
