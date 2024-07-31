@@ -21,7 +21,7 @@ export default function ServiceList({
   // Get the last used service, installed services, and recommended services
   const { lastUsedWallet, installedWallets, recommendedWallets } = useMemo(
     () =>
-      wallets.reduce(
+      wallets?.reduce(
         (acc, wallet) => {
           const extensionService = wallet.services.find(isExtension)
 
