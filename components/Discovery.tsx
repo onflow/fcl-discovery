@@ -7,7 +7,7 @@ import ScanConnect from './views/ScanConnect'
 import AboutWallets from './views/AboutWallets'
 
 import { useModalContext } from '@chakra-ui/react'
-import { ComponentProps, useCallback, useEffect, useRef, useState } from 'react'
+import { ComponentProps, useCallback, useEffect, useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
 import { Wallet } from '../data/wallets'
 import * as fcl from '@onflow/fcl'
@@ -123,14 +123,7 @@ export default function Discovery() {
     case VIEWS.SCAN_INSTALL:
       viewContent = (
         <ScanInstall
-          // TODO: Implement next page
-          onContinue={() => {
-            if (isCollapsed) {
-              setCurrentView(VIEWS.CONNECT_WALLET)
-            } else {
-              setCurrentView(VIEWS.ABOUT_WALLETS)
-            }
-          }}
+          onContinue={() => onSelectWallet(selectedWallet)}
           wallet={selectedWallet}
         />
       )
