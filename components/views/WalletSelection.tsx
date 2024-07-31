@@ -8,14 +8,14 @@ import { Wallet } from '../../data/wallets'
 import { useIsCollapsed } from '../../hooks/useIsCollapsed'
 
 type Props = {
-  onClickWallet: (wallet: Wallet) => void
-  onSwitchToLearnMore: () => void
+  onSelectWallet: (wallet: Wallet) => void
+  onSwitchToLearnMore?: () => void
   selectedWallet?: Wallet | null
 }
 
 export default function WalletSelection({
   onSwitchToLearnMore,
-  onClickWallet,
+  onSelectWallet,
   selectedWallet,
 }: Props) {
   const { wallets } = useWallets()
@@ -33,7 +33,7 @@ export default function WalletSelection({
         {/* TODO: replace this in future PR with Filter Bar */}
         {/*isFeaturesSupported && <Features />*/}
         <ServiceList
-          onClickWallet={onClickWallet}
+          onSelectWallet={onSelectWallet}
           wallets={wallets}
           selectedWallet={selectedWallet}
         />

@@ -7,7 +7,7 @@ import ScanConnect from './views/ScanConnect'
 import AboutWallets from './views/AboutWallets'
 
 import { useModalContext } from '@chakra-ui/react'
-import { ComponentProps, useEffect, useRef, useState } from 'react'
+import { ComponentProps, useCallback, useEffect, useRef, useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
 import { Wallet } from '../data/wallets'
 import * as fcl from '@onflow/fcl'
@@ -46,6 +46,20 @@ export default function Discovery() {
     })
   }, [isCollapsed])
 
+  const onSelectWallet = useCallback(wallet => {
+    setSelectedWallet(wallet)
+    if (wallet.services.length === 1) {
+      const service = wallet.services[0]
+      if (service.method !== FCL_SERVICE_METHODS.WC) {
+        setCurrentView(VIEWS.SCAN_CONNECT)
+      } else {
+        fcl.WalletUtils.redirect(service)
+      }
+    } else {
+      setCurrentView(VIEWS.CONNECT_WALLET)
+    }
+  }, [])
+
   if (!wallets) return <div />
   if (error) return <div>Error Loading Data</div>
 
@@ -56,19 +70,7 @@ export default function Discovery() {
       viewContent = (
         <WalletSelection
           onSwitchToLearnMore={() => setCurrentView(VIEWS.ABOUT_WALLETS)}
-          onClickWallet={wallet => {
-            setSelectedWallet(wallet)
-            if (wallet.services.length === 1) {
-              const service = wallet.services[0]
-              if (service.method !== FCL_SERVICE_METHODS.WC) {
-                setCurrentView(VIEWS.SCAN_CONNECT)
-              } else {
-                fcl.WalletUtils.redirect(service)
-              }
-            } else {
-              setCurrentView(VIEWS.CONNECT_WALLET)
-            }
-          }}
+          onSelectWallet={onSelectWallet}
         />
       )
       headerProps = { title: 'Select a Wallet' }
@@ -162,21 +164,17 @@ export default function Discovery() {
   return (
     <ViewLayout
       header={<ViewHeader {...{ onClose: modal.onClose, ...headerProps }} />}
-      sidebarHeader={<ViewHeader title="Connect a Wallet" alignment="left" />}
+      sidebarHeader={
+        <ViewHeader
+          title="Connect a Wallet"
+          titleProps={{ textAlign: 'left' }}
+          titleOnly
+        />
+      }
       sidebar={
         <WalletSelection
           selectedWallet={selectedWallet}
-          onSwitchToLearnMore={() => setCurrentView(VIEWS.EXPLORE_WALLETS)}
-          onClickWallet={wallet => {
-            setSelectedWallet(wallet)
-            if (wallet.services.length === 1) {
-              // TODO: make sure WC/RPC behaviour is handled once integrated into Discovery
-              // (future PR)
-              fcl.WalletUtils.redirect(wallet.services[0])
-            } else {
-              setCurrentView(VIEWS.CONNECT_WALLET)
-            }
-          }}
+          onSelectWallet={onSelectWallet}
         />
       }
     >
