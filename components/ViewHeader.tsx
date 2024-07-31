@@ -4,11 +4,17 @@ import { IoChevronBack } from 'react-icons/io5'
 
 type HeaderProps = {
   title?: string
+  alignment?: 'center' | 'left' | 'right'
   onClose?: () => void
   onBack?: () => void
 }
 
-export default function ViewHeader({ title, onClose, onBack }: HeaderProps) {
+export default function ViewHeader({
+  title,
+  onClose,
+  onBack,
+  alignment,
+}: HeaderProps) {
   return (
     <Flex alignItems="center" position="relative" p="4" h="65px">
       <Text
@@ -17,7 +23,8 @@ export default function ViewHeader({ title, onClose, onBack }: HeaderProps) {
         right="0"
         fontSize="xl"
         fontWeight="bold"
-        textAlign="center"
+        textAlign={alignment || 'center'}
+        px="8"
       >
         {title}
       </Text>

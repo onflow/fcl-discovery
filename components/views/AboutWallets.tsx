@@ -12,19 +12,12 @@ interface AboutWalletsProps {
 
 export default function AboutWallets({ onGetWallet }: AboutWalletsProps) {
   return (
-    <Stack
-      align="center"
-      justify="space-between"
-      spacing={8}
-      overflow="auto"
-      flexGrow={1}
-      pb={8}
-    >
-      <Heading textAlign="center" size="md">
+    <Stack align="center" spacing={8} overflow="auto" flexGrow={1} pb={8}>
+      <Heading textAlign="center" size="md" display={['none', null, 'block']}>
         What is a Wallet?
       </Heading>
 
-      <Stack spacing={8}>
+      <Stack spacing={8} my="auto">
         <AboutCard
           title="Your Digital Assets Hub"
           description="Wallets serve as a hub for managing, storing, and showcasing digital assets such as FLOW and NFTs"

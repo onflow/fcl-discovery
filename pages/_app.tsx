@@ -7,7 +7,6 @@ import {
   ModalContent,
 } from '@chakra-ui/react'
 import { useCallback, useState } from 'react'
-import { SWRConfig } from 'swr'
 
 const theme = extendTheme({
   styles: {

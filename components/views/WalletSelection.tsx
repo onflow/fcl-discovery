@@ -5,6 +5,7 @@ import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import { useConfig } from '../../contexts/ConfigContext'
 import { SUPPORTED_VERSIONS } from '../../helpers/constants'
 import { Wallet } from '../../data/wallets'
+import { useIsCollapsed } from '../../hooks/useIsCollapsed'
 
 type Props = {
   onClickWallet: (wallet: Wallet) => void
@@ -24,8 +25,7 @@ export default function WalletSelection({
     SUPPORTED_VERSIONS.SUGGESTED_FEATURES
   )
 
-  // TODO: replace this
-  const isCollapsed = false
+  const isCollapsed = useIsCollapsed()
 
   return (
     <Stack spacing={0} flexGrow={1} overflow="hidden">

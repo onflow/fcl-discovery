@@ -7,12 +7,14 @@ import ScanConnect from './views/ScanConnect'
 import AboutWallets from './views/AboutWallets'
 
 import { useModalContext } from '@chakra-ui/react'
-import { ComponentProps, useState } from 'react'
+import { ComponentProps, useEffect, useRef, useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
 import { Wallet } from '../data/wallets'
 import * as fcl from '@onflow/fcl'
 import ViewHeader from './ViewHeader'
 import ViewLayout from './ViewLayout'
+import { FCL_SERVICE_METHODS } from '../helpers/constants'
+import { useIsCollapsed } from '../hooks/useIsCollapsed'
 
 export enum VIEWS {
   WALLET_SELECTION,
@@ -30,6 +32,21 @@ export default function Discovery() {
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
   const modal = useModalContext()
 
+  const isCollapsed = useIsCollapsed()
+  const prevIsCollapsed = useRef(isCollapsed)
+
+  useEffect(() => {
+    // TODO: this is buggy.  Sometimes the ref doesn't update in time
+    if (prevIsCollapsed.current === isCollapsed) return
+    prevIsCollapsed.current = isCollapsed
+
+    if (currentView === VIEWS.ABOUT_WALLETS && isCollapsed) {
+      setCurrentView(VIEWS.WALLET_SELECTION)
+    } else if (currentView === VIEWS.WALLET_SELECTION && !isCollapsed) {
+      setCurrentView(VIEWS.ABOUT_WALLETS)
+    }
+  }, [currentView, isCollapsed])
+
   if (!wallets) return <div />
   if (error) return <div>Error Loading Data</div>
 
@@ -39,13 +56,16 @@ export default function Discovery() {
     case VIEWS.WALLET_SELECTION:
       viewContent = (
         <WalletSelection
-          onSwitchToLearnMore={() => setCurrentView(VIEWS.EXPLORE_WALLETS)}
+          onSwitchToLearnMore={() => setCurrentView(VIEWS.ABOUT_WALLETS)}
           onClickWallet={wallet => {
             setSelectedWallet(wallet)
             if (wallet.services.length === 1) {
-              // TODO: make sure WC/RPC behaviour is handled once integrated into Discovery
-              // (future PR)
-              fcl.WalletUtils.redirect(wallet.services[0])
+              const service = wallet.services[0]
+              if (service.method !== FCL_SERVICE_METHODS.WC) {
+                setCurrentView(VIEWS.SCAN_CONNECT)
+              } else {
+                fcl.WalletUtils.redirect(service)
+              }
             } else {
               setCurrentView(VIEWS.CONNECT_WALLET)
             }
@@ -53,6 +73,19 @@ export default function Discovery() {
         />
       )
       headerProps = { title: 'Select a Wallet' }
+      break
+    case VIEWS.ABOUT_WALLETS:
+      viewContent = (
+        <AboutWallets
+          onGetWallet={() => setCurrentView(VIEWS.EXPLORE_WALLETS)}
+        />
+      )
+      headerProps = {
+        onBack: isCollapsed
+          ? () => setCurrentView(VIEWS.WALLET_SELECTION)
+          : undefined,
+        title: isCollapsed ? 'What is a Wallet?' : undefined,
+      }
       break
     case VIEWS.EXPLORE_WALLETS:
       viewContent = (
@@ -80,7 +113,14 @@ export default function Discovery() {
       )
       headerProps = {
         title: `Get ${selectedWallet?.name}`,
-        onBack: () => setCurrentView(VIEWS.EXPLORE_WALLETS),
+        onBack: () => {
+          if (isCollapsed) {
+            setCurrentView(VIEWS.ABOUT_WALLETS)
+          } else {
+            setCurrentView(VIEWS.EXPLORE_WALLETS)
+          }
+          setSelectedWallet(null)
+        },
       }
       break
     case VIEWS.SCAN_INSTALL:
@@ -105,7 +145,10 @@ export default function Discovery() {
       )
       headerProps = {
         title: `Connect to ${selectedWallet?.name}`,
-        onBack: () => setCurrentView(VIEWS.ABOUT_WALLETS),
+        onBack: () => {
+          setCurrentView(VIEWS.ABOUT_WALLETS)
+          setSelectedWallet(null)
+        },
       }
       break
     case VIEWS.SCAN_CONNECT:
@@ -114,20 +157,13 @@ export default function Discovery() {
         title: `Connect to ${selectedWallet.name}`,
         onBack: () => setCurrentView(VIEWS.ABOUT_WALLETS),
       }
-    case VIEWS.ABOUT_WALLETS:
-      viewContent = (
-        <AboutWallets
-          onGetWallet={() => setCurrentView(VIEWS.EXPLORE_WALLETS)}
-        />
-      )
-      headerProps = {}
       break
   }
 
   return (
     <ViewLayout
       header={<ViewHeader {...{ onClose: modal.onClose, ...headerProps }} />}
-      sidebarHeader={<ViewHeader title="Select a Wallet" />}
+      sidebarHeader={<ViewHeader title="Connect a Wallet" alignment="left" />}
       sidebar={
         <WalletSelection
           selectedWallet={selectedWallet}
