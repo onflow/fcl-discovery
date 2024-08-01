@@ -81,7 +81,7 @@ export default function WalletTypeCard({
           mr="auto"
           {...buttonProps}
         >
-          buttonText
+          {buttonText}
         </HybridButton>
       </SimpleGrid>
     </Flex>
