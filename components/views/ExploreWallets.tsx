@@ -1,6 +1,7 @@
-import { Container, Flex, Stack, Text } from '@chakra-ui/react'
+import { Stack, Text } from '@chakra-ui/react'
 import GetWalletList from '../GetWalletList'
 import { Wallet } from '../../data/wallets'
+import { useIsCollapsed } from '../../hooks/useIsCollapsed'
 
 interface ExploreWalletsProps {
   onGetWallet: (wallet: Wallet) => void
@@ -9,11 +10,11 @@ interface ExploreWalletsProps {
 export default function ExploreWallets({ onGetWallet }: ExploreWalletsProps) {
   return (
     <Stack spacing={0} flexGrow={1} overflow="hidden">
-      <Stack spacing={8} px={8} pb={6} flexGrow={1} overflow="scroll">
+      <Stack px={5} pb={5} flexGrow={1} overflow="scroll">
         <GetWalletList onGetWallet={onGetWallet} />
       </Stack>
       <Stack
-        px={4}
+        px={5}
         py={6}
         maxW="xs"
         spacing={2}
@@ -22,7 +23,10 @@ export default function ExploreWallets({ onGetWallet }: ExploreWalletsProps) {
         textAlign="center"
       >
         <Text textStyle="Body 1 (Bold)">Not what you're looking for?</Text>
-        <Text textStyle="Body 2" color="gray.500">
+        <Text display={['inline', null, 'none']} textStyle="Body 2">
+          Return to the main screen to select a different wallet provider
+        </Text>
+        <Text display={['none', null, 'inline']} textStyle="Body 2">
           Select a wallet on the left to get started with a different wallet
           provider.
         </Text>
