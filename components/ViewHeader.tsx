@@ -1,7 +1,14 @@
-import { CloseIcon } from '@chakra-ui/icons'
-import { Flex, Heading, IconButton, Text } from '@chakra-ui/react'
+import {
+  Flex,
+  Heading,
+  Icon,
+  IconButton,
+  Text,
+  useStyles,
+} from '@chakra-ui/react'
 import { ComponentProps } from 'react'
 import { IoChevronBack } from 'react-icons/io5'
+import CloseIcon from './Icons/CloseIcon'
 
 type HeaderProps = {
   title?: string
@@ -19,46 +26,43 @@ export default function ViewHeader({
   onBack,
 }: HeaderProps) {
   return (
-    <Flex
-      alignItems="center"
-      justifyContent="space-between"
-      px={6}
-      pt={4}
-      pb={6}
-    >
+    <Flex alignItems="center" justifyContent="space-between" px={5} py={4}>
       {!titleOnly && (
         <Flex flexGrow={1} flexBasis={0} justifyContent="flex-start">
           {onBack && (
             <IconButton
               onClick={onBack}
-              icon={<IoChevronBack />}
+              icon={<Icon h="1.75rem" as={IoChevronBack} />}
               aria-label="Close Modal"
               borderRadius="full"
               variant="ghost"
-              size="sm"
               color="blue.500"
               fontWeight="bold"
-              fontSize="1.5rem"
+              isRound={true}
+              boxSize="1.75rem"
+              minW="0"
             ></IconButton>
           )}
         </Flex>
       )}
 
-      <Heading textAlign={'center'} {...titleProps}>
-        {title}
-      </Heading>
+      <Flex direction="column" justifyContent="center" h="1.75rem">
+        <Heading textAlign={'center'} {...titleProps}>
+          {title}
+        </Heading>
+      </Flex>
 
       {!titleOnly && (
         <Flex flexGrow={1} flexBasis={0} justifyContent="flex-end">
           {onClose && (
             <IconButton
               onClick={onClose}
-              icon={<CloseIcon />}
+              icon={<CloseIcon h="0.625rem" />}
               aria-label="Close Modal"
-              borderRadius="full"
-              bg="gray.100"
-              color="black"
-              size="sm"
+              bg="#F7F7F7"
+              isRound={true}
+              boxSize="1.75rem"
+              minW="0"
             ></IconButton>
           )}
         </Flex>

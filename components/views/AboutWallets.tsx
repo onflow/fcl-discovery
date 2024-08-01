@@ -18,7 +18,7 @@ export default function AboutWallets({ onGetWallet }: AboutWalletsProps) {
       overflow="auto"
       flexGrow={1}
       pb={8}
-      px={6}
+      px={5}
     >
       <Heading>What is a Wallet?</Heading>
 

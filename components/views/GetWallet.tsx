@@ -15,7 +15,7 @@ export default function GetWallet({ wallet, onGetQRCode }: GetWalletProps) {
     wallet.installLink?.[browserInfo.id] || wallet.installLink?.browser
 
   return (
-    <Stack flexGrow={1} alignItems="center" spacing={4} px={6} pb={6}>
+    <Stack flexGrow={1} alignItems="center" spacing={4} px={5} pb={5}>
       {browserInstallLink && (
         <WalletTypeCard
           icon={browserInfo.icon}

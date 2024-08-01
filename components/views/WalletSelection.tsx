@@ -22,7 +22,7 @@ export default function WalletSelection({
   const { appVersion } = useConfig()
   const isFeaturesSupported = isGreaterThanOrEqualToVersion(
     appVersion,
-    SUPPORTED_VERSIONS.SUGGESTED_FEATURES
+    SUPPORTED_VERSIONS.SUGGESTED_FEATURES,
   )
 
   const isCollapsed = useIsCollapsed()
@@ -45,11 +45,10 @@ export default function WalletSelection({
           <HStack
             justifyContent="space-between"
             alignItems="center"
-            padding={8}
+            py={5}
+            px={6}
           >
-            <Text fontSize="sm" color="gray.500">
-              Don't have a wallet?
-            </Text>
+            <Text fontSize="sm">Don't have a wallet?</Text>
 
             <Button onClick={onSwitchToLearnMore} variant="link" padding={0}>
               <Text fontSize="sm" color="blue.500">

@@ -38,9 +38,9 @@ export default function ServiceList({
           lastUsedWallet: null as Wallet | null,
           installedWallets: [] as Wallet[],
           recommendedWallets: [] as Wallet[],
-        }
+        },
       ),
-    [wallets, isLastUsed]
+    [wallets, isLastUsed],
   )
 
   if (!categorizedWallets) return null
