@@ -36,7 +36,6 @@ export default function ViewHeader({
               aria-label="Close Modal"
               borderRadius="full"
               variant="ghost"
-              color="blue.500"
               fontWeight="bold"
               isRound={true}
               boxSize="1.75rem"
@@ -59,7 +58,6 @@ export default function ViewHeader({
               onClick={onClose}
               icon={<CloseIcon h="0.625rem" />}
               aria-label="Close Modal"
-              bg="#F7F7F7"
               isRound={true}
               boxSize="1.75rem"
               minW="0"

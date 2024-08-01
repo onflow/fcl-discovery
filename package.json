@@ -15,8 +15,9 @@
     "lint": "npm run lint:prettier",
     "lint:prettier": "prettier --check .",
     "lintfix": "prettier --write --list-different .",
-    "gen:theme-typings": "chakra-cli tokens ./config/chakra/theme.ts",
-    "postinstall": "gen:theme-typings"
+    "theme": "chakra-cli tokens ./config/chakra/theme.ts",
+    "theme:watch": "chakra-cli tokens ./config/chakra/theme.ts --watch",
+    "postinstall": "npm run theme"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",

@@ -36,19 +36,14 @@ export default function AboutWallets({ onGetWallet }: AboutWalletsProps) {
       </Stack>
 
       <Stack spacing={4}>
-        <Button
-          colorScheme="blue"
-          borderRadius="full"
-          size="sm"
-          onClick={onGetWallet}
-        >
+        <Button borderRadius="full" size="sm" onClick={onGetWallet}>
           Get a Wallet
         </Button>
         <HybridButton
           href={LEARN_MORE_URL}
-          variant="link"
-          colorScheme="blue"
+          variant="ghost"
           size="sm"
+          colorScheme="primary"
         >
           Learn More
         </HybridButton>

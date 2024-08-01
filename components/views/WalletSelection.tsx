@@ -54,9 +54,7 @@ export default function WalletSelection({
             <Text fontSize="sm">Don't have a wallet?</Text>
 
             <Button onClick={onSwitchToLearnMore} variant="link" padding={0}>
-              <Text fontSize="sm" color="blue.500">
-                Learn More
-              </Text>
+              Learn More
             </Button>
           </HStack>
         </>

@@ -26,7 +26,6 @@ export default function ScanInstall({ onContinue, wallet }: ScanInstallProps) {
       </Box>
 
       <Button
-        colorScheme="blue"
         size="sm"
         mt="auto"
         mb={4}

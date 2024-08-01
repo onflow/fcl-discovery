@@ -73,13 +73,7 @@ export default function WalletTypeCard({
 
         <Box></Box>
 
-        <HybridButton
-          size="sm"
-          colorScheme="blue"
-          borderRadius="full"
-          mr="auto"
-          {...buttonProps}
-        >
+        <HybridButton size="sm" borderRadius="full" mr="auto" {...buttonProps}>
           <Text textStyle="Body 2 (Bold)">{buttonText}</Text>
         </HybridButton>
       </SimpleGrid>
