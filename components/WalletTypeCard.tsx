@@ -71,10 +71,17 @@ export default function WalletTypeCard({
           <Text textStyle="body2">{description}</Text>
         </Stack>
 
+        {/* Placeholder for grid */}
         <Box></Box>
 
-        <HybridButton size="sm" borderRadius="full" mr="auto" {...buttonProps}>
-          <Text textStyle="body2Bold">{buttonText}</Text>
+        <HybridButton
+          variant="primary"
+          size="sm"
+          borderRadius="full"
+          mr="auto"
+          {...buttonProps}
+        >
+          buttonText
         </HybridButton>
       </SimpleGrid>
     </Flex>
