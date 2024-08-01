@@ -17,6 +17,7 @@ export default function AboutCard({
       <Image
         as={NextImage}
         src={image as any}
+        alt={title}
         boxSize="3rem"
         borderRadius="xl"
       />

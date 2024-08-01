@@ -3,6 +3,7 @@ import { toRem } from './util/sizes'
 import { headingConfig } from './components/heading'
 import { textConfig } from './components/text'
 import { buttonConfig } from './components/button'
+import { typography } from './typography'
 
 export const theme = extendTheme({
   styles: {
@@ -17,26 +18,7 @@ export const theme = extendTheme({
     heading:
       'SFRounded,ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji"',
   },
-  textStyles: {
-    'Body 1': {
-      fontSize: toRem(16),
-      lineHeight: toRem(20),
-    },
-    'Body 1 (Bold)': {
-      fontSize: toRem(16),
-      lineHeight: toRem(20),
-      fontWeight: '700',
-    },
-    'Body 2': {
-      fontSize: toRem(14),
-      lineHeight: toRem(18),
-    },
-    'Body 2 (Bold)': {
-      fontSize: toRem(14),
-      lineHeight: toRem(18),
-      fontWeight: '700',
-    },
-  },
+  textStyles: typography,
   components: {
     Heading: headingConfig,
     Text: textConfig,

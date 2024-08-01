@@ -1,10 +1,8 @@
 import { defineStyle, defineStyleConfig } from '@chakra-ui/react'
-import { toRem } from '../util/sizes'
+import { typography } from '../typography'
 
 const headingStyle = defineStyle({
-  fontSize: toRem(18),
-  lineHeight: toRem(24),
-  fontWeight: '700',
+  ...typography.Heading,
 })
 
 export const headingConfig = defineStyleConfig({

@@ -56,11 +56,13 @@ export default function ViewHeader({
           {onClose && (
             <IconButton
               onClick={onClose}
+              variant="secondary"
               icon={<CloseIcon h="0.625rem" />}
               aria-label="Close Modal"
               isRound={true}
               boxSize="1.75rem"
               minW="0"
+              colorScheme="blackAlpha"
             ></IconButton>
           )}
         </Flex>
