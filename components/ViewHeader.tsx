@@ -9,6 +9,7 @@ import {
 import { ComponentProps } from 'react'
 import { IoChevronBack } from 'react-icons/io5'
 import CloseIcon from './Icons/CloseIcon'
+import BackIcon from './Icons/BackIcon'
 
 type HeaderProps = {
   title?: string
@@ -32,11 +33,10 @@ export default function ViewHeader({
           {onBack && (
             <IconButton
               onClick={onBack}
-              icon={<Icon h="1.75rem" as={IoChevronBack} />}
+              icon={<BackIcon h="1.125rem" pr="0.15rem" />}
               aria-label="Close Modal"
               borderRadius="full"
               variant="ghost"
-              fontWeight="bold"
               isRound={true}
               boxSize="1.75rem"
               minW="0"
@@ -62,7 +62,7 @@ export default function ViewHeader({
               isRound={true}
               boxSize="1.75rem"
               minW="0"
-              colorScheme="blackAlpha"
+              color="rgba(0, 0, 0, 0.6)"
             ></IconButton>
           )}
         </Flex>
