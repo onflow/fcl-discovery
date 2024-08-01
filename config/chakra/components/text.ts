@@ -2,6 +2,6 @@ import { defineStyleConfig } from '@chakra-ui/react'
 
 export const textConfig = defineStyleConfig({
   baseStyle: {
-    textStyle: 'Body 1',
+    textStyle: 'body1',
   },
 })

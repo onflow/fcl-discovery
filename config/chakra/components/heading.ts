@@ -2,7 +2,7 @@ import { defineStyle, defineStyleConfig } from '@chakra-ui/react'
 import { typography } from '../typography'
 
 const headingStyle = defineStyle({
-  ...typography.Heading,
+  ...typography.heading,
 })
 
 export const headingConfig = defineStyleConfig({

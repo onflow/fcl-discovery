@@ -22,11 +22,11 @@ export default function ExploreWallets({ onGetWallet }: ExploreWalletsProps) {
         mx="auto"
         textAlign="center"
       >
-        <Text textStyle="Body 1 (Bold)">Not what you're looking for?</Text>
-        <Text display={['inline', null, 'none']} textStyle="Body 2">
+        <Text textStyle="body1Bold">Not what you're looking for?</Text>
+        <Text display={['inline', null, 'none']} textStyle="body2">
           Return to the main screen to select a different wallet provider
         </Text>
-        <Text display={['none', null, 'inline']} textStyle="Body 2">
+        <Text display={['none', null, 'inline']} textStyle="body2">
           Select a wallet on the left to get started with a different wallet
           provider.
         </Text>

@@ -8,25 +8,25 @@ import { toRem } from './util/sizes'
 // To use these in our theme we must manually apply them to components.
 // `Text` component is unaffected by this issue, but other components like `Heading` and `Button` are.
 export const typography = {
-  'Body 1': {
+  body1: {
     fontSize: toRem(16),
     lineHeight: toRem(20),
   },
-  'Body 1 (Bold)': {
+  body1Bold: {
     fontSize: toRem(16),
     lineHeight: toRem(20),
     fontWeight: '700',
   },
-  'Body 2': {
+  body2: {
     fontSize: toRem(14),
     lineHeight: toRem(18),
   },
-  'Body 2 (Bold)': {
+  body2Bold: {
     fontSize: toRem(14),
     lineHeight: toRem(18),
     fontWeight: '700',
   },
-  Heading: {
+  heading: {
     fontSize: toRem(18),
     lineHeight: toRem(24),
     fontWeight: '700',

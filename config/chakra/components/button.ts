@@ -9,7 +9,7 @@ import { typography } from '../typography'
 
 const baseStyle = defineStyle({
   borderRadius: 'full',
-  ...typography['Body 2 (Bold)'],
+  ...typography['body2Bold'],
 })
 
 const primaryVariant = defineStyle((props: StyleFunctionProps) => ({

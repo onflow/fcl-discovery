@@ -67,14 +67,14 @@ export default function WalletTypeCard({
           my="auto"
         />
         <Stack pt={1}>
-          <Text textStyle="Body 1 (Bold)">{title}</Text>
-          <Text textStyle="Body 2">{description}</Text>
+          <Text textStyle="body1Bold">{title}</Text>
+          <Text textStyle="body2">{description}</Text>
         </Stack>
 
         <Box></Box>
 
         <HybridButton size="sm" borderRadius="full" mr="auto" {...buttonProps}>
-          <Text textStyle="Body 2 (Bold)">{buttonText}</Text>
+          <Text textStyle="body2Bold">{buttonText}</Text>
         </HybridButton>
       </SimpleGrid>
     </Flex>
