@@ -13,22 +13,18 @@ export default function AboutCard({
   description,
 }: AboutCardProps) {
   return (
-    <Flex gap={6} maxW="22rem" alignItems="center">
+    <Flex gap={4} maxW="22rem" alignItems="center">
       <Image
         as={NextImage}
         src={image as any}
-        alt="Coinbase Wallet"
-        boxSize="3.5rem"
+        alt={title}
+        boxSize="3rem"
         borderRadius="xl"
       />
 
       <Flex direction="column" textAlign="left" gap={1}>
-        <Text fontSize="sm" as="b">
-          {title}
-        </Text>
-        <Text fontSize="sm" color="gray.500">
-          {description}
-        </Text>
+        <Text textStyle="body2Bold">{title}</Text>
+        <Text textStyle="body2">{description}</Text>
       </Flex>
     </Flex>
   )
