@@ -1,4 +1,4 @@
-import { Container, Stack, Text } from '@chakra-ui/react'
+import { Container, Flex, Stack, Text } from '@chakra-ui/react'
 import GetWalletList from '../GetWalletList'
 import { Wallet } from '../../data/wallets'
 
@@ -12,15 +12,21 @@ export default function ExploreWallets({ onGetWallet }: ExploreWalletsProps) {
       <Stack spacing={8} px={8} pb={6} flexGrow={1} overflow="scroll">
         <GetWalletList onGetWallet={onGetWallet} />
       </Stack>
-      <Container textAlign="center" p={8} maxW="xs">
-        <Text fontSize="md" fontWeight="bold" mb={1}>
-          Not what you're looking for?
-        </Text>
-        <Text fontSize="sm" color="gray.500">
+      <Stack
+        px={4}
+        py={6}
+        maxW="xs"
+        spacing={2}
+        justifyContent="center"
+        mx="auto"
+        textAlign="center"
+      >
+        <Text textStyle="Body 1 (Bold)">Not what you're looking for?</Text>
+        <Text textStyle="Body 2" color="gray.500">
           Select a wallet on the left to get started with a different wallet
           provider.
         </Text>
-      </Container>
+      </Stack>
     </Stack>
   )
 }

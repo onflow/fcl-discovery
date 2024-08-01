@@ -1,5 +1,5 @@
 import { CloseIcon } from '@chakra-ui/icons'
-import { Flex, IconButton, Text } from '@chakra-ui/react'
+import { Flex, Heading, IconButton, Text } from '@chakra-ui/react'
 import { ComponentProps } from 'react'
 import { IoChevronBack } from 'react-icons/io5'
 
@@ -44,14 +44,9 @@ export default function ViewHeader({
         </Flex>
       )}
 
-      <Text
-        fontSize="xl"
-        fontWeight="bold"
-        textAlign={'center'}
-        {...titleProps}
-      >
+      <Heading textAlign={'center'} {...titleProps}>
         {title}
-      </Text>
+      </Heading>
 
       {!titleOnly && (
         <Flex flexGrow={1} flexBasis={0} justifyContent="flex-end">

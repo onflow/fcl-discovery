@@ -23,12 +23,8 @@ export default function AboutCard({
       />
 
       <Flex direction="column" textAlign="left" gap={1}>
-        <Text fontSize="sm" as="b">
-          {title}
-        </Text>
-        <Text fontSize="sm" color="gray.500">
-          {description}
-        </Text>
+        <Text textStyle="Body 2 (Bold)">{title}</Text>
+        <Text textStyle="Body 2">{description}</Text>
       </Flex>
     </Flex>
   )

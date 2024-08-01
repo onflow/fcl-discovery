@@ -52,7 +52,7 @@ export default function WalletTypeCard({
     >
       <SimpleGrid
         columns={2}
-        w="sm"
+        w="xs"
         gap={4}
         templateColumns={'auto 1fr'}
         templateRows={'auto 1fr'}
@@ -62,13 +62,13 @@ export default function WalletTypeCard({
           as={isDataURL(icon) ? 'img' : NextImage}
           src={icon}
           alt={title}
-          boxSize="5rem"
+          boxSize="4.5rem"
           borderRadius="xl"
           my="auto"
         />
         <Stack pt={1}>
-          <Heading size="sm">{title}</Heading>
-          <Text color="gray.500">{description}</Text>
+          <Text textStyle="Body 1 (Bold)">{title}</Text>
+          <Text textStyle="Body 2">{description}</Text>
         </Stack>
 
         <Box></Box>
@@ -77,12 +77,10 @@ export default function WalletTypeCard({
           size="sm"
           colorScheme="blue"
           borderRadius="full"
-          fontWeight="bold"
-          fontSize="sm"
           mr="auto"
           {...buttonProps}
         >
-          {buttonText}
+          <Text textStyle="Body 2 (Bold)">{buttonText}</Text>
         </HybridButton>
       </SimpleGrid>
     </Flex>

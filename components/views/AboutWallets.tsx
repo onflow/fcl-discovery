@@ -1,4 +1,4 @@
-import { Button, Heading, Stack } from '@chakra-ui/react'
+import { Box, Button, Heading, Stack } from '@chakra-ui/react'
 import AboutCard from '../AboutCard'
 import GalaxyImage from '../Icons/galaxy.jpeg'
 import LockImage from '../Icons/lock.jpeg'
@@ -20,9 +20,7 @@ export default function AboutWallets({ onGetWallet }: AboutWalletsProps) {
       pb={8}
       px={6}
     >
-      <Heading textAlign="center" size="md" display={['none', null, 'block']}>
-        What is a Wallet?
-      </Heading>
+      <Heading>What is a Wallet?</Heading>
 
       <Stack spacing={8} my="auto">
         <AboutCard

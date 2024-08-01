@@ -14,7 +14,9 @@
     "test:watch": "jest --watch",
     "lint": "npm run lint:prettier",
     "lint:prettier": "prettier --check .",
-    "lintfix": "prettier --write --list-different ."
+    "lintfix": "prettier --write --list-different .",
+    "gen:theme-typings": "chakra-cli tokens ./config/chakra/theme.ts",
+    "postinstall": "gen:theme-typings"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
@@ -37,6 +39,7 @@
     "swr": "^1.3.0"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^2.4.1",
     "@emotion/jest": "^11.10.5",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
@@ -46,8 +49,8 @@
     "babel-plugin-styled-components": "^2.0.7",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
-    "prettier": "^2.6.2",
-    "typescript": "^4.8.2",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4",
     "url-loader": "^4.1.1"
   }
 }
