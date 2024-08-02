@@ -1,6 +1,6 @@
 import { Box, Button, Stack, Text } from '@chakra-ui/react'
-import QRCode from 'react-qr-code'
 import { Wallet } from '../../data/wallets'
+import QRCode from '../QRCode'
 
 interface ScanInstallProps {
   onContinue: () => void
