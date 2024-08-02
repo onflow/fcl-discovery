@@ -54,9 +54,8 @@ export default function GetWalletCard({ wallet, onGetWallet }: Props) {
         </Stack>
 
         <HybridButton
-          variant="outline"
+          variant="secondary"
           size="sm"
-          colorScheme="blue"
           ml="auto"
           alignSelf="center"
           borderRadius="full"

@@ -18,11 +18,9 @@ export default function AboutWallets({ onGetWallet }: AboutWalletsProps) {
       overflow="auto"
       flexGrow={1}
       pb={8}
-      px={6}
+      px={5}
     >
-      <Heading textAlign="center" size="md" display={['none', null, 'block']}>
-        What is a Wallet?
-      </Heading>
+      <Heading display={['none', null, 'block']}>What is a Wallet?</Heading>
 
       <Stack spacing={8} my="auto">
         <AboutCard
@@ -39,7 +37,7 @@ export default function AboutWallets({ onGetWallet }: AboutWalletsProps) {
 
       <Stack spacing={4}>
         <Button
-          colorScheme="blue"
+          variant="primary"
           borderRadius="full"
           size="sm"
           onClick={onGetWallet}
@@ -47,10 +45,10 @@ export default function AboutWallets({ onGetWallet }: AboutWalletsProps) {
           Get a Wallet
         </Button>
         <HybridButton
-          href={LEARN_MORE_URL}
-          variant="link"
-          colorScheme="blue"
+          variant="ghost"
           size="sm"
+          href={LEARN_MORE_URL}
+          colorScheme="primary"
         >
           Learn More
         </HybridButton>

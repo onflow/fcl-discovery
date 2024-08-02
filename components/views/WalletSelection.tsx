@@ -1,4 +1,12 @@
-import { Button, Divider, HStack, Stack, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  HStack,
+  Stack,
+  Text,
+} from '@chakra-ui/react'
 import ServiceList from '../ServiceList'
 import { useWallets } from '../../hooks/useWallets'
 import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
@@ -22,14 +30,14 @@ export default function WalletSelection({
   const { appVersion } = useConfig()
   const isFeaturesSupported = isGreaterThanOrEqualToVersion(
     appVersion,
-    SUPPORTED_VERSIONS.SUGGESTED_FEATURES
+    SUPPORTED_VERSIONS.SUGGESTED_FEATURES,
   )
 
   const isCollapsed = useIsCollapsed()
 
   return (
     <Stack spacing={0} flexGrow={1} overflow="hidden">
-      <Stack overflow="scroll" px={8} pb={6} flexGrow={1}>
+      <Stack overflow="scroll" px={5} pb={5} flexGrow={1}>
         {/* TODO: replace this in future PR with Filter Bar */}
         {/*isFeaturesSupported && <Features />*/}
         <ServiceList
@@ -42,19 +50,11 @@ export default function WalletSelection({
       {isCollapsed && (
         <>
           <Divider color="gray.300" />
-          <HStack
-            justifyContent="space-between"
-            alignItems="center"
-            padding={8}
-          >
-            <Text fontSize="sm" color="gray.500">
-              Don't have a wallet?
-            </Text>
+          <HStack justifyContent="space-between" alignItems="center" p={5}>
+            <Text fontSize="sm">Don't have a wallet?</Text>
 
             <Button onClick={onSwitchToLearnMore} variant="link" padding={0}>
-              <Text fontSize="sm" color="blue.500">
-                Learn More
-              </Text>
+              Learn More
             </Button>
           </HStack>
         </>

@@ -19,7 +19,7 @@ export default function ServiceList({
   const { isLastUsed } = useWalletHistory()
 
   // Get the last used service, installed services, and recommended services
-  const { lastUsedWallet, installedWallets, recommendedWallets } = useMemo(
+  const categorizedWallets = useMemo(
     () =>
       wallets?.reduce(
         (acc, wallet) => {
@@ -38,10 +38,15 @@ export default function ServiceList({
           lastUsedWallet: null as Wallet | null,
           installedWallets: [] as Wallet[],
           recommendedWallets: [] as Wallet[],
-        }
+        },
       ),
-    [wallets, isLastUsed]
+    [wallets, isLastUsed],
   )
+
+  if (!categorizedWallets) return null
+
+  const { lastUsedWallet, installedWallets, recommendedWallets } =
+    categorizedWallets
 
   return (
     <Stack spacing={4}>

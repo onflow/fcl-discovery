@@ -28,7 +28,7 @@ export default function ConnectWallet({
         fcl.WalletUtils.redirect(service)
       }
     },
-    [walletConnectUri, onConnectQRCode]
+    [walletConnectUri, onConnectQRCode],
   )
 
   const getServiceInfo = (service: Service) => {
@@ -65,7 +65,7 @@ export default function ConnectWallet({
   }
 
   return (
-    <Stack flexGrow={1} alignItems="center" spacing={4} px={6} pb={6}>
+    <Stack flexGrow={1} alignItems="center" spacing={4} px={5} pb={5}>
       {wallet.services.map((service, i) => {
         const { title, description, buttonText, icon } = getServiceInfo(service)
         return (

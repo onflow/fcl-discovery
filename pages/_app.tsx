@@ -1,43 +1,8 @@
 import { handleCancel } from '../helpers/window'
 import { ChakraProvider } from '@chakra-ui/react'
-import {
-  extendTheme,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-} from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent } from '@chakra-ui/react'
 import { useCallback, useState } from 'react'
-
-const theme = extendTheme({
-  styles: {
-    global: {
-      body: {
-        backgroundColor: 'transparent',
-      },
-      font: {
-        heading:
-          '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;',
-        body: '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu;',
-      },
-    },
-  },
-  components: {
-    Button: {
-      baseStyle: {
-        _focus: {
-          boxShadow: 'none',
-        },
-      },
-    },
-    IconButton: {
-      baseStyle: {
-        _focus: {
-          boxShadow: 'none',
-        },
-      },
-    },
-  },
-})
+import { theme } from '../config/chakra/theme'
 
 function MyApp({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(true)
@@ -52,7 +17,7 @@ function MyApp({ Component, pageProps }) {
       <Modal isOpen={isOpen} onClose={handleOnClose} isCentered>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
-          borderRadius="3xl"
+          borderRadius="1rem"
           flexDirection="column"
           w="auto"
           h="auto"
