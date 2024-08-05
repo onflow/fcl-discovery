@@ -14,6 +14,7 @@ export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
   const {
     walletconnect: { uri },
   } = useConfig()
+
   return (
     <Stack
       flexGrow={1}

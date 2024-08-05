@@ -10,12 +10,14 @@ import { useConfig } from '../../contexts/ConfigContext'
 import { toTitleCase } from '../../helpers/strings'
 
 interface ConnectWalletProps {
-  onConnectQRCode: () => void
+  onConnectQRCode: (wallet: Wallet) => void
+  onConnectExtension: (wallet: Wallet) => void
   wallet: Wallet
 }
 
 export default function ConnectWallet({
   onConnectQRCode,
+  onConnectExtension,
   wallet,
 }: ConnectWalletProps) {
   const {
@@ -25,7 +27,9 @@ export default function ConnectWallet({
     async (service: Service) => {
       // WC/RPC is a special case where we need to show a QR code within Discovery
       if (service.method === FCL_SERVICE_METHODS.WC && uri) {
-        onConnectQRCode()
+        onConnectQRCode(wallet)
+      } else if (service.method === FCL_SERVICE_METHODS.EXT) {
+        onConnectExtension(wallet)
       } else {
         fcl.WalletUtils.redirect(service)
       }

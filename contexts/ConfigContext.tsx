@@ -1,30 +1,46 @@
 import { createContext, useContext } from 'react'
 import { FclConfig } from '../hooks/useFcl'
+import { RpcClient } from './rpc/rpc-client'
+import { DiscoveryRpcMethods, FclRpcMethods } from '../helpers/constants'
 
-export interface DiscoveryConfig extends FclConfig {
+export type DiscoveryConfig = FclConfig & {
   network: string
   port: number
 }
 
-export const ConfigContext = createContext<DiscoveryConfig | null>(null)
+export type FclContextType = {
+  config: DiscoveryConfig
+  rpc: RpcClient<FclRpcMethods, DiscoveryRpcMethods>
+}
+
+export const FclContext = createContext<FclContextType | null>(null)
 
 interface ConfigProviderProps {
   children: React.ReactNode
   config: DiscoveryConfig
+  rpc: RpcClient<FclRpcMethods, DiscoveryRpcMethods>
 }
 
-export function ConfigProvider({ children, config }: ConfigProviderProps) {
+export function FclProvider({ children, config, rpc }: ConfigProviderProps) {
   return (
-    <ConfigContext.Provider value={{ ...config }}>
+    <FclContext.Provider value={{ config, rpc }}>
       {children}
-    </ConfigContext.Provider>
+    </FclContext.Provider>
   )
 }
 
 export function useConfig() {
-  const config = useContext(ConfigContext)
+  const { config } = useContext(FclContext)
   if (!config) {
-    throw new Error('useConfig must be used within a ConfigProvider')
+    throw new Error('useConfig must be used within a FclProvider')
   }
   return config
+}
+
+export function useRpc() {
+  const { rpc } = useContext(FclContext)
+  if (!rpc) {
+    throw new Error('useRpc must be used within a FclProvider')
+  }
+  return rpc
 }

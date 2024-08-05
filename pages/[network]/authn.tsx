@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Discovery from '../../components/Discovery'
 import { useFcl } from '../../hooks/useFcl'
-import { ConfigProvider } from '../../contexts/ConfigContext'
+import { FclProvider } from '../../contexts/ConfigContext'
 import { Flex, Spinner, Text } from '@chakra-ui/react'
 import { NETWORKS } from '../../helpers/constants'
 import { notFound } from 'next/navigation'
@@ -9,7 +9,7 @@ import { notFound } from 'next/navigation'
 const Router = () => {
   const router = useRouter()
   const { network: rawNetwork, port } = router.query
-  const { config: fclConfig, error, isLoading } = useFcl()
+  const { config: fclConfig, rpc: fclRpc, error, isLoading } = useFcl()
 
   // Default to mainnet if no network is provided (e.g. /authn rewriten to /mainnet/authn)
   const network = (rawNetwork as string | undefined) || NETWORKS.MAINNET
@@ -36,15 +36,16 @@ const Router = () => {
   }
 
   return (
-    <ConfigProvider
+    <FclProvider
       config={{
         ...fclConfig,
         network: network as string,
         port: parseInt(port as string) || undefined,
       }}
+      rpc={fclRpc}
     >
       <Discovery />
-    </ConfigProvider>
+    </FclProvider>
   )
 }
 

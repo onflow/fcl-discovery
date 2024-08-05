@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { WalletUtils } from '@onflow/fcl'
 import { Service, Strategy } from '../types'
-import { LocalRpcMethod } from '../helpers/constants'
-
-const CUSTOM_IPC = 'FCL:VIEW:CUSTOM_IPC'
+import {
+  CUSTOM_IPC,
+  FclRpcMethods,
+  DiscoveryRpcMethods,
+  DiscoveryRpcMethod,
+  FclRpcMethod,
+} from '../helpers/constants'
+import { RpcClient } from '../contexts/rpc/rpc-client'
 
 type WalletUtilsProps = {
   fclVersion: string
@@ -27,9 +32,12 @@ export function useFcl() {
   const [config, setConfig] = useState<FclConfig | null>(null)
   const [error, setError] = useState<string | null>(null)
   const timeout = useRef<NodeJS.Timeout | null>(null)
+  const rpcRef = useRef<RpcClient<FclRpcMethods, DiscoveryRpcMethods> | null>(
+    null
+  )
+  const rpc = rpcRef.current
 
-  function handleWcUriUpdate(uri: string) {
-    console.log('update')
+  function handleWcUriUpdate({ uri }: { uri: string }) {
     setConfig(prevConfig => {
       if (!prevConfig) return null
       return {
@@ -40,6 +48,28 @@ export function useFcl() {
         },
       }
     })
+  }
+
+  function initFclRpc() {
+    const { rpc: rpcClient, receive: receiveRpc } = RpcClient.create<
+      FclRpcMethods,
+      DiscoveryRpcMethods
+    >((msg: any) => {
+      WalletUtils.sendMsgToFCL(CUSTOM_IPC, { payload: msg })
+    })
+
+    const unsubFcl = WalletUtils.onMessageFromFCL(
+      CUSTOM_IPC,
+      ({ payload: msg }: { payload: any }) => {
+        receiveRpc(msg)
+      }
+    )
+    rpcClient.on(DiscoveryRpcMethod.NOTIFY_WC_URI_UPDATE, handleWcUriUpdate)
+
+    return {
+      rpc: rpcClient,
+      teardown: unsubFcl,
+    }
   }
 
   useEffect(() => {
@@ -90,15 +120,9 @@ export function useFcl() {
       )
     }
 
-    const teardownRpcListener = WalletUtils.onMessageFromFCL(
-      CUSTOM_IPC,
-      ({ payload: msg }: { payload: any }) => {
-        if (msg.jsonrpc !== '2.0') return
-        if (msg?.method === LocalRpcMethod.NOTIFY_WC_URI_UPDATE) {
-          handleWcUriUpdate(msg.params.uri)
-        }
-      }
-    )
+    // Initialize RPC
+    const { teardown: teardownRpcListener, rpc: rpcClient } = initFclRpc()
+    rpcRef.current = rpcClient
 
     return () => {
       clearTimeout(timeout.current)
@@ -109,6 +133,7 @@ export function useFcl() {
   return {
     error,
     config,
+    rpc,
     isLoading: !config && !error,
   }
 }

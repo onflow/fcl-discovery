@@ -15,6 +15,7 @@ import ViewHeader from './ViewHeader'
 import ViewLayout from './ViewLayout'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { useIsCollapsed } from '../hooks/useIsCollapsed'
+import ConnectExtension from './views/ConnectExtension'
 
 export enum VIEWS {
   WALLET_SELECTION,
@@ -24,6 +25,7 @@ export enum VIEWS {
   CONNECT_WALLET,
   SCAN_CONNECT,
   ABOUT_WALLETS,
+  CONNECT_EXTENSION,
 }
 
 export default function Discovery() {
@@ -135,7 +137,14 @@ export default function Discovery() {
     case VIEWS.CONNECT_WALLET:
       viewContent = (
         <ConnectWallet
-          onConnectQRCode={() => setCurrentView(VIEWS.SCAN_CONNECT)}
+          onConnectQRCode={wallet => {
+            setCurrentView(VIEWS.SCAN_CONNECT)
+            setSelectedWallet(wallet)
+          }}
+          onConnectExtension={wallet => {
+            setCurrentView(VIEWS.CONNECT_EXTENSION)
+            setSelectedWallet(wallet)
+          }}
           wallet={selectedWallet}
         />
       )
@@ -159,6 +168,13 @@ export default function Discovery() {
       headerProps = {
         title: `Connect to ${selectedWallet.name}`,
         onBack: () => setCurrentView(VIEWS.ABOUT_WALLETS),
+      }
+      break
+    case VIEWS.CONNECT_EXTENSION:
+      viewContent = <ConnectExtension wallet={selectedWallet} />
+      headerProps = {
+        title: `Connect to ${selectedWallet.name}`,
+        onBack: () => setCurrentView(VIEWS.CONNECT_WALLET),
       }
       break
   }

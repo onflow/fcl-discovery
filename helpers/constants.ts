@@ -1,5 +1,7 @@
 import Enum from 'enum-xyz'
 import ChromeIcon from '../components/Icons/chrome.svg'
+import { RpcNotification, RpcRequest } from '../contexts/rpc/rpc-client'
+import { Service } from '../types'
 
 const { AUTHN, CANARYNET, TESTNET, PREVIEWNET, MAINNET, LOCAL, EMULATOR } =
   Enum.String({ casing: 'lowercase' })
@@ -114,10 +116,26 @@ export const BROWSERS = {
   },
 } as const
 
-export enum PeerRpcMethod {
-  EXEC_SERVICE = 'exec_service',
+export const CUSTOM_IPC = 'FCL:VIEW:CUSTOM_IPC'
+
+export enum DiscoveryRpcMethod {
+  NOTIFY_WC_URI_UPDATE = 'notify_wc_uri_update',
+  NOTIFY_URI_EXPIRED = 'notify_uri_expired',
+  GET_METHODS = 'get_methods',
 }
 
-export enum LocalRpcMethod {
-  NOTIFY_WC_URI_UPDATE = 'wc_uri_update',
+export enum FclRpcMethod {
+  EXEC_SERVICE = 'exec_service',
+  REQUEST_URI = 'request_uri',
+  GET_METHODS = 'get_methods',
+}
+
+export type DiscoveryRpcMethods = {
+  [DiscoveryRpcMethod.NOTIFY_WC_URI_UPDATE]: RpcNotification<{ uri: string }>
+  [DiscoveryRpcMethod.GET_METHODS]: RpcRequest<{}, { methods: string[] }>
+}
+
+export type FclRpcMethods = {
+  [FclRpcMethod.EXEC_SERVICE]: RpcRequest<{ service: Service }, {}>
+  [FclRpcMethod.GET_METHODS]: RpcRequest<{}, { methods: string[] }>
 }

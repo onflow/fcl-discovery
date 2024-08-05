@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Spacer, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
 import QRCode from '../QRCode'
 
