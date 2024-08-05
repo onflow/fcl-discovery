@@ -148,7 +148,14 @@ export default function Discovery() {
       }
       break
     case VIEWS.SCAN_CONNECT:
-      viewContent = <ScanConnect wallet={selectedWallet} />
+      viewContent = (
+        <ScanConnect
+          wallet={selectedWallet}
+          onGetWallet={() => {
+            setCurrentView(VIEWS.GET_WALLET)
+          }}
+        />
+      )
       headerProps = {
         title: `Connect to ${selectedWallet.name}`,
         onBack: () => setCurrentView(VIEWS.ABOUT_WALLETS),

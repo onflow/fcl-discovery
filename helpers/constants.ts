@@ -113,3 +113,11 @@ export const BROWSERS = {
     icon: ChromeIcon,
   },
 } as const
+
+export enum PeerRpcMethod {
+  EXEC_SERVICE = 'exec_service',
+}
+
+export enum LocalRpcMethod {
+  NOTIFY_WC_URI_UPDATE = 'wc_uri_update',
+}

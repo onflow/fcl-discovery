@@ -35,7 +35,6 @@ export default function ViewHeader({
               onClick={onBack}
               icon={<BackIcon h="1.125rem" pr="0.15rem" />}
               aria-label="Close Modal"
-              borderRadius="full"
               variant="ghost"
               isRound={true}
               boxSize="1.75rem"

@@ -13,6 +13,7 @@ export default function ScanInstall({ onContinue, wallet }: ScanInstallProps) {
       flexGrow={1}
       flexShrink={1}
       alignItems="center"
+      justifyContent="space-evenly"
       spacing="lg"
       px="lg"
       pb="lg"
@@ -21,16 +22,14 @@ export default function ScanInstall({ onContinue, wallet }: ScanInstallProps) {
         Scan with your phone to install on iOS or Android
       </Text>
 
-      <Flex
-        padding="md"
-        bg="white"
-        borderRadius="xl"
-        shadow="md"
+      <Box
+        padding={3}
+        borderRadius="0.75rem"
         border="1px"
         borderColor="gray.200"
       >
-        <QRCode value={wallet.installLink?.mobile} size="18.75rem" />
-      </Flex>
+        <QRCode value={wallet.installLink?.mobile} size="15rem" />
+      </Box>
 
       <Button
         variant="primary"
@@ -38,9 +37,8 @@ export default function ScanInstall({ onContinue, wallet }: ScanInstallProps) {
         onClick={onContinue}
         fontWeight="bold"
         borderRadius="full"
-        mt="auto"
       >
-        Continue
+        Connect to {wallet.name}
       </Button>
     </Stack>
   )

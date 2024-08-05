@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { WalletUtils } from '@onflow/fcl'
 import { Service, Strategy } from '../types'
+import { LocalRpcMethod } from '../helpers/constants'
+
+const CUSTOM_IPC = 'FCL:VIEW:CUSTOM_IPC'
 
 type WalletUtilsProps = {
   fclVersion: string
@@ -15,13 +18,29 @@ export interface FclConfig {
   walletInclude: string[]
   clientServices: Service[]
   supportedStrategies: Strategy[]
-  walletConnectUri: string | null
+  walletconnect?: {
+    uri?: string
+  }
 }
 
 export function useFcl() {
   const [config, setConfig] = useState<FclConfig | null>(null)
   const [error, setError] = useState<string | null>(null)
   const timeout = useRef<NodeJS.Timeout | null>(null)
+
+  function handleWcUriUpdate(uri: string) {
+    console.log('update')
+    setConfig(prevConfig => {
+      if (!prevConfig) return null
+      return {
+        ...prevConfig,
+        walletconnect: {
+          ...prevConfig.walletconnect,
+          uri,
+        },
+      }
+    })
+  }
 
   useEffect(() => {
     try {
@@ -42,7 +61,9 @@ export function useFcl() {
             body.extensions ||
             [],
           supportedStrategies: config.client?.supportedStrategies || [],
-          walletConnectUri: config.client?.walletConnectUri || null,
+          walletconnect: {
+            uri: config.client?.walletconnect?.uri,
+          },
         } as FclConfig
 
         setConfig(state)
@@ -69,8 +90,19 @@ export function useFcl() {
       )
     }
 
+    const teardownRpcListener = WalletUtils.onMessageFromFCL(
+      CUSTOM_IPC,
+      ({ payload: msg }: { payload: any }) => {
+        if (msg.jsonrpc !== '2.0') return
+        if (msg?.method === LocalRpcMethod.NOTIFY_WC_URI_UPDATE) {
+          handleWcUriUpdate(msg.params.uri)
+        }
+      }
+    )
+
     return () => {
       clearTimeout(timeout.current)
+      teardownRpcListener()
     }
   }, [])
 
