@@ -119,8 +119,8 @@ export const BROWSERS = {
 export const CUSTOM_IPC = 'FCL:VIEW:CUSTOM_IPC'
 
 export enum DiscoveryRpcMethod {
-  NOTIFY_WC_URI_UPDATE = 'notify_wc_uri_update',
-  NOTIFY_URI_EXPIRED = 'notify_uri_expired',
+  NOTIFY_QR_EXPIRY = 'notify_qr_expiry',
+  NOTIFY_QR_ERROR = 'notify_qr_error',
   GET_METHODS = 'get_methods',
 }
 
@@ -131,11 +131,13 @@ export enum FclRpcMethod {
 }
 
 export type DiscoveryRpcMethods = {
-  [DiscoveryRpcMethod.NOTIFY_WC_URI_UPDATE]: RpcNotification<{ uri: string }>
+  [DiscoveryRpcMethod.NOTIFY_QR_EXPIRY]: RpcNotification<{ uri: string }>
+  [DiscoveryRpcMethod.NOTIFY_QR_ERROR]: RpcNotification<{ error: string }>
   [DiscoveryRpcMethod.GET_METHODS]: RpcRequest<{}, { methods: string[] }>
 }
 
 export type FclRpcMethods = {
   [FclRpcMethod.EXEC_SERVICE]: RpcRequest<{ service: Service }, {}>
+  [FclRpcMethod.REQUEST_URI]: RpcRequest<{ service: Service }, { uri: string }>
   [FclRpcMethod.GET_METHODS]: RpcRequest<{}, { methods: string[] }>
 }

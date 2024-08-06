@@ -167,7 +167,7 @@ export default function Discovery() {
       )
       headerProps = {
         title: `Connect to ${selectedWallet.name}`,
-        onBack: () => setCurrentView(VIEWS.ABOUT_WALLETS),
+        onBack: () => setCurrentView(VIEWS.CONNECT_WALLET),
       }
       break
     case VIEWS.CONNECT_EXTENSION:

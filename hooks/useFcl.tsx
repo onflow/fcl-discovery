@@ -9,6 +9,8 @@ import {
   FclRpcMethod,
 } from '../helpers/constants'
 import { RpcClient } from '../contexts/rpc/rpc-client'
+import { mutate } from 'swr'
+import { genGetUriKey } from './useUri'
 
 type WalletUtilsProps = {
   fclVersion: string
@@ -23,9 +25,7 @@ export interface FclConfig {
   walletInclude: string[]
   clientServices: Service[]
   supportedStrategies: Strategy[]
-  walletconnect?: {
-    uri?: string
-  }
+  rpcEnabled?: boolean
 }
 
 export function useFcl() {
@@ -36,19 +36,6 @@ export function useFcl() {
     null
   )
   const rpc = rpcRef.current
-
-  function handleWcUriUpdate({ uri }: { uri: string }) {
-    setConfig(prevConfig => {
-      if (!prevConfig) return null
-      return {
-        ...prevConfig,
-        walletconnect: {
-          ...prevConfig.walletconnect,
-          uri,
-        },
-      }
-    })
-  }
 
   function initFclRpc() {
     const { rpc: rpcClient, receive: receiveRpc } = RpcClient.create<
@@ -64,7 +51,6 @@ export function useFcl() {
         receiveRpc(msg)
       }
     )
-    rpcClient.on(DiscoveryRpcMethod.NOTIFY_WC_URI_UPDATE, handleWcUriUpdate)
 
     return {
       rpc: rpcClient,
@@ -91,9 +77,7 @@ export function useFcl() {
             body.extensions ||
             [],
           supportedStrategies: config.client?.supportedStrategies || [],
-          walletconnect: {
-            uri: config.client?.walletconnect?.uri,
-          },
+          rpcEnabled: config.client?.discoveryRpcEnabled || false,
         } as FclConfig
 
         setConfig(state)

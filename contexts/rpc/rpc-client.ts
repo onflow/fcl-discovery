@@ -27,8 +27,14 @@ export class RpcClient<
   LocalRpcMethods extends RpcMethodMap
 > {
   private id = 0
-  private handlers: Record<keyof LocalRpcMethods, (params: any) => any> =
-    {} as any
+  private handlers: Record<
+    keyof OnlyRequests<LocalRpcMethods>,
+    (params: any) => any
+  > = {} as any
+  private subscriptions: Record<
+    keyof OnlyNotifications<LocalRpcMethods>,
+    Set<(params: any) => void>
+  > = {} as any
   private messageListeners: ((msg: any) => void)[] = []
 
   private constructor(private send: (msg: any) => void) {}
@@ -45,7 +51,29 @@ export class RpcClient<
     if (msg.method) {
       const handler = this.handlers[msg.method]
       if (handler) {
-        handler(msg.params)
+        ;(async () => {
+          try {
+            const result = await handler(msg.params)
+            this.send({
+              jsonrpc: '2.0',
+              id: msg.id,
+              result,
+            })
+          } catch (error: any) {
+            this.send({
+              jsonrpc: '2.0',
+              id: msg.id,
+              error: {
+                code: -32000,
+                message: error?.message,
+              },
+            })
+          }
+        })()
+      }
+
+      if (this.subscriptions[msg.method]) {
+        this.subscriptions[msg.method].forEach(handler => handler(msg.params))
       }
     }
 
@@ -96,14 +124,29 @@ export class RpcClient<
     )
   }
 
-  on<R extends keyof LocalRpcMethods>(
+  on<R extends keyof OnlyRequests<LocalRpcMethods>>(
     method: R,
-    handler: (params: LocalRpcMethods[R]['params']) => void
+    handler: (params: OnlyRequests<LocalRpcMethods>[R]['params']) => void
   ) {
     this.handlers[method] = handler
   }
 
+  subscribe<R extends keyof OnlyNotifications<LocalRpcMethods>>(
+    method: R,
+    handler: (params: OnlyNotifications<LocalRpcMethods>[R]['params']) => void
+  ) {
+    this.subscriptions[method] = this.subscriptions[method] || new Set()
+    this.subscriptions[method].add(handler)
+  }
+
   off<R extends keyof LocalRpcMethods>(method: R) {
     delete this.handlers[method]
+  }
+
+  unsubscribe<R extends keyof LocalRpcMethods>(
+    method: R,
+    handler: (params: any) => void
+  ) {
+    this.subscriptions[method]?.delete(handler)
   }
 }

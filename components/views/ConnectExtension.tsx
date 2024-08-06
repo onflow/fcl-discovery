@@ -1,9 +1,11 @@
-import { Spinner, Stack, Text } from '@chakra-ui/react'
+import { Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
 import { useEffect } from 'react'
 import { Service } from '../../types'
 import { FCL_SERVICE_METHODS, FclRpcMethod } from '../../helpers/constants'
 import { useRpc } from '../../contexts/ConfigContext'
+import Image from 'next/image'
+import WalletIcon from '../Icons/WalletIcon'
 
 type ConnectExtensionProps = {
   wallet: Wallet
@@ -24,9 +26,21 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
   }, [wallet])
 
   return (
-    <Stack px={5} pb={5} alignItems="center" justifyContent="center">
-      <Text textStyle="body2">Connecting to {wallet.name} extension...</Text>
-      <Spinner size="xl" />
+    <Stack
+      px={5}
+      pb={5}
+      alignItems="center"
+      justifyContent="center"
+      flexGrow={1}
+      spacing={4}
+      textAlign="center"
+    >
+      <WalletIcon wallet={wallet} boxSize="3rem" borderRadius="0.75rem" />
+      <Stack>
+        <Heading size="md">Opening {wallet.name}...</Heading>
+        <Text textStyle="body2">Confirm connection in the extension</Text>
+      </Stack>
+      <Spinner size="lg" thickness="4px" speed="0.65s" />
     </Stack>
   )
 }

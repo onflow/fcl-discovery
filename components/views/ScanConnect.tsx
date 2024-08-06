@@ -1,9 +1,10 @@
-import { Box, Flex, Stack, Text } from '@chakra-ui/react'
+import { Box, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
-import { useConfig } from '../../contexts/ConfigContext'
 import QRCode from '../QRCode'
 import CopyButton from '../CopyButton'
 import HybridButton from '../HybridButton'
+import { FCL_SERVICE_METHODS } from '../../helpers/constants'
+import { useUri } from '../../hooks/useUri'
 
 interface ScanConnectProps {
   wallet: Wallet
@@ -11,9 +12,11 @@ interface ScanConnectProps {
 }
 
 export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
-  const {
-    walletconnect: { uri },
-  } = useConfig()
+  const service = wallet.services.find(
+    service => service.method === FCL_SERVICE_METHODS.WC
+  )
+
+  const { uri, error, isLoading } = useUri(service)
 
   return (
     <Stack
@@ -35,7 +38,27 @@ export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
         border="1px"
         borderColor="gray.200"
       >
-        <QRCode value={uri} size="20rem" image={wallet.icon} imageSize="5rem" />
+        {uri && (
+          <QRCode
+            value={uri}
+            size="20rem"
+            image={wallet.icon}
+            imageSize="5rem"
+          />
+        )}
+        {!uri && isLoading && (
+          <Flex boxSize="20rem" justifyContent="center" alignItems="center">
+            <Spinner size="xl" />
+          </Flex>
+        )}
+        {error && (
+          <Flex boxSize="20rem" justifyContent="center" alignItems="center">
+            <Text textStyle="body2" colorScheme="red">
+              An error has occurred while generating the QR code. Please try
+              again.
+            </Text>
+          </Flex>
+        )}
       </Box>
 
       <Flex width="100%" justifyContent="space-between" alignItems="center">
