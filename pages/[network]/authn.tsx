@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Discovery from '../../components/Discovery'
 import { useFcl } from '../../hooks/useFcl'
-import { FclProvider } from '../../contexts/ConfigContext'
+import { FclProvider } from '../../contexts/FclContext'
 import { Flex, Spinner, Text } from '@chakra-ui/react'
 import { NETWORKS } from '../../helpers/constants'
 import { notFound } from 'next/navigation'

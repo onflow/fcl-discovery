@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { useRpc } from '../contexts/ConfigContext'
+import { useRpc } from '../contexts/FclContext'
 import { Service } from '../types'
 import { DiscoveryRpcMethod, FclRpcMethod } from '../helpers/constants'
 

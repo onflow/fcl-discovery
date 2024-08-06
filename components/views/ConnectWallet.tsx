@@ -6,7 +6,7 @@ import { FCL_SERVICE_METHODS } from '../../helpers/constants'
 import * as fcl from '@onflow/fcl'
 import { Fragment, useCallback } from 'react'
 import { Service } from '../../types'
-import { useConfig } from '../../contexts/ConfigContext'
+import { useConfig } from '../../contexts/FclContext'
 import { toTitleCase } from '../../helpers/strings'
 
 interface ConnectWalletProps {

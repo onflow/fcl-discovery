@@ -1,3 +1,5 @@
+import { RpcError, RpcErrorCode } from './rpc-error'
+
 export type RpcRequest<P, R> = {
   params: P
   result: R
@@ -7,17 +9,52 @@ export type RpcNotification<P> = {
   params: P
 }
 
+export type RpcRequestMessage = {
+  jsonrpc: '2.0'
+  id: number
+  method: string
+  params: any
+}
+
+export type RpcNotificationMessage = {
+  jsonrpc: '2.0'
+  method: string
+  params: any
+}
+
+export type RpcResponseMessage = {
+  jsonrpc: '2.0'
+  id: number
+  result: any
+}
+
+export type RpcErrorMessage = {
+  jsonrpc: '2.0'
+  id: number
+  error: {
+    code: number
+    message: string
+    data?: any
+  }
+}
+
+export type RpcMessage =
+  | RpcRequestMessage
+  | RpcNotificationMessage
+  | RpcResponseMessage
+  | RpcErrorMessage
+
 export type RpcMethodMap = Record<
   string,
   RpcRequest<any, any> | RpcNotification<any>
 >
 
 type OnlyRequests<T> = {
-  [K in keyof T]: T[K] extends RpcRequest<any, any> ? T[K] : never
+  [K in keyof T & string]: T[K] extends RpcRequest<any, any> ? T[K] : never
 }
 
 type OnlyNotifications<T> = {
-  [K in keyof T]: T[K] extends RpcNotification<any> ? T[K] : never
+  [K in keyof T & string]: T[K] extends RpcNotification<any> ? T[K] : never
 }
 
 export type IsRpcRequest<T> = T extends RpcRequest<any, any> ? true : false
@@ -37,7 +74,7 @@ export class RpcClient<
   > = {} as any
   private messageListeners: ((msg: any) => void)[] = []
 
-  private constructor(private send: (msg: any) => void) {}
+  private constructor(private send: (msg: RpcMessage) => void) {}
 
   static create<
     PeerRpcMethods extends RpcMethodMap,
@@ -60,14 +97,26 @@ export class RpcClient<
               result,
             })
           } catch (error: any) {
-            this.send({
-              jsonrpc: '2.0',
-              id: msg.id,
-              error: {
-                code: -32000,
-                message: error?.message,
-              },
-            })
+            if (error instanceof RpcError) {
+              this.send({
+                jsonrpc: '2.0',
+                id: msg.id,
+                error: {
+                  code: error.code,
+                  message: error.message,
+                  data: error.data,
+                },
+              })
+            } else {
+              this.send({
+                jsonrpc: '2.0',
+                id: msg.id,
+                error: {
+                  code: RpcErrorCode.INTERNAL_ERROR,
+                  message: error?.message,
+                },
+              })
+            }
           }
         })()
       }
@@ -110,18 +159,24 @@ export class RpcClient<
       id,
     })
 
+    let unsub = () => {}
     return new Promise<OnlyRequests<PeerRpcMethods>[R]['result']>(
       (resolve, reject) => {
-        this.onMessage(msg => {
+        unsub = this.onMessage(msg => {
           if (msg.id === id) {
             if (msg.error) {
-              reject(msg.error)
+              const rpcError = new RpcError(
+                msg.error.code,
+                msg.error.message,
+                msg.error.data
+              )
+              reject(rpcError)
             }
             resolve(msg.result)
           }
         })
       }
-    )
+    ).finally(unsub)
   }
 
   on<R extends keyof OnlyRequests<LocalRpcMethods>>(
@@ -139,11 +194,11 @@ export class RpcClient<
     this.subscriptions[method].add(handler)
   }
 
-  off<R extends keyof LocalRpcMethods>(method: R) {
+  off<R extends keyof LocalRpcMethods & string>(method: R) {
     delete this.handlers[method]
   }
 
-  unsubscribe<R extends keyof LocalRpcMethods>(
+  unsubscribe<R extends keyof LocalRpcMethods & string>(
     method: R,
     handler: (params: any) => void
   ) {

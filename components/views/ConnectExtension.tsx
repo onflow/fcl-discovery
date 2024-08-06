@@ -3,7 +3,7 @@ import { Wallet } from '../../data/wallets'
 import { useEffect, useRef, useState } from 'react'
 import { Service } from '../../types'
 import { FCL_SERVICE_METHODS, FclRpcMethod } from '../../helpers/constants'
-import { useRpc } from '../../contexts/ConfigContext'
+import { useRpc } from '../../contexts/FclContext'
 import WalletIcon from '../Icons/WalletIcon'
 
 type ConnectExtensionProps = {

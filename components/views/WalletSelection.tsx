@@ -10,7 +10,7 @@ import {
 import ServiceList from '../ServiceList'
 import { useWallets } from '../../hooks/useWallets'
 import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
-import { useConfig } from '../../contexts/ConfigContext'
+import { useConfig } from '../../contexts/FclContext'
 import { SUPPORTED_VERSIONS } from '../../helpers/constants'
 import { Wallet } from '../../data/wallets'
 import { useIsCollapsed } from '../../hooks/useIsCollapsed'
@@ -30,7 +30,7 @@ export default function WalletSelection({
   const { appVersion } = useConfig()
   const isFeaturesSupported = isGreaterThanOrEqualToVersion(
     appVersion,
-    SUPPORTED_VERSIONS.SUGGESTED_FEATURES,
+    SUPPORTED_VERSIONS.SUGGESTED_FEATURES
   )
 
   const isCollapsed = useIsCollapsed()
