@@ -48,12 +48,14 @@ export default function Discovery() {
     })
   }, [isCollapsed])
 
-  const onSelectWallet = useCallback(wallet => {
+  const onSelectWallet = useCallback((wallet: Wallet) => {
     setSelectedWallet(wallet)
     if (wallet.services.length === 1) {
       const service = wallet.services[0]
-      if (service.method !== FCL_SERVICE_METHODS.WC) {
+      if (service.method === FCL_SERVICE_METHODS.WC) {
         setCurrentView(VIEWS.SCAN_CONNECT)
+      } else if (service.method === FCL_SERVICE_METHODS.EXT) {
+        setCurrentView(VIEWS.CONNECT_EXTENSION)
       } else {
         fcl.WalletUtils.redirect(service)
       }

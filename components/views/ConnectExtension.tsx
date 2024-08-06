@@ -1,10 +1,9 @@
-import { Heading, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Button, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Service } from '../../types'
 import { FCL_SERVICE_METHODS, FclRpcMethod } from '../../helpers/constants'
 import { useRpc } from '../../contexts/ConfigContext'
-import Image from 'next/image'
 import WalletIcon from '../Icons/WalletIcon'
 
 type ConnectExtensionProps = {
@@ -13,17 +12,32 @@ type ConnectExtensionProps = {
 
 export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
   const rpc = useRpc()
-  function execParallelService(service: Service) {
-    rpc.request(FclRpcMethod.EXEC_SERVICE, { service })
+  const [isConnecting, setIsConnecting] = useState(false)
+  const firstRender = useRef(true)
+
+  function connect() {
+    setIsConnecting(true)
+    wallet.services.forEach(service => {
+      if (service.method === FCL_SERVICE_METHODS.EXT) {
+        rpc
+          .request(FclRpcMethod.EXEC_SERVICE, { service })
+          .catch(e => {
+            console.error('Failed to connect to extension', e)
+          })
+          .finally(() => {
+            setIsConnecting(false)
+          })
+      }
+    })
   }
 
   useEffect(() => {
-    wallet.services.forEach(service => {
-      if (service.method === FCL_SERVICE_METHODS.EXT) {
-        execParallelService(service)
-      }
-    })
-  }, [wallet])
+    if (!firstRender.current) {
+      return
+    }
+    connect()
+    firstRender.current = false
+  }, [wallet, isConnecting, rpc])
 
   return (
     <Stack
@@ -40,7 +54,12 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
         <Heading size="md">Opening {wallet.name}...</Heading>
         <Text textStyle="body2">Confirm connection in the extension</Text>
       </Stack>
-      <Spinner size="lg" thickness="4px" speed="0.65s" />
+      {isConnecting && <Spinner size="lg" thickness="4px" speed="0.65s" />}
+      {!isConnecting && (
+        <Button variant="primary" size="sm" onClick={() => connect()}>
+          Retry
+        </Button>
+      )}
     </Stack>
   )
 }
