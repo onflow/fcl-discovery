@@ -12,7 +12,7 @@ export const pipeWalletServices =
     pipe(
       extractWalletServices,
       makeServicesPipe({ wallets }),
-      collectWalletsFromServices({ wallets })
+      collectWalletsFromServices({ wallets }),
     )(wallets)
 
 export const extractWalletServices = (wallets: Wallet[]): ServiceWithWallet[] =>
@@ -21,7 +21,7 @@ export const extractWalletServices = (wallets: Wallet[]): ServiceWithWallet[] =>
       ...wallet.services.map(service => ({
         ...service,
         walletUid: wallet.uid,
-      }))
+      })),
     )
     return acc
   }, [])
@@ -39,21 +39,21 @@ export const walletsForNetwork =
 export const collectWalletsFromServices =
   ({ wallets }: { wallets: Wallet[] }) =>
   (services: ServiceWithWallet[]) =>
-    services.reduce((acc, service) => {
+    services.reduce((acc, _service) => {
+      // Append service without reference to wallet
+      const { walletUid, ...service } = _service
       const existingWalletIdx = acc.findIndex(
-        wallet => wallet.uid === service.walletUid
+        wallet => wallet.uid === walletUid,
       )
 
       if (existingWalletIdx === -1) {
-        const wallet = wallets.find(wallet => wallet.uid === service.walletUid)
+        const wallet = wallets.find(wallet => wallet.uid === walletUid)
         acc.push({
           ...wallet,
           services: [service],
         })
       } else {
-        // Append service without reference to wallet
-        const { walletUid, ...serviceWithoutWallet } = service
-        acc[existingWalletIdx].services.push(serviceWithoutWallet)
+        acc[existingWalletIdx].services.push(service)
       }
       return acc
     }, [])
@@ -79,7 +79,7 @@ export function extractAllServicesWithProvider(wallets: Wallet[]) {
           ...walletToProvider(wallet),
           ...service.provider,
         },
-      }))
+      })),
     )
     return acc
   }, [])

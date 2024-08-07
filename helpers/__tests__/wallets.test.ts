@@ -19,11 +19,12 @@ describe('wallets helpers', () => {
         uid: `${walletId}#authnpost`,
         endpoint: `http://localhost:8701/api/authn`,
         provider: {},
-        walletUid: walletId,
       },
     ] as ServiceWithWallet[]
 
-    const servicesPipe = jest.fn(() => clone(mockResult))
+    const servicesPipe = jest.fn(() => [
+      { ...mockResult[0], walletUid: walletId },
+    ])
     const makeServicesPipe = jest.fn(() => servicesPipe)
 
     const res = pipeWalletServices(makeServicesPipe)(wallets)
@@ -47,7 +48,7 @@ describe('wallets helpers', () => {
               ...y,
               walletUid: x.uid,
             })),
-          [] as ServiceWithWallet[]
+          [] as ServiceWithWallet[],
         ),
       ],
     ])
