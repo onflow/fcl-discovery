@@ -1,5 +1,5 @@
 import { Box, Flex, Image } from '@chakra-ui/react'
-import { Fragment, memo } from 'react'
+import { Fragment, memo, useMemo } from 'react'
 import QRCodeLib from 'qrcode'
 import NextImage, { StaticImageData } from 'next/image'
 import { isDataURL } from '../helpers/urls'
@@ -30,10 +30,12 @@ const QRCode = memo(function QRCode({
     (x < 8 && (y < 8 || y >= length - 8)) || (x >= length - 8 && y < 8)
 
   // Compute the scale factor so we can determine which modules are behind the image
+  const sizePixels = useMemo(() => convertToPixels(size), [size])
+  const imageSizePixels = useMemo(() => convertToPixels(imageSize), [imageSize])
   let isModuleBehindImage: (x: number, y: number) => boolean = () => false
   if (image) {
-    const scaleFactor = length / convertToPixels(size)
-    const imageViewboxSize = convertToPixels(imageSize) * scaleFactor
+    const scaleFactor = length / sizePixels
+    const imageViewboxSize = imageSizePixels * scaleFactor
     const imagePadding = 1
     const imageTop = Math.floor((length - imageViewboxSize) / 2 - imagePadding)
     const imageBottom = Math.ceil(
