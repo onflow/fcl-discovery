@@ -12,7 +12,7 @@ jest.mock(
 
 describe('Component: Header', () => {
   const render = config => component => {
-    return defaultRender(<FclProvider {...config}>{component}</FclProvider>)
+    return defaultRender(<FclProvider config={config}>{component}</FclProvider>)
   }
 
   test('should render the configurable component if version is old enough', () => {

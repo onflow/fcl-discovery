@@ -1,12 +1,10 @@
 import { render as defaultRender } from '@testing-library/react'
 import AppHeader from '../AppHeader'
-import { ConfigProvider } from '../../../contexts/ConfigContext'
+import { FclProvider } from '../../../contexts/FclContext'
 
 describe('Component: AppHeader', () => {
   const render = config => component => {
-    return defaultRender(
-      <ConfigProvider {...config}>{component}</ConfigProvider>
-    )
+    return defaultRender(<FclProvider config={config}>{component}</FclProvider>)
   }
 
   test('should render the the component with icon', () => {

@@ -4,7 +4,7 @@ import DeveloperMessage from '../DeveloperMessage'
 import { isGreaterThanOrEqualToVersion } from '../../helpers/version'
 import { SUPPORTED_VERSIONS } from '../../helpers/constants'
 import { isTestnet as isTestnetFn } from '../../helpers/networks'
-import { useConfig } from '../../contexts/ConfigContext'
+import { useConfig } from '../../contexts/FclContext'
 
 export default function Header() {
   const isTestnet = isTestnetFn()
@@ -16,7 +16,7 @@ export default function Header() {
     isGreaterThanOrEqualToVersion(appVersion, SUPPORTED_VERSIONS.APP_CONFIG)
   const isAppHeaderSupported = isGreaterThanOrEqualToVersion(
     appVersion,
-    SUPPORTED_VERSIONS.APP_CONFIG
+    SUPPORTED_VERSIONS.APP_CONFIG,
   )
 
   return (
