@@ -25,6 +25,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@onflow/fcl": "1.0.2",
+    "@onflow/util-rpc": "file:onflow-util-rpc-0.0.1.tgz",
     "@sentry/nextjs": "^8.20.0",
     "cors": "^2.8.5",
     "enum-xyz": "^0.3.1",

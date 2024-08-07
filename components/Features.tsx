@@ -1,7 +1,7 @@
 import { Box, HStack, Tag, Text, IconButton } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
 import { AVAILABLE_FEATURES } from '../helpers/constants'
-import { useConfig } from '../contexts/ConfigContext'
+import { useConfig } from '../contexts/FclContext'
 
 export default function Features() {
   const { clientConfig } = useConfig()

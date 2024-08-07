@@ -6,29 +6,33 @@ import { FCL_SERVICE_METHODS } from '../../helpers/constants'
 import * as fcl from '@onflow/fcl'
 import { Fragment, useCallback } from 'react'
 import { Service } from '../../types'
-import { useConfig } from '../../contexts/ConfigContext'
+import { useConfig } from '../../contexts/FclContext'
 import { toTitleCase } from '../../helpers/strings'
 
 interface ConnectWalletProps {
-  onConnectQRCode: () => void
+  onConnectQRCode: (wallet: Wallet) => void
+  onConnectExtension: (wallet: Wallet) => void
   wallet: Wallet
 }
 
 export default function ConnectWallet({
   onConnectQRCode,
+  onConnectExtension,
   wallet,
 }: ConnectWalletProps) {
-  const { walletConnectUri } = useConfig()
+  const { rpcEnabled } = useConfig()
   const connectToService = useCallback(
     async (service: Service) => {
       // WC/RPC is a special case where we need to show a QR code within Discovery
-      if (service.method === FCL_SERVICE_METHODS.WC && walletConnectUri) {
-        onConnectQRCode()
+      if (service.method === FCL_SERVICE_METHODS.WC && rpcEnabled) {
+        onConnectQRCode(wallet)
+      } else if (service.method === FCL_SERVICE_METHODS.EXT) {
+        onConnectExtension(wallet)
       } else {
         fcl.WalletUtils.redirect(service)
       }
     },
-    [walletConnectUri, onConnectQRCode],
+    [onConnectQRCode]
   )
 
   const getServiceInfo = (service: Service) => {

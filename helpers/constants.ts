@@ -1,5 +1,7 @@
 import Enum from 'enum-xyz'
 import ChromeIcon from '../components/Icons/chrome.svg'
+import { RpcNotification, RpcRequest } from '../contexts/rpc/rpc-client'
+import { Service } from '../types'
 
 const { AUTHN, CANARYNET, TESTNET, PREVIEWNET, MAINNET, LOCAL, EMULATOR } =
   Enum.String({ casing: 'lowercase' })
@@ -113,3 +115,5 @@ export const BROWSERS = {
     icon: ChromeIcon,
   },
 } as const
+
+export const CUSTOM_RPC = 'FCL:VIEW:CUSTOM_RPC'

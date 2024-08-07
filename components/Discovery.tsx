@@ -7,7 +7,7 @@ import ScanConnect from './views/ScanConnect'
 import AboutWallets from './views/AboutWallets'
 
 import { useModalContext } from '@chakra-ui/react'
-import { ComponentProps, useCallback, useEffect, useRef, useState } from 'react'
+import { ComponentProps, useCallback, useEffect, useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
 import { Wallet } from '../data/wallets'
 import * as fcl from '@onflow/fcl'
@@ -15,6 +15,7 @@ import ViewHeader from './ViewHeader'
 import ViewLayout from './ViewLayout'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { useIsCollapsed } from '../hooks/useIsCollapsed'
+import ConnectExtension from './views/ConnectExtension'
 
 export enum VIEWS {
   WALLET_SELECTION,
@@ -24,6 +25,7 @@ export enum VIEWS {
   CONNECT_WALLET,
   SCAN_CONNECT,
   ABOUT_WALLETS,
+  CONNECT_EXTENSION,
 }
 
 export default function Discovery() {
@@ -46,12 +48,14 @@ export default function Discovery() {
     })
   }, [isCollapsed])
 
-  const onSelectWallet = useCallback(wallet => {
+  const onSelectWallet = useCallback((wallet: Wallet) => {
     setSelectedWallet(wallet)
     if (wallet.services.length === 1) {
       const service = wallet.services[0]
-      if (service.method !== FCL_SERVICE_METHODS.WC) {
+      if (service.method === FCL_SERVICE_METHODS.WC) {
         setCurrentView(VIEWS.SCAN_CONNECT)
+      } else if (service.method === FCL_SERVICE_METHODS.EXT) {
+        setCurrentView(VIEWS.CONNECT_EXTENSION)
       } else {
         fcl.WalletUtils.redirect(service)
       }
@@ -123,8 +127,7 @@ export default function Discovery() {
     case VIEWS.SCAN_INSTALL:
       viewContent = (
         <ScanInstall
-          // TODO: Implement next page
-          onContinue={() => setCurrentView(VIEWS.WALLET_SELECTION)}
+          onContinue={() => onSelectWallet(selectedWallet)}
           wallet={selectedWallet}
         />
       )
@@ -136,7 +139,14 @@ export default function Discovery() {
     case VIEWS.CONNECT_WALLET:
       viewContent = (
         <ConnectWallet
-          onConnectQRCode={() => setCurrentView(VIEWS.SCAN_CONNECT)}
+          onConnectQRCode={wallet => {
+            setCurrentView(VIEWS.SCAN_CONNECT)
+            setSelectedWallet(wallet)
+          }}
+          onConnectExtension={wallet => {
+            setCurrentView(VIEWS.CONNECT_EXTENSION)
+            setSelectedWallet(wallet)
+          }}
           wallet={selectedWallet}
         />
       )
@@ -149,10 +159,24 @@ export default function Discovery() {
       }
       break
     case VIEWS.SCAN_CONNECT:
-      viewContent = <ScanConnect wallet={selectedWallet} />
+      viewContent = (
+        <ScanConnect
+          wallet={selectedWallet}
+          onGetWallet={() => {
+            setCurrentView(VIEWS.GET_WALLET)
+          }}
+        />
+      )
       headerProps = {
         title: `Connect to ${selectedWallet.name}`,
-        onBack: () => setCurrentView(VIEWS.ABOUT_WALLETS),
+        onBack: () => setCurrentView(VIEWS.CONNECT_WALLET),
+      }
+      break
+    case VIEWS.CONNECT_EXTENSION:
+      viewContent = <ConnectExtension wallet={selectedWallet} />
+      headerProps = {
+        title: `Connect to ${selectedWallet.name}`,
+        onBack: () => setCurrentView(VIEWS.CONNECT_WALLET),
       }
       break
   }
