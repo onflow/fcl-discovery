@@ -37,11 +37,11 @@ const QRCode = memo(function QRCode({
     const imagePadding = 1
     const imageTop = Math.floor((length - imageViewboxSize) / 2 - imagePadding)
     const imageBottom = Math.ceil(
-      imageTop + imageViewboxSize + imagePadding * 2
+      imageTop + imageViewboxSize + imagePadding * 2,
     )
     const imageLeft = Math.floor((length - imageViewboxSize) / 2 - imagePadding)
     const imageRight = Math.ceil(
-      imageLeft + imageViewboxSize + imagePadding * 2
+      imageLeft + imageViewboxSize + imagePadding * 2,
     )
     isModuleBehindImage = (x: number, y: number) => {
       return (
@@ -54,7 +54,7 @@ const QRCode = memo(function QRCode({
     modules.push(
       [...modules1D.slice(i * length, (i + 1) * length)].map((bit, j) => {
         return bit && !isFindingPattern(i, j) && !isModuleBehindImage(i, j)
-      })
+      }),
     )
   }
 
@@ -82,7 +82,7 @@ const QRCode = memo(function QRCode({
               r={0.4}
               fill={cell ? 'black' : 'white'}
             />
-          ))
+          )),
         )}
 
         {findingPatternPositions.map(([x, y]) => (

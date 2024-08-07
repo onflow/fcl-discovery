@@ -1,6 +1,6 @@
 export function convertToPixels(
   size: string,
-  context = document.documentElement
+  context = document.documentElement,
 ) {
   // Create a temporary element
   const tempEl = document.createElement('div')
