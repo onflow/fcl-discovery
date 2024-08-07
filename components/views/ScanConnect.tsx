@@ -1,4 +1,4 @@
-import { Box, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
 import QRCode from '../QRCode'
 import CopyButton from '../CopyButton'
@@ -52,12 +52,20 @@ export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
           </Flex>
         )}
         {error && (
-          <Flex boxSize="20rem" justifyContent="center" alignItems="center">
+          <Stack
+            boxSize="20rem"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+          >
             <Text textStyle="body2" colorScheme="red">
-              An error has occurred while generating the QR code. Please try
-              again.
+              {`An error has occurred while generating the QR code. Please try again.`}
             </Text>
-          </Flex>
+
+            <Button variant="primary" size="sm" onClick={() => onGetWallet()}>
+              Try WalletConnect QR//TODO: fix it
+            </Button>
+          </Stack>
         )}
       </Box>
 

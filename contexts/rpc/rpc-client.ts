@@ -59,6 +59,10 @@ type OnlyNotifications<T> = {
 
 export type IsRpcRequest<T> = T extends RpcRequest<any, any> ? true : false
 
+enum ReservedRpcMethods {
+  GET_METHODS = 'rpc_getMethods',
+}
+
 export class RpcClient<
   PeerRpcMethods extends RpcMethodMap,
   LocalRpcMethods extends RpcMethodMap
@@ -74,7 +78,11 @@ export class RpcClient<
   > = {} as any
   private messageListeners: ((msg: any) => void)[] = []
 
-  private constructor(private send: (msg: RpcMessage) => void) {}
+  private constructor(private send: (msg: RpcMessage) => void) {
+    this.on(ReservedRpcMethods.GET_METHODS, () => {
+      return Object.keys(this.handlers)
+    })
+  }
 
   static create<
     PeerRpcMethods extends RpcMethodMap,
@@ -183,6 +191,9 @@ export class RpcClient<
     method: R,
     handler: (params: OnlyRequests<LocalRpcMethods>[R]['params']) => void
   ) {
+    if (this.handlers[method]) {
+      throw new Error(`Handler for method ${method} already exists`)
+    }
     this.handlers[method] = handler
   }
 

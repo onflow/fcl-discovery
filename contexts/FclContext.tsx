@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
 import { FclConfig } from '../hooks/useFcl'
 import { RpcClient } from './rpc/rpc-client'
-import { DiscoveryRpcMethods, FclRpcMethods } from '../helpers/constants'
+import { FclRpcClient } from '../helpers/rpc'
 
 export type DiscoveryConfig = FclConfig & {
   network: string
@@ -10,7 +10,7 @@ export type DiscoveryConfig = FclConfig & {
 
 export type FclContextType = {
   config: DiscoveryConfig
-  rpc: RpcClient<FclRpcMethods, DiscoveryRpcMethods>
+  rpc: FclRpcClient
 }
 
 export const FclContext = createContext<FclContextType | null>(null)
@@ -18,7 +18,7 @@ export const FclContext = createContext<FclContextType | null>(null)
 interface ConfigProviderProps {
   children: React.ReactNode
   config: DiscoveryConfig
-  rpc: RpcClient<FclRpcMethods, DiscoveryRpcMethods>
+  rpc: FclRpcClient
 }
 
 export function FclProvider({ children, config, rpc }: ConfigProviderProps) {

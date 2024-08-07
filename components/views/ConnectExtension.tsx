@@ -2,8 +2,9 @@ import { Button, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
 import { useEffect, useRef, useState } from 'react'
 import { Service } from '../../types'
-import { FCL_SERVICE_METHODS, FclRpcMethod } from '../../helpers/constants'
+import { FCL_SERVICE_METHODS } from '../../helpers/constants'
 import { useRpc } from '../../contexts/FclContext'
+import { FclRequest } from '../../helpers/rpc'
 import WalletIcon from '../Icons/WalletIcon'
 
 type ConnectExtensionProps = {
@@ -20,7 +21,7 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
     wallet.services.forEach(service => {
       if (service.method === FCL_SERVICE_METHODS.EXT) {
         rpc
-          .request(FclRpcMethod.EXEC_SERVICE, { service })
+          .request(FclRequest.EXEC_SERVICE, { service })
           .catch(e => {
             console.error('Failed to connect to extension', e)
           })

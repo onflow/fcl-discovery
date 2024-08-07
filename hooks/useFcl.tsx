@@ -1,16 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { WalletUtils } from '@onflow/fcl'
+import { RpcClient } from '@onflow/util-rpc'
 import { Service, Strategy } from '../types'
+import { CUSTOM_RPC } from '../helpers/constants'
 import {
-  CUSTOM_IPC,
-  FclRpcMethods,
-  DiscoveryRpcMethods,
-  DiscoveryRpcMethod,
-  FclRpcMethod,
-} from '../helpers/constants'
-import { RpcClient } from '../contexts/rpc/rpc-client'
-import { mutate } from 'swr'
-import { genGetUriKey } from './useUri'
+  DiscoveryNotification,
+  FclRequests,
+  FclRpcClient,
+} from '../helpers/rpc'
 
 type WalletUtilsProps = {
   fclVersion: string
@@ -32,31 +29,40 @@ export function useFcl() {
   const [config, setConfig] = useState<FclConfig | null>(null)
   const [error, setError] = useState<string | null>(null)
   const timeout = useRef<NodeJS.Timeout | null>(null)
-  const rpcRef = useRef<RpcClient<FclRpcMethods, DiscoveryRpcMethods> | null>(
-    null
-  )
+  const rpcRef = useRef<FclRpcClient | null>(null)
   const rpc = rpcRef.current
 
-  function initFclRpc() {
-    const { rpc: rpcClient, receive: receiveRpc } = RpcClient.create<
-      FclRpcMethods,
-      DiscoveryRpcMethods
-    >((msg: any) => {
-      WalletUtils.sendMsgToFCL(CUSTOM_IPC, { payload: msg })
+  useEffect(() => {
+    if (!!rpc) return
+    const _rpc = new RpcClient<FclRequests, {}>({
+      notifications: Object.values(DiscoveryNotification),
     })
 
+    // Bind receiver for messages from FCL
     const unsubFcl = WalletUtils.onMessageFromFCL(
-      CUSTOM_IPC,
+      CUSTOM_RPC,
       ({ payload: msg }: { payload: any }) => {
-        receiveRpc(msg)
+        _rpc.receive(msg)
       }
     )
 
-    return {
-      rpc: rpcClient,
-      teardown: unsubFcl,
+    // Bind sender for messages to FCL
+    _rpc.connect({
+      send: msg => {
+        WalletUtils.sendMsgToFCL(CUSTOM_RPC, { payload: msg })
+      },
+    })
+
+    window.addEventListener('message', e => {
+      console.log('evt', e)
+    })
+
+    rpcRef.current = _rpc
+
+    return () => {
+      unsubFcl()
     }
-  }
+  }, [])
 
   useEffect(() => {
     try {
@@ -104,13 +110,8 @@ export function useFcl() {
       )
     }
 
-    // Initialize RPC
-    const { teardown: teardownRpcListener, rpc: rpcClient } = initFclRpc()
-    rpcRef.current = rpcClient
-
     return () => {
       clearTimeout(timeout.current)
-      teardownRpcListener()
     }
   }, [])
 

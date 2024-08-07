@@ -116,28 +116,4 @@ export const BROWSERS = {
   },
 } as const
 
-export const CUSTOM_IPC = 'FCL:VIEW:CUSTOM_IPC'
-
-export enum DiscoveryRpcMethod {
-  NOTIFY_QR_EXPIRY = 'notify_qr_expiry',
-  NOTIFY_QR_ERROR = 'notify_qr_error',
-  GET_METHODS = 'get_methods',
-}
-
-export enum FclRpcMethod {
-  EXEC_SERVICE = 'exec_service',
-  REQUEST_URI = 'request_uri',
-  GET_METHODS = 'get_methods',
-}
-
-export type DiscoveryRpcMethods = {
-  [DiscoveryRpcMethod.NOTIFY_QR_EXPIRY]: RpcNotification<{ uri: string }>
-  [DiscoveryRpcMethod.NOTIFY_QR_ERROR]: RpcNotification<{ error: string }>
-  [DiscoveryRpcMethod.GET_METHODS]: RpcRequest<{}, { methods: string[] }>
-}
-
-export type FclRpcMethods = {
-  [FclRpcMethod.EXEC_SERVICE]: RpcRequest<{ service: Service }, {}>
-  [FclRpcMethod.REQUEST_URI]: RpcRequest<{ service: Service }, { uri: string }>
-  [FclRpcMethod.GET_METHODS]: RpcRequest<{}, { methods: string[] }>
-}
+export const CUSTOM_RPC = 'FCL:VIEW:CUSTOM_RPC'
