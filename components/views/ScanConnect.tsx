@@ -13,7 +13,7 @@ interface ScanConnectProps {
 
 export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
   const service = wallet.services.find(
-    service => service.method === FCL_SERVICE_METHODS.WC
+    service => service.method === FCL_SERVICE_METHODS.WC,
   )
 
   const { uri, error, isLoading } = useUri(service)
@@ -61,10 +61,6 @@ export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
             <Text textStyle="body2" colorScheme="red">
               {`An error has occurred while generating the QR code. Please try again.`}
             </Text>
-
-            <Button variant="primary" size="sm" onClick={() => onGetWallet()}>
-              Try WalletConnect QR//TODO: fix it
-            </Button>
           </Stack>
         )}
       </Box>
