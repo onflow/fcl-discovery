@@ -1,6 +1,6 @@
 import { Box, Button, Stack, Text } from '@chakra-ui/react'
-import QRCode from 'react-qr-code'
 import { Wallet } from '../../data/wallets'
+import QRCode from '../QRCode'
 
 interface ScanInstallProps {
   onContinue: () => void
@@ -22,7 +22,7 @@ export default function ScanInstall({ onContinue, wallet }: ScanInstallProps) {
         border="1px"
         borderColor="gray.200"
       >
-        <QRCode level="M" value={wallet.installLink?.mobile} size={300} />
+        <QRCode value={wallet.installLink?.mobile} size="300px" />
       </Box>
 
       <Button

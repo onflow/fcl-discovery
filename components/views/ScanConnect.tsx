@@ -1,7 +1,7 @@
 import { Box, Stack, Text } from '@chakra-ui/react'
-import QRCode from 'react-qr-code'
 import { Wallet } from '../../data/wallets'
 import { useConfig } from '../../contexts/ConfigContext'
+import QRCode from '../QRCode'
 
 interface ScanConnectProps {
   wallet: Wallet
@@ -23,7 +23,7 @@ export default function ScanConnect({ wallet }: ScanConnectProps) {
         border="1px"
         borderColor="gray.200"
       >
-        <QRCode level="M" value={walletConnectUri} size={300} />
+        <QRCode value={walletConnectUri} size="300px" />
       </Box>
     </Stack>
   )
