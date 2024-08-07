@@ -1,20 +1,18 @@
 import { render as defaultRender } from '@testing-library/react'
 import Header from '../Header'
-import { ConfigProvider } from '../../../contexts/ConfigContext'
+import { FclProvider } from '../../../contexts/FclContext'
 
 jest.mock(
   '../../helpers/networks',
   () => ({
     isTestnet: jest.fn(() => true),
   }),
-  { virtual: true }
+  { virtual: true },
 )
 
 describe('Component: Header', () => {
   const render = config => component => {
-    return defaultRender(
-      <ConfigProvider {...config}>{component}</ConfigProvider>
-    )
+    return defaultRender(<FclProvider {...config}>{component}</FclProvider>)
   }
 
   test('should render the configurable component if version is old enough', () => {
