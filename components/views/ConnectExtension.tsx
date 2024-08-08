@@ -13,7 +13,8 @@ type ConnectExtensionProps = {
 export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
   const rpc = useRpc()
   const [isConnecting, setIsConnecting] = useState(false)
-  const hasConnected = useRef(true)
+  const hasAttemptedConnection = useRef(true)
+  const showSpinner = !rpc || isConnecting
 
   function connect() {
     setIsConnecting(true)
@@ -32,23 +33,15 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
   }
 
   useEffect(() => {
-    if (!hasConnected.current) {
+    if (!hasAttemptedConnection.current) {
       return
     }
     if (!rpc) {
       return
     }
     connect()
-    hasConnected.current = false
+    hasAttemptedConnection.current = false
   }, [wallet, rpc])
-
-  if (!rpc) {
-    return (
-      <Flex alignItems="center" justifyContent="center" flexGrow={1}>
-        <Spinner size="lg" thickness="4px" speed="0.65s" />
-      </Flex>
-    )
-  }
 
   return (
     <Stack
@@ -65,8 +58,8 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
         <Heading size="md">Opening {wallet.name}...</Heading>
         <Text textStyle="body2">Confirm connection in the extension</Text>
       </Stack>
-      {isConnecting && <Spinner size="lg" thickness="4px" speed="0.65s" />}
-      {!isConnecting && (
+      {showSpinner && <Spinner size="lg" thickness="4px" speed="0.65s" />}
+      {!showSpinner && (
         <Button variant="primary" size="sm" onClick={() => connect()}>
           Retry
         </Button>
