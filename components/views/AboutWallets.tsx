@@ -3,6 +3,7 @@ import AboutCard from '../AboutCard'
 import GalaxyImage from '../Icons/galaxy.jpeg'
 import LockImage from '../Icons/lock.jpeg'
 import HybridButton from '../HybridButton'
+import { useIsCollapsed } from '../../hooks/useIsCollapsed'
 
 const LEARN_MORE_URL = 'https://developers.flow.com/ecosystem/wallets'
 
@@ -11,14 +12,14 @@ interface AboutWalletsProps {
 }
 
 export default function AboutWallets({ onGetWallet }: AboutWalletsProps) {
+  const isCollapsed = useIsCollapsed()
   return (
     <Stack
       align="center"
-      spacing={8}
       overflow="auto"
       flexGrow={1}
       pb={8}
-      px={5}
+      px={isCollapsed ? 7 : 5}
     >
       <Heading display={['none', null, 'block']}>What is a Wallet?</Heading>
 
@@ -35,7 +36,7 @@ export default function AboutWallets({ onGetWallet }: AboutWalletsProps) {
         />
       </Stack>
 
-      <Stack spacing={4}>
+      <Stack spacing={3}>
         <Button
           variant="primary"
           borderRadius="full"

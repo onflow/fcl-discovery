@@ -9,20 +9,6 @@ import {
 } from '../services'
 import { extractWalletServices } from '../wallets'
 
-jest.mock(
-  '../../data/metadata.json',
-  () => ({
-    'test-address': {
-      platforms: {
-        chrome: {
-          install_link: 'https://www.onflow.org',
-        },
-      },
-    },
-  }),
-  { virtual: true }
-)
-
 describe('services helpers: filterUniqueServices', () => {
   it('should filter services by address', () => {
     const serviceA = {

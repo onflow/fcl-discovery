@@ -33,12 +33,7 @@ export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
         <CopyButton text={uri} />
       </Flex>
 
-      <Box
-        padding={3}
-        borderRadius="0.75rem"
-        border="1px"
-        borderColor="gray.200"
-      >
+      <Box padding={3} borderRadius="0.75rem" borderWidth="1px">
         {uri && (
           <QRCode
             value={uri}

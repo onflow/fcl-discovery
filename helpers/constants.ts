@@ -77,26 +77,31 @@ export const AVAILABLE_FEATURES = [
     id: 'mobile',
     name: 'Mobile',
     description: 'This wallet is available on mobile devices.',
+    color: '#41CC5D',
   },
   {
     id: 'extension',
     name: 'Extension',
     description: 'This wallet is available as a browser extension.',
+    color: '#B79DFF',
   },
   {
     id: 'web',
     name: 'Web',
     description: 'This wallet is available as a web-wallet.',
+    color: '#0075FF',
   },
   {
     id: 'hardware',
     name: 'Hardware',
     description: 'This wallet is a hardware wallet.',
+    color: '#000000',
   },
   {
     id: 'evm',
     name: 'EVM',
     description: 'This wallet supports the Ethereum Virtual Machine.',
+    color: 'orange',
   },
 ] as const
 

@@ -21,10 +21,10 @@ export default function ServiceGroup({
 }: ServiceGroupProps) {
   return (
     <Stack spacing={1}>
-      <Text fontSize="lg" fontWeight="bold" mb={2} {...titleProps}>
+      <Text textStyle="body2Bold" mb={2} ml={2} {...titleProps}>
         {title}
       </Text>
-      <Stack spacing={2}>
+      <Stack spacing={1}>
         {wallets.map(wallet => {
           return (
             <ServiceCard

@@ -1,6 +1,6 @@
 import { nextJsImageToBase64 } from '../../../helpers/image'
 import { WalletConfig } from '../../wallets'
-import LedgerIcon from './ledger.jpeg'
+import LedgerIcon from './ledger.svg'
 
 const ledger: WalletConfig = {
   name: 'Ledger',
@@ -49,6 +49,7 @@ const ledger: WalletConfig = {
       },
     ],
   },
+  features: ['hardware'],
 }
 
 export default ledger

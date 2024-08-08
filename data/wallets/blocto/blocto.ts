@@ -33,6 +33,7 @@ const blocto: WalletConfig = {
       },
     ],
   },
+  features: ['web'],
 }
 
 export default blocto

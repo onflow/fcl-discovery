@@ -42,6 +42,7 @@ const shadow: WalletConfig = {
       'https://chromewebstore.google.com/detail/shadow-aptos-flow-wallet/lmmpaefggfcmnoddemmgdppddppnmhek?hl=en',
     browser: 'https://shadow.app',
   },
+  features: ['extension'],
 }
 
 export default shadow

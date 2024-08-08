@@ -1,7 +1,10 @@
-import useSWR from 'swr'
+import useSWR from 'swr/immutable'
 import { useConfig } from '../contexts/FclContext'
 import { getUserAgent } from '../helpers/platform'
 import { Wallet } from '../data/wallets'
+import { isExtension } from '../helpers/services'
+import { useWalletHistory } from './useWalletHistory'
+import { useMemo } from 'react'
 
 const genKey = (url: string, opts: any) => [url, JSON.stringify(opts)]
 
@@ -16,6 +19,8 @@ const fetcher = async <T>(url: string, opts: any) => {
 }
 
 export function useWallets() {
+  const { isLastUsed } = useWalletHistory()
+
   const {
     appVersion,
     clientConfig,
@@ -41,9 +46,44 @@ export function useWallets() {
     port,
   }
 
-  const { data: wallets, error } = useSWR(genKey(requestUrl, body), url =>
+  const { data, error } = useSWR(genKey(requestUrl, body), url =>
     fetcher<Wallet[]>(url, body),
   )
 
-  return { wallets, error, isLoading: !wallets && !error }
+  const { wallets, lastUsedWallet, installedWallets, otherWallets } =
+    useMemo(() => {
+      let lastUsedWallet = null
+      const installedWallets = []
+      const otherWallets = []
+      for (const wallet of (data || []) as Wallet[]) {
+        const extensionService = wallet.services.find(isExtension)
+        if (isLastUsed(wallet)) {
+          lastUsedWallet = wallet
+        } else if (extensionService?.provider?.is_installed) {
+          installedWallets.push(wallet)
+        } else {
+          otherWallets.push(wallet)
+        }
+      }
+
+      return {
+        wallets: [
+          ...(lastUsedWallet ? [lastUsedWallet] : []),
+          ...installedWallets,
+          ...otherWallets,
+        ],
+        lastUsedWallet,
+        installedWallets,
+        otherWallets,
+      }
+    }, [data, isLastUsed])
+
+  return {
+    wallets,
+    lastUsedWallet,
+    installedWallets,
+    otherWallets,
+    error,
+    isLoading: !data && !error,
+  }
 }

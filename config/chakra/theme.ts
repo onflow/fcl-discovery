@@ -11,6 +11,9 @@ export const theme = extendTheme({
       body: {
         backgroundColor: 'transparent',
       },
+      '*': {
+        borderColor: 'borderColor',
+      },
     },
   },
   fonts: {
@@ -37,6 +40,9 @@ export const theme = extendTheme({
       '800': '#1D4EB3',
       '900': '#194399',
     },
+    backgroundElevated: '#F7F7F7',
+    buttonBackground: '#F2F2F2',
+    borderColor: '#E0E0E0',
   },
   space: {
     xs: toRem(5),

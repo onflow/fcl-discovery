@@ -1,52 +1,28 @@
-import { Stack } from '@chakra-ui/react'
+import { Flex, Spinner, Stack } from '@chakra-ui/react'
 import ServiceGroup from './ServiceGroup'
-import { useMemo } from 'react'
 import { Wallet } from '../data/wallets'
-import { isExtension } from '../helpers/services'
-import { useWalletHistory } from '../hooks/useWalletHistory'
+import { useWallets } from '../hooks/useWallets'
 
 interface ServiceListProps {
-  wallets: Wallet[]
   selectedWallet?: Wallet | null
   onSelectWallet: (wallet: Wallet) => void
 }
 
 export default function ServiceList({
-  wallets,
   selectedWallet,
   onSelectWallet,
 }: ServiceListProps) {
-  const { isLastUsed } = useWalletHistory()
+  const { wallets, lastUsedWallet, installedWallets, otherWallets, isLoading } =
+    useWallets()
 
-  // Get the last used service, installed services, and recommended services
-  const categorizedWallets = useMemo(
-    () =>
-      wallets?.reduce(
-        (acc, wallet) => {
-          const extensionService = wallet.services.find(isExtension)
+  // Get the last used service, installed services, and other services
 
-          if (isLastUsed(wallet)) {
-            acc.lastUsedWallet = wallet
-          } else if (extensionService?.provider?.is_installed) {
-            acc.installedWallets.push(wallet)
-          } else {
-            acc.recommendedWallets.push(wallet)
-          }
-          return acc
-        },
-        {
-          lastUsedWallet: null as Wallet | null,
-          installedWallets: [] as Wallet[],
-          recommendedWallets: [] as Wallet[],
-        },
-      ),
-    [wallets, isLastUsed],
-  )
-
-  if (!categorizedWallets) return null
-
-  const { lastUsedWallet, installedWallets, recommendedWallets } =
-    categorizedWallets
+  if (isLoading)
+    return (
+      <Flex justifyContent="center" alignItems="center" flexGrow={1}>
+        <Spinner size="lg"></Spinner>
+      </Flex>
+    )
 
   return (
     <Stack spacing={4}>
@@ -55,7 +31,7 @@ export default function ServiceList({
           title="Last Used"
           wallets={[lastUsedWallet]}
           titleProps={{
-            color: 'blue.400',
+            color: '#3898FF',
           }}
           onSelectWallet={onSelectWallet}
           selectedWallet={selectedWallet}
@@ -65,16 +41,24 @@ export default function ServiceList({
       {installedWallets.length > 0 && (
         <ServiceGroup
           title="Installed"
+          titleProps={{
+            opacity: 0.6,
+          }}
           wallets={installedWallets}
           onSelectWallet={onSelectWallet}
           selectedWallet={selectedWallet}
         />
       )}
 
-      {recommendedWallets.length > 0 && (
+      {otherWallets.length > 0 && (
         <ServiceGroup
-          title="Recommended"
-          wallets={recommendedWallets}
+          title={
+            otherWallets.length === wallets.length ? 'All Wallets' : 'Others'
+          }
+          titleProps={{
+            opacity: 0.6,
+          }}
+          wallets={otherWallets}
           onSelectWallet={onSelectWallet}
           selectedWallet={selectedWallet}
         />
