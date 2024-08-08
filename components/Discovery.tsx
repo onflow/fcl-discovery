@@ -75,6 +75,15 @@ export default function Discovery() {
     }
   }, [])
 
+  const onBackToConnectWallet = useCallback(() => {
+    if (selectedWallet?.services.length === 1) {
+      setCurrentView(VIEWS.ABOUT_WALLETS)
+      setSelectedWallet(null)
+    } else {
+      setCurrentView(VIEWS.CONNECT_WALLET)
+    }
+  }, [selectedWallet])
+
   if (!wallets) return <div />
   if (error) return <div>Error Loading Data</div>
 
@@ -138,7 +147,9 @@ export default function Discovery() {
     case VIEWS.SCAN_INSTALL:
       viewContent = (
         <ScanInstall
-          onContinue={() => onSelectWallet(selectedWallet)}
+          onContinue={() => {
+            setCurrentView(VIEWS.SCAN_CONNECT)
+          }}
           wallet={selectedWallet}
         />
       )
@@ -175,14 +186,14 @@ export default function Discovery() {
       )
       headerProps = {
         title: `Connect to ${selectedWallet.name}`,
-        onBack: () => setCurrentView(VIEWS.CONNECT_WALLET),
+        onBack: onBackToConnectWallet,
       }
       break
     case VIEWS.CONNECT_EXTENSION:
       viewContent = <ConnectExtension wallet={selectedWallet} />
       headerProps = {
         title: `Connect to ${selectedWallet.name}`,
-        onBack: () => setCurrentView(VIEWS.CONNECT_WALLET),
+        onBack: onBackToConnectWallet,
       }
       break
   }

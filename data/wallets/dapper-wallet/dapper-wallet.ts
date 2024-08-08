@@ -39,6 +39,7 @@ const dapperWallet: WalletConfig = {
       },
     ],
   },
+  features: ['web'],
 }
 
 export default dapperWallet

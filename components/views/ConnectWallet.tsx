@@ -17,8 +17,6 @@ export default function ConnectWallet({
   onConnectService,
   wallet,
 }: ConnectWalletProps) {
-  const { rpcEnabled } = useConfig()
-
   const getServiceInfo = (service: Service) => {
     const titleCasedName = toTitleCase(wallet.name)
     let title: string, description: string, buttonText: string, icon: string
@@ -68,9 +66,7 @@ export default function ConnectWallet({
               }}
               unstyled
             ></WalletTypeCard>
-            {i < wallet.services.length - 1 && (
-              <Divider w="90%" borderColor="gray.300" />
-            )}
+            {i < wallet.services.length - 1 && <Divider w="90%" />}
           </Fragment>
         )
       })}

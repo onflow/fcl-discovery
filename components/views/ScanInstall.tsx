@@ -22,12 +22,7 @@ export default function ScanInstall({ onContinue, wallet }: ScanInstallProps) {
         Scan with your phone to install on iOS or Android
       </Text>
 
-      <Box
-        padding={3}
-        borderRadius="0.75rem"
-        border="1px"
-        borderColor="gray.200"
-      >
+      <Box padding={3} borderRadius="0.75rem" borderWidth="1px">
         <QRCode value={wallet.installLink?.mobile} size="15rem" />
       </Box>
 

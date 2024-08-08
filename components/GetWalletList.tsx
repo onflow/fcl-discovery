@@ -11,7 +11,7 @@ export default function GetWalletList({ onGetWallet }: GetWalletListProps) {
   const { wallets } = useWallets()
 
   return (
-    <Stack spacing={4}>
+    <Stack spacing="1rem">
       {wallets.map(wallet => {
         return (
           <GetWalletCard

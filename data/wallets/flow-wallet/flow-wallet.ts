@@ -1,6 +1,6 @@
 import { nextJsImageToBase64 } from '../../../helpers/image'
 import { WalletConfig } from '../../wallets'
-import FlowWalletIcon from './flow-wallet.png'
+import FlowWalletIcon from './flow-wallet.svg'
 
 const flowWallet: WalletConfig = {
   name: 'Flow Wallet',
@@ -103,6 +103,7 @@ const flowWallet: WalletConfig = {
       },
     ],
   },
+  features: ['evm', 'mobile', 'extension'],
 }
 
 export default flowWallet

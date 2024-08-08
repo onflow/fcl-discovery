@@ -12,21 +12,64 @@ const baseStyle = defineStyle({
   ...typography['body2Bold'],
 })
 
-const primaryVariant = defineStyle((props: StyleFunctionProps) => ({
-  ...defaultTheme.components.Button.variants.solid(props),
-}))
+const primaryVariant = defineStyle((props: StyleFunctionProps) => {
+  const { colorScheme: c } = props
+  const background = mode(`${c}.500`, `${c}.200`)(props)
+
+  return {
+    bg: background,
+    color: mode('white', `gray.800`)(props),
+    _hover: {
+      transform: 'scale(1.07)',
+      transitionDuration: '0.2s',
+      transitionTimingFunction: 'ease-in-out',
+    },
+    _active: {
+      transform: 'scale(0.93)',
+      transitionDuration: '0.2s',
+      transitionTimingFunction: 'ease-in-out',
+    },
+  }
+})
 
 const secondaryVariant = defineStyle((props: StyleFunctionProps) => {
   const { colorScheme: c } = props
 
   return {
-    bg: mode(`gray.100`, `gray.700`)(props),
+    bg: 'buttonBackground',
     color: mode(`${c}.500`, `${c}.200`)(props),
     _hover: {
-      bg: mode(`gray.200`, `gray.600`)(props),
+      bg: 'buttonBackground',
+      transform: 'scale(1.07)',
+      transitionDuration: '0.2s',
+      transitionTimingFunction: 'ease-in-out',
     },
     _active: {
-      bg: mode(`gray.300`, `gray.500`)(props),
+      bg: 'buttonBackground',
+      transform: 'scale(0.93)',
+      transitionDuration: '0.2s',
+      transitionTimingFunction: 'ease-in-out',
+    },
+  }
+})
+
+const ghostVariant = defineStyle(props => {
+  const { colorScheme: c, theme } = props
+
+  return {
+    color: mode(`${c}.500`, `${c}.200`)(props),
+    bg: 'transparent',
+    _hover: {
+      bg: 'transparent',
+      transform: 'scale(1.07)',
+      transitionDuration: '0.2s',
+      transitionTimingFunction: 'ease-in-out',
+    },
+    _active: {
+      bg: 'transparent',
+      transform: 'scale(0.93)',
+      transitionDuration: '0.2s',
+      transitionTimingFunction: 'ease-in-out',
     },
   }
 })
@@ -44,6 +87,7 @@ export const buttonConfig = defineStyleConfig({
     ...defaultTheme.components.Button.variants,
     primary: primaryVariant,
     secondary: secondaryVariant,
+    ghost: ghostVariant,
   },
   defaultProps: {
     colorScheme: 'primary',

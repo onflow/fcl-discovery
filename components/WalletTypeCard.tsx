@@ -46,7 +46,7 @@ export default function WalletTypeCard({
       {...(!unstyled
         ? {
             borderWidth: '1px',
-            backgroundColor: 'gray.100',
+            backgroundColor: 'backgroundElevated',
           }
         : {})}
     >

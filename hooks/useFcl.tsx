@@ -29,7 +29,6 @@ export function useFcl() {
   const [config, setConfig] = useState<FclConfig | null>(null)
   const [error, setError] = useState<string | null>(null)
   const timeout = useRef<NodeJS.Timeout | null>(null)
-
   const [rpc, setRpc] = useState<FclRpcClient | null>(null)
   const rpcEnabled = config?.rpcEnabled
 
