@@ -1,7 +1,6 @@
-import { Spacer, Stack, Text } from '@chakra-ui/react'
+import { Stack, Text } from '@chakra-ui/react'
 import GetWalletList from '../GetWalletList'
 import { Wallet } from '../../data/wallets'
-import { useIsCollapsed } from '../../hooks/useIsCollapsed'
 
 interface ExploreWalletsProps {
   onGetWallet: (wallet: Wallet) => void
