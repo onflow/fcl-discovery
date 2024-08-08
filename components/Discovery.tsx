@@ -60,6 +60,8 @@ export default function Discovery() {
       } else {
         fcl.WalletUtils.redirect(service)
       }
+
+      setSelectedWallet(wallet)
     },
     [],
   )
