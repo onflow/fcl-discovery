@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import { useConfig } from '../contexts/ConfigContext'
+import { useConfig } from '../contexts/FclContext'
 import { getUserAgent } from '../helpers/platform'
 import { Wallet } from '../data/wallets'
 
@@ -42,7 +42,7 @@ export function useWallets() {
   }
 
   const { data: wallets, error } = useSWR(genKey(requestUrl, body), url =>
-    fetcher<Wallet[]>(url, body)
+    fetcher<Wallet[]>(url, body),
   )
 
   return { wallets, error, isLoading: !wallets && !error }

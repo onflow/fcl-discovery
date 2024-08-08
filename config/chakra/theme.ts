@@ -43,5 +43,6 @@ export const theme = extendTheme({
     sm: toRem(8),
     md: toRem(12),
     lg: toRem(16),
+    xl: toRem(20),
   },
 } satisfies ThemeOverride)

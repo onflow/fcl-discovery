@@ -113,3 +113,5 @@ export const BROWSERS = {
     icon: ChromeIcon,
   },
 } as const
+
+export const CUSTOM_RPC = 'FCL:VIEW:CUSTOM_RPC'

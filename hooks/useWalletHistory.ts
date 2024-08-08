@@ -6,7 +6,7 @@ import { useLocalStorage } from './useLocalStorage'
 export function useWalletHistory() {
   const [, setLastUsedState] = useLocalStorage(
     LOCAL_STORAGE_KEYS.LAST_USED,
-    null
+    null,
   )
   const [lastUsedUid] = useLocalStorage(LOCAL_STORAGE_KEYS.LAST_USED, null)
 
@@ -14,12 +14,12 @@ export function useWalletHistory() {
     (wallet: Wallet) => {
       setLastUsedState(wallet.uid)
     },
-    [setLastUsedState]
+    [setLastUsedState],
   )
 
   const isLastUsed = useCallback(
     (wallet: Wallet) => wallet.uid === lastUsedUid,
-    [lastUsedUid]
+    [lastUsedUid],
   )
 
   return { isLastUsed, setLastUsed, lastUsedUid }

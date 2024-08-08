@@ -1,5 +1,5 @@
 import { Image, Text, Heading, HStack, Stack } from '@chakra-ui/react'
-import { useConfig } from '../../contexts/ConfigContext'
+import { useConfig } from '../../contexts/FclContext'
 
 export default function AppHeader() {
   const { appConfig, clientConfig } = useConfig()

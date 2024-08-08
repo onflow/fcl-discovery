@@ -9,32 +9,36 @@ interface ScanInstallProps {
 
 export default function ScanInstall({ onContinue, wallet }: ScanInstallProps) {
   return (
-    <Stack flexGrow={1} alignItems="center" spacing={8} padding={4}>
+    <Stack
+      flexGrow={1}
+      flexShrink={1}
+      alignItems="center"
+      justifyContent="space-evenly"
+      spacing="lg"
+      px="lg"
+      pb="lg"
+    >
       <Text color="gray" fontWeight="bold" maxW="2xs" textAlign="center">
         Scan with your phone to install on iOS or Android
       </Text>
 
       <Box
-        padding={4}
-        bg="white"
-        borderRadius="xl"
-        shadow="md"
+        padding={3}
+        borderRadius="0.75rem"
         border="1px"
         borderColor="gray.200"
       >
-        <QRCode value={wallet.installLink?.mobile} size="300px" />
+        <QRCode value={wallet.installLink?.mobile} size="15rem" />
       </Box>
 
       <Button
         variant="primary"
         size="sm"
-        mt="auto"
-        mb={4}
         onClick={onContinue}
         fontWeight="bold"
         borderRadius="full"
       >
-        Continue
+        Connect to {wallet.name}
       </Button>
     </Stack>
   )
