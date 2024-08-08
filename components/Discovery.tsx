@@ -148,7 +148,7 @@ export default function Discovery() {
       viewContent = (
         <ScanInstall
           onContinue={() => {
-            setCurrentView(VIEWS.SCAN_INSTALL)
+            setCurrentView(VIEWS.SCAN_CONNECT)
           }}
           wallet={selectedWallet}
         />
@@ -180,7 +180,7 @@ export default function Discovery() {
         <ScanConnect
           wallet={selectedWallet}
           onGetWallet={() => {
-            setCurrentView(VIEWS.GET_WALLET)
+            setCurrentView(VIEWS.SCAN_INSTALL)
           }}
         />
       )
