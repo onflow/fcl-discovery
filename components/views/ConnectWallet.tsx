@@ -3,37 +3,21 @@ import WalletTypeCard from '../WalletTypeCard'
 import ChromeIcon from '../Icons/chrome.svg'
 import { Wallet } from '../../data/wallets'
 import { FCL_SERVICE_METHODS } from '../../helpers/constants'
-import * as fcl from '@onflow/fcl'
-import { Fragment, useCallback } from 'react'
+import { Fragment } from 'react'
 import { Service } from '../../types'
 import { useConfig } from '../../contexts/FclContext'
 import { toTitleCase } from '../../helpers/strings'
 
 interface ConnectWalletProps {
-  onConnectQRCode: (wallet: Wallet) => void
-  onConnectExtension: (wallet: Wallet) => void
+  onConnectService: (service: Service) => void
   wallet: Wallet
 }
 
 export default function ConnectWallet({
-  onConnectQRCode,
-  onConnectExtension,
+  onConnectService,
   wallet,
 }: ConnectWalletProps) {
   const { rpcEnabled } = useConfig()
-  const connectToService = useCallback(
-    async (service: Service) => {
-      // WC/RPC is a special case where we need to show a QR code within Discovery
-      if (service.method === FCL_SERVICE_METHODS.WC && rpcEnabled) {
-        onConnectQRCode(wallet)
-      } else if (service.method === FCL_SERVICE_METHODS.EXT) {
-        onConnectExtension(wallet)
-      } else {
-        fcl.WalletUtils.redirect(service)
-      }
-    },
-    [onConnectQRCode]
-  )
 
   const getServiceInfo = (service: Service) => {
     const titleCasedName = toTitleCase(wallet.name)
@@ -80,7 +64,7 @@ export default function ConnectWallet({
               description={description}
               button={{
                 text: buttonText,
-                onClick: () => connectToService(service),
+                onClick: () => onConnectService(service),
               }}
               unstyled
             ></WalletTypeCard>

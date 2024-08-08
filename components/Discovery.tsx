@@ -16,6 +16,8 @@ import ViewLayout from './ViewLayout'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { useIsCollapsed } from '../hooks/useIsCollapsed'
 import ConnectExtension from './views/ConnectExtension'
+import { Service } from '../types'
+import { useConfig } from '../contexts/FclContext'
 
 export enum VIEWS {
   WALLET_SELECTION,
@@ -32,6 +34,7 @@ export default function Discovery() {
   const { wallets, error } = useWallets()
   const [currentView, setCurrentView] = useState<VIEWS>(VIEWS.ABOUT_WALLETS)
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
+  const { rpcEnabled } = useConfig()
   const modal = useModalContext()
 
   // WALLET_SELECTION does not exist when expanded
@@ -48,17 +51,23 @@ export default function Discovery() {
     })
   }, [isCollapsed])
 
-  const onSelectWallet = useCallback((wallet: Wallet) => {
-    setSelectedWallet(wallet)
-    if (wallet.services.length === 1) {
-      const service = wallet.services[0]
-      if (service.method === FCL_SERVICE_METHODS.WC) {
+  const connectWalletService = useCallback(
+    (wallet: Wallet, service: Service) => {
+      if (service.method === FCL_SERVICE_METHODS.WC && rpcEnabled) {
         setCurrentView(VIEWS.SCAN_CONNECT)
-      } else if (service.method === FCL_SERVICE_METHODS.EXT) {
+      } else if (service.method === FCL_SERVICE_METHODS.EXT && rpcEnabled) {
         setCurrentView(VIEWS.CONNECT_EXTENSION)
       } else {
         fcl.WalletUtils.redirect(service)
       }
+    },
+    [],
+  )
+
+  const onSelectWallet = useCallback((wallet: Wallet) => {
+    setSelectedWallet(wallet)
+    if (wallet.services.length === 1) {
+      connectWalletService(wallet, wallet.services[0])
     } else {
       setCurrentView(VIEWS.CONNECT_WALLET)
     }
@@ -139,14 +148,9 @@ export default function Discovery() {
     case VIEWS.CONNECT_WALLET:
       viewContent = (
         <ConnectWallet
-          onConnectQRCode={wallet => {
-            setCurrentView(VIEWS.SCAN_CONNECT)
-            setSelectedWallet(wallet)
-          }}
-          onConnectExtension={wallet => {
-            setCurrentView(VIEWS.CONNECT_EXTENSION)
-            setSelectedWallet(wallet)
-          }}
+          onConnectService={service =>
+            connectWalletService(selectedWallet, service)
+          }
           wallet={selectedWallet}
         />
       )
