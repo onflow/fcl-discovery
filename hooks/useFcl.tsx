@@ -92,7 +92,7 @@ export function useFcl() {
     })
 
     // Bind receiver for messages from FCL
-    const unsubFcl = WalletUtils.onMessageFromFCL(
+    WalletUtils.onMessageFromFCL(
       CUSTOM_RPC,
       ({ payload: msg }: { payload: any }) => {
         _rpc.receive(msg)
@@ -107,10 +107,6 @@ export function useFcl() {
     })
 
     setRpc(_rpc)
-
-    return () => {
-      unsubFcl()
-    }
   }, [rpcEnabled, rpc])
 
   return {
