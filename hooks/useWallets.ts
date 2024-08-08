@@ -68,7 +68,7 @@ export function useWallets() {
 
       return {
         wallets: [
-          ...(lastUsedWallet ? lastUsedWallet : []),
+          ...(lastUsedWallet ? [lastUsedWallet] : []),
           ...installedWallets,
           ...otherWallets,
         ],
