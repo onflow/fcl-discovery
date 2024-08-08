@@ -4,6 +4,8 @@ import QRCode from '../QRCode'
 import CopyButton from '../CopyButton'
 import HybridButton from '../HybridButton'
 import { useWcUri } from '../../hooks/useWcUri'
+import { useWalletHistory } from '../../hooks/useWalletHistory'
+import { handleCancel } from '../../helpers/window'
 
 interface ScanConnectProps {
   wallet: Wallet
@@ -11,7 +13,11 @@ interface ScanConnectProps {
 }
 
 export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
-  const { uri, error, isLoading } = useWcUri()
+  const { setLastUsed } = useWalletHistory()
+  const { uri, error, isLoading } = useWcUri(() => {
+    setLastUsed(wallet)
+    handleCancel()
+  })
 
   return (
     <Stack

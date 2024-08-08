@@ -42,7 +42,7 @@ export function useWallets() {
   }
 
   const { data: wallets, error } = useSWR(genKey(requestUrl, body), url =>
-    fetcher<Wallet[]>(url, body)
+    fetcher<Wallet[]>(url, body),
   )
 
   return { wallets, error, isLoading: !wallets && !error }

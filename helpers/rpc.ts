@@ -3,6 +3,7 @@ import { Service } from '../types'
 
 export enum DiscoveryNotification {
   NOTIFY_QRCODE_ERROR = 'notifyQRCodeError',
+  NOTIFY_QRCODE_CONNECTED = 'notifyQRCodeConnected',
 }
 
 export enum FclRequest {

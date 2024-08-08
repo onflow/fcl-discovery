@@ -5,6 +5,8 @@ import { FCL_SERVICE_METHODS } from '../../helpers/constants'
 import { useRpc } from '../../contexts/FclContext'
 import { FclRequest } from '../../helpers/rpc'
 import WalletIcon from '../Icons/WalletIcon'
+import { useWalletHistory } from '../../hooks/useWalletHistory'
+import { handleCancel } from '../../helpers/window'
 
 type ConnectExtensionProps = {
   wallet: Wallet
@@ -15,6 +17,7 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
   const [isConnecting, setIsConnecting] = useState(false)
   const hasAttemptedConnection = useRef(true)
   const showSpinner = !rpc || isConnecting
+  const { setLastUsed } = useWalletHistory()
 
   function connect() {
     setIsConnecting(true)
@@ -22,6 +25,11 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
       if (service.method === FCL_SERVICE_METHODS.EXT) {
         rpc
           .request(FclRequest.EXEC_SERVICE, { service })
+          .then(() => {
+            console.log('Connected to extension')
+            setLastUsed(wallet)
+            handleCancel()
+          })
           .catch(e => {
             console.error('Failed to connect to extension', e)
           })
