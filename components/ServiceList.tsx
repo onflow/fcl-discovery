@@ -1,26 +1,21 @@
 import { Flex, Spinner, Stack } from '@chakra-ui/react'
 import ServiceGroup from './ServiceGroup'
-import { useMemo } from 'react'
 import { Wallet } from '../data/wallets'
-import { isExtension } from '../helpers/services'
-import { useWalletHistory } from '../hooks/useWalletHistory'
 import { useWallets } from '../hooks/useWallets'
 
 interface ServiceListProps {
-  wallets: Wallet[]
   selectedWallet?: Wallet | null
   onSelectWallet: (wallet: Wallet) => void
 }
 
 export default function ServiceList({
-  wallets,
   selectedWallet,
   onSelectWallet,
 }: ServiceListProps) {
-  const { lastUsedWallet, installedWallets, otherWallets, isLoading } =
+  const { wallets, lastUsedWallet, installedWallets, otherWallets, isLoading } =
     useWallets()
 
-  // Get the last used service, installed services, and recommended services
+  // Get the last used service, installed services, and other services
 
   if (isLoading)
     return (
@@ -36,7 +31,7 @@ export default function ServiceList({
           title="Last Used"
           wallets={[lastUsedWallet]}
           titleProps={{
-            color: 'blue.400',
+            color: '#3898FF',
           }}
           onSelectWallet={onSelectWallet}
           selectedWallet={selectedWallet}
@@ -46,6 +41,9 @@ export default function ServiceList({
       {installedWallets.length > 0 && (
         <ServiceGroup
           title="Installed"
+          titleProps={{
+            opacity: 0.6,
+          }}
           wallets={installedWallets}
           onSelectWallet={onSelectWallet}
           selectedWallet={selectedWallet}
@@ -54,7 +52,12 @@ export default function ServiceList({
 
       {otherWallets.length > 0 && (
         <ServiceGroup
-          title="Others"
+          title={
+            otherWallets.length === wallets.length ? 'All Wallets' : 'Others'
+          }
+          titleProps={{
+            opacity: 0.6,
+          }}
           wallets={otherWallets}
           onSelectWallet={onSelectWallet}
           selectedWallet={selectedWallet}

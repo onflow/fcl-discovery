@@ -45,7 +45,6 @@ export default function WalletSelection({
 
         <ServiceList
           onSelectWallet={onSelectWallet}
-          wallets={wallets}
           selectedWallet={selectedWallet}
         />
       </Stack>

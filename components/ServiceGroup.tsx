@@ -21,7 +21,7 @@ export default function ServiceGroup({
 }: ServiceGroupProps) {
   return (
     <Stack spacing={1}>
-      <Text textStyle="body2Bold" opacity={0.6} mb={2} ml={2} {...titleProps}>
+      <Text textStyle="body2Bold" mb={2} ml={2} {...titleProps}>
         {title}
       </Text>
       <Stack spacing={1}>
