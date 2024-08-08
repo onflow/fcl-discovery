@@ -67,56 +67,58 @@ exports[`Component: Header should render the configurable component if version i
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 25px;
 }
 
-.emotion-1 {
+.emotion-2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-bottom: 4px;
-}
-
-.emotion-2 {
-  width: 140px;
-  height: auto;
-  margin-bottom: 3px;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  gap: 0.5rem;
 }
 
 .emotion-3 {
+  border-radius: 50px;
+  width: 25px;
+  height: 25px;
+}
+
+.emotion-4 {
   color: grey;
 }
 
 <div
-  class="emotion-0"
+  class="chakra-stack emotion-0"
 >
+  <h2
+    class="chakra-heading emotion-1"
+  >
+    Connect to Test App
+  </h2>
   <div
-    class="emotion-1"
+    class="chakra-stack emotion-2"
   >
     <img
       alt="Logo"
-      class="chakra-image emotion-2"
-      src="/logo.svg"
+      class="chakra-image emotion-3"
+      src="test.png"
     />
     <p
-      class="chakra-text emotion-3"
+      class="chakra-text emotion-4"
     >
-      Choose a Provider
+      www.onflow.org
     </p>
   </div>
 </div>
@@ -128,35 +130,26 @@ exports[`Component: Header should show the DeveloperMessage if config is missing
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 25px;
 }
 
-.emotion-1 {
+.emotion-2 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-bottom: 4px;
-}
-
-.emotion-2 {
-  width: 140px;
-  height: auto;
-  margin-bottom: 3px;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  gap: 0.5rem;
 }
 
 .emotion-3 {
@@ -164,20 +157,20 @@ exports[`Component: Header should show the DeveloperMessage if config is missing
 }
 
 <div
-  class="emotion-0"
+  class="chakra-stack emotion-0"
 >
-  <div
-    class="emotion-1"
+  <h2
+    class="chakra-heading emotion-1"
   >
-    <img
-      alt="Logo"
-      class="chakra-image emotion-2"
-      src="/logo.svg"
-    />
+    Connect
+  </h2>
+  <div
+    class="chakra-stack emotion-2"
+  >
     <p
       class="chakra-text emotion-3"
     >
-      Choose a Provider
+      Unknown
     </p>
   </div>
 </div>

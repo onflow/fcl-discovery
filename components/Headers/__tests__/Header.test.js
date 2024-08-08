@@ -26,6 +26,8 @@ describe('Component: Header', () => {
         hostname: 'www.onflow.org',
       },
     })(<Header />)
+
+    console.log(container)
     expect(container.firstChild).toMatchSnapshot()
   })
 
