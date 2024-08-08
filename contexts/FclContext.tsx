@@ -1,6 +1,5 @@
 import { createContext, useContext } from 'react'
 import { FclConfig } from '../hooks/useFcl'
-import { RpcClient } from './rpc/rpc-client'
 import { FclRpcClient } from '../helpers/rpc'
 
 export type DiscoveryConfig = FclConfig & {

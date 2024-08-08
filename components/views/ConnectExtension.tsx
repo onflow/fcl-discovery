@@ -1,7 +1,6 @@
-import { Button, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Button, Flex, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
 import { useEffect, useRef, useState } from 'react'
-import { Service } from '../../types'
 import { FCL_SERVICE_METHODS } from '../../helpers/constants'
 import { useRpc } from '../../contexts/FclContext'
 import { FclRequest } from '../../helpers/rpc'
@@ -14,7 +13,7 @@ type ConnectExtensionProps = {
 export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
   const rpc = useRpc()
   const [isConnecting, setIsConnecting] = useState(false)
-  const firstRender = useRef(true)
+  const hasConnected = useRef(true)
 
   function connect() {
     setIsConnecting(true)
@@ -33,12 +32,23 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
   }
 
   useEffect(() => {
-    if (!firstRender.current) {
+    if (!hasConnected.current) {
+      return
+    }
+    if (!rpc) {
       return
     }
     connect()
-    firstRender.current = false
-  }, [wallet, isConnecting, rpc])
+    hasConnected.current = false
+  }, [wallet, rpc])
+
+  if (!rpc) {
+    return (
+      <Flex alignItems="center" justifyContent="center" flexGrow={1}>
+        <Spinner size="lg" thickness="4px" speed="0.65s" />
+      </Flex>
+    )
+  }
 
   return (
     <Stack
