@@ -1,10 +1,10 @@
-import { Box, Button, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Box, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
 import QRCode from '../QRCode'
 import CopyButton from '../CopyButton'
 import HybridButton from '../HybridButton'
 import { FCL_SERVICE_METHODS } from '../../helpers/constants'
-import { useUri } from '../../hooks/useUri'
+import { useWcUri } from '../../hooks/useWcUri'
 
 interface ScanConnectProps {
   wallet: Wallet
@@ -12,11 +12,7 @@ interface ScanConnectProps {
 }
 
 export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
-  const service = wallet.services.find(
-    service => service.method === FCL_SERVICE_METHODS.WC,
-  )
-
-  const { uri, error, isLoading } = useUri(service)
+  const { uri, error, isLoading } = useWcUri()
 
   return (
     <Stack

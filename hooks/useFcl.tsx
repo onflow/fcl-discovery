@@ -43,7 +43,7 @@ export function useFcl() {
       CUSTOM_RPC,
       ({ payload: msg }: { payload: any }) => {
         _rpc.receive(msg)
-      }
+      },
     )
 
     // Bind sender for messages to FCL
@@ -52,11 +52,6 @@ export function useFcl() {
         WalletUtils.sendMsgToFCL(CUSTOM_RPC, { payload: msg })
       },
     })
-
-    window.addEventListener('message', e => {
-      console.log('evt', e)
-    })
-
     rpcRef.current = _rpc
 
     return () => {
@@ -92,21 +87,21 @@ export function useFcl() {
 
       timeout.current = setTimeout(() => {
         setError(
-          'Error occured, if you are the developer please check the console for more information.'
+          'Error occured, if you are the developer please check the console for more information.',
         )
         console.error(
-          'Timeout: No response from FCL received within 5s - please ensure the application you are trying to connect to is running FCL & has the correct configuration and try again.'
+          'Timeout: No response from FCL received within 5s - please ensure the application you are trying to connect to is running FCL & has the correct configuration and try again.',
         )
       }, 5000)
     } catch (e) {
       clearTimeout(timeout.current)
       setError(
-        'Error occured, if you are the developer please check the console for more information.'
+        'Error occured, if you are the developer please check the console for more information.',
       )
 
       console.error(e)
       console.error(
-        "An error has occured connecting to the dApp's FCL instance, please see docs: https://developers.flow.com/tools/fcl-js/reference/discovery"
+        "An error has occured connecting to the dApp's FCL instance, please see docs: https://developers.flow.com/tools/fcl-js/reference/discovery",
       )
     }
 
