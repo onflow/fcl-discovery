@@ -1,10 +1,11 @@
 import useSWR from 'swr'
 import { useRpc } from '../contexts/FclContext'
 import { DiscoveryNotification, FclRequest } from '../helpers/rpc'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export function useWcUri(onConnected?: () => void) {
   const rpc = useRpc()
+  const [connecting, setConnecting] = useState(false)
   const {
     data: uri,
     error,
@@ -21,6 +22,12 @@ export function useWcUri(onConnected?: () => void) {
   useEffect(() => {
     if (!rpc || !uri) {
       return
+    }
+
+    const connectingHandler = ({ uri: _uri }: { uri: string }) => {
+      if (uri === _uri) {
+        setConnecting(true)
+      }
     }
 
     const connectHandler = ({ uri: _uri }: { uri: string }) => {
@@ -43,9 +50,17 @@ export function useWcUri(onConnected?: () => void) {
     }
 
     rpc.subscribe(DiscoveryNotification.NOTIFY_QRCODE_CONNECTED, connectHandler)
+    rpc.subscribe(
+      DiscoveryNotification.NOTIFY_QRCODE_CONNECTING,
+      connectingHandler,
+    )
     rpc.subscribe(DiscoveryNotification.NOTIFY_QRCODE_ERROR, errorHandler)
 
     return () => {
+      rpc.unsubscribe(
+        DiscoveryNotification.NOTIFY_QRCODE_CONNECTING,
+        connectingHandler,
+      )
       rpc.unsubscribe(
         DiscoveryNotification.NOTIFY_QRCODE_CONNECTED,
         connectHandler,
@@ -54,5 +69,5 @@ export function useWcUri(onConnected?: () => void) {
     }
   }, [uri, rpc])
 
-  return { uri, error, isLoading: !uri && !error }
+  return { uri, connecting, error, isLoading: !uri && !error }
 }

@@ -1,4 +1,4 @@
-import { Box, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Box, Flex, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
 import QRCode from '../QRCode'
 import CopyButton from '../CopyButton'
@@ -6,6 +6,7 @@ import HybridButton from '../HybridButton'
 import { useWcUri } from '../../hooks/useWcUri'
 import { useWalletHistory } from '../../hooks/useWalletHistory'
 import { handleCancel } from '../../helpers/window'
+import WalletIcon from '../Icons/WalletIcon'
 
 interface ScanConnectProps {
   wallet: Wallet
@@ -14,10 +15,25 @@ interface ScanConnectProps {
 
 export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
   const { setLastUsed } = useWalletHistory()
-  const { uri, error, isLoading } = useWcUri(() => {
+  const { uri, connecting, error, isLoading } = useWcUri(() => {
     setLastUsed(wallet)
     handleCancel()
   })
+
+  if (connecting) {
+    return (
+      <Stack
+        px={5}
+        pb={5}
+        alignItems="center"
+        justifyContent="center"
+        flexGrow={1}
+        textAlign="center"
+      >
+        <Spinner size="xl"></Spinner>
+      </Stack>
+    )
+  }
 
   return (
     <Stack
