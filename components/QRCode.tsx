@@ -76,34 +76,37 @@ const QRCode = memo(function QRCode({
         height={size}
       >
         {modules.map((row, y) =>
-          row.map((cell, x) => (
-            <circle
-              key={`${x}-${y}`}
-              cx={x + 0.5}
-              cy={y + 0.5}
-              r={0.4}
-              fill={cell ? 'black' : 'white'}
-            />
-          )),
+          row.map((cell, x) =>
+            cell ? (
+              <circle
+                key={`${x}-${y}`}
+                cx={x + 0.5}
+                cy={y + 0.5}
+                r={0.4}
+                fill={'black'}
+              />
+            ) : null,
+          ),
         )}
 
-        {findingPatternPositions.map(([x, y]) => (
-          <Fragment key={`${x}-${y}`}>
-            <rect x={x} y={y} width={7} height={7} fill="black" rx={2} ry={2} />
+        {findingPatternPositions.map(([x, y]) => {
+          return (
+            <Fragment key={`${x}-${y}`}>
+              <g transform={`translate(${x}, ${y})`}>
+                <path
+                  d="
+                    M 2 0 h 3 a 2 2 0 0 1 2 2 v 3 a 2 2 0 0 1 -2 2 h -3 a 2 2 0 0 1 -2 -2 v -3 a 2 2 0 0 1 2 -2
+                    M 2.5 1 h 2 a 1.5 1.5 0 0 1 1.5 1.5 v 2 a 1.5 1.5 0 0 1 -1.5 1.5 h -2 a 1.5 1.5 0 0 1 -1.5 -1.5 v -2 a 1.5 1.5 0 0 1 1.5 -1.5 Z
+                  "
+                  fill="black"
+                  fill-rule="evenodd"
+                />
+              </g>
 
-            <rect
-              x={x + 1}
-              y={y + 1}
-              width={5}
-              height={5}
-              fill="white"
-              rx={1.5}
-              ry={1.5}
-            />
-
-            <rect x={x + 2} y={y + 2} width={3} height={3} fill="black" />
-          </Fragment>
-        ))}
+              <rect x={x + 2} y={y + 2} width={3} height={3} fill="black" />
+            </Fragment>
+          )
+        })}
       </svg>
       <Flex
         position="absolute"
