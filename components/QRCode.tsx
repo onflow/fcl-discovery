@@ -99,7 +99,7 @@ const QRCode = memo(function QRCode({
                     M 2.5 1 h 2 a 1.5 1.5 0 0 1 1.5 1.5 v 2 a 1.5 1.5 0 0 1 -1.5 1.5 h -2 a 1.5 1.5 0 0 1 -1.5 -1.5 v -2 a 1.5 1.5 0 0 1 1.5 -1.5 Z
                   "
                   fill="black"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 />
               </g>
 

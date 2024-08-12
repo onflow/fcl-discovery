@@ -16,12 +16,7 @@ export default function ViewLayout({
   ...rootProps
 }: ViewLayoutProps) {
   return (
-    <Flex
-      w={['23rem', null, '45rem']}
-      h="min(32.5rem, calc(100vh - 4rem))"
-      overflow="hidden"
-      {...rootProps}
-    >
+    <Flex overflow="hidden" h="100%" {...rootProps}>
       <Stack
         spacing={0}
         overflow="hidden"

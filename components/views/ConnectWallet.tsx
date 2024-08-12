@@ -7,6 +7,7 @@ import { Fragment } from 'react'
 import { Service } from '../../types'
 import { useConfig } from '../../contexts/FclContext'
 import { toTitleCase } from '../../helpers/strings'
+import { useDeviceInfo } from '../../contexts/DeviceInfoContext'
 
 interface ConnectWalletProps {
   onConnectService: (service: Service) => void
@@ -17,6 +18,8 @@ export default function ConnectWallet({
   onConnectService,
   wallet,
 }: ConnectWalletProps) {
+  const { isMobile } = useDeviceInfo()
+
   const getServiceInfo = (service: Service) => {
     const titleCasedName = toTitleCase(wallet.name)
     let title: string, description: string, buttonText: string, icon: string
@@ -24,7 +27,7 @@ export default function ConnectWallet({
       case FCL_SERVICE_METHODS.WC:
         title = `${titleCasedName} Mobile`
         description = `Confirm the connection in the mobile app`
-        buttonText = `Scan QR Code`
+        buttonText = isMobile ? `Open Wallet` : `Scan QR Code`
         icon = wallet.icon
         break
       case FCL_SERVICE_METHODS.EXT:

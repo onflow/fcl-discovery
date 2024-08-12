@@ -1,11 +1,13 @@
-import useSWR from 'swr'
+import useSWR from 'swr/immutable'
 import { useRpc } from '../contexts/FclContext'
 import { DiscoveryNotification, FclRequest } from '../helpers/rpc'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export function useWcUri(onConnected?: () => void) {
   const rpc = useRpc()
   const [connecting, setConnecting] = useState(false)
+  const timeout = useRef<NodeJS.Timeout | null>(null)
+
   const {
     data: uri,
     error,
@@ -18,6 +20,26 @@ export function useWcUri(onConnected?: () => void) {
 
     return uri
   })
+
+  // Refresh the QR code 1 minute before it expires (if possible)
+  useEffect(() => {
+    if (!uri) return
+    try {
+      const expiry = new URL(uri).searchParams.get('expiryTimestamp')
+      if (expiry) {
+        const expires = parseInt(expiry, 10)
+        const now = Date.now() / 1000
+        const refreshSeconds = expires - now - 60
+        timeout.current = setTimeout(mutate, refreshSeconds * 1000)
+      }
+    } catch (e) {}
+
+    return () => {
+      if (timeout.current) {
+        clearTimeout(timeout.current)
+      }
+    }
+  }, [uri])
 
   useEffect(() => {
     if (!rpc || !uri) {
