@@ -46,7 +46,7 @@ export function useWallets() {
     port,
   }
 
-  const { data, error } = useSWR(genKey(requestUrl, body), url =>
+  const { data, error } = useSWR(genKey(requestUrl, body), ([url]) =>
     fetcher<Wallet[]>(url, body),
   )
 

@@ -112,6 +112,6 @@ export function useFcl() {
     error,
     config,
     rpc,
-    isLoading: !config && !error,
+    isLoading: (!config || (!rpc && rpcEnabled)) && !error,
   }
 }

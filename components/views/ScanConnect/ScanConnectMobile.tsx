@@ -5,7 +5,7 @@ import { useWcUri } from '../../../hooks/useWcUri'
 import { useWalletHistory } from '../../../hooks/useWalletHistory'
 import { handleCancel } from '../../../helpers/window'
 import { getUserAgent } from '../../../helpers/platform'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { FCL_SERVICE_METHODS } from '../../../helpers/constants'
 import WalletIcon from '../../Icons/WalletIcon'
 
@@ -20,6 +20,7 @@ export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
     setLastUsed(wallet)
     handleCancel()
   })
+  const shouldOpenLink = useRef(true)
 
   const service = wallet.services.find(
     service => service.method === FCL_SERVICE_METHODS.WC,
@@ -32,8 +33,11 @@ export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
   }
 
   useEffect(() => {
-    if (!uri) return
+    if (!uri || !shouldOpenLink.current) {
+      return
+    }
     openDeepLink()
+    shouldOpenLink.current = false
   }, [uri])
 
   if (connecting) {

@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Button, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
 import { useEffect, useRef, useState } from 'react'
 import { FCL_SERVICE_METHODS } from '../../helpers/constants'
@@ -13,7 +13,7 @@ type ConnectExtensionProps = {
 }
 
 export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
-  const rpc = useRpc()
+  const { rpc } = useRpc()
   const [isConnecting, setIsConnecting] = useState(false)
   const hasAttemptedConnection = useRef(true)
   const showSpinner = !rpc || isConnecting
