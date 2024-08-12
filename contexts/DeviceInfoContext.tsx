@@ -1,8 +1,10 @@
 import { createContext, useContext } from 'react'
-import { isMobile } from '../helpers/platform'
+import { isMobile, isTablet } from '../helpers/platform'
 
 type DeviceInfoContextValue = {
+  userAgent: string
   isMobile: boolean
+  isTablet: boolean
 }
 
 export const DeviceContext = createContext<DeviceInfoContextValue | null>(null)
@@ -17,9 +19,12 @@ export function DeviceInfoProvider({
   userAgent,
 }: DeviceInfoProviderProps) {
   const _isMobile = isMobile(userAgent)
-  console.log(userAgent)
+  const _isTablet = isTablet(userAgent)
+
   return (
-    <DeviceContext.Provider value={{ isMobile: _isMobile }}>
+    <DeviceContext.Provider
+      value={{ userAgent, isMobile: _isMobile, isTablet: _isTablet }}
+    >
       {children}
     </DeviceContext.Provider>
   )

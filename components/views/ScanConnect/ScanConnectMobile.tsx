@@ -1,4 +1,4 @@
-import { Button, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Button, Flex, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../../data/wallets'
 import HybridButton from '../../HybridButton'
 import { useWcUri } from '../../../hooks/useWcUri'
@@ -62,17 +62,18 @@ export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
     >
       {uri && (
         <Stack alignItems="center" spacing={6} my="auto">
-          <WalletIcon wallet={wallet} boxSize="7rem" borderRadius="1rem" />
-          <Stack spacing={4} alignItems="center">
-            <Text size="md">Opening {wallet.name}...</Text>
-            <Button variant="primary" size="sm" onClick={() => openDeepLink()}>
-              Retry
-            </Button>
+          <WalletIcon wallet={wallet} boxSize="4rem" />
+          <Stack spacing={2} alignItems="center">
+            <Heading size="md">Opening {wallet.name}...</Heading>
+            <Text textStyle="body2">Confirm in the mobile app</Text>
           </Stack>
+          <Button variant="primary" size="sm" onClick={() => openDeepLink()}>
+            Retry
+          </Button>
         </Stack>
       )}
       {!uri && isLoading && (
-        <Flex boxSize="20rem" justifyContent="center" alignItems="center">
+        <Flex justifyContent="center" alignItems="center" flexGrow={1}>
           <Spinner size="xl" />
         </Flex>
       )}

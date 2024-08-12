@@ -13,6 +13,7 @@ export default function WalletIcon({ wallet, ...props }: WalletIconProps) {
       as={isDataURL(wallet.icon) ? 'img' : NextImage}
       alt={wallet.name}
       src={wallet.icon}
+      borderRadius="calc(100% / 6.4)"
       {...props}
     ></Image>
   )

@@ -13,6 +13,10 @@ export const getBrowserFromUserAgent = (userAgent: string) => {
   }
 }
 
+export function isTablet(userAgent: string) {
+  return /iPad/i.test(userAgent)
+}
+
 export function isMobile(userAgent: string) {
   return /Android|iPhone|iPad|iPod/i.test(userAgent)
 }

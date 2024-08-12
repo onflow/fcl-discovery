@@ -30,15 +30,9 @@ function MyApp({
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext)
-
-  // Accessing the user agent from the request headers
-
   const userAgent =
-    typeof window === 'undefined'
-      ? appContext.ctx.req?.headers['user-agent'] || ''
-      : navigator.userAgent
+    appContext.ctx.req?.headers?.['user-agent'] || navigator?.userAgent || ''
 
-  // Passing userAgent to the pageProps
   return { ...appProps, pageProps: { ...appProps.pageProps, userAgent } }
 }
 

@@ -61,7 +61,7 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
       spacing={4}
       textAlign="center"
     >
-      <WalletIcon wallet={wallet} boxSize="3rem" borderRadius="0.75rem" />
+      <WalletIcon wallet={wallet} boxSize="3rem" />
       <Stack>
         <Heading size="md">Opening {wallet.name}...</Heading>
         <Text textStyle="body2">Confirm connection in the extension</Text>
