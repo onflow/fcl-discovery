@@ -8,12 +8,12 @@ import { useEffect, useRef } from 'react'
 import { FCL_SERVICE_METHODS } from '../../../helpers/constants'
 import WalletIcon from '../../Icons/WalletIcon'
 
-interface ScanConnectProps {
+interface ScanConnectMobileProps {
   wallet: Wallet
   onGetWallet: () => void
 }
 
-export default function ConnectMobileMobile({
+export default function ScanConnectMobile({
   wallet,
   onGetWallet,
 }: ScanConnectProps) {
