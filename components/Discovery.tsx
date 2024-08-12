@@ -3,10 +3,10 @@ import ExploreWallets from './views/ExploreWallets'
 import GetWallet from './views/GetWallet'
 import ScanInstall from './views/ScanInstall'
 import ConnectWallet from './views/ConnectWallet'
-import ScanConnect from './views/ScanConnect'
+import ScanConnect from './views/ScanConnect/ScanConnect'
 import AboutWallets from './views/AboutWallets'
+import ConnectExtension from './views/ConnectExtension'
 
-import { useModalContext } from '@chakra-ui/react'
 import { ComponentProps, useCallback, useEffect, useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
 import { Wallet } from '../data/wallets'
@@ -15,9 +15,9 @@ import ViewHeader from './ViewHeader'
 import ViewLayout from './ViewLayout'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { useIsCollapsed } from '../hooks/useIsCollapsed'
-import ConnectExtension from './views/ConnectExtension'
 import { Service } from '../types'
 import { useConfig } from '../contexts/FclContext'
+import { handleCancel } from '../helpers/window'
 
 export enum VIEWS {
   WALLET_SELECTION,
@@ -35,7 +35,6 @@ export default function Discovery() {
   const [currentView, setCurrentView] = useState<VIEWS>(VIEWS.ABOUT_WALLETS)
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
   const { rpcEnabled } = useConfig()
-  const modal = useModalContext()
 
   // WALLET_SELECTION does not exist when expanded
   // We may need to adjust the current view when the sidebar is collapsed
@@ -200,7 +199,7 @@ export default function Discovery() {
 
   return (
     <ViewLayout
-      header={<ViewHeader {...{ onClose: modal.onClose, ...headerProps }} />}
+      header={<ViewHeader {...{ onClose: handleCancel, ...headerProps }} />}
       sidebarHeader={
         <ViewHeader
           title="Connect a Wallet"

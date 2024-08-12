@@ -1,10 +1,15 @@
 import { handleCancel } from '../helpers/window'
 import { ChakraProvider } from '@chakra-ui/react'
-import { Modal, ModalOverlay, ModalContent } from '@chakra-ui/react'
 import { useCallback, useState } from 'react'
 import { theme } from '../config/chakra/theme'
+import { AdaptiveModal } from '../components/AdaptiveModal'
+import { DeviceInfoProvider } from '../contexts/DeviceInfoContext'
+import App, { AppContext, AppProps } from 'next/app'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps<{ userAgent: string }>): JSX.Element {
   const [isOpen, setIsOpen] = useState(true)
 
   const handleOnClose = useCallback(() => {
@@ -14,22 +19,21 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <ChakraProvider theme={theme}>
-      <Modal isOpen={isOpen} onClose={handleOnClose} isCentered>
-        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-        <ModalContent
-          borderRadius="1rem"
-          flexDirection="column"
-          w="auto"
-          h="auto"
-          maxW="none"
-          maxH="none"
-          display="flex"
-        >
+      <DeviceInfoProvider userAgent={pageProps.userAgent}>
+        <AdaptiveModal isOpen={isOpen} onClose={handleOnClose}>
           <Component {...pageProps} />
-        </ModalContent>
-      </Modal>
+        </AdaptiveModal>
+      </DeviceInfoProvider>
     </ChakraProvider>
   )
+}
+
+MyApp.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await App.getInitialProps(appContext)
+  const userAgent =
+    appContext.ctx.req?.headers?.['user-agent'] || navigator?.userAgent || ''
+
+  return { ...appProps, pageProps: { ...appProps.pageProps, userAgent } }
 }
 
 export default MyApp

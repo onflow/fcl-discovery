@@ -1,19 +1,21 @@
-import { Box, Flex, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
-import { Wallet } from '../../data/wallets'
-import QRCode from '../QRCode'
-import CopyButton from '../CopyButton'
-import HybridButton from '../HybridButton'
-import { useWcUri } from '../../hooks/useWcUri'
-import { useWalletHistory } from '../../hooks/useWalletHistory'
-import { handleCancel } from '../../helpers/window'
-import WalletIcon from '../Icons/WalletIcon'
+import { Box, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Wallet } from '../../../data/wallets'
+import QRCode from '../../QRCode'
+import CopyButton from '../../CopyButton'
+import HybridButton from '../../HybridButton'
+import { useWcUri } from '../../../hooks/useWcUri'
+import { useWalletHistory } from '../../../hooks/useWalletHistory'
+import { handleCancel } from '../../../helpers/window'
 
-interface ScanConnectProps {
+interface ScanConnectDesktopProps {
   wallet: Wallet
   onGetWallet: () => void
 }
 
-export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
+export default function ScanConnectDesktop({
+  wallet,
+  onGetWallet,
+}: ScanConnectDesktopProps) {
   const { setLastUsed } = useWalletHistory()
   const { uri, connecting, error, isLoading } = useWcUri(() => {
     setLastUsed(wallet)
