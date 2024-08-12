@@ -16,7 +16,7 @@ import ViewLayout from './ViewLayout'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { useIsCollapsed } from '../hooks/useIsCollapsed'
 import { Service } from '../types'
-import { useConfig } from '../contexts/FclContext'
+import { useRpc } from '../contexts/FclContext'
 import { handleCancel } from '../helpers/window'
 
 export enum VIEWS {
@@ -34,7 +34,7 @@ export default function Discovery() {
   const { wallets, error } = useWallets()
   const [currentView, setCurrentView] = useState<VIEWS>(VIEWS.ABOUT_WALLETS)
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
-  const { rpcEnabled } = useConfig()
+  const { rpcEnabled } = useRpc()
 
   // WALLET_SELECTION does not exist when expanded
   // We may need to adjust the current view when the sidebar is collapsed

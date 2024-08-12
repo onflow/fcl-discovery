@@ -7,7 +7,7 @@ const EXPIRY_TIMESTAMP = 'expiryTimestamp'
 const EXPIRY_BUFFER = 60
 
 export function useWcUri(onConnected?: () => void) {
-  const rpc = useRpc()
+  const { rpc } = useRpc()
   const [connecting, setConnecting] = useState(false)
   const timeout = useRef<NodeJS.Timeout | null>(null)
 

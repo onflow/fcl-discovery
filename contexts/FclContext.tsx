@@ -37,9 +37,17 @@ export function useConfig() {
 }
 
 export function useRpc() {
-  const { rpc } = useContext(FclContext)
-  if (!rpc) {
+  const ctx = useContext(FclContext)
+  if (!ctx) {
     throw new Error('useRpc must be used within a FclProvider')
   }
-  return rpc
+
+  const {
+    rpc,
+    config: { rpcEnabled },
+  } = ctx
+  return {
+    rpc,
+    rpcEnabled: rpcEnabled || false,
+  }
 }
