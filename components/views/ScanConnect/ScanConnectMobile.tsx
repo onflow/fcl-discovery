@@ -16,7 +16,7 @@ interface ScanConnectMobileProps {
 export default function ScanConnectMobile({
   wallet,
   onGetWallet,
-}: ScanConnectProps) {
+}: ScanConnectMobileProps) {
   const windowRef = useRef<Window | null>(null)
   const { setLastUsed } = useWalletHistory()
   const { uri, connecting, error, isLoading } = useWcUri(() => {
