@@ -4,19 +4,25 @@ import HybridButton from '../../HybridButton'
 import { useWcUri } from '../../../hooks/useWcUri'
 import { useWalletHistory } from '../../../hooks/useWalletHistory'
 import { handleCancel } from '../../../helpers/window'
-import { getUserAgent } from '../../../helpers/platform'
 import { useEffect, useRef } from 'react'
 import { FCL_SERVICE_METHODS } from '../../../helpers/constants'
 import WalletIcon from '../../Icons/WalletIcon'
 
-interface ScanConnectProps {
+interface ScanConnectMobileProps {
   wallet: Wallet
   onGetWallet: () => void
 }
 
-export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
+export default function ScanConnectMobile({
+  wallet,
+  onGetWallet,
+}: ScanConnectMobileProps) {
+  const windowRef = useRef<Window | null>(null)
   const { setLastUsed } = useWalletHistory()
   const { uri, connecting, error, isLoading } = useWcUri(() => {
+    if (windowRef.current && !windowRef.current.closed) {
+      windowRef.current.close()
+    }
     setLastUsed(wallet)
     handleCancel()
   })
@@ -27,9 +33,12 @@ export default function ScanConnect({ wallet, onGetWallet }: ScanConnectProps) {
   )
 
   function openDeepLink() {
+    if (windowRef.current && !windowRef.current.closed) {
+      windowRef.current.close()
+    }
     const deeplink = new URL(service.uid)
     deeplink.searchParams.set('uri', uri)
-    window.open(deeplink, '_blank')
+    windowRef.current = window.open(deeplink, '_blank')
   }
 
   useEffect(() => {
