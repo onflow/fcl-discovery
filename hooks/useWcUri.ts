@@ -1,7 +1,10 @@
-import useSWR from 'swr/immutable'
+import useSWR from 'swr'
 import { useRpc } from '../contexts/FclContext'
 import { DiscoveryNotification, FclRequest } from '../helpers/rpc'
 import { useEffect, useRef, useState } from 'react'
+
+const EXPIRY_TIMESTAMP = 'expiryTimestamp'
+const EXPIRY_BUFFER = 60
 
 export function useWcUri(onConnected?: () => void) {
   const rpc = useRpc()
@@ -17,7 +20,6 @@ export function useWcUri(onConnected?: () => void) {
       FclRequest.REQUEST_WALLETCONNECT_QRCODE,
       {},
     )
-
     return uri
   })
 
@@ -25,11 +27,11 @@ export function useWcUri(onConnected?: () => void) {
   useEffect(() => {
     if (!uri) return
     try {
-      const expiry = new URL(uri).searchParams.get('expiryTimestamp')
+      const expiry = new URL(uri).searchParams.get(EXPIRY_TIMESTAMP)
       if (expiry) {
         const expires = parseInt(expiry, 10)
         const now = Date.now() / 1000
-        const refreshSeconds = expires - now - 60
+        const refreshSeconds = expires - now - EXPIRY_BUFFER
         timeout.current = setTimeout(mutate, refreshSeconds * 1000)
       }
     } catch (e) {}
