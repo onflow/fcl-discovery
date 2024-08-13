@@ -1,5 +1,4 @@
 import { Browser } from './browsers'
-import { USER_AGENTS_SUBSTRINGS } from './constants'
 
 export enum DeviceType {
   MOBILE = 'mobile',
@@ -19,30 +18,58 @@ export enum MobilePlatform {
   UNKNOWN = 'unknown',
 }
 
-export type DeviceInfo = {
-  type: DeviceType.MOBILE | DeviceType.DESKTOP
+export type BaseDeviceInfo = {
+  type: DeviceType
+  platform: DesktopPlatform | MobilePlatform
+  browser: Browser
+  isTablet: boolean
+}
+
+export type DesktopInfo = {
+  type: DeviceType.DESKTOP
+  platform: DesktopPlatform
+  browser: Browser
+  isTablet: false
+}
+
+export type MobileInfo = {
+  type: DeviceType.MOBILE
   platform: MobilePlatform
   browser: Browser
   isTablet: boolean
 }
 
+export type DeviceInfo = DesktopInfo | MobileInfo
+
 export const getDeviceInfo = (userAgent: string): DeviceInfo => {
+  if (isMobile(userAgent)) {
+    return {
+      type: DeviceType.MOBILE,
+      isTablet: isTablet(userAgent),
+      platform: getMobilePlatform(userAgent),
+      browser: getBrowserFromUserAgent(userAgent),
+    }
+  }
+
   return {
-    type: isMobile(userAgent) ? DeviceType.MOBILE : DeviceType.DESKTOP,
-    isTablet: isTablet(userAgent),
-    platform: getMobilePlatform(userAgent),
+    type: DeviceType.DESKTOP,
+    isTablet: false,
+    platform: getDesktopPlatform(userAgent),
     browser: getBrowserFromUserAgent(userAgent),
   }
 }
 
 export const getBrowserFromUserAgent = (userAgent: string) => {
-  for (const [k, v] of Object.entries(USER_AGENTS_SUBSTRINGS)) {
-    const values = Array.isArray(v) ? v : [v]
-    for (const value of values) {
-      if (userAgent?.includes(value)) {
-        return k as Browser
-      }
-    }
+  if (userAgent.includes('Opera') || userAgent.includes('OPR/')) {
+    return Browser.OPERA
+  } else if (userAgent.includes('Edg')) {
+    return Browser.EDGE
+  } else if (userAgent.includes('Chrome')) {
+    return Browser.CHROME
+  } else if (userAgent.includes('Safari')) {
+    return Browser.SAFARI
+  } else if (userAgent.includes('Firefox')) {
+    return Browser.FIREFOX
   }
   return Browser.UNKNOWN
 }

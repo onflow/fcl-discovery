@@ -68,14 +68,6 @@ export const LOCAL_STORAGE_KEYS = {
   LAST_USED: `discovery:${LOCAL_STORAGE_VERSION}:ext:lastUsed`,
 }
 
-export const USER_AGENTS_SUBSTRINGS = {
-  [Browser.CHROME]: 'Chrome',
-  [Browser.FIREFOX]: 'Firefox',
-  [Browser.SAFARI]: 'Safari',
-  [Browser.EDGE]: 'Edg',
-  [Browser.OPERA]: ['OPR', 'Opera'],
-}
-
 export const AVAILABLE_FEATURES = [
   {
     id: 'mobile',
