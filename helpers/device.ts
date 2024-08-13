@@ -19,42 +19,19 @@ export enum MobilePlatform {
   UNKNOWN = 'unknown',
 }
 
-export type BaseDeviceInfo = {
-  type: DeviceType
-  browser: Browser
-}
-
-export type MobileDeviceInfo = BaseDeviceInfo & {
-  type: DeviceType.MOBILE
+export type DeviceInfo = {
+  type: DeviceType.MOBILE | DeviceType.DESKTOP
   platform: MobilePlatform
+  browser: Browser
   isTablet: boolean
 }
 
-export type DesktopDeviceInfo = BaseDeviceInfo & {
-  type: DeviceType.DESKTOP
-  platform: DesktopPlatform
-}
-
-export type DeviceInfo = MobileDeviceInfo | DesktopDeviceInfo
-
 export const getDeviceInfo = (userAgent: string): DeviceInfo => {
-  const browser = getBrowserFromUserAgent(userAgent)
-
-  if (isMobile(userAgent)) {
-    const info = {
-      type: DeviceType.MOBILE,
-      isTablet: isTablet(userAgent),
-      platform: getMobilePlatform(userAgent),
-      browser,
-    } as MobileDeviceInfo
-
-    return info
-  } else {
-    return {
-      type: DeviceType.DESKTOP,
-      platform: getDesktopPlatform(userAgent),
-      browser,
-    } as DesktopDeviceInfo
+  return {
+    type: isMobile(userAgent) ? DeviceType.MOBILE : DeviceType.DESKTOP,
+    isTablet: isTablet(userAgent),
+    platform: getMobilePlatform(userAgent),
+    browser: getBrowserFromUserAgent(userAgent),
   }
 }
 
