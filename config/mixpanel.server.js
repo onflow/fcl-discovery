@@ -1,4 +1,14 @@
 // This lib is only for server side
-import mixpanel from 'mixpanel'
+import Mixpanel from 'mixpanel'
 
-export default mixpanel.init(process.env.MIXPANEL_ID)
+let mixpanel
+
+const initMixpanel = () => {
+  if (process.env.MIXPANEL_ID) {
+    mixpanel = Mixpanel.init(process.env.MIXPANEL_ID)
+  }
+}
+
+initMixpanel()
+
+export default mixpanel
