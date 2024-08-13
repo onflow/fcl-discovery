@@ -11,6 +11,7 @@ import { NETWORKS } from '../../helpers/constants'
 // Initializing the cors middleware
 const cors = Cors({
   methods: ['POST'],
+  origin: "*",
 })
 
 // Helper method to wait for a middleware to execute before continuing
