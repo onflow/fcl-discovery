@@ -2,7 +2,7 @@ import { useDevice } from '../contexts/DeviceContext'
 import { Wallet } from '../data/wallets'
 import { getBrowserInfo } from '../helpers/browsers'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
-import { DeviceType } from '../helpers/device-info'
+import { DeviceType } from '../helpers/device'
 import { useInstallLinks } from '../hooks/useInstallLinks'
 import WalletTypeCard from './WalletTypeCard'
 

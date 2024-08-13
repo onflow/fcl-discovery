@@ -1,10 +1,10 @@
 import { Wallet } from '../data/wallets'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { Service } from '../types'
-import ChromeIcon from './Icons/chrome.svg'
 import WalletTypeCard from './WalletTypeCard'
 import { useDevice } from '../contexts/DeviceContext'
-import { DeviceType } from '../helpers/device-info'
+import { DeviceType } from '../helpers/device'
+import { getBrowserInfo } from '../helpers/browsers'
 
 export type ConnectCardProps = {
   onConnect: () => void
@@ -49,10 +49,13 @@ function useConnectCardInfo(wallet: Wallet, service: Service) {
       icon = wallet.icon
       break
     case FCL_SERVICE_METHODS.EXT:
+      if (deviceInfo.type !== DeviceType.DESKTOP) {
+        return null
+      }
       title = `${wallet.name} Extension`
       description = `Confirm the connection in the browser extension`
       buttonText = `Connect`
-      icon = ChromeIcon
+      icon = getBrowserInfo(deviceInfo.browser).icon
       break
     case FCL_SERVICE_METHODS.HTTP:
     case FCL_SERVICE_METHODS.POP:
@@ -61,7 +64,7 @@ function useConnectCardInfo(wallet: Wallet, service: Service) {
       title = `Connect to ${wallet.name}`
       description = `Confirm the connection in the web app`
       buttonText = `Connect`
-      icon = ChromeIcon
+      icon = getBrowserInfo(deviceInfo.browser).icon
       break
     default:
       title = `Connect to ${wallet.name}`

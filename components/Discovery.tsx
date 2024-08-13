@@ -19,7 +19,7 @@ import { Service } from '../types'
 import { useRpc } from '../contexts/FclContext'
 import { handleCancel } from '../helpers/window'
 import { useDevice } from '../contexts/DeviceContext'
-import { DeviceType } from '../helpers/device-info'
+import { DeviceType } from '../helpers/device'
 import { useInstallLinks } from '../hooks/useInstallLinks'
 
 export enum VIEWS {

@@ -1,6 +1,6 @@
 import { Wallet } from '../../../data/wallets'
 import { useDevice } from '../../../contexts/DeviceContext'
-import { DeviceType } from '../../../helpers/device-info'
+import { DeviceType } from '../../../helpers/device'
 import InstallAppDesktop from './InstallAppDesktop'
 import InstallAppMobile from './InstallAppMobile'
 

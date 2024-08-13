@@ -1,4 +1,8 @@
 import ChromeIcon from '../components/Icons/chrome.svg'
+import FirefoxIcon from '../components/Icons/firefox.svg'
+import SafariIcon from '../components/Icons/safari.svg'
+import EdgeIcon from '../components/Icons/edge.svg'
+import OperaIcon from '../components/Icons/opera.svg'
 
 export enum Browser {
   CHROME = 'chrome',
@@ -6,6 +10,7 @@ export enum Browser {
   SAFARI = 'safari',
   EDGE = 'edge',
   OPERA = 'opera',
+  UNKNOWN = 'unknown',
 }
 
 export function getBrowserInfo(browser: Browser): {
@@ -21,24 +26,24 @@ export function getBrowserInfo(browser: Browser): {
     case Browser.FIREFOX:
       return {
         name: 'Firefox',
-        icon: ChromeIcon,
+        icon: FirefoxIcon,
       }
     case Browser.SAFARI:
       return {
         name: 'Safari',
-        icon: ChromeIcon,
+        icon: SafariIcon,
       }
     case Browser.OPERA:
       return {
         name: 'Opera',
-        icon: ChromeIcon,
+        icon: OperaIcon,
       }
     case Browser.EDGE:
       return {
         name: 'Edge',
-        icon: ChromeIcon,
+        icon: EdgeIcon,
       }
-    case null:
+    case Browser.UNKNOWN:
       return {
         name: 'Browser',
         icon: ChromeIcon,

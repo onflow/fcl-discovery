@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import { DeviceInfo, DeviceType, getDeviceInfo } from '../helpers/device-info'
+import { DeviceInfo, getDeviceInfo } from '../helpers/device'
 
 type DeviceContextValue = {
   deviceInfo: DeviceInfo

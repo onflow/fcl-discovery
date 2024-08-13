@@ -5,7 +5,7 @@ import { useIsCollapsed } from '../../hooks/useIsCollapsed'
 import { useDevice } from '../../contexts/DeviceContext'
 import { useWcUri } from '../../hooks/useWcUri'
 import { useWallets } from '../../hooks/useWallets'
-import { DeviceType } from '../../helpers/device-info'
+import { DeviceType } from '../../helpers/device'
 
 type Props = {
   onSelectWallet: (wallet: Wallet) => void

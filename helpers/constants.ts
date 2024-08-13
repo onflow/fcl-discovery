@@ -1,5 +1,4 @@
 import Enum from 'enum-xyz'
-import ChromeIcon from '../components/Icons/chrome.svg'
 
 const { AUTHN, CANARYNET, TESTNET, PREVIEWNET, MAINNET, LOCAL, EMULATOR } =
   Enum.String({ casing: 'lowercase' })

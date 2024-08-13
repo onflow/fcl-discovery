@@ -10,37 +10,42 @@ export enum DesktopPlatform {
   MAC = 'mac',
   WINDOWS = 'windows',
   LINUX = 'linux',
+  UNKNOWN = 'unknown',
 }
 
 export enum MobilePlatform {
   IOS = 'ios',
   ANDROID = 'android',
+  UNKNOWN = 'unknown',
 }
 
 export type BaseDeviceInfo = {
   type: DeviceType
+  browser: Browser
 }
 
 export type MobileDeviceInfo = BaseDeviceInfo & {
   type: DeviceType.MOBILE
-  platform: MobilePlatform | null
+  platform: MobilePlatform
   isTablet: boolean
 }
 
 export type DesktopDeviceInfo = BaseDeviceInfo & {
   type: DeviceType.DESKTOP
-  platform: DesktopPlatform | null
-  browser: Browser | null
+  platform: DesktopPlatform
 }
 
 export type DeviceInfo = MobileDeviceInfo | DesktopDeviceInfo
 
 export const getDeviceInfo = (userAgent: string): DeviceInfo => {
+  const browser = getBrowserFromUserAgent(userAgent)
+
   if (isMobile(userAgent)) {
     const info = {
       type: DeviceType.MOBILE,
       isTablet: isTablet(userAgent),
       platform: getMobilePlatform(userAgent),
+      browser,
     } as MobileDeviceInfo
 
     return info
@@ -48,7 +53,7 @@ export const getDeviceInfo = (userAgent: string): DeviceInfo => {
     return {
       type: DeviceType.DESKTOP,
       platform: getDesktopPlatform(userAgent),
-      browser: getBrowserFromUserAgent(userAgent),
+      browser,
     } as DesktopDeviceInfo
   }
 }
@@ -59,7 +64,7 @@ export const getBrowserFromUserAgent = (userAgent: string) => {
       return value
     }
   }
-  return null
+  return Browser.UNKNOWN
 }
 
 export function getDesktopPlatform(userAgent: string) {
@@ -70,7 +75,7 @@ export function getDesktopPlatform(userAgent: string) {
   } else if (userAgent.includes('Linux')) {
     return DesktopPlatform.LINUX
   }
-  return null
+  return DesktopPlatform.UNKNOWN
 }
 
 export function getMobilePlatform(userAgent: string) {
@@ -79,7 +84,7 @@ export function getMobilePlatform(userAgent: string) {
   } else if (isAndroid(userAgent)) {
     return MobilePlatform.ANDROID
   }
-  return null
+  return MobilePlatform.UNKNOWN
 }
 
 export function isTablet(userAgent: string) {

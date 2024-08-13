@@ -2,7 +2,7 @@ import { Wallet } from '../../../data/wallets'
 import ScanConnectDesktop from './ScanConnectDesktop'
 import ScanConnectMobile from './ScanConnectMobile'
 import { useDevice } from '../../../contexts/DeviceContext'
-import { DeviceType } from '../../../helpers/device-info'
+import { DeviceType } from '../../../helpers/device'
 
 interface ScanConnectProps {
   wallet: Wallet

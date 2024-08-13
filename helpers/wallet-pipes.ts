@@ -18,7 +18,7 @@ import {
   DEFAULT_SERVICE_METHODS,
   SUPPORTED_VERSIONS,
 } from './constants'
-import { getBrowserFromUserAgent } from './device-info'
+import { getBrowserFromUserAgent } from './device'
 import { isGreaterThanOrEqualToVersion } from './version'
 import { pipeWalletServices, walletsForNetwork } from './wallets'
 import { injectClientServices } from './inject-wallets'
