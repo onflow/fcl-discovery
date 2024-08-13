@@ -1,6 +1,4 @@
-import { IdentityFunction } from 'rambda'
 import { Wallet, WalletConfig } from '../data/wallets'
-import { ServiceWithWallet } from '../helpers/wallets'
 
 export type Provider = {
   address?: string
