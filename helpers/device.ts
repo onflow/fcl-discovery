@@ -59,9 +59,12 @@ export const getDeviceInfo = (userAgent: string): DeviceInfo => {
 }
 
 export const getBrowserFromUserAgent = (userAgent: string) => {
-  for (const value of Object.values(USER_AGENTS_SUBSTRINGS)) {
-    if (userAgent?.includes(value)) {
-      return value
+  for (const [k, v] of Object.entries(USER_AGENTS_SUBSTRINGS)) {
+    const values = Array.isArray(v) ? v : [v]
+    for (const value of values) {
+      if (userAgent?.includes(value)) {
+        return k as Browser
+      }
     }
   }
   return Browser.UNKNOWN

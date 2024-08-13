@@ -1,4 +1,5 @@
 import Enum from 'enum-xyz'
+import { Browser } from './browsers'
 
 const { AUTHN, CANARYNET, TESTNET, PREVIEWNET, MAINNET, LOCAL, EMULATOR } =
   Enum.String({ casing: 'lowercase' })
@@ -68,7 +69,11 @@ export const LOCAL_STORAGE_KEYS = {
 }
 
 export const USER_AGENTS_SUBSTRINGS = {
-  CHROME: 'Chrome',
+  [Browser.CHROME]: 'Chrome',
+  [Browser.FIREFOX]: 'Firefox',
+  [Browser.SAFARI]: 'Safari',
+  [Browser.EDGE]: 'Edg',
+  [Browser.OPERA]: ['OPR', 'Opera'],
 }
 
 export const AVAILABLE_FEATURES = [

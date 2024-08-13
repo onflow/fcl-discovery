@@ -1,8 +1,8 @@
-import ChromeIcon from '../components/Icons/chrome.svg'
-import FirefoxIcon from '../components/Icons/firefox.svg'
-import SafariIcon from '../components/Icons/safari.svg'
-import EdgeIcon from '../components/Icons/edge.svg'
-import OperaIcon from '../components/Icons/opera.svg'
+import ChromeIcon from '../components/Icons/browsers/chrome.svg'
+import FirefoxIcon from '../components/Icons/browsers/firefox.svg'
+import SafariIcon from '../components/Icons/browsers/safari.svg'
+import EdgeIcon from '../components/Icons/browsers/edge.svg'
+import OperaIcon from '../components/Icons/browsers/opera.svg'
 
 export enum Browser {
   CHROME = 'chrome',
