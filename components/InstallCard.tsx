@@ -2,6 +2,7 @@ import { useDeviceInfo } from '../contexts/DeviceInfoContext'
 import { Wallet } from '../data/wallets'
 import { getBrowserInfo } from '../helpers/browsers'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
+import { DeviceType, MobilePlatform } from '../helpers/device-info'
 import WalletTypeCard from './WalletTypeCard'
 
 type InstallCardProps = {
@@ -15,8 +16,23 @@ export function InstallCard({
   type,
   onInstallMobile,
 }: InstallCardProps) {
+  const deviceInfo = useDeviceInfo()
+
   switch (type) {
     case FCL_SERVICE_METHODS.WC:
+      let mobileInstallLink
+      if (deviceInfo.type === DeviceType.MOBILE) {
+        mobileInstallLink =
+          wallet.installLink?.[deviceInfo.platform] ||
+          wallet.installLink?.mobile
+      } else {
+        mobileInstallLink = wallet.installLink?.mobile
+      }
+
+      if (!mobileInstallLink) {
+        return null
+      }
+
       return (
         <WalletTypeCard
           icon={wallet.icon}
@@ -29,10 +45,20 @@ export function InstallCard({
         ></WalletTypeCard>
       )
     case FCL_SERVICE_METHODS.EXT:
-      const browserInfo = getBrowserInfo(useDeviceInfo().userAgent)
+      if (deviceInfo.type !== DeviceType.DESKTOP) {
+        return null
+      }
+
       const browserInstallLink =
-        wallet.installLink?.[browserInfo.id] ||
+        wallet.installLink?.[deviceInfo.browser] ||
         wallet.installLink?.browserExtension
+
+      if (!browserInstallLink) {
+        return null
+      }
+
+      const browserInfo = getBrowserInfo(deviceInfo.browser)
+
       return (
         <WalletTypeCard
           icon={browserInfo.icon}

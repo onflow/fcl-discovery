@@ -4,6 +4,7 @@ import { FCL_SERVICE_METHODS } from '../../helpers/constants'
 import { Service } from '../../types'
 import { ConnectCard } from '../ConnectCard'
 import { Fragment } from 'react'
+import { InstallCard } from '../InstallCard'
 
 const IDEAL_SERVICE_ORDER = [FCL_SERVICE_METHODS.EXT, FCL_SERVICE_METHODS.WC]
 
@@ -33,14 +34,14 @@ export default function ConnectWallet({
   )
 
   // Add install cards for missing services
-  if (!cardMap[FCL_SERVICE_METHODS.WC]) {
+  if (!cardMap[FCL_SERVICE_METHODS.EXT]) {
     cardMap[FCL_SERVICE_METHODS.EXT] = (
-      <ConnectCard
+      <InstallCard
         key={FCL_SERVICE_METHODS.EXT}
-        onConnect={() => console.log('Connect')}
+        type={FCL_SERVICE_METHODS.EXT}
         wallet={wallet}
-        serviceIdx={0}
-      ></ConnectCard>
+        onInstallMobile={() => {}}
+      ></InstallCard>
     )
   }
 

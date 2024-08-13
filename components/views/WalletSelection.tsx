@@ -5,6 +5,7 @@ import { useIsCollapsed } from '../../hooks/useIsCollapsed'
 import { useDeviceInfo } from '../../contexts/DeviceInfoContext'
 import { useWcUri } from '../../hooks/useWcUri'
 import { useWallets } from '../../hooks/useWallets'
+import { DeviceType } from '../../helpers/device-info'
 
 type Props = {
   onSelectWallet: (wallet: Wallet) => void
@@ -19,7 +20,7 @@ export default function WalletSelection({
 }: Props) {
   const isCollapsed = useIsCollapsed()
   const { isLoading: walletsLoading } = useWallets()
-  const { isMobile } = useDeviceInfo()
+  const { type: deviceType } = useDeviceInfo()
   useWcUri()
 
   const content = (
@@ -46,7 +47,7 @@ export default function WalletSelection({
     </Stack>
   )
 
-  return isMobile ? (
+  return deviceType === DeviceType.MOBILE ? (
     <MobileWrapper isLoading={walletsLoading}>{content}</MobileWrapper>
   ) : (
     <LoadingWrapper isLoading={walletsLoading}>{content}</LoadingWrapper>

@@ -105,18 +105,4 @@ export const AVAILABLE_FEATURES = [
   },
 ] as const
 
-export const BROWSERS = {
-  CHROME: {
-    id: 'chrome',
-    name: 'Chrome',
-    icon: ChromeIcon,
-  },
-  BROWSER: {
-    id: 'browser',
-    name: 'Browser',
-    // TODO: We need a generic browser icon
-    icon: ChromeIcon,
-  },
-} as const
-
 export const CUSTOM_RPC = 'FCL:VIEW:CUSTOM_RPC'

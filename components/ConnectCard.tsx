@@ -1,9 +1,10 @@
 import { Wallet } from '../data/wallets'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { Service } from '../types'
-import ChromeIcon from '../Icons/chrome.svg'
+import ChromeIcon from './Icons/chrome.svg'
 import WalletTypeCard from './WalletTypeCard'
 import { useDeviceInfo } from '../contexts/DeviceInfoContext'
+import { DeviceType } from '../helpers/device-info'
 
 export type ConnectCardProps = {
   onConnect: () => void
@@ -37,13 +38,14 @@ export function ConnectCard({
 }
 
 function useConnectCardInfo(wallet: Wallet, service: Service) {
-  const { isMobile } = useDeviceInfo()
+  const { type: deviceType } = useDeviceInfo()
   let title: string, description: string, buttonText: string, icon: string
   switch (service.method) {
     case FCL_SERVICE_METHODS.WC:
       title = `${wallet.name} Mobile`
       description = `Confirm the connection in the mobile app`
-      buttonText = isMobile ? `Open Wallet` : `Scan QR Code`
+      buttonText =
+        deviceType === DeviceType.MOBILE ? `Open Wallet` : `Scan QR Code`
       icon = wallet.icon
       break
     case FCL_SERVICE_METHODS.EXT:

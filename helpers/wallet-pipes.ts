@@ -18,7 +18,7 @@ import {
   DEFAULT_SERVICE_METHODS,
   SUPPORTED_VERSIONS,
 } from './constants'
-import { getBrowserFromUserAgent } from './platform'
+import { getBrowserFromUserAgent } from './device-info'
 import { isGreaterThanOrEqualToVersion } from './version'
 import { pipeWalletServices, walletsForNetwork } from './wallets'
 import { injectClientServices } from './inject-wallets'
@@ -42,21 +42,21 @@ export const getWalletPipes = ({
   // If below certain version, there is no user agent
   const isFilteringSupported = isGreaterThanOrEqualToVersion(
     fclVersion,
-    SUPPORTED_VERSIONS.FILTERING
+    SUPPORTED_VERSIONS.FILTERING,
   )
   const areExtensionsSupported = isGreaterThanOrEqualToVersion(
     fclVersion,
-    SUPPORTED_VERSIONS.EXTENSIONS
+    SUPPORTED_VERSIONS.EXTENSIONS,
   )
   const areUninstalledExtensionsSupported = isGreaterThanOrEqualToVersion(
     fclVersion,
     discoveryType === 'UI'
       ? SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS
-      : SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS_API
+      : SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS_API,
   )
   const extensions = serviceListOfMethod(
     clientServices,
-    FCL_SERVICE_METHODS.EXT
+    FCL_SERVICE_METHODS.EXT,
   )
 
   return [
@@ -75,15 +75,15 @@ export const getWalletPipes = ({
               // Remove opt in services unless marked as include, if supported
               when(
                 always(isFilteringSupported),
-                filterOptInServices({ wallets, includeList: include })
-              )
-            ) as any
+                filterOptInServices({ wallets, includeList: include }),
+              ),
+            ) as any,
         ),
 
         ifElse(
           always(areExtensionsSupported),
           injectClientServices(clientServices),
-          identity
+          identity,
         ),
 
         // Post-process services
@@ -98,10 +98,10 @@ export const getWalletPipes = ({
               ifElse(
                 always(areUninstalledExtensionsSupported),
                 filterServicesByPlatform({ wallets, platform }),
-                reject(isExtension)
-              )
-            ) as any
-        )
+                reject(isExtension),
+              ),
+            ) as any,
+        ),
       ),
     },
     {
@@ -115,8 +115,8 @@ export const getWalletPipes = ({
           pipe(
             filterSupportedStrategies(supportedStrategies),
             // Remove opt in services unless marked as include, if supported
-            filterOptInServices({ wallets, includeList: include })
-          )
+            filterOptInServices({ wallets, includeList: include }),
+          ),
         ),
 
         // Inject client services
@@ -136,9 +136,9 @@ export const getWalletPipes = ({
               // Add services if supported
               serviceOfTypeAuthn,
               // Allow port override option if local
-              overrideServicePorts(isLocal, portOverride)
-            ) as any
-        )
+              overrideServicePorts(isLocal, portOverride),
+            ) as any,
+        ),
       ),
     },
   ]
