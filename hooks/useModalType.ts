@@ -1,10 +1,10 @@
 import { useBreakpointValue } from '@chakra-ui/react'
-import { useDeviceInfo } from '../contexts/DeviceInfoContext'
+import { useDevice } from '../contexts/DeviceContext'
 import { DeviceType } from '../helpers/device-info'
 
 export function useModalType() {
   // Optimistic SSR fallback based on user agent
-  const deviceInfo = useDeviceInfo()
+  const { deviceInfo } = useDevice()
   const isDrawer = useBreakpointValue(
     { base: true, sm: false },
     {

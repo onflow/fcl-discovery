@@ -2,6 +2,7 @@ import { Stack } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
 import { FCL_SERVICE_METHODS } from '../../helpers/constants'
 import { InstallCard } from '../InstallCard'
+import { useConfig } from '../../contexts/FclContext'
 
 interface GetWalletProps {
   onGetQRCode: (wallet: Wallet) => void
@@ -9,9 +10,10 @@ interface GetWalletProps {
 }
 
 export default function GetWallet({ wallet, onGetQRCode }: GetWalletProps) {
+  const { supportedStrategies } = useConfig()
   return (
     <Stack flexGrow={1} alignItems="center" spacing={4} px={5} pb={5}>
-      {Object.values(FCL_SERVICE_METHODS).map(service => {
+      {supportedStrategies.map(service => {
         return (
           <InstallCard
             key={service}

@@ -1,13 +1,16 @@
 import { Box, Button, Stack, Text } from '@chakra-ui/react'
-import { Wallet } from '../../data/wallets'
-import QRCode from '../QRCode'
+import { Wallet } from '../../../data/wallets'
+import QRCode from '../../QRCode'
 
-interface ScanInstallProps {
+interface InstallAppDesktopProps {
   onContinue: () => void
   wallet: Wallet
 }
 
-export default function ScanInstall({ onContinue, wallet }: ScanInstallProps) {
+export default function InstallAppDesktop({
+  onContinue,
+  wallet,
+}: InstallAppDesktopProps) {
   return (
     <Stack
       flexGrow={1}

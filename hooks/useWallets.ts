@@ -4,7 +4,7 @@ import { Wallet } from '../data/wallets'
 import { isExtension } from '../helpers/services'
 import { useWalletHistory } from './useWalletHistory'
 import { useMemo } from 'react'
-import { useDeviceInfo } from '../contexts/DeviceInfoContext'
+import { useDevice } from '../contexts/DeviceContext'
 
 const genKey = (url: string, opts: any) => [url, JSON.stringify(opts)]
 
@@ -20,7 +20,7 @@ const fetcher = async <T>(url: string, opts: any) => {
 
 export function useWallets() {
   const { isLastUsed } = useWalletHistory()
-  const { userAgent } = useDeviceInfo()
+  const { userAgent } = useDevice()
 
   const {
     appVersion,

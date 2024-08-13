@@ -3,7 +3,7 @@ import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { Service } from '../types'
 import ChromeIcon from './Icons/chrome.svg'
 import WalletTypeCard from './WalletTypeCard'
-import { useDeviceInfo } from '../contexts/DeviceInfoContext'
+import { useDevice } from '../contexts/DeviceContext'
 import { DeviceType } from '../helpers/device-info'
 
 export type ConnectCardProps = {
@@ -38,14 +38,14 @@ export function ConnectCard({
 }
 
 function useConnectCardInfo(wallet: Wallet, service: Service) {
-  const { type: deviceType } = useDeviceInfo()
+  const { deviceInfo } = useDevice()
   let title: string, description: string, buttonText: string, icon: string
   switch (service.method) {
     case FCL_SERVICE_METHODS.WC:
       title = `${wallet.name} Mobile`
       description = `Confirm the connection in the mobile app`
       buttonText =
-        deviceType === DeviceType.MOBILE ? `Open Wallet` : `Scan QR Code`
+        deviceInfo.type === DeviceType.MOBILE ? `Open Wallet` : `Scan QR Code`
       icon = wallet.icon
       break
     case FCL_SERVICE_METHODS.EXT:

@@ -1,8 +1,9 @@
-import { useDeviceInfo } from '../contexts/DeviceInfoContext'
+import { useDevice } from '../contexts/DeviceContext'
 import { Wallet } from '../data/wallets'
 import { getBrowserInfo } from '../helpers/browsers'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
-import { DeviceType, MobilePlatform } from '../helpers/device-info'
+import { DeviceType } from '../helpers/device-info'
+import { useInstallLinks } from '../hooks/useInstallLinks'
 import WalletTypeCard from './WalletTypeCard'
 
 type InstallCardProps = {
@@ -16,30 +17,21 @@ export function InstallCard({
   type,
   onInstallMobile,
 }: InstallCardProps) {
-  const deviceInfo = useDeviceInfo()
+  const { deviceInfo } = useDevice()
+  const installLink = useInstallLinks(wallet)[type]
 
   switch (type) {
     case FCL_SERVICE_METHODS.WC:
-      let mobileInstallLink
-      if (deviceInfo.type === DeviceType.MOBILE) {
-        mobileInstallLink =
-          wallet.installLink?.[deviceInfo.platform] ||
-          wallet.installLink?.mobile
-      } else {
-        mobileInstallLink = wallet.installLink?.mobile
-      }
-
-      if (!mobileInstallLink) {
-        return null
-      }
-
       return (
         <WalletTypeCard
           icon={wallet.icon}
           title={`${wallet.name} for Mobile`}
           description={`Explore the Flow Blockchain using your mobile device.`}
           button={{
-            text: 'Download',
+            text:
+              deviceInfo.type === DeviceType.MOBILE
+                ? 'Download'
+                : 'Scan QR Code',
             onClick: onInstallMobile,
           }}
         ></WalletTypeCard>
@@ -48,15 +40,6 @@ export function InstallCard({
       if (deviceInfo.type !== DeviceType.DESKTOP) {
         return null
       }
-
-      const browserInstallLink =
-        wallet.installLink?.[deviceInfo.browser] ||
-        wallet.installLink?.browserExtension
-
-      if (!browserInstallLink) {
-        return null
-      }
-
       const browserInfo = getBrowserInfo(deviceInfo.browser)
 
       return (
@@ -68,7 +51,7 @@ export function InstallCard({
           }
           button={{
             text: `Add to ${browserInfo.name}`,
-            href: browserInstallLink,
+            href: installLink,
           }}
         ></WalletTypeCard>
       )

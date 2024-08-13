@@ -1,7 +1,7 @@
 import WalletSelection from './views/WalletSelection'
 import ExploreWallets from './views/ExploreWallets'
 import GetWallet from './views/GetWallet'
-import ScanInstall from './views/ScanInstall'
+import InstallApp from './views/InstallApp/InstallApp'
 import ConnectWallet from './views/ConnectWallet'
 import ScanConnect from './views/ScanConnect/ScanConnect'
 import AboutWallets from './views/AboutWallets'
@@ -18,12 +18,15 @@ import { useIsCollapsed } from '../hooks/useIsCollapsed'
 import { Service } from '../types'
 import { useRpc } from '../contexts/FclContext'
 import { handleCancel } from '../helpers/window'
+import { useDevice } from '../contexts/DeviceContext'
+import { DeviceType } from '../helpers/device-info'
+import { useInstallLinks } from '../hooks/useInstallLinks'
 
 export enum VIEWS {
   WALLET_SELECTION,
   EXPLORE_WALLETS,
   GET_WALLET,
-  SCAN_INSTALL,
+  INSTALL_APP,
   CONNECT_WALLET,
   SCAN_CONNECT,
   ABOUT_WALLETS,
@@ -34,6 +37,8 @@ export default function Discovery() {
   const { wallets, error } = useWallets()
   const [currentView, setCurrentView] = useState<VIEWS>(VIEWS.ABOUT_WALLETS)
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
+  const { deviceInfo } = useDevice()
+  const installLinks = useInstallLinks(selectedWallet)
   const { rpcEnabled } = useRpc()
 
   // WALLET_SELECTION does not exist when expanded
@@ -131,7 +136,10 @@ export default function Discovery() {
           wallet={selectedWallet}
           onGetQRCode={wallet => {
             setSelectedWallet(wallet)
-            setCurrentView(VIEWS.SCAN_INSTALL)
+            setCurrentView(VIEWS.SCAN_CONNECT)
+            if (deviceInfo.type === DeviceType.MOBILE) {
+              window.open(installLinks['WC/RPC'], '_blank')
+            }
           }}
         />
       )
@@ -143,9 +151,9 @@ export default function Discovery() {
         },
       }
       break
-    case VIEWS.SCAN_INSTALL:
+    case VIEWS.INSTALL_APP:
       viewContent = (
-        <ScanInstall
+        <InstallApp
           onContinue={() => {
             setCurrentView(VIEWS.SCAN_CONNECT)
           }}
@@ -179,7 +187,7 @@ export default function Discovery() {
         <ScanConnect
           wallet={selectedWallet}
           onGetWallet={() => {
-            setCurrentView(VIEWS.SCAN_INSTALL)
+            setCurrentView(VIEWS.INSTALL_APP)
           }}
         />
       )
