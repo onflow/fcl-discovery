@@ -12,7 +12,7 @@ interface GetWalletProps {
 export default function GetWallet({ wallet, onGetQRCode }: GetWalletProps) {
   const browserInfo = getBrowserInfo(getUserAgent())
   const browserInstallLink =
-    wallet.installLink?.[browserInfo.id] || wallet.installLink?.browser
+    wallet.installLink?.[browserInfo.id] || wallet.installLink?.browserExtension
 
   return (
     <Stack flexGrow={1} alignItems="center" spacing={4} px={5} pb={5}>

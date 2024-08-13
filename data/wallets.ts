@@ -22,11 +22,19 @@ export interface BaseWallet {
   supportEmail?: string
   website: string
   installLink?: {
+    // Browser Extension
     chrome?: string
-    browser?: string
-    mobile?: string
+    safari?: string
+    firefox?: string
+    edge?: string
+    browserExtension?: string // fallback
+
+    // Mobile
+    ios?: string
+    android?: string
+    mobile?: string // fallback
   }
-  features?: typeof AVAILABLE_FEATURES[number]['id'][]
+  features?: (typeof AVAILABLE_FEATURES)[number]['id'][]
 }
 
 export interface WalletConfig extends BaseWallet {
