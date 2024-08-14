@@ -11,7 +11,10 @@ export const cors = Cors({
   methods: ['POST'],
 })
 
-export async function getWalletsFromRequest(req: NextApiRequest) {
+export async function getWalletsFromRequest(
+  req: NextApiRequest,
+  { includeUninstalledServices = false } = {},
+) {
   const {
     network,
     discoveryType,
@@ -50,6 +53,7 @@ export async function getWalletsFromRequest(req: NextApiRequest) {
     supportedStrategies,
     network: netConfig,
     portOverride: portQuery || portBody,
+    includeUninstalledServices,
   })
   const walletPipe = findMatchingPipeVersion(fclVersion, walletPipes)
 

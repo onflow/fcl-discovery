@@ -1,4 +1,17 @@
-import { always, clone, evolve, filter, identity, ifElse, map } from 'rambda'
+import {
+  all,
+  allPass,
+  always,
+  and,
+  clone,
+  cond,
+  evolve,
+  filter,
+  identity,
+  ifElse,
+  map,
+  not,
+} from 'rambda'
 import { FCL_SERVICE_METHODS, SERVICE_TYPES } from './constants'
 import { replacePort } from './urls'
 
@@ -81,8 +94,6 @@ export const filterServicesByPlatform = ({ wallets, platform }) =>
     return providerPlatforms.includes(platform?.toLowerCase())
   })
 
-// TODO: We should consider creating a new schema for this response to totally phase out service.provider in /api/wallets
-// TBD in future PR to v2 branch
 export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
   map(
     ifElse(
@@ -108,6 +119,10 @@ export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
       identity,
     ),
   )
+
+// Filter out services that require install and are not installed
+export const filterUninstalledServices = ({ extensions = [] }) =>
+  filter(not(allPass([requiresPlatform, isExtensionInstalled(extensions)])))
 
 export const overrideServicePorts = (shouldOverride, portOverride) =>
   ifElse(

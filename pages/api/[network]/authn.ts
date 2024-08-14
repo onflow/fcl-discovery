@@ -6,7 +6,9 @@ import { extractAllServicesWithProvider } from '../../../helpers/wallets'
 const handler: NextApiHandler = async (req, res) => {
   await runMiddleware(req, res, cors)
 
-  const discoveryWallets = await getWalletsFromRequest(req)
+  const discoveryWallets = await getWalletsFromRequest(req, {
+    includeUninstalledServices: true,
+  })
   const discoveryServices = extractAllServicesWithProvider(discoveryWallets)
 
   return res.status(200).json(discoveryServices)
