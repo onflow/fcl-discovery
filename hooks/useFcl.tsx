@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { WalletUtils } from '@onflow/fcl'
 import { RpcClient } from '@onflow/util-rpc'
-import { Service, Strategy } from '../types'
-import { CUSTOM_RPC } from '../helpers/constants'
+import { Service } from '../types'
+import { CUSTOM_RPC, FCL_SERVICE_METHODS } from '../helpers/constants'
 import {
   DiscoveryNotification,
   FclRequests,
@@ -21,7 +21,7 @@ export interface FclConfig {
   appVersion: string
   walletInclude: string[]
   clientServices: Service[]
-  supportedStrategies: Strategy[]
+  supportedStrategies: FCL_SERVICE_METHODS[]
   rpcEnabled?: boolean
 }
 

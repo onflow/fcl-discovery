@@ -7,6 +7,8 @@ import flowWallet from './wallets/flow-wallet/flow-wallet'
 import ledger from './wallets/ledger/ledger'
 import nufi from './wallets/nufi/nufi'
 import shadow from './wallets/shadow/shadow'
+import { Browser } from '../helpers/browsers'
+import { MobilePlatform } from '../helpers/device'
 
 type ServiceConfig = Omit<Service, 'provider'> & {
   provider?: Partial<Provider>
@@ -22,11 +24,13 @@ export interface BaseWallet {
   supportEmail?: string
   website: string
   installLink?: {
-    chrome?: string
-    browser?: string
-    mobile?: string
+    // Browser Specific Install Links & fallback
+    [key in Exclude<Browser, Browser.UNKNOWN> | 'browserExtension']?: string
+  } & {
+    // Mobile Specific Install Links & fallback
+    [key in Exclude<MobilePlatform, MobilePlatform.UNKNOWN> | 'mobile']?: string
   }
-  features?: typeof AVAILABLE_FEATURES[number]['id'][]
+  features?: (typeof AVAILABLE_FEATURES)[number]['id'][]
 }
 
 export interface WalletConfig extends BaseWallet {

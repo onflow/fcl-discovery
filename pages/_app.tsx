@@ -3,7 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { useCallback, useState } from 'react'
 import { theme } from '../config/chakra/theme'
 import { AdaptiveModal } from '../components/AdaptiveModal'
-import { DeviceInfoProvider } from '../contexts/DeviceInfoContext'
+import { DeviceProvider } from '../contexts/DeviceContext'
 import App, { AppContext, AppProps } from 'next/app'
 
 function MyApp({
@@ -19,11 +19,11 @@ function MyApp({
 
   return (
     <ChakraProvider theme={theme}>
-      <DeviceInfoProvider userAgent={pageProps.userAgent}>
+      <DeviceProvider userAgent={pageProps.userAgent}>
         <AdaptiveModal isOpen={isOpen} onClose={handleOnClose}>
           <Component {...pageProps} />
         </AdaptiveModal>
-      </DeviceInfoProvider>
+      </DeviceProvider>
     </ChakraProvider>
   )
 }

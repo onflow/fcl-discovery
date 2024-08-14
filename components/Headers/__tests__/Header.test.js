@@ -27,7 +27,6 @@ describe('Component: Header', () => {
       },
     })(<Header />)
 
-    console.log(container)
     expect(container.firstChild).toMatchSnapshot()
   })
 

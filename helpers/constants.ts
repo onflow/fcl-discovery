@@ -1,5 +1,5 @@
 import Enum from 'enum-xyz'
-import ChromeIcon from '../components/Icons/chrome.svg'
+import { Browser } from './browsers'
 
 const { AUTHN, CANARYNET, TESTNET, PREVIEWNET, MAINNET, LOCAL, EMULATOR } =
   Enum.String({ casing: 'lowercase' })
@@ -68,10 +68,6 @@ export const LOCAL_STORAGE_KEYS = {
   LAST_USED: `discovery:${LOCAL_STORAGE_VERSION}:ext:lastUsed`,
 }
 
-export const USER_AGENTS_SUBSTRINGS = {
-  CHROME: 'Chrome',
-}
-
 export const AVAILABLE_FEATURES = [
   {
     id: 'mobile',
@@ -104,19 +100,5 @@ export const AVAILABLE_FEATURES = [
     color: 'orange',
   },
 ] as const
-
-export const BROWSERS = {
-  CHROME: {
-    id: 'chrome',
-    name: 'Chrome',
-    icon: ChromeIcon,
-  },
-  BROWSER: {
-    id: 'browser',
-    name: 'Browser',
-    // TODO: We need a generic browser icon
-    icon: ChromeIcon,
-  },
-} as const
 
 export const CUSTOM_RPC = 'FCL:VIEW:CUSTOM_RPC'

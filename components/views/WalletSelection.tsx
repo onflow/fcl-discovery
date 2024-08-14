@@ -2,9 +2,10 @@ import { Button, Divider, HStack, Spinner, Stack, Text } from '@chakra-ui/react'
 import ServiceList from '../ServiceList'
 import { Wallet } from '../../data/wallets'
 import { useIsCollapsed } from '../../hooks/useIsCollapsed'
-import { useDeviceInfo } from '../../contexts/DeviceInfoContext'
+import { useDevice } from '../../contexts/DeviceContext'
 import { useWcUri } from '../../hooks/useWcUri'
 import { useWallets } from '../../hooks/useWallets'
+import { DeviceType } from '../../helpers/device'
 
 type Props = {
   onSelectWallet: (wallet: Wallet) => void
@@ -19,7 +20,7 @@ export default function WalletSelection({
 }: Props) {
   const isCollapsed = useIsCollapsed()
   const { isLoading: walletsLoading } = useWallets()
-  const { isMobile } = useDeviceInfo()
+  const { deviceInfo } = useDevice()
   useWcUri()
 
   const content = (
@@ -46,7 +47,7 @@ export default function WalletSelection({
     </Stack>
   )
 
-  return isMobile ? (
+  return deviceInfo.type === DeviceType.MOBILE ? (
     <MobileWrapper isLoading={walletsLoading}>{content}</MobileWrapper>
   ) : (
     <LoadingWrapper isLoading={walletsLoading}>{content}</LoadingWrapper>
