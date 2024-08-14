@@ -54,7 +54,7 @@ export default function Discovery() {
               : null,
         ),
       ].filter(Boolean),
-    ).size === 1
+    ).size <= 1 && wallet?.services?.length >= 1
 
   // WALLET_SELECTION does not exist when expanded
   // We may need to adjust the current view when the sidebar is collapsed
@@ -84,6 +84,7 @@ export default function Discovery() {
 
   const onSelectWallet = (wallet: Wallet) => {
     setSelectedWallet(wallet)
+    console.log('wallet', wallet)
     if (shouldSkipConnectPage(wallet)) {
       connectWalletService(wallet, wallet.services[0])
     } else {

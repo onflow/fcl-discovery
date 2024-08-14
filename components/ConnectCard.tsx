@@ -48,9 +48,6 @@ function useConnectCardInfo(wallet: Wallet, service: Service) {
       icon = wallet.icon
       break
     case FCL_SERVICE_METHODS.EXT:
-      if (deviceInfo.type !== DeviceType.DESKTOP) {
-        return null
-      }
       title = `${wallet.name} Extension`
       description = `Confirm the connection in the browser extension`
       buttonText = `Connect`
