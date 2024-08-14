@@ -6,16 +6,19 @@ import { useWalletHistory } from '../../../hooks/useWalletHistory'
 import { handleCancel } from '../../../helpers/window'
 import { useEffect, useRef } from 'react'
 import { FCL_SERVICE_METHODS } from '../../../helpers/constants'
-import WalletIcon from '../../Icons/WalletIcon'
+import WalletIcon from '../../icons/WalletIcon'
+import { ViewContainer } from '../../layout/ViewContainer'
 
 interface ScanConnectMobileProps {
   wallet: Wallet
   onGetWallet: () => void
+  noDeepLink?: boolean
 }
 
 export default function ScanConnectMobile({
   wallet,
   onGetWallet,
+  noDeepLink,
 }: ScanConnectMobileProps) {
   const windowRef = useRef<Window | null>(null)
   const { setLastUsed } = useWalletHistory()
@@ -42,7 +45,7 @@ export default function ScanConnectMobile({
   }
 
   useEffect(() => {
-    if (!uri || !shouldOpenLink.current) {
+    if (!uri || !shouldOpenLink.current || noDeepLink) {
       return
     }
     openDeepLink()
@@ -51,26 +54,20 @@ export default function ScanConnectMobile({
 
   if (connecting) {
     return (
-      <Stack
-        px={5}
-        pb={5}
+      <ViewContainer
         alignItems="center"
         justifyContent="center"
-        flexGrow={1}
         textAlign="center"
       >
         <Spinner size="xl"></Spinner>
-      </Stack>
+      </ViewContainer>
     )
   }
 
   return (
-    <Stack
-      flexGrow={1}
+    <ViewContainer
       alignItems="center"
       spacing={2}
-      px={5}
-      pb={5}
       justifyContent="space-between"
     >
       {uri && (
@@ -120,6 +117,6 @@ export default function ScanConnectMobile({
           Get
         </HybridButton>
       </Flex>
-    </Stack>
+    </ViewContainer>
   )
 }

@@ -24,7 +24,7 @@ export const filterUniqueServices =
 export const combineServices = (
   existingServices = [],
   newServices = [],
-  front = false
+  front = false,
 ) => {
   let combined
   if (front) {
@@ -94,7 +94,7 @@ export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
 
         service.provider['is_installed'] = isExtensionInstalled(
           extensions,
-          service
+          service,
         )
 
         const wallet = wallets.find(w => w.uid === service.walletUid)
@@ -105,8 +105,8 @@ export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
         }
         return service
       },
-      identity
-    )
+      identity,
+    ),
   )
 
 export const overrideServicePorts = (shouldOverride, portOverride) =>
@@ -115,7 +115,25 @@ export const overrideServicePorts = (shouldOverride, portOverride) =>
     map(
       evolve({
         endpoint: e => replacePort(e, portOverride),
-      })
+      }),
     ),
-    identity
+    identity,
   )
+
+export const sortStrategies = strategies =>
+  [...strategies].sort((a, b) => {
+    const IDEAL_SERVICE_ORDER = [
+      FCL_SERVICE_METHODS.EXT,
+      FCL_SERVICE_METHODS.WC,
+      // rest...
+    ]
+
+    const getIndexOfMethod = method => {
+      const index = IDEAL_SERVICE_ORDER.indexOf(method)
+      return index === -1 ? IDEAL_SERVICE_ORDER.length : index
+    }
+    const aIndex = getIndexOfMethod(a)
+    const bIndex = getIndexOfMethod(b)
+    const delta = aIndex - bIndex
+    return delta === 0 ? a.localeCompare(b) : delta
+  })

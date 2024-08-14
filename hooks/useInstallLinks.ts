@@ -42,9 +42,9 @@ export function useInstallLinks(wallet: Wallet) {
     [deviceInfo, wallet],
   )
 
-  const links = useMemo(() => {
+  const links: Record<FCL_SERVICE_METHODS, string> = useMemo(() => {
     if (!wallet) {
-      return {}
+      return {} as Record<FCL_SERVICE_METHODS, string>
     }
 
     const res = supportedStrategies.reduce(

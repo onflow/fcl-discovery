@@ -6,6 +6,7 @@ import { useDevice } from '../../contexts/DeviceContext'
 import { useWcUri } from '../../hooks/useWcUri'
 import { useWallets } from '../../hooks/useWallets'
 import { DeviceType } from '../../helpers/device'
+import { ViewContainer } from '../layout/ViewContainer'
 
 type Props = {
   onSelectWallet: (wallet: Wallet) => void
@@ -81,14 +82,13 @@ function LoadingWrapper({
 }) {
   if (isLoading) {
     return (
-      <Stack
-        flexGrow={1}
+      <ViewContainer
         alignItems="center"
         justifyContent="center"
         textAlign="center"
       >
         <Spinner size="xl"></Spinner>
-      </Stack>
+      </ViewContainer>
     )
   }
 

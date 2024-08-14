@@ -1,5 +1,5 @@
 import { IconButton } from '@chakra-ui/react'
-import CopyIcon from './Icons/CopyIcon'
+import CopyIcon from './icons/CopyIcon'
 import { ComponentProps, useRef, useState } from 'react'
 import { CheckIcon } from '@chakra-ui/icons'
 

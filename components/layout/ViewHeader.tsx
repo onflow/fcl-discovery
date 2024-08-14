@@ -1,15 +1,7 @@
-import {
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  Text,
-  useStyles,
-} from '@chakra-ui/react'
+import { Flex, FlexProps, Heading, IconButton, Text } from '@chakra-ui/react'
 import { ComponentProps } from 'react'
-import { IoChevronBack } from 'react-icons/io5'
-import CloseIcon from './Icons/CloseIcon'
-import BackIcon from './Icons/BackIcon'
+import CloseIcon from '../icons/CloseIcon'
+import BackIcon from '../icons/BackIcon'
 
 type HeaderProps = {
   title?: string
@@ -17,7 +9,7 @@ type HeaderProps = {
   titleProps?: ComponentProps<typeof Text>
   onClose?: () => void
   onBack?: () => void
-}
+} & FlexProps
 
 export default function ViewHeader({
   title,
@@ -27,8 +19,8 @@ export default function ViewHeader({
   onBack,
 }: HeaderProps) {
   return (
-    <Flex alignItems="center" justifyContent="space-between" px={5} py={4}>
-      {!titleOnly && (
+    <Flex alignItems="center" px={5} h="3.75rem" flexShrink={0}>
+      {true && (
         <Flex flexGrow={1} flexBasis={0} justifyContent="flex-start">
           {onBack && (
             <IconButton
@@ -44,13 +36,9 @@ export default function ViewHeader({
         </Flex>
       )}
 
-      <Flex direction="column" justifyContent="center" h="1.75rem">
-        <Heading textAlign={'center'} {...titleProps}>
-          {title}
-        </Heading>
-      </Flex>
+      <Heading {...titleProps}>{title}</Heading>
 
-      {!titleOnly && (
+      {true && (
         <Flex flexGrow={1} flexBasis={0} justifyContent="flex-end">
           {onClose && (
             <IconButton

@@ -2,7 +2,7 @@ import { handleCancel } from '../helpers/window'
 import { ChakraProvider } from '@chakra-ui/react'
 import { useCallback, useState } from 'react'
 import { theme } from '../config/chakra/theme'
-import { AdaptiveModal } from '../components/AdaptiveModal'
+import { AdaptiveModal } from '../components/layout/AdaptiveModal'
 import { DeviceProvider } from '../contexts/DeviceContext'
 import App, { AppContext, AppProps } from 'next/app'
 

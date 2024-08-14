@@ -8,6 +8,7 @@ import {
   FclRequests,
   FclRpcClient,
 } from '../helpers/rpc'
+import { sortStrategies } from '../helpers/services'
 
 type WalletUtilsProps = {
   fclVersion: string
@@ -50,7 +51,9 @@ export function useFcl() {
             config.client?.extensions ||
             body.extensions ||
             [],
-          supportedStrategies: config.client?.supportedStrategies || [],
+          supportedStrategies: sortStrategies(
+            config.client?.supportedStrategies || [],
+          ),
           rpcEnabled: config.client?.discoveryRpcEnabled || false,
         } as FclConfig
 

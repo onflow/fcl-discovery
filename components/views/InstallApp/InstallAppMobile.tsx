@@ -1,6 +1,6 @@
 import { Button, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../../data/wallets'
-import WalletIcon from '../../Icons/WalletIcon'
+import WalletIcon from '../../icons/WalletIcon'
 import HybridButton from '../../HybridButton'
 import { useInstallLinks } from '../../../hooks/useInstallLinks'
 import Link from 'next/link'
@@ -26,8 +26,8 @@ export default function InstallAppMobile({
       px={7}
       pb={5}
     >
-      <Text textStyle="body1" textAlign="center">
-        Download the app to continue
+      <Text textStyle="body1Bold" textAlign="center" opacity={0.6} maxW="3xs">
+        Please install the {wallet.name} app to continue.
       </Text>
 
       <Stack spacing={4} alignItems="center">

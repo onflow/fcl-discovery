@@ -6,6 +6,7 @@ import HybridButton from '../../HybridButton'
 import { useWcUri } from '../../../hooks/useWcUri'
 import { useWalletHistory } from '../../../hooks/useWalletHistory'
 import { handleCancel } from '../../../helpers/window'
+import { ViewContainer } from '../../layout/ViewContainer'
 
 interface ScanConnectDesktopProps {
   wallet: Wallet
@@ -24,26 +25,20 @@ export default function ScanConnectDesktop({
 
   if (connecting) {
     return (
-      <Stack
-        px={5}
-        pb={5}
+      <ViewContainer
         alignItems="center"
         justifyContent="center"
-        flexGrow={1}
         textAlign="center"
       >
         <Spinner size="xl"></Spinner>
-      </Stack>
+      </ViewContainer>
     )
   }
 
   return (
-    <Stack
-      flexGrow={1}
+    <ViewContainer
       alignItems="center"
       spacing={2}
-      px={5}
-      pb={5}
       justifyContent="space-evenly"
     >
       <Flex justifyContent="space-between" width="100%" alignItems="center">
@@ -96,6 +91,6 @@ export default function ScanConnectDesktop({
           Get
         </HybridButton>
       </Flex>
-    </Stack>
+    </ViewContainer>
   )
 }

@@ -14,19 +14,24 @@ export default function InstallAppDesktop({
   return (
     <Stack
       flexGrow={1}
-      flexShrink={1}
       alignItems="center"
       justifyContent="space-evenly"
       spacing="lg"
-      px="lg"
-      pb="lg"
+      px={5}
+      pb={5}
     >
-      <Text color="gray" fontWeight="bold" maxW="2xs" textAlign="center">
+      <Text
+        textStyle="body1Bold"
+        maxW="2xs"
+        textAlign="center"
+        lineHeight={1.5}
+        opacity={0.6}
+      >
         Scan with your phone to install on iOS or Android
       </Text>
 
       <Box padding={3} borderRadius="0.75rem" borderWidth="1px">
-        <QRCode value={wallet.installLink?.mobile} size="15rem" />
+        <QRCode value={wallet.installLink?.mobile} size="12.5rem" />
       </Box>
 
       <Button
