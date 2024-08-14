@@ -134,7 +134,7 @@ export default function Discovery() {
       viewContent = (
         <GetWallet
           wallet={selectedWallet}
-          onGetQRCode={wallet => {
+          onInstallMobile={wallet => {
             setSelectedWallet(wallet)
             setCurrentView(VIEWS.SCAN_CONNECT)
             // TODO: temp until navigation refactor
@@ -190,7 +190,9 @@ export default function Discovery() {
           onGetWallet={() => {
             setCurrentView(VIEWS.INSTALL_APP)
             // TODO: temp until navigation refactor
-            window.open(installLinks['WC/RPC'], '_blank')
+            if (deviceInfo.type === DeviceType.MOBILE) {
+              window.open(installLinks['WC/RPC'], '_blank')
+            }
           }}
         />
       )
