@@ -1,17 +1,4 @@
-import {
-  all,
-  allPass,
-  always,
-  and,
-  clone,
-  cond,
-  evolve,
-  filter,
-  identity,
-  ifElse,
-  map,
-  not,
-} from 'rambda'
+import { always, clone, evolve, filter, identity, ifElse, map } from 'rambda'
 import { FCL_SERVICE_METHODS, SERVICE_TYPES } from './constants'
 import { replacePort } from './urls'
 
@@ -122,7 +109,10 @@ export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
 
 // Filter out services that require install and are not installed
 export const filterUninstalledServices = ({ extensions = [] }) =>
-  filter(not(allPass([requiresPlatform, isExtensionInstalled(extensions)])))
+  filter(x => {
+    if (!requiresPlatform(x)) return true
+    return isExtensionInstalled(extensions, x)
+  })
 
 export const overrideServicePorts = (shouldOverride, portOverride) =>
   ifElse(
