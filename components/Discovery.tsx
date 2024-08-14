@@ -45,12 +45,12 @@ export default function Discovery() {
   const installLinks = useInstallLinks(selectedWallet)
 
   // All available wallet methods (including uninstalled)
-  const selectedWalletMethods = useMemo(
+  const skipConnectPage = useMemo(
     () =>
       new Set([
         ...(selectedWallet?.services?.map(s => s.method) || []),
         ...Object.keys(installLinks),
-      ]),
+      ]).size === 1,
     [selectedWallet, installLinks],
   )
 
@@ -82,7 +82,7 @@ export default function Discovery() {
 
   const onSelectWallet = (wallet: Wallet) => {
     setSelectedWallet(wallet)
-    if (wallet.services.length === 1) {
+    if (skipConnectPage) {
       connectWalletService(wallet, wallet.services[0])
     } else {
       setCurrentView(VIEWS.CONNECT_WALLET)
@@ -99,7 +99,7 @@ export default function Discovery() {
   }
 
   const onBackToConnectWallet = () => {
-    if (selectedWalletMethods.size <= 1) {
+    if (skipConnectPage) {
       onBackToHome()
     } else {
       setCurrentView(VIEWS.CONNECT_WALLET)
