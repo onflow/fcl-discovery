@@ -60,13 +60,13 @@ function useConnectCardInfo(wallet: Wallet, service: Service) {
     case FCL_SERVICE_METHODS.POP:
     case FCL_SERVICE_METHODS.IFRAME:
     case FCL_SERVICE_METHODS.TAB:
-      title = `Connect to ${wallet.name}`
+      title = `${wallet.name} Web App`
       description = `Confirm the connection in the web app`
       buttonText = `Connect`
       icon = getBrowserInfo(deviceInfo.browser).icon
       break
     default:
-      title = `Connect to ${wallet.name}`
+      title = `${wallet.name}`
       description = `Confirm the connection in your wallet`
       buttonText = `Connect`
   }

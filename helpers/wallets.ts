@@ -1,6 +1,13 @@
 import { pipe } from 'rambda'
 import { Service } from '../types'
-import { Wallet, WalletConfig } from '../data/wallets'
+import { Wallet as _Wallet, WalletConfig } from '../data/wallets'
+import { DeviceInfo, DeviceType } from './device'
+import { FCL_SERVICE_METHODS } from './constants'
+
+type WalletWithRawInstallLink = Omit<_Wallet, 'installLink'> & {
+  installLink: WalletConfig['installLink']
+}
+type Wallet = _Wallet | WalletWithRawInstallLink
 
 export type ServiceWithWallet = Service & { walletUid: string }
 type ServicesPipeFactory = (args: {
@@ -77,4 +84,86 @@ export function extractAllServicesWithProvider(wallets: Wallet[]) {
     )
     return acc
   }, [])
+}
+
+export function removeEmptyWallets() {
+  return (wallets: Wallet[]) =>
+    wallets.filter(wallet => {
+      return (
+        wallet.services.length > 0 ||
+        Object.keys(wallet.installLink || []).length > 0
+      )
+    })
+}
+
+export function getInstallLinkForMethod(
+  wallet: { installLink?: WalletConfig['installLink'] },
+  method: FCL_SERVICE_METHODS,
+  deviceInfo: DeviceInfo,
+): string | null {
+  switch (method) {
+    case FCL_SERVICE_METHODS.WC:
+      if (deviceInfo.type === DeviceType.MOBILE) {
+        return (
+          wallet.installLink?.[deviceInfo.platform] ||
+          wallet.installLink?.mobile ||
+          null
+        )
+      }
+      return wallet.installLink?.mobile || null
+    case FCL_SERVICE_METHODS.EXT:
+      return (
+        wallet.installLink?.[deviceInfo.browser] ||
+        wallet.installLink?.browser ||
+        null
+      )
+  }
+
+  return null
+}
+
+export function getCompatibleInstallLinks(
+  wallet: Wallet,
+  supportedStrategies: FCL_SERVICE_METHODS[],
+  deviceInfo: DeviceInfo,
+) {
+  const installLinks: Record<string, string> = {}
+  supportedStrategies.forEach(strategy => {
+    switch (strategy) {
+      case FCL_SERVICE_METHODS.WC:
+        installLinks['mobile'] = getInstallLinkForMethod(
+          wallet,
+          FCL_SERVICE_METHODS.WC,
+          deviceInfo,
+        )
+        break
+      case FCL_SERVICE_METHODS.EXT:
+        installLinks['browser'] = getInstallLinkForMethod(
+          wallet,
+          FCL_SERVICE_METHODS.EXT,
+          deviceInfo,
+        )
+        break
+    }
+  })
+
+  return installLinks
+}
+
+export function processInstallLinks({
+  supportedStrategies,
+  deviceInfo,
+}: {
+  supportedStrategies: FCL_SERVICE_METHODS[]
+  deviceInfo: DeviceInfo
+}) {
+  return (wallets: WalletWithRawInstallLink[]): Wallet[] =>
+    wallets.map(wallet => ({
+      ...wallet,
+      installLink: getCompatibleInstallLinks(
+        wallet,
+        supportedStrategies,
+        deviceInfo,
+      ),
+    }))
 }

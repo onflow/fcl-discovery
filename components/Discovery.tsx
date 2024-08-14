@@ -19,8 +19,7 @@ import { Service } from '../types'
 import { useRpc } from '../contexts/FclContext'
 import { handleCancel } from '../helpers/window'
 import { useDevice } from '../contexts/DeviceContext'
-import { DeviceType, isMobile } from '../helpers/device'
-import { useInstallLinks } from '../hooks/useInstallLinks'
+import { DeviceType } from '../helpers/device'
 
 export enum VIEWS {
   WALLET_SELECTION,
@@ -42,17 +41,12 @@ export default function Discovery() {
   const { deviceInfo } = useDevice()
   const { rpcEnabled } = useRpc()
 
-  const installLinks = useInstallLinks(selectedWallet)
-
-  // All available wallet methods (including uninstalled)
-  const skipConnectPage = useMemo(
-    () =>
-      new Set([
-        ...(selectedWallet?.services?.map(s => s.method) || []),
-        ...Object.keys(installLinks),
-      ]).size === 1,
-    [selectedWallet, installLinks],
-  )
+  // Skip the connect page if there is only one service available
+  const shouldSkipConnectPage = (wallet: Wallet) =>
+    new Set([
+      ...(wallet?.services?.map(s => s.method) || []),
+      ...Object.keys(wallet?.installLink || {}),
+    ]).size === 1
 
   // WALLET_SELECTION does not exist when expanded
   // We may need to adjust the current view when the sidebar is collapsed
@@ -82,14 +76,14 @@ export default function Discovery() {
 
   const onSelectWallet = (wallet: Wallet) => {
     setSelectedWallet(wallet)
-    if (skipConnectPage) {
+    if (shouldSkipConnectPage(wallet)) {
       connectWalletService(wallet, wallet.services[0])
     } else {
       setCurrentView(VIEWS.CONNECT_WALLET)
     }
   }
 
-  const onBackToHome = () => {
+  const backToHome = () => {
     if (deviceInfo.type === DeviceType.MOBILE) {
       setCurrentView(VIEWS.WALLET_SELECTION)
     } else {
@@ -98,9 +92,9 @@ export default function Discovery() {
     setSelectedWallet(null)
   }
 
-  const onBackToConnectWallet = () => {
-    if (skipConnectPage) {
-      onBackToHome()
+  const backToConnectWallet = () => {
+    if (shouldSkipConnectPage(selectedWallet)) {
+      backToHome()
     } else {
       setCurrentView(VIEWS.CONNECT_WALLET)
     }
@@ -156,7 +150,7 @@ export default function Discovery() {
             setSelectedWallet(wallet)
             setCurrentView(VIEWS.INSTALL_APP)
             if (deviceInfo.type === DeviceType.MOBILE) {
-              window.open(installLinks['WC/RPC'], '_blank')
+              window.open(wallet?.installLink?.mobile, '_blank')
             }
           }}
         />
@@ -201,7 +195,7 @@ export default function Discovery() {
       )
       headerProps = {
         title: `Connect to ${selectedWallet?.name}`,
-        onBack: onBackToHome,
+        onBack: backToHome,
       }
       break
     case VIEWS.SCAN_CONNECT:
@@ -213,7 +207,7 @@ export default function Discovery() {
             setCurrentView(VIEWS.INSTALL_APP_FROM_CONNECT)
             // TODO: temp until navigation refactor
             if (deviceInfo.type === DeviceType.MOBILE) {
-              window.open(installLinks['WC/RPC'], '_blank')
+              window.open(selectedWallet?.installLink?.mobile, '_blank')
             }
           }}
           noDeepLink={currentView === VIEWS.SCAN_CONNECT_SKIP_DEEPLINK}
@@ -221,14 +215,14 @@ export default function Discovery() {
       )
       headerProps = {
         title: `Connect to ${selectedWallet.name}`,
-        onBack: onBackToConnectWallet,
+        onBack: backToConnectWallet,
       }
       break
     case VIEWS.CONNECT_EXTENSION:
       viewContent = <ConnectExtension wallet={selectedWallet} />
       headerProps = {
         title: `Connect to ${selectedWallet.name}`,
-        onBack: onBackToConnectWallet,
+        onBack: backToConnectWallet,
       }
       break
   }
