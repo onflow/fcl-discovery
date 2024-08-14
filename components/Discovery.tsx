@@ -43,10 +43,18 @@ export default function Discovery() {
 
   // Skip the connect page if there is only one service available
   const shouldSkipConnectPage = (wallet: Wallet) =>
-    new Set([
-      ...(wallet?.services?.map(s => s.method) || []),
-      ...Object.keys(wallet?.installLink || {}),
-    ]).size === 1
+    new Set(
+      [
+        ...(wallet?.services?.map(s => s.method) || []),
+        ...Object.keys(wallet?.installLink || {}).map(k =>
+          k === 'mobile'
+            ? FCL_SERVICE_METHODS.WC
+            : k === 'browser'
+              ? FCL_SERVICE_METHODS.EXT
+              : null,
+        ),
+      ].filter(Boolean),
+    ).size === 1
 
   // WALLET_SELECTION does not exist when expanded
   // We may need to adjust the current view when the sidebar is collapsed

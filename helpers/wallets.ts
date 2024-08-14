@@ -127,27 +127,33 @@ export function getCompatibleInstallLinks(
   supportedStrategies: FCL_SERVICE_METHODS[],
   deviceInfo: DeviceInfo,
 ) {
-  const installLinks: Record<string, string> = {}
+  const installLinks: _Wallet['installLink'] = {}
   supportedStrategies.forEach(strategy => {
     switch (strategy) {
       case FCL_SERVICE_METHODS.WC:
-        installLinks['mobile'] = getInstallLinkForMethod(
+        const mobileInstallLink = getInstallLinkForMethod(
           wallet,
           FCL_SERVICE_METHODS.WC,
           deviceInfo,
         )
+        if (mobileInstallLink) {
+          installLinks.mobile = mobileInstallLink
+        }
         break
       case FCL_SERVICE_METHODS.EXT:
-        installLinks['browser'] = getInstallLinkForMethod(
+        const browserInstallLink = getInstallLinkForMethod(
           wallet,
           FCL_SERVICE_METHODS.EXT,
           deviceInfo,
         )
+        if (browserInstallLink) {
+          installLinks.browser = browserInstallLink
+        }
         break
     }
   })
 
-  return installLinks
+  return Object.keys(installLinks).length > 0 ? installLinks : null
 }
 
 export function processInstallLinks({
@@ -158,12 +164,18 @@ export function processInstallLinks({
   deviceInfo: DeviceInfo
 }) {
   return (wallets: WalletWithRawInstallLink[]): Wallet[] =>
-    wallets.map(wallet => ({
-      ...wallet,
-      installLink: getCompatibleInstallLinks(
+    wallets.map(wallet => {
+      const installLinks = getCompatibleInstallLinks(
         wallet,
         supportedStrategies,
         deviceInfo,
-      ),
-    }))
+      )
+      if (installLinks) {
+        return {
+          ...wallet,
+          installLink: installLinks,
+        }
+      }
+      return wallet
+    })
 }
