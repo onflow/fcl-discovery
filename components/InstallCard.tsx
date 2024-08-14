@@ -1,9 +1,9 @@
-import { DownloadIcon } from '@chakra-ui/icons'
 import { useDevice } from '../contexts/DeviceContext'
 import { Wallet } from '../data/wallets'
 import { getBrowserInfo } from '../helpers/browsers'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { DeviceType } from '../helpers/device'
+import { IoAddCircle, IoCloudDownload, IoQrCode } from 'react-icons/io5'
 import ActionCard from './ActionCard'
 
 type InstallCardProps = {
@@ -34,14 +34,16 @@ export function InstallCard({
                 ? 'Download App'
                 : 'Scan QR Code',
             onClick: onInstallMobile,
-            leftIcon: <DownloadIcon />,
+            leftIcon:
+              deviceInfo.type === DeviceType.MOBILE ? (
+                <IoCloudDownload />
+              ) : (
+                <IoQrCode />
+              ),
           }}
         ></ActionCard>
       )
     case FCL_SERVICE_METHODS.EXT:
-      if (deviceInfo.type !== DeviceType.DESKTOP) {
-        return null
-      }
       const browserInfo = getBrowserInfo(deviceInfo.browser)
 
       return (
@@ -54,7 +56,7 @@ export function InstallCard({
           button={{
             text: `Add to ${browserInfo.name}`,
             href: installLink,
-            leftIcon: <DownloadIcon />,
+            leftIcon: <IoAddCircle />,
           }}
         ></ActionCard>
       )
