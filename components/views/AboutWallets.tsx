@@ -1,7 +1,7 @@
 import { Button, Heading, Stack } from '@chakra-ui/react'
 import AboutCard from '../AboutCard'
-import GalaxyImage from '../Icons/galaxy.jpeg'
-import LockImage from '../Icons/lock.jpeg'
+import GalaxyImage from '../icons/galaxy.jpeg'
+import LockImage from '../icons/lock.jpeg'
 import HybridButton from '../HybridButton'
 import { useIsCollapsed } from '../../hooks/useIsCollapsed'
 
