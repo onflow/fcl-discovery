@@ -11,6 +11,7 @@ import {
   appendInstallData,
   filterServicesByPlatform,
   filterOptInServices,
+  filterUninstalledServices,
 } from './services'
 import {
   NETWORKS,
@@ -33,6 +34,7 @@ export const getWalletPipes = ({
   supportedStrategies,
   network,
   portOverride,
+  includeUninstalledServices,
 }) => {
   const platform = getBrowserFromUserAgent(userAgent)?.toLowerCase()
   const isLocal = network === NETWORKS.LOCAL || network === NETWORKS.EMULATOR
@@ -126,13 +128,15 @@ export const getWalletPipes = ({
         pipeWalletServices(
           ({ wallets }) =>
             pipe(
-              // Add installation data
-              filterServicesByPlatform({ wallets, platform }),
-              appendInstallData({
-                wallets,
-                platform,
-                extensions: clientServices,
-              }),
+              // Add installation data, if enabled
+              ifElse(
+                always(includeUninstalledServices),
+                pipe(
+                  filterServicesByPlatform({ wallets, platform }),
+                  appendInstallData({ wallets, platform, extensions }),
+                ),
+                filterUninstalledServices({ extensions }),
+              ),
               // Add services if supported
               serviceOfTypeAuthn,
               // Allow port override option if local

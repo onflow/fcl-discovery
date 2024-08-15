@@ -1,7 +1,7 @@
 import { Wallet } from '../data/wallets'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { Service } from '../types'
-import WalletTypeCard from './WalletTypeCard'
+import ActionCard from './ActionCard'
 import { useDevice } from '../contexts/DeviceContext'
 import { DeviceType } from '../helpers/device'
 import { getBrowserInfo } from '../helpers/browsers'
@@ -24,7 +24,7 @@ export function ConnectCard({
 
   const { title, description, buttonText, icon } = info
   return (
-    <WalletTypeCard
+    <ActionCard
       icon={icon}
       title={title}
       description={description}
@@ -32,8 +32,7 @@ export function ConnectCard({
         text: buttonText,
         onClick: onConnect,
       }}
-      unstyled
-    ></WalletTypeCard>
+    ></ActionCard>
   )
 }
 
@@ -49,9 +48,6 @@ function useConnectCardInfo(wallet: Wallet, service: Service) {
       icon = wallet.icon
       break
     case FCL_SERVICE_METHODS.EXT:
-      if (deviceInfo.type !== DeviceType.DESKTOP) {
-        return null
-      }
       title = `${wallet.name} Extension`
       description = `Confirm the connection in the browser extension`
       buttonText = `Connect`

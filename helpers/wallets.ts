@@ -39,22 +39,16 @@ export const walletsForNetwork =
 export const collectWalletsFromServices =
   ({ wallets }: { wallets: Wallet[] }) =>
   (services: ServiceWithWallet[]) =>
-    services.reduce((acc, _service) => {
-      // Append service without reference to wallet
-      const { walletUid, ...service } = _service
-      const existingWalletIdx = acc.findIndex(
-        wallet => wallet.uid === walletUid,
-      )
-
-      if (existingWalletIdx === -1) {
-        const wallet = wallets.find(wallet => wallet.uid === walletUid)
-        acc.push({
-          ...wallet,
-          services: [service],
-        })
-      } else {
-        acc[existingWalletIdx].services.push(service)
-      }
+    wallets.reduce((acc, wallet) => {
+      acc.push({
+        ...wallet,
+        services: services
+          .filter(service => service.walletUid === wallet.uid)
+          .map(service => {
+            const { walletUid, ..._service } = service
+            return _service
+          }),
+      })
       return acc
     }, [])
 

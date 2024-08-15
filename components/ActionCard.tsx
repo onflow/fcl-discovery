@@ -1,5 +1,6 @@
 import {
   Box,
+  ButtonProps,
   Flex,
   Heading,
   Image,
@@ -11,11 +12,10 @@ import NextImage from 'next/image'
 import { isDataURL } from '../helpers/urls'
 import HybridButton from './HybridButton'
 
-type WalletTypeCardProps = {
+type ActionCardProps = {
   icon: string
   title: string
   description: string
-  unstyled?: boolean
   button: {
     text: string
   } & (
@@ -25,16 +25,16 @@ type WalletTypeCardProps = {
     | {
         onClick: () => void
       }
-  )
+  ) &
+    ButtonProps
 }
 
-export default function WalletTypeCard({
+export default function ActionCard({
   icon,
   title,
   description,
-  unstyled,
   button: { text: buttonText, ...buttonProps },
-}: WalletTypeCardProps) {
+}: ActionCardProps) {
   return (
     <Flex
       borderRadius="2xl"
@@ -43,12 +43,6 @@ export default function WalletTypeCard({
       justifyContent="center"
       alignItems="center"
       p={6}
-      {...(!unstyled
-        ? {
-            borderWidth: '1px',
-            backgroundColor: 'backgroundElevated',
-          }
-        : {})}
     >
       <SimpleGrid
         columns={2}

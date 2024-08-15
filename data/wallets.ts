@@ -25,7 +25,7 @@ export interface BaseWallet {
   website: string
   installLink?: {
     // Browser Specific Install Links & fallback
-    [key in Exclude<Browser, Browser.UNKNOWN> | 'browserExtension']?: string
+    [key in Exclude<Browser, Browser.UNKNOWN> | 'browser']?: string
   } & {
     // Mobile Specific Install Links & fallback
     [key in Exclude<MobilePlatform, MobilePlatform.UNKNOWN> | 'mobile']?: string

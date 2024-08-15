@@ -3,47 +3,44 @@ import { Wallet } from '../data/wallets'
 import { getBrowserInfo } from '../helpers/browsers'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { DeviceType } from '../helpers/device'
-import { useInstallLinks } from '../hooks/useInstallLinks'
-import WalletTypeCard from './WalletTypeCard'
+import ActionCard from './ActionCard'
 
 type InstallCardProps = {
   wallet: Wallet
   type: FCL_SERVICE_METHODS
+  installLink: string
   onInstallMobile: () => void
 }
 
 export function InstallCard({
   wallet,
   type,
+  installLink,
   onInstallMobile,
 }: InstallCardProps) {
   const { deviceInfo } = useDevice()
-  const installLink = useInstallLinks(wallet)[type]
 
   switch (type) {
     case FCL_SERVICE_METHODS.WC:
       return (
-        <WalletTypeCard
+        <ActionCard
           icon={wallet.icon}
           title={`${wallet.name} for Mobile`}
           description={`Explore the Flow Blockchain using your mobile device.`}
           button={{
             text:
               deviceInfo.type === DeviceType.MOBILE
-                ? 'Download'
+                ? 'Download App'
                 : 'Scan QR Code',
             onClick: onInstallMobile,
           }}
-        ></WalletTypeCard>
+        ></ActionCard>
       )
     case FCL_SERVICE_METHODS.EXT:
-      if (deviceInfo.type !== DeviceType.DESKTOP) {
-        return null
-      }
       const browserInfo = getBrowserInfo(deviceInfo.browser)
 
       return (
-        <WalletTypeCard
+        <ActionCard
           icon={browserInfo.icon}
           title={`${wallet.name} for ${browserInfo.name}`}
           description={
@@ -53,7 +50,7 @@ export function InstallCard({
             text: `Add to ${browserInfo.name}`,
             href: installLink,
           }}
-        ></WalletTypeCard>
+        ></ActionCard>
       )
     default:
       return null

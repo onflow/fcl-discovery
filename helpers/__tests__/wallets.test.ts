@@ -58,6 +58,10 @@ describe('wallets helpers', () => {
         ...wallets[0],
         services: mockResult,
       },
+      {
+        ...wallets[1],
+        services: [],
+      },
     ])
   })
 

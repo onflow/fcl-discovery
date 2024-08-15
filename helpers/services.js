@@ -24,7 +24,7 @@ export const filterUniqueServices =
 export const combineServices = (
   existingServices = [],
   newServices = [],
-  front = false
+  front = false,
 ) => {
   let combined
   if (front) {
@@ -81,8 +81,6 @@ export const filterServicesByPlatform = ({ wallets, platform }) =>
     return providerPlatforms.includes(platform?.toLowerCase())
   })
 
-// TODO: We should consider creating a new schema for this response to totally phase out service.provider in /api/wallets
-// TBD in future PR to v2 branch
 export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
   map(
     ifElse(
@@ -94,7 +92,7 @@ export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
 
         service.provider['is_installed'] = isExtensionInstalled(
           extensions,
-          service
+          service,
         )
 
         const wallet = wallets.find(w => w.uid === service.walletUid)
@@ -105,9 +103,16 @@ export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
         }
         return service
       },
-      identity
-    )
+      identity,
+    ),
   )
+
+// Filter out services that require install and are not installed
+export const filterUninstalledServices = ({ extensions = [] }) =>
+  filter(x => {
+    if (!requiresPlatform(x)) return true
+    return isExtensionInstalled(extensions, x)
+  })
 
 export const overrideServicePorts = (shouldOverride, portOverride) =>
   ifElse(
@@ -115,7 +120,25 @@ export const overrideServicePorts = (shouldOverride, portOverride) =>
     map(
       evolve({
         endpoint: e => replacePort(e, portOverride),
-      })
+      }),
     ),
-    identity
+    identity,
   )
+
+export const sortStrategies = strategies =>
+  [...strategies].sort((a, b) => {
+    const IDEAL_SERVICE_ORDER = [
+      FCL_SERVICE_METHODS.EXT,
+      FCL_SERVICE_METHODS.WC,
+      // rest...
+    ]
+
+    const getIndexOfMethod = method => {
+      const index = IDEAL_SERVICE_ORDER.indexOf(method)
+      return index === -1 ? IDEAL_SERVICE_ORDER.length : index
+    }
+    const aIndex = getIndexOfMethod(a)
+    const bIndex = getIndexOfMethod(b)
+    const delta = aIndex - bIndex
+    return delta === 0 ? a.localeCompare(b) : delta
+  })

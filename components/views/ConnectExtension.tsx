@@ -4,9 +4,10 @@ import { useEffect, useRef, useState } from 'react'
 import { FCL_SERVICE_METHODS } from '../../helpers/constants'
 import { useRpc } from '../../contexts/FclContext'
 import { FclRequest } from '../../helpers/rpc'
-import WalletIcon from '../Icons/WalletIcon'
+import WalletIcon from '../icons/WalletIcon'
 import { useWalletHistory } from '../../hooks/useWalletHistory'
 import { handleCancel } from '../../helpers/window'
+import { ViewContainer } from '../layout/ViewContainer'
 
 type ConnectExtensionProps = {
   wallet: Wallet
@@ -52,12 +53,9 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
   }, [wallet, rpc])
 
   return (
-    <Stack
-      px={5}
-      pb={5}
+    <ViewContainer
       alignItems="center"
       justifyContent="center"
-      flexGrow={1}
       spacing={4}
       textAlign="center"
     >
@@ -72,6 +70,6 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
           Retry
         </Button>
       )}
-    </Stack>
+    </ViewContainer>
   )
 }

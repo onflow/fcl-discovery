@@ -7,39 +7,55 @@ import ScanConnect from './views/ScanConnect/ScanConnect'
 import AboutWallets from './views/AboutWallets'
 import ConnectExtension from './views/ConnectExtension'
 
-import { ComponentProps, useCallback, useEffect, useState } from 'react'
+import { ComponentProps, useEffect, useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
 import { Wallet } from '../data/wallets'
 import * as fcl from '@onflow/fcl'
-import ViewHeader from './ViewHeader'
-import ViewLayout from './ViewLayout'
+import ViewHeader from './layout/ViewHeader'
+import ViewLayout from './layout/ViewLayout'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { useIsCollapsed } from '../hooks/useIsCollapsed'
 import { Service } from '../types'
-import { useRpc } from '../contexts/FclContext'
+import { useConfig, useRpc } from '../contexts/FclContext'
 import { handleCancel } from '../helpers/window'
 import { useDevice } from '../contexts/DeviceContext'
 import { DeviceType } from '../helpers/device'
-import { useInstallLinks } from '../hooks/useInstallLinks'
+import { getCompatibleInstallLinks } from '../hooks/useInstallLinks'
 
 export enum VIEWS {
   WALLET_SELECTION,
   EXPLORE_WALLETS,
   GET_WALLET,
   INSTALL_APP,
+  INSTALL_APP_FROM_CONNECT,
   CONNECT_WALLET,
   SCAN_CONNECT,
+  SCAN_CONNECT_SKIP_DEEPLINK,
   ABOUT_WALLETS,
   CONNECT_EXTENSION,
 }
 
+// Handles central routing/state management for Discovery
+// This should probably be migrated to a proper routing solution in the long run
+// (e.g. all routing logic now is centralized in this component, which is starting to get unwieldy
+// and things like back buttons are a bit messy, with some "VIEWS" carrying state to identify where
+// to go back to)
 export default function Discovery() {
   const { wallets, error } = useWallets()
   const [currentView, setCurrentView] = useState<VIEWS>(VIEWS.ABOUT_WALLETS)
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
   const { deviceInfo } = useDevice()
-  const installLinks = useInstallLinks(selectedWallet)
   const { rpcEnabled } = useRpc()
+  const { supportedStrategies } = useConfig()
+
+  // Skip the connect page if there is only one service available
+  const shouldSkipConnectPage = (wallet: Wallet) =>
+    new Set([
+      ...(wallet?.services?.map(s => s.method) || []),
+      ...Object.keys(
+        getCompatibleInstallLinks(wallet, supportedStrategies, deviceInfo),
+      ),
+    ]).size >= 1 && wallet?.services?.length >= 1
 
   // WALLET_SELECTION does not exist when expanded
   // We may need to adjust the current view when the sidebar is collapsed
@@ -55,38 +71,43 @@ export default function Discovery() {
     })
   }, [isCollapsed])
 
-  const connectWalletService = useCallback(
-    (wallet: Wallet, service: Service) => {
-      if (service.method === FCL_SERVICE_METHODS.WC && rpcEnabled) {
-        setCurrentView(VIEWS.SCAN_CONNECT)
-      } else if (service.method === FCL_SERVICE_METHODS.EXT && rpcEnabled) {
-        setCurrentView(VIEWS.CONNECT_EXTENSION)
-      } else {
-        fcl.WalletUtils.redirect(service)
-      }
+  const connectWalletService = (wallet: Wallet, service: Service) => {
+    if (service.method === FCL_SERVICE_METHODS.WC && rpcEnabled) {
+      setCurrentView(VIEWS.SCAN_CONNECT)
+    } else if (service.method === FCL_SERVICE_METHODS.EXT && rpcEnabled) {
+      setCurrentView(VIEWS.CONNECT_EXTENSION)
+    } else {
+      fcl.WalletUtils.redirect(service)
+    }
 
-      setSelectedWallet(wallet)
-    },
-    [],
-  )
-
-  const onSelectWallet = useCallback((wallet: Wallet) => {
     setSelectedWallet(wallet)
-    if (wallet.services.length === 1) {
+  }
+
+  const onSelectWallet = (wallet: Wallet) => {
+    setSelectedWallet(wallet)
+    if (shouldSkipConnectPage(wallet)) {
       connectWalletService(wallet, wallet.services[0])
     } else {
       setCurrentView(VIEWS.CONNECT_WALLET)
     }
-  }, [])
+  }
 
-  const onBackToConnectWallet = useCallback(() => {
-    if (selectedWallet?.services.length === 1) {
+  const onBackToHome = () => {
+    if (deviceInfo.type === DeviceType.MOBILE) {
+      setCurrentView(VIEWS.WALLET_SELECTION)
+    } else {
       setCurrentView(VIEWS.ABOUT_WALLETS)
-      setSelectedWallet(null)
+    }
+    setSelectedWallet(null)
+  }
+
+  const onBackToConnectWallet = () => {
+    if (shouldSkipConnectPage(selectedWallet)) {
+      onBackToHome()
     } else {
       setCurrentView(VIEWS.CONNECT_WALLET)
     }
-  }, [selectedWallet])
+  }
 
   if (!wallets) return <div />
   if (error) return <div>Error Loading Data</div>
@@ -136,11 +157,7 @@ export default function Discovery() {
           wallet={selectedWallet}
           onInstallMobile={wallet => {
             setSelectedWallet(wallet)
-            setCurrentView(VIEWS.SCAN_CONNECT)
-            // TODO: temp until navigation refactor
-            if (deviceInfo.type === DeviceType.MOBILE) {
-              window.open(installLinks['WC/RPC'], '_blank')
-            }
+            setCurrentView(VIEWS.INSTALL_APP)
           }}
         />
       )
@@ -153,6 +170,7 @@ export default function Discovery() {
       }
       break
     case VIEWS.INSTALL_APP:
+    case VIEWS.INSTALL_APP_FROM_CONNECT:
       viewContent = (
         <InstallApp
           onContinue={() => {
@@ -163,7 +181,13 @@ export default function Discovery() {
       )
       headerProps = {
         title: `Install ${selectedWallet?.name}`,
-        onBack: () => setCurrentView(VIEWS.GET_WALLET),
+        onBack: () => {
+          if (currentView === VIEWS.INSTALL_APP) {
+            setCurrentView(VIEWS.GET_WALLET)
+          } else {
+            setCurrentView(VIEWS.SCAN_CONNECT_SKIP_DEEPLINK)
+          }
+        },
       }
       break
     case VIEWS.CONNECT_WALLET:
@@ -177,23 +201,18 @@ export default function Discovery() {
       )
       headerProps = {
         title: `Connect to ${selectedWallet?.name}`,
-        onBack: () => {
-          setCurrentView(VIEWS.ABOUT_WALLETS)
-          setSelectedWallet(null)
-        },
+        onBack: onBackToHome,
       }
       break
     case VIEWS.SCAN_CONNECT:
+    case VIEWS.SCAN_CONNECT_SKIP_DEEPLINK:
       viewContent = (
         <ScanConnect
           wallet={selectedWallet}
           onGetWallet={() => {
-            setCurrentView(VIEWS.INSTALL_APP)
-            // TODO: temp until navigation refactor
-            if (deviceInfo.type === DeviceType.MOBILE) {
-              window.open(installLinks['WC/RPC'], '_blank')
-            }
+            setCurrentView(VIEWS.INSTALL_APP_FROM_CONNECT)
           }}
+          noDeepLink={currentView === VIEWS.SCAN_CONNECT_SKIP_DEEPLINK}
         />
       )
       headerProps = {
@@ -216,8 +235,7 @@ export default function Discovery() {
       sidebarHeader={
         <ViewHeader
           title="Connect a Wallet"
-          titleProps={{ textAlign: 'left' }}
-          titleOnly
+          titleProps={{ textAlign: 'left', width: 'full' }}
         />
       }
       sidebar={

@@ -14,7 +14,7 @@ const flowWallet: WalletConfig = {
   installLink: {
     chrome:
       'https://chromewebstore.google.com/detail/flow-wallet/hpclkefagolihohboafpheddmmgdffjm',
-    browserExtension: 'https://wallet.flow.com/download',
+    browser: 'https://wallet.flow.com/download',
     ios: 'https://apps.apple.com/ca/app/flow-wallet-nfts-and-crypto/id6478996750',
     android:
       'https://play.google.com/store/apps/details?id=com.flowfoundation.wallet',
