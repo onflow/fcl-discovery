@@ -3,7 +3,6 @@ import { Wallet } from '../data/wallets'
 import { getBrowserInfo } from '../helpers/browsers'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { DeviceType } from '../helpers/device'
-import { IoAddCircle, IoCloudDownload, IoQrCode } from 'react-icons/io5'
 import ActionCard from './ActionCard'
 
 type InstallCardProps = {
@@ -34,12 +33,6 @@ export function InstallCard({
                 ? 'Download App'
                 : 'Scan QR Code',
             onClick: onInstallMobile,
-            leftIcon:
-              deviceInfo.type === DeviceType.MOBILE ? (
-                <IoCloudDownload />
-              ) : (
-                <IoQrCode />
-              ),
           }}
         ></ActionCard>
       )
@@ -56,7 +49,6 @@ export function InstallCard({
           button={{
             text: `Add to ${browserInfo.name}`,
             href: installLink,
-            leftIcon: <IoAddCircle />,
           }}
         ></ActionCard>
       )

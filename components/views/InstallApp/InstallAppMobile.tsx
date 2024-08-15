@@ -2,8 +2,7 @@ import { Button, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../../data/wallets'
 import WalletIcon from '../../icons/WalletIcon'
 import HybridButton from '../../HybridButton'
-import { useInstallLinks } from '../../../hooks/useInstallLinks'
-import Link from 'next/link'
+import { ViewContainer } from '../../layout/ViewContainer'
 
 interface InstallAppMobileProps {
   onContinue: () => void
@@ -14,24 +13,18 @@ export default function InstallAppMobile({
   onContinue,
   wallet,
 }: InstallAppMobileProps) {
-  const installLink = useInstallLinks(wallet)['WC/RPC']
-
   return (
-    <Stack
-      flexGrow={1}
-      flexShrink={1}
-      alignItems="center"
-      justifyContent="space-evenly"
-      spacing="lg"
-      px={7}
-      pb={5}
-    >
-      <Text textStyle="body1Bold" textAlign="center" opacity={0.6} maxW="3xs">
-        Please install the {wallet.name} app to continue.
-      </Text>
+    <ViewContainer alignItems="center" spacing="lg">
+      <Stack spacing={6} alignItems="center" my="auto">
+        <WalletIcon wallet={wallet} boxSize="4rem" />
+        <Stack spacing={2} alignItems="center" maxW="2xs" textAlign="center">
+          <Text textStyle="body1Bold">Opened in the App Store</Text>
+          <Text textStyle="body2" textAlign="center" opacity={0.7}>
+            Once you have installed the app and created an account, click the
+            button below to connect.
+          </Text>
+        </Stack>
 
-      <Stack spacing={4} alignItems="center">
-        <WalletIcon wallet={wallet} boxSize="7rem" />
         <Button
           variant="primary"
           size="sm"
@@ -39,16 +32,16 @@ export default function InstallAppMobile({
           fontWeight="bold"
           borderRadius="full"
         >
-          Connect
+          Connect Now
         </Button>
       </Stack>
 
-      <Text textStyle="body2" textAlign="center">
+      <Text textStyle="body2" textAlign="center" p={1}>
         App Store didn't open?
         <HybridButton variant="link" ml={1} href={wallet.installLink.mobile}>
           Try another link
         </HybridButton>
       </Text>
-    </Stack>
+    </ViewContainer>
   )
 }
