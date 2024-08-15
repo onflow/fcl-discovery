@@ -23,7 +23,7 @@ export const walletFixtures = {
         installLink: {
           chrome:
             'https://chromewebstore.google.com/detail/flow-wallet/hpclkefagolihohboafpheddmmgdffjm',
-          browserExtension: 'https://wallet.flow.com/download',
+          browser: 'https://wallet.flow.com/download',
           mobile: 'https://wallet.flow.com/download',
         },
         features: [],
@@ -83,7 +83,7 @@ export const walletFixtures = {
         supportEmail: 'support@example.com',
         installLink: {
           chrome: 'https://chromewebstore.google.com/detail/foo-wallet/foo',
-          browserExtension: 'https://wallet.foo.com/download',
+          browser: 'https://wallet.foo.com/download',
           mobile: 'https://wallet.foo.com/download',
         },
         features: [],

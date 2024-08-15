@@ -7,7 +7,7 @@ import ScanConnect from './views/ScanConnect/ScanConnect'
 import AboutWallets from './views/AboutWallets'
 import ConnectExtension from './views/ConnectExtension'
 
-import { ComponentProps, useEffect, useMemo, useState } from 'react'
+import { ComponentProps, useEffect, useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
 import { Wallet } from '../data/wallets'
 import * as fcl from '@onflow/fcl'
@@ -16,11 +16,11 @@ import ViewLayout from './layout/ViewLayout'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { useIsCollapsed } from '../hooks/useIsCollapsed'
 import { Service } from '../types'
-import { useRpc } from '../contexts/FclContext'
+import { useConfig, useRpc } from '../contexts/FclContext'
 import { handleCancel } from '../helpers/window'
 import { useDevice } from '../contexts/DeviceContext'
-import { DeviceType, isMobile } from '../helpers/device'
-import { useInstallLinks } from '../hooks/useInstallLinks'
+import { DeviceType } from '../helpers/device'
+import { getCompatibleInstallLinks } from '../hooks/useInstallLinks'
 
 export enum VIEWS {
   WALLET_SELECTION,
@@ -35,18 +35,26 @@ export enum VIEWS {
   CONNECT_EXTENSION,
 }
 
+// Handles central routing/state management for Discovery
+// This should probably be migrated to a proper routing solution in the long run
+// (e.g. all routing logic now is centralized in this component, which is starting to get unwieldy
+// and things like back buttons are a bit messy, with some "VIEWS" carrying state to identify where
+// to go back to)
 export default function Discovery() {
   const { wallets, error } = useWallets()
   const [currentView, setCurrentView] = useState<VIEWS>(VIEWS.ABOUT_WALLETS)
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
   const { deviceInfo } = useDevice()
   const { rpcEnabled } = useRpc()
+  const { supportedStrategies } = useConfig()
 
   // Skip the connect page if there is only one service available
   const shouldSkipConnectPage = (wallet: Wallet) =>
     new Set([
       ...(wallet?.services?.map(s => s.method) || []),
-      ...Object.keys(installLinks),
+      ...Object.keys(
+        getCompatibleInstallLinks(wallet, supportedStrategies, deviceInfo),
+      ),
     ]).size >= 1 && wallet?.services?.length >= 1
 
   // WALLET_SELECTION does not exist when expanded
@@ -150,9 +158,6 @@ export default function Discovery() {
           onInstallMobile={wallet => {
             setSelectedWallet(wallet)
             setCurrentView(VIEWS.INSTALL_APP)
-            if (deviceInfo.type === DeviceType.MOBILE) {
-              window.open(installLinks['WC/RPC'], '_blank')
-            }
           }}
         />
       )
@@ -206,10 +211,6 @@ export default function Discovery() {
           wallet={selectedWallet}
           onGetWallet={() => {
             setCurrentView(VIEWS.INSTALL_APP_FROM_CONNECT)
-            // TODO: temp until navigation refactor
-            if (deviceInfo.type === DeviceType.MOBILE) {
-              window.open(installLinks['WC/RPC'], '_blank')
-            }
           }}
           noDeepLink={currentView === VIEWS.SCAN_CONNECT_SKIP_DEEPLINK}
         />

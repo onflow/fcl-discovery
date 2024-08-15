@@ -3,6 +3,8 @@ import { useDevice } from '../../../contexts/DeviceContext'
 import { DeviceType } from '../../../helpers/device'
 import InstallAppDesktop from './InstallAppDesktop'
 import InstallAppMobile from './InstallAppMobile'
+import { useInstallLinks } from '../../../hooks/useInstallLinks'
+import { useEffect, useRef } from 'react'
 
 interface InstallAppProps {
   onContinue: () => void

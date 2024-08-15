@@ -3,6 +3,9 @@ import { Wallet } from '../../../data/wallets'
 import WalletIcon from '../../icons/WalletIcon'
 import HybridButton from '../../HybridButton'
 import { ViewContainer } from '../../layout/ViewContainer'
+import { useDevice } from '../../../contexts/DeviceContext'
+import { useEffect, useRef } from 'react'
+import { useInstallLinks } from '../../../hooks/useInstallLinks'
 
 interface InstallAppMobileProps {
   onContinue: () => void
@@ -13,6 +16,21 @@ export default function InstallAppMobile({
   onContinue,
   wallet,
 }: InstallAppMobileProps) {
+  // Fallback link for mobile if app-specific link is not working
+  const fallbackLink = wallet.installLink.mobile
+
+  const { deviceInfo } = useDevice()
+  const installLinks = useInstallLinks(wallet)
+  const hasOpened = useRef(false)
+
+  useEffect(() => {
+    if (hasOpened.current) {
+      return
+    }
+    window.open(installLinks['WC/RPC'], '_blank')
+    hasOpened.current = true
+  }, [deviceInfo.type])
+
   return (
     <ViewContainer alignItems="center" spacing="lg">
       <Stack spacing={6} alignItems="center" my="auto">
@@ -38,7 +56,7 @@ export default function InstallAppMobile({
 
       <Text textStyle="body2" textAlign="center" p={1}>
         App Store didn't open?
-        <HybridButton variant="link" ml={1} href={wallet.installLink.mobile}>
+        <HybridButton variant="link" ml={1} href={fallbackLink}>
           Try another link
         </HybridButton>
       </Text>
