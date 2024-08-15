@@ -23,6 +23,13 @@ export interface BaseWallet {
   color?: string
   supportEmail?: string
   website: string
+  installLink?: {
+    // Browser Specific Install Links & fallback
+    [key in Exclude<Browser, Browser.UNKNOWN> | 'browserExtension']?: string
+  } & {
+    // Mobile Specific Install Links & fallback
+    [key in Exclude<MobilePlatform, MobilePlatform.UNKNOWN> | 'mobile']?: string
+  }
   features?: (typeof AVAILABLE_FEATURES)[number]['id'][]
 }
 
@@ -34,21 +41,10 @@ export interface WalletConfig extends BaseWallet {
     canarynet?: ServiceConfig[]
     local?: ServiceConfig[]
   }
-  installLink?: {
-    // Browser Specific Install Links & fallback
-    [key in Exclude<Browser, Browser.UNKNOWN> | 'browser']?: string
-  } & {
-    // Mobile Specific Install Links & fallback
-    [key in Exclude<MobilePlatform, MobilePlatform.UNKNOWN> | 'mobile']?: string
-  }
 }
 
 export interface Wallet extends BaseWallet {
   services: Service[]
-  installLink?: {
-    mobile?: string
-    browser?: string
-  }
 }
 
 export const wallets: WalletConfig[] = [

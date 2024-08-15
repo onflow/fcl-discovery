@@ -6,8 +6,6 @@ import { buttonConfig } from './components/button'
 import { typography } from './typography'
 
 export const theme = extendTheme({
-  initialColorMode: 'light',
-  useSystemColorMode: false,
   styles: {
     global: {
       body: {

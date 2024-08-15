@@ -40,7 +40,7 @@ const shadow: WalletConfig = {
   installLink: {
     chrome:
       'https://chromewebstore.google.com/detail/shadow-aptos-flow-wallet/lmmpaefggfcmnoddemmgdppddppnmhek?hl=en',
-    browser: 'https://shadow.app',
+    browserExtension: 'https://shadow.app',
   },
   features: ['extension'],
 }

@@ -19,15 +19,9 @@ import {
   DEFAULT_SERVICE_METHODS,
   SUPPORTED_VERSIONS,
 } from './constants'
-import { getBrowserFromUserAgent, getDeviceInfo } from './device'
+import { getBrowserFromUserAgent } from './device'
 import { isGreaterThanOrEqualToVersion } from './version'
-import {
-  pipeWalletServices,
-  processInstallLinks,
-  removeEmptyWallets,
-  ServiceWithWallet,
-  walletsForNetwork,
-} from './wallets'
+import { pipeWalletServices, walletsForNetwork } from './wallets'
 import { injectClientServices } from './inject-wallets'
 import { Service } from '../types'
 
@@ -42,7 +36,7 @@ export const getWalletPipes = ({
   portOverride,
   includeUninstalledServices,
 }) => {
-  const deviceInfo = getDeviceInfo(userAgent)
+  const platform = getBrowserFromUserAgent(userAgent)?.toLowerCase()
   const isLocal = network === NETWORKS.LOCAL || network === NETWORKS.EMULATOR
 
   // In newer versions, we'll have extensions sent
@@ -99,20 +93,13 @@ export const getWalletPipes = ({
           ({ wallets }) =>
             pipe(
               // Add installation data
-              appendInstallData({
-                wallets,
-                platform: deviceInfo.browser,
-                extensions,
-              }),
+              appendInstallData({ wallets, platform, extensions }),
               filterUniqueServices({ address: true, uid: false }),
               serviceOfTypeAuthn,
               // Filter out extensions if not supported because they were added on the FCL side in previous versions
               ifElse(
                 always(areUninstalledExtensionsSupported),
-                filterServicesByPlatform({
-                  wallets,
-                  platform: deviceInfo.browser,
-                }),
+                filterServicesByPlatform({ wallets, platform }),
                 reject(isExtension),
               ),
             ) as any,
@@ -145,15 +132,8 @@ export const getWalletPipes = ({
               ifElse(
                 always(includeUninstalledServices),
                 pipe(
-                  filterServicesByPlatform({
-                    wallets,
-                    platform: deviceInfo.browser,
-                  }),
-                  appendInstallData({
-                    wallets,
-                    platform: deviceInfo.browser,
-                    extensions,
-                  }),
+                  filterServicesByPlatform({ wallets, platform }),
+                  appendInstallData({ wallets, platform, extensions }),
                 ),
                 filterUninstalledServices({ extensions }),
               ),
@@ -161,18 +141,8 @@ export const getWalletPipes = ({
               serviceOfTypeAuthn,
               // Allow port override option if local
               overrideServicePorts(isLocal, portOverride),
-            ) as (services: ServiceWithWallet[]) => ServiceWithWallet[],
+            ) as any,
         ),
-
-        // Transform wallet install links based on device info
-        // i.e. chrome/firefox/etc => browser, ios/android => mobile based on user agent
-        processInstallLinks({
-          deviceInfo,
-          supportedStrategies,
-        }),
-
-        // Remove wallets with no services & no install links
-        removeEmptyWallets(),
       ),
     },
   ]

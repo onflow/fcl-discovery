@@ -57,10 +57,10 @@ export function useWallets() {
       const installedWallets = []
       const otherWallets = []
       for (const wallet of (data || []) as Wallet[]) {
-        const hasExtension = wallet.services.some(isExtension)
+        const extensionService = wallet.services.find(isExtension)
         if (isLastUsed(wallet)) {
           lastUsedWallet = wallet
-        } else if (hasExtension) {
+        } else if (extensionService?.provider?.is_installed) {
           installedWallets.push(wallet)
         } else {
           otherWallets.push(wallet)

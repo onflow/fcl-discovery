@@ -25,7 +25,7 @@ const nufi: WalletConfig = {
   installLink: {
     chrome:
       'https://chromewebstore.google.com/detail/nufi/gpnihlnnodeiiaakbikldcihojploeca',
-    browser: 'https://nu.fi',
+    browserExtension: 'https://nu.fi',
   },
   features: ['extension'],
 }
