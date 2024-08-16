@@ -85,5 +85,3 @@ module.exports = withSentryConfig(nextJsConfig, {
   // https://vercel.com/docs/cron-jobs
   automaticVercelMonitors: true,
 })
-
-module.exports = nextConfig
