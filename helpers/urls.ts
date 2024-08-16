@@ -3,3 +3,12 @@ export function replacePort(currentUrl: string, portOverride: string): string {
   url.port = portOverride
   return url.toString()
 }
+
+export function isDataURL(url: string) {
+  try {
+    const parsedURL = new URL(url)
+    return parsedURL.protocol === 'data:'
+  } catch (e) {
+    return false
+  }
+}

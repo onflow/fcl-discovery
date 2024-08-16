@@ -1,26 +1,22 @@
+import { always, clone, evolve, filter, identity, ifElse, map } from 'rambda'
 import { FCL_SERVICE_METHODS, SERVICE_TYPES } from './constants'
-import {
-  getInstallLinkFromMetadata,
-  getProviderMetadataByAddress,
-} from './metadata'
 import { replacePort } from './urls'
 
-export const filterSupportedStrategies =
-  (supportedStrategies = []) =>
-  (services = []) => {
-    return services.filter(s => supportedStrategies.includes(s.method))
-  }
+export const filterSupportedStrategies = (supportedStrategies = []) =>
+  filter(s => supportedStrategies.includes(s.method))
 
 export const filterUniqueServices =
   ({ address = true, uid = false }) =>
   services => {
     let foundIds = []
     return services.filter(p => {
-      const hasAddress = foundIds.includes(p.provider?.address)
-      const hasUid = foundIds.includes(p?.uid)
+      const pAddr = p?.provider?.address
+      const pUid = p?.uid
+      const hasAddress = foundIds.includes(pAddr)
+      const hasUid = foundIds.includes(pUid)
       if ((address && hasAddress) || (uid && hasUid)) return false
-      if (p.provider.address) foundIds.push(p.provider.address)
-      if (p.uid) foundIds.push(p.uid)
+      if (pAddr) foundIds.push(pAddr)
+      if (pUid) foundIds.push(pUid)
       return true
     })
   }
@@ -28,7 +24,7 @@ export const filterUniqueServices =
 export const combineServices = (
   existingServices = [],
   newServices = [],
-  front = false
+  front = false,
 ) => {
   let combined
   if (front) {
@@ -39,101 +35,110 @@ export const combineServices = (
   return combined
 }
 
-export const serviceListOfType = (services = [], type) =>
-  services.filter(service => service.type === type)
+export const serviceListOfType = type =>
+  filter(service => service.type === type)
 
-export const serviceOfTypeAuthn = services =>
-  serviceListOfType(services, SERVICE_TYPES.AUTHN)
+export const serviceOfTypeAuthn = serviceListOfType(SERVICE_TYPES.AUTHN)
 
 export const serviceListOfMethod = (services = [], method) =>
   services.filter(service => service.method === method)
 
 // If it's an optIn service, make sure it's been asked to be included
-export function filterOptInServices(includeList = [], services = []) {
-  return services.filter(service => {
-    if (service.optIn) return includeList.includes(service?.provider?.address)
+export const filterOptInServices = ({ wallets, includeList = [] }) =>
+  filter(service => {
+    if (service.optIn) {
+      const wallet = wallets?.find(w => w.uid === service.walletUid)
+      return includeList.includes(service?.provider?.address || wallet?.address)
+    }
     return true
   })
-}
-
-export const getServiceByAddress = (services, address) => {
-  return services.find(service => service?.provider?.address === address)
-}
-
-export const containsAddress = (services = [], address) => {
-  return services.some(service => service?.provider?.address === address)
-}
-
-// Put last used service at top
-export function sortByAddress(services = [], selectedAddress) {
-  if (!selectedAddress) return services
-  if (!containsAddress(services, selectedAddress)) return services // Do not continue if address you want to sort by is not in list
-  const serviceWithAddress = getServiceByAddress(services, selectedAddress)
-  const servicesWithoutSpecified = services.filter(
-    service => service?.provider?.address !== selectedAddress
-  )
-  return [serviceWithAddress, ...servicesWithoutSpecified]
-}
 
 export const isExtension = service =>
   service?.method === FCL_SERVICE_METHODS.EXT
 
-export const isExtensionInstalled = (extensions, address) =>
-  extensions.some(extension => extension?.provider?.address === address)
+export const isExtensionInstalled = (extensions, service) =>
+  extensions.some(extension => {
+    const extAddr = extension?.provider?.address
+    const srvAddr = service?.provider?.address
+    const extUid = extension?.uid
+    const srvUid = service?.uid
+    return (extAddr === srvAddr && extAddr) || (extUid === srvUid && extUid)
+  })
 
 export const requiresPlatform = service => {
   const requiredPlatformTypes = [FCL_SERVICE_METHODS.EXT]
   return requiredPlatformTypes.includes(service?.method)
 }
 
-export function filterServicesByPlatform(platform, services = []) {
-  return services.filter(service => {
+export const filterServicesByPlatform = ({ wallets, platform }) =>
+  filter(service => {
     if (!requiresPlatform(service)) return true
-    const providerMetadata = getProviderMetadataByAddress(
-      service?.provider?.address
-    )
 
-    // Assume it is supported if we can't find the metadata for it.
-    if (!providerMetadata) return true
+    const wallet = wallets?.find(w => w.uid === service.walletUid)
+    if (!wallet.installLink) return true
 
-    const providerPlatforms = Object.keys(providerMetadata?.platforms || {})
+    const providerPlatforms = Object.keys(wallet?.installLink || {})
     return providerPlatforms.includes(platform?.toLowerCase())
   })
-}
 
-export function appendInstallData(platform, extensions = [], services = []) {
-  return services.map(service => {
-    const clone = { ...service }
+export const appendInstallData = ({ wallets, platform, extensions = [] }) =>
+  map(
+    ifElse(
+      requiresPlatform,
+      srv => {
+        const service = clone(srv)
+        service.provider = service.provider || {}
+        service.provider['requires_install'] = true
 
-    if (requiresPlatform(service)) {
-      clone.provider['requires_install'] = true
-      clone.provider['is_installed'] = isExtensionInstalled(
-        extensions,
-        service?.provider?.address
-      )
-      const providerMetadata = getProviderMetadataByAddress(
-        service?.provider?.address
-      )
+        service.provider['is_installed'] = isExtensionInstalled(
+          extensions,
+          service,
+        )
 
-      const installLink = getInstallLinkFromMetadata(providerMetadata, platform)
+        const wallet = wallets.find(w => w.uid === service.walletUid)
+        const installLink = wallet?.installLink?.[platform?.toLowerCase()]
 
-      if (installLink) {
-        clone.provider['install_link'] = installLink
-      }
+        if (installLink) {
+          service.provider['install_link'] = installLink
+        }
+        return service
+      },
+      identity,
+    ),
+  )
+
+// Filter out services that require install and are not installed
+export const filterUninstalledServices = ({ extensions = [] }) =>
+  filter(x => {
+    if (!requiresPlatform(x)) return true
+    return isExtensionInstalled(extensions, x)
+  })
+
+export const overrideServicePorts = (shouldOverride, portOverride) =>
+  ifElse(
+    always(shouldOverride),
+    map(
+      evolve({
+        endpoint: e => replacePort(e, portOverride),
+      }),
+    ),
+    identity,
+  )
+
+export const sortStrategies = strategies =>
+  [...strategies].sort((a, b) => {
+    const IDEAL_SERVICE_ORDER = [
+      FCL_SERVICE_METHODS.EXT,
+      FCL_SERVICE_METHODS.WC,
+      // rest...
+    ]
+
+    const getIndexOfMethod = method => {
+      const index = IDEAL_SERVICE_ORDER.indexOf(method)
+      return index === -1 ? IDEAL_SERVICE_ORDER.length : index
     }
-
-    return clone
+    const aIndex = getIndexOfMethod(a)
+    const bIndex = getIndexOfMethod(b)
+    const delta = aIndex - bIndex
+    return delta === 0 ? a.localeCompare(b) : delta
   })
-}
-
-export const overrideServicePorts = (
-  shouldOverride,
-  portOverride,
-  services = []
-) => {
-  if (!shouldOverride) return services
-  return services.map(s => {
-    s.endpoint = replacePort(s.endpoint, portOverride)
-    return s
-  })
-}

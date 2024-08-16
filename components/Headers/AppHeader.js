@@ -1,8 +1,8 @@
 import { Image, Text, Heading, HStack, Stack } from '@chakra-ui/react'
-import { useFCL } from '../../hooks/useFCL'
+import { useConfig } from '../../contexts/FclContext'
 
 export default function AppHeader() {
-  const { appConfig, clientConfig } = useFCL()
+  const { appConfig, clientConfig } = useConfig()
   const title = appConfig?.title ? `Connect to ${appConfig?.title}` : 'Connect'
 
   return (

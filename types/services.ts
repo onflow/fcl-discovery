@@ -1,3 +1,5 @@
+import { Wallet, WalletConfig } from '../data/wallets'
+
 export type Provider = {
   address?: string
   name?: string
@@ -17,15 +19,15 @@ export type Service = {
   uid?: string
   endpoint: string
   provider: Provider & Metadata
+  optIn?: boolean
 }
 
 export type Metadata = {
-  install_link: string
+  install_link?: string
 }
 
-export type ServicesPipe = (services: Service[]) => Service[]
-
-export interface VersionServicePipe {
+export type WalletPipe = (wallets: WalletConfig[]) => Wallet[]
+export interface VersionWalletPipe {
   supportedVersion: string
-  pipe: ServicesPipe
+  pipe: WalletPipe
 }
