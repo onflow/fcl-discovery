@@ -20,7 +20,7 @@ export default function CopyButton({ text, ...props }: CopyButtonProps) {
   )
 
   function onClick() {
-    //navigator.clipboard.writeText(text)
+    navigator.clipboard.writeText(text)
     setShowCheck(true)
     if (checkTimeoutRef.current) {
       clearTimeout(checkTimeoutRef.current)
