@@ -52,5 +52,3 @@ Object.entries(lightColors).forEach(([colorKey, colorValue]) => {
     })
   }
 })
-
-console.log(semanticColorTokens)
