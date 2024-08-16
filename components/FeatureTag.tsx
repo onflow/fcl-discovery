@@ -22,7 +22,9 @@ export default function FeatureTag({ featureId }: FeatureTagProps) {
     >
       <Flex alignItems="center" gap={1}>
         <Circle size="0.375rem" bg={feature.color} ml={1} />
-        <Text fontSize="0.625rem">{feature.name}</Text>
+        <Text fontSize="0.625rem" color="foreground">
+          {feature.name}
+        </Text>
       </Flex>
     </Tag>
   )

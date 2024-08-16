@@ -49,7 +49,11 @@ export default function ServiceCard({
           alignSelf="start"
         />
         <Flex direction="column" textAlign="left">
-          <Text textStyle="body1Bold" colorScheme="blackAlpha">
+          <Text
+            textStyle="body1Bold"
+            color={isSelected ? 'white' : 'black'}
+            _dark={{ color: 'white' }}
+          >
             {wallet.name}
           </Text>
 
