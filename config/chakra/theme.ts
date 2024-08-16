@@ -7,8 +7,10 @@ import { typography } from './typography'
 import { baseColors, semanticColorTokens } from './colors'
 
 export const theme = extendTheme({
-  initialColorMode: 'system',
-  useSystemColorMode: true,
+  config: {
+    initialColorMode: 'system',
+    useSystemColorMode: true,
+  },
   styles: {
     global: {
       body: {
@@ -17,6 +19,19 @@ export const theme = extendTheme({
       },
       '*': {
         borderColor: 'borderColor',
+      },
+      html: {
+        // This is a workaround to prevent color scheme mismatch between
+        // the parent and the iframe.  Some browsers (e.g. Chrome) render
+        // a blank canvas when the color scheme mismatches, causing transparency
+        // issues.  (FCL currently sets the color scheme to white.)
+        //
+        // We must force the browser to believe that our app is naive to color
+        // schemes for the foreseeable future until a better solution is found.
+        //
+        // The downside is that the app will not render well if a user
+        // uses forced dark mode in their browser, but this is fairly trivial.
+        colorScheme: 'normal !important',
       },
     },
   },
