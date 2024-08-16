@@ -5,6 +5,7 @@ import { theme } from '../config/chakra/theme'
 import { AdaptiveModal } from '../components/layout/AdaptiveModal'
 import { DeviceProvider } from '../contexts/DeviceContext'
 import App, { AppContext, AppProps } from 'next/app'
+import { ColorModeSync } from '../components/ColorModeSync'
 
 function MyApp({
   Component,
@@ -19,6 +20,7 @@ function MyApp({
 
   return (
     <ChakraProvider theme={theme}>
+      <ColorModeSync />
       <DeviceProvider userAgent={pageProps.userAgent}>
         <AdaptiveModal isOpen={isOpen} onClose={handleOnClose}>
           <Component {...pageProps} />

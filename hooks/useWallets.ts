@@ -5,6 +5,7 @@ import { isExtension } from '../helpers/services'
 import { useWalletHistory } from './useWalletHistory'
 import { useMemo } from 'react'
 import { useDevice } from '../contexts/DeviceContext'
+import { getCompatibleInstallLinks } from './useInstallLinks'
 
 const genKey = (url: string, opts: any) => [url, JSON.stringify(opts)]
 
@@ -20,7 +21,7 @@ const fetcher = async <T>(url: string, opts: any) => {
 
 export function useWallets() {
   const { isLastUsed } = useWalletHistory()
-  const { userAgent } = useDevice()
+  const { userAgent, deviceInfo } = useDevice()
 
   const {
     appVersion,
@@ -51,16 +52,39 @@ export function useWallets() {
     fetcher<Wallet[]>(url, body),
   )
 
+  const installLinks = useMemo(
+    () =>
+      data?.reduce(
+        (acc, wallet) => {
+          const links = getCompatibleInstallLinks(
+            wallet,
+            supportedStrategies,
+            deviceInfo,
+          )
+          if (Object.keys(links).length > 0) {
+            acc[wallet.uid] = links
+          }
+          return acc
+        },
+        {} as Record<string, Record<string, string>>,
+      ) || {},
+    [data, supportedStrategies, deviceInfo],
+  )
+
   const { wallets, lastUsedWallet, installedWallets, otherWallets } =
     useMemo(() => {
-      let lastUsedWallet = null
-      const installedWallets = []
-      const otherWallets = []
+      let lastUsedWallet: Wallet | null = null
+      const installedWallets: Wallet[] = []
+      const otherWallets: Wallet[] = []
       for (const wallet of (data || []) as Wallet[]) {
-        const extensionService = wallet.services.find(isExtension)
+        if (!installLinks[wallet.uid] && !wallet.services.length) {
+          continue
+        }
+
+        const hasExtension = wallet.services.some(s => isExtension(s))
         if (isLastUsed(wallet)) {
           lastUsedWallet = wallet
-        } else if (extensionService?.provider?.is_installed) {
+        } else if (hasExtension) {
           installedWallets.push(wallet)
         } else {
           otherWallets.push(wallet)
@@ -84,6 +108,7 @@ export function useWallets() {
     lastUsedWallet,
     installedWallets,
     otherWallets,
+    installLinks,
     error,
     isLoading: !data && !error,
   }

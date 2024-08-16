@@ -1,4 +1,4 @@
-import { Flex, HStack, Image, Text } from '@chakra-ui/react'
+import { Flex, HStack, Text } from '@chakra-ui/react'
 import { Wallet } from '../data/wallets'
 import HybridButton from './HybridButton'
 import FeatureTag from './FeatureTag'
@@ -6,10 +6,14 @@ import WalletIcon from './icons/WalletIcon'
 
 type Props = {
   wallet: Wallet
-  onGetWallet?: () => void
+  getButtonOptions: {
+    href?: string
+    onClick?: () => void
+  }
 }
 
-export default function GetWalletCard({ wallet, onGetWallet }: Props) {
+export default function GetWalletCard({ wallet, getButtonOptions }: Props) {
+  const { href, onClick: onGetWallet } = getButtonOptions
   const walletFeatures = wallet.features?.map(feature => feature) || []
   return (
     <HStack spacing={3} p="0.375rem">
@@ -39,11 +43,11 @@ export default function GetWalletCard({ wallet, onGetWallet }: Props) {
         ml="auto"
         alignSelf="center"
         borderRadius="full"
-        {...(!wallet.installLink
-          ? { href: wallet.website }
-          : {
-              onClick: onGetWallet,
-            })}
+        onClick={onGetWallet}
+        // Can't be undefined
+        {...{
+          ...(href && { href }),
+        }}
       >
         Get
       </HybridButton>

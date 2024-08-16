@@ -1,17 +1,7 @@
-import { isExtension } from '../helpers/services'
-import {
-  Button,
-  Card,
-  CardBody,
-  Flex,
-  HStack,
-  Image,
-  Stack,
-  Tag,
-  Text,
-} from '@chakra-ui/react'
+import { Button, Flex, HStack, Text } from '@chakra-ui/react'
 import { Wallet } from '../data/wallets'
 import FeatureTag from './FeatureTag'
+import WalletIcon from './icons/WalletIcon'
 
 interface ServiceCardProps {
   wallet: Wallet
@@ -38,10 +28,8 @@ export default function ServiceCard({
       backgroundColor={isSelected ? 'primary.500' : 'transparent'}
     >
       <HStack p="sm">
-        <Image
-          src={wallet.icon}
-          alt={wallet.name}
-          borderRadius="lg"
+        <WalletIcon
+          wallet={wallet}
           borderWidth={isSelected ? 0 : '1px'}
           borderStyle="solid"
           bg="white"

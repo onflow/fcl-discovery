@@ -93,7 +93,7 @@ export default function Discovery() {
   }
 
   const onBackToHome = () => {
-    if (deviceInfo.type === DeviceType.MOBILE) {
+    if (isCollapsed) {
       setCurrentView(VIEWS.WALLET_SELECTION)
     } else {
       setCurrentView(VIEWS.ABOUT_WALLETS)
@@ -173,9 +173,7 @@ export default function Discovery() {
     case VIEWS.INSTALL_APP_FROM_CONNECT:
       viewContent = (
         <InstallApp
-          onContinue={() => {
-            setCurrentView(VIEWS.SCAN_CONNECT)
-          }}
+          connectWalletService={connectWalletService}
           wallet={selectedWallet}
         />
       )
