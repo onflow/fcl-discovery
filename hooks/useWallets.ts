@@ -33,7 +33,7 @@ export function useWallets() {
     port,
   } = useConfig()
 
-  const requestUrl = `/api/${network.toLowerCase()}/wallets?discoveryType=UI`
+  const requestUrl = `/api/${network.toLowerCase()}/wallets?discoveryType=UI&enableExperimentalWalletsEndpoint=true`
   const body = {
     type: ['authn'],
     fclVersion: appVersion,
