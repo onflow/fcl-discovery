@@ -173,9 +173,7 @@ export default function Discovery() {
     case VIEWS.INSTALL_APP_FROM_CONNECT:
       viewContent = (
         <InstallApp
-          onContinue={() => {
-            setCurrentView(VIEWS.SCAN_CONNECT)
-          }}
+          connectWalletService={connectWalletService}
           wallet={selectedWallet}
         />
       )
