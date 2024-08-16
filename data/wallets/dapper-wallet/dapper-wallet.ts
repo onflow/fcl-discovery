@@ -1,12 +1,11 @@
-import { nextJsImageToBase64 } from '../../../helpers/image'
 import { WalletConfig } from '../../wallets'
-import DapperWalletIcon from './dapper-wallet.svg'
+import DapperWalletIcon from '!!url-loader?limit=true!./dapper-wallet.svg'
 
 const dapperWallet: WalletConfig = {
   address: '0xead892083b3e2c6c',
   name: 'Dapper Wallet',
   uid: 'dapper-wallet',
-  icon: nextJsImageToBase64(DapperWalletIcon),
+  icon: DapperWalletIcon,
   description: 'The trusted gateway to your digital world.',
   color: '#FF5A9D',
   supportEmail: 'support@meetdapper.com',

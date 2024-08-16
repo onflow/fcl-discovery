@@ -1,12 +1,11 @@
-import { nextJsImageToBase64 } from '../../../helpers/image'
 import { WalletConfig } from '../../wallets'
-import ShadowIcon from './shadow.svg'
+import ShadowIcon from '!!url-loader?limit=true!./shadow.svg'
 
 const shadow: WalletConfig = {
   address: '0x4204aa9c92ab68a1',
   name: 'Shadow',
   uid: 'shadow',
-  icon: nextJsImageToBase64(ShadowIcon),
+  icon: ShadowIcon,
   description:
     'Shadow wallet, your Web3 sidekick. Store your assets, transact with friends, and connect to apps on multiple chains.',
   color: '#B79DFF',
