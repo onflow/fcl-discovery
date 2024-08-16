@@ -1,10 +1,12 @@
 import { NextApiHandler } from 'next'
-import { cors, getWalletsFromRequest, runMiddleware } from './_common'
+import { getWalletsFromRequest } from './_common'
 import { Wallet } from '../../../data/wallets'
 
 const handler: NextApiHandler = async (req, res) => {
-  await runMiddleware(req, res, cors)
-
+  // Cors middleware intentionally disabled for this endpoint
+  // This API schema is not finalized yet, and may change in the future
+  // We should allow cross origin requests once the schema is stable for
+  // an integration with FCL
   const discoveryWallets = await getWalletsFromRequest(req)
   return res.status(200).json(removeProviders(discoveryWallets))
 }

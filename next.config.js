@@ -29,11 +29,28 @@ const nextJsConfig = {
   async headers() {
     return [
       {
-        // matching all API routes
-        source: '/api/:path*',
+        // Allow CORS for authn routes
+        source: '/api/:network/authn',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          { key: 'Access-Control-Allow-Origin', value: '*' }, // replace this your actual origin
+          { key: 'Access-Control-Allow-Origin', value: '*' },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET,DELETE,PATCH,POST,PUT',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value:
+              'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+          },
+        ],
+      },
+      {
+        // Allow CORS for /api/authn
+        source: '/api/authn',
+        headers: [
+          { key: 'Access-Control-Allow-Credentials', value: 'true' },
+          { key: 'Access-Control-Allow-Origin', value: '*' },
           {
             key: 'Access-Control-Allow-Methods',
             value: 'GET,DELETE,PATCH,POST,PUT',
