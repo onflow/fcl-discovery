@@ -14,11 +14,11 @@ const baseStyle = defineStyle({
 
 const primaryVariant = defineStyle((props: StyleFunctionProps) => {
   const { colorScheme: c } = props
-  const background = mode(`${c}.500`, `${c}.200`)(props)
+  const background = mode(`${c}.500`, `${c}.700`)(props)
 
   return {
     bg: background,
-    color: mode('white', `gray.800`)(props),
+    color: 'white',
     _hover: {
       transform: 'scale(1.07)',
       transitionDuration: '0.2s',

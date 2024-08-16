@@ -30,7 +30,7 @@ export default function InstallAppDesktop({
         Scan with your phone to install on iOS or Android
       </Text>
 
-      <Box padding={3} borderRadius="0.75rem" borderWidth="1px">
+      <Box padding={3} borderRadius="0.75rem" borderWidth="1px" bg="white">
         <QRCode value={wallet.installLink?.mobile} size="12.5rem" />
       </Box>
 

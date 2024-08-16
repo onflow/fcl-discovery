@@ -50,6 +50,7 @@ export function AdaptiveModal({
         maxH="none"
         display="flex"
         boxShadow="0 0 1.5rem 0 rgba(0, 0, 0, 0.25)"
+        bg="background"
       >
         {children}
       </ModalContent>

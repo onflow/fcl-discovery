@@ -16,10 +16,9 @@ export default function FeatureTag({ featureId }: FeatureTagProps) {
       pl={1}
       pr={2}
       py={0}
-      background="#F7F7F7"
+      background="backgroundElevated"
       borderWidth="1px"
       fontWeight="400"
-      color="black"
     >
       <Flex alignItems="center" gap={1}>
         <Circle size="0.375rem" bg={feature.color} ml={1} />
