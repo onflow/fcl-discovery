@@ -27,7 +27,6 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
         rpc
           .request(FclRequest.EXEC_SERVICE, { service })
           .then(() => {
-            console.log('Connected to extension')
             setLastUsed(wallet)
             handleCancel()
           })

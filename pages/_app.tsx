@@ -1,6 +1,6 @@
 import { handleCancel } from '../helpers/window'
 import { ChakraProvider } from '@chakra-ui/react'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { theme } from '../config/chakra/theme'
 import { AdaptiveModal } from '../components/layout/AdaptiveModal'
 import { DeviceProvider } from '../contexts/DeviceContext'
@@ -12,10 +12,10 @@ function MyApp({
 }: AppProps<{ userAgent: string }>): JSX.Element {
   const [isOpen, setIsOpen] = useState(true)
 
-  const handleOnClose = useCallback(() => {
+  const handleOnClose = () => {
     setIsOpen(false)
     handleCancel()
-  }, [])
+  }
 
   return (
     <ChakraProvider theme={theme}>

@@ -14,6 +14,7 @@ export default function WalletIcon({ wallet, ...props }: WalletIconProps) {
       alt={wallet.name}
       src={wallet.icon}
       borderRadius="calc(100% / 6.4)"
+      bg="#fff"
       {...props}
     ></Image>
   )

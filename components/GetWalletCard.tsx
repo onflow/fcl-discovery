@@ -2,6 +2,7 @@ import { Flex, HStack, Image, Text } from '@chakra-ui/react'
 import { Wallet } from '../data/wallets'
 import HybridButton from './HybridButton'
 import FeatureTag from './FeatureTag'
+import WalletIcon from './icons/WalletIcon'
 
 type Props = {
   wallet: Wallet
@@ -12,10 +13,8 @@ export default function GetWalletCard({ wallet, onGetWallet }: Props) {
   const walletFeatures = wallet.features?.map(feature => feature) || []
   return (
     <HStack spacing={3} p="0.375rem">
-      <Image
-        src={wallet.icon}
-        alt={wallet.name}
-        borderRadius="lg"
+      <WalletIcon
+        wallet={wallet}
         borderWidth="1px"
         borderStyle="solid"
         boxSize="3rem"

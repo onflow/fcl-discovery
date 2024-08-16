@@ -4,15 +4,34 @@ import { headingConfig } from './components/heading'
 import { textConfig } from './components/text'
 import { buttonConfig } from './components/button'
 import { typography } from './typography'
+import { baseColors, semanticColorTokens } from './colors'
 
 export const theme = extendTheme({
+  config: {
+    initialColorMode: 'system',
+    useSystemColorMode: true,
+  },
   styles: {
     global: {
       body: {
         backgroundColor: 'transparent',
+        color: 'foreground',
       },
       '*': {
         borderColor: 'borderColor',
+      },
+      html: {
+        // This is a workaround to prevent color scheme mismatch between
+        // the parent and the iframe.  Some browsers (e.g. Chrome) render
+        // a blank canvas when the color scheme mismatches, causing transparency
+        // issues.  (FCL currently sets the color scheme to white.)
+        //
+        // We must force the browser to believe that our app is naive to color
+        // schemes for the foreseeable future until a better solution is found.
+        //
+        // The downside is that the app will not render well if a user
+        // uses forced dark mode in their browser, but this is fairly trivial.
+        colorScheme: 'normal !important',
       },
     },
   },
@@ -27,28 +46,15 @@ export const theme = extendTheme({
     Text: textConfig,
     Button: buttonConfig,
   },
-  colors: {
-    primary: {
-      '50': '#94B8FF',
-      '100': '#7FA9FF',
-      '200': '#699BFF',
-      '300': '#548DFF',
-      '400': '#3E7EFF',
-      '500': '#2970FF',
-      '600': '#2565E6',
-      '700': '#215ACC',
-      '800': '#1D4EB3',
-      '900': '#194399',
-    },
-    backgroundElevated: '#F7F7F7',
-    buttonBackground: '#F2F2F2',
-    borderColor: '#E0E0E0',
-  },
+  colors: baseColors,
   space: {
     xs: toRem(5),
     sm: toRem(8),
     md: toRem(12),
     lg: toRem(16),
     xl: toRem(20),
+  },
+  semanticTokens: {
+    colors: semanticColorTokens,
   },
 } satisfies ThemeOverride)

@@ -8,7 +8,7 @@ export default function Features() {
   const featuresListKeys = AVAILABLE_FEATURES.map(f => f.id)
   const suggestedFeatures =
     clientConfig?.discoveryFeaturesSuggested?.filter(f =>
-      featuresListKeys.includes(f)
+      featuresListKeys.includes(f),
     ) || []
   const hasSuggestedFeatures = suggestedFeatures.length > 0
 
@@ -23,7 +23,6 @@ export default function Features() {
             <IconButton
               isRound={true}
               variant="solid"
-              colorScheme="teal"
               aria-label="Done"
               fontSize="sm"
               size={'xs'}

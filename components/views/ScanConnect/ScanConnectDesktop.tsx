@@ -46,7 +46,7 @@ export default function ScanConnectDesktop({
         <CopyButton text={uri} />
       </Flex>
 
-      <Box padding={3} borderRadius="0.75rem" borderWidth="1px">
+      <Box padding={3} borderRadius="0.75rem" borderWidth="1px" bg="white">
         {uri && (
           <QRCode
             value={uri}
