@@ -1,4 +1,3 @@
-import { nextJsImageToBase64 } from '../../../helpers/image'
 import { WalletConfig } from '../../wallets'
 import FlowWalletIcon from '!!url-loader?limit=true!./flow-wallet.svg'
 
