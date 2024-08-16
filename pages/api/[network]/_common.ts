@@ -5,10 +5,12 @@ import { findMatchingPipeVersion } from '../../../helpers/version'
 import { NETWORKS } from '../../../helpers/constants'
 import { getWalletPipes } from '../../../helpers/wallet-pipes'
 import { NextApiRequest } from 'next'
+import mixpanel from 'mixpanel'
 
 // Initializing the cors middleware
 export const cors = Cors({
   methods: ['POST'],
+  origin: '*',
 })
 
 export async function getWalletsFromRequest(
@@ -36,6 +38,12 @@ export async function getWalletsFromRequest(
   const isValidNetwork = Object.values(NETWORKS).includes(network)
   const discoveryRequestType = discoveryType || 'API'
   const services = clientServices || extensions || []
+
+  mixpanel?.track('Wallet Discovery Request', {
+    type: discoveryRequestType,
+    network,
+    fclVersion,
+  })
 
   if (!isValidNetwork) {
     throw new Error('Invalid network')
