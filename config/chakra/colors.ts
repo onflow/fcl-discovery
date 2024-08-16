@@ -1,4 +1,4 @@
-const baseColors = {
+export const baseColors = {
   primary: {
     '50': '#94B8FF',
     '100': '#7FA9FF',
@@ -13,21 +13,27 @@ const baseColors = {
   },
 }
 
-export const lightColors = {
-  ...baseColors,
+const lightColors = {
   background: '#FFFFFF',
   backgroundElevated: '#F7F7F7',
   buttonBackground: '#F2F2F2',
   borderColor: '#E0E0E0',
+  foreground: {
+    base: '#000000',
+    '60%': 'rgba(0, 0, 0, 0.6)',
+  },
 }
 
-export const darkColors = {
-  ...baseColors,
+const darkColors = {
   background: '#1C1C1E',
   backgroundElevated: '#2C2C2E',
   buttonBackground: '#2C2C2E',
   borderColor: '#3A3A3C',
-}
+  foreground: {
+    base: '#FFFFFF',
+    '60%': 'rgba(255, 255, 255, 0.6)',
+  },
+} as typeof lightColors
 
 export const semanticColorTokens: Record<string, any> = {}
 Object.entries(lightColors).forEach(([colorKey, colorValue]) => {
@@ -38,10 +44,13 @@ Object.entries(lightColors).forEach(([colorKey, colorValue]) => {
     }
   } else if (typeof colorValue === 'object') {
     Object.entries(colorValue).forEach(([shadeKey, shadeValue]) => {
-      semanticColorTokens[`${colorKey}-${shadeKey}`] = {
+      const key = shadeKey === 'base' ? colorKey : `${colorKey}.${shadeKey}`
+      semanticColorTokens[key] = {
         default: shadeValue,
         _dark: darkColors[colorKey][shadeKey],
       }
     })
   }
 })
+
+console.log(semanticColorTokens)

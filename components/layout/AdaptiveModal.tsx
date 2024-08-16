@@ -31,6 +31,7 @@ export function AdaptiveModal({
           roundedTop="1rem"
           h="min(30rem, calc(100vh - 4rem))"
           display="flex"
+          bg="background"
         >
           {children}
         </DrawerContent>

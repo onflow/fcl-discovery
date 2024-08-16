@@ -49,7 +49,7 @@ export default function ViewHeader({
               isRound={true}
               boxSize="1.75rem"
               minW="0"
-              color="rgba(0, 0, 0, 0.6)"
+              color="foreground.60%"
             ></IconButton>
           )}
         </Flex>

@@ -32,15 +32,16 @@ export default function CopyButton({ text, ...props }: CopyButtonProps) {
 
   return (
     <IconButton
-      variant={'ghost'}
-      size={'sm'}
-      isRound={true}
-      borderRadius={'full'}
-      aria-label={'Copy'}
+      variant="ghost"
+      color="foreground.60%"
+      size="sm"
+      borderRadius="full"
+      aria-label="Copy"
       minW={0}
       boxSize={size}
       icon={icon}
       onClick={onClick}
+      isRound
       {...props}
     ></IconButton>
   )

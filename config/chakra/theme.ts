@@ -4,7 +4,7 @@ import { headingConfig } from './components/heading'
 import { textConfig } from './components/text'
 import { buttonConfig } from './components/button'
 import { typography } from './typography'
-import { lightColors, semanticColorTokens } from './colors'
+import { baseColors, semanticColorTokens } from './colors'
 
 export const theme = extendTheme({
   initialColorMode: 'system',
@@ -13,6 +13,7 @@ export const theme = extendTheme({
     global: {
       body: {
         backgroundColor: 'transparent',
+        color: 'foreground',
       },
       '*': {
         borderColor: 'borderColor',
@@ -30,7 +31,7 @@ export const theme = extendTheme({
     Text: textConfig,
     Button: buttonConfig,
   },
-  colors: lightColors,
+  colors: baseColors,
   space: {
     xs: toRem(5),
     sm: toRem(8),
