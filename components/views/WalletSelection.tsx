@@ -22,7 +22,6 @@ export default function WalletSelection({
   const isCollapsed = useIsCollapsed()
   const { isLoading: walletsLoading } = useWallets()
   const { deviceInfo } = useDevice()
-  useWcUri()
 
   const content = (
     <Stack spacing={0} flexGrow={1} overflow="hidden">
