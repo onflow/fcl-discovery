@@ -48,11 +48,11 @@ export interface Wallet extends BaseWallet {
 }
 
 export const wallets: WalletConfig[] = [
-  blocto,
-  dapperWallet,
   devWallet,
   flowWallet,
+  dapperWallet,
   ledger,
   nufi,
+  blocto,
   shadow,
 ]

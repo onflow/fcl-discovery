@@ -1,13 +1,12 @@
-import { nextJsImageToBase64 } from '../../../helpers/image'
 import { WalletConfig } from '../../wallets'
-import BloctoIcon from './blocto.svg'
+import BloctoIcon from '!!url-loader?limit=true!./blocto.svg'
 
 const blocto: WalletConfig = {
   name: 'Blocto',
   uid: 'blocto',
   address: '0x55ad22f01ef568a1',
   description: 'Your entrance to the blockchain world.',
-  icon: nextJsImageToBase64(BloctoIcon),
+  icon: BloctoIcon,
   color: '#0075FF',
   supportEmail: 'support@blocto.app',
   website: 'https://blocto.io',

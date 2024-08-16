@@ -1,13 +1,12 @@
-import { nextJsImageToBase64 } from '../../../helpers/image'
 import { WalletConfig } from '../../wallets'
-import LedgerIcon from './ledger.svg'
+import LedgerIcon from '!!url-loader?limit=true!./ledger.svg'
 
 const ledger: WalletConfig = {
   name: 'Ledger',
   uid: 'ledger',
   address: '0xe5cd26afebe62781',
   description: 'Ledger wallets, designed with the highest security standards.',
-  icon: nextJsImageToBase64(LedgerIcon),
+  icon: LedgerIcon,
   color: '#1e2029',
   supportEmail: 'support@ledger.com',
   website: 'https://www.ledger.com',
