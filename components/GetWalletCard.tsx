@@ -1,4 +1,4 @@
-import { Flex, HStack, Image, Text } from '@chakra-ui/react'
+import { Flex, HStack, Text } from '@chakra-ui/react'
 import { Wallet } from '../data/wallets'
 import HybridButton from './HybridButton'
 import FeatureTag from './FeatureTag'

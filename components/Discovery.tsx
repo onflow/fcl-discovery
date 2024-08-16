@@ -93,7 +93,7 @@ export default function Discovery() {
   }
 
   const onBackToHome = () => {
-    if (deviceInfo.type === DeviceType.MOBILE) {
+    if (isCollapsed) {
       setCurrentView(VIEWS.WALLET_SELECTION)
     } else {
       setCurrentView(VIEWS.ABOUT_WALLETS)

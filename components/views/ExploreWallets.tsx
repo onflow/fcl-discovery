@@ -1,16 +1,29 @@
 import { Stack, Text } from '@chakra-ui/react'
-import GetWalletList from '../GetWalletList'
 import { Wallet } from '../../data/wallets'
+import GetWalletCard from '../GetWalletCard'
+import { useWallets } from '../../hooks/useWallets'
 
 interface ExploreWalletsProps {
   onGetWallet: (wallet: Wallet) => void
 }
 
 export default function ExploreWallets({ onGetWallet }: ExploreWalletsProps) {
+  const { wallets } = useWallets()
+
   return (
     <Stack spacing={0} flexGrow={1} overflow="hidden">
       <Stack px={5} pb={5} overflow="scroll">
-        <GetWalletList onGetWallet={onGetWallet} />
+        <Stack spacing="1rem">
+          {wallets.map(wallet => {
+            return (
+              <GetWalletCard
+                key={wallet.uid}
+                wallet={wallet}
+                onGetWallet={() => onGetWallet(wallet)}
+              />
+            )
+          })}
+        </Stack>
       </Stack>
       <Stack
         px={5}
