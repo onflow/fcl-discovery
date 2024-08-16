@@ -5,6 +5,7 @@ import ActionCard from './ActionCard'
 import { useDevice } from '../contexts/DeviceContext'
 import { DeviceType } from '../helpers/device'
 import { getBrowserInfo } from '../helpers/browsers'
+import { useRpc } from '../contexts/FclContext'
 
 export type ConnectCardProps = {
   onConnect: () => void
@@ -38,13 +39,19 @@ export function ConnectCard({
 
 function useConnectCardInfo(wallet: Wallet, service: Service) {
   const { deviceInfo } = useDevice()
+  const { rpcEnabled } = useRpc()
+
   let title: string, description: string, buttonText: string, icon: string
   switch (service.method) {
     case FCL_SERVICE_METHODS.WC:
       title = `${wallet.name} Mobile`
       description = `Confirm the connection in the mobile app`
-      buttonText =
-        deviceInfo.type === DeviceType.MOBILE ? `Open Wallet` : `Scan QR Code`
+      if (deviceInfo.type === DeviceType.MOBILE) {
+        buttonText = `Open Wallet`
+      } else {
+        // Older clients may skip scanning QR and use existing session
+        buttonText = rpcEnabled ? `Scan QR Code` : `Open Wallet`
+      }
       icon = wallet.icon
       break
     case FCL_SERVICE_METHODS.EXT:
