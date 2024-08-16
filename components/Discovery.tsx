@@ -48,14 +48,14 @@ export default function Discovery() {
   const { rpcEnabled } = useRpc()
   const { supportedStrategies } = useConfig()
 
-  // Skip the connect page if there is only one service available
+  // Skip the connect page if there is only one service available and no install links
   const shouldSkipConnectPage = (wallet: Wallet) =>
     new Set([
       ...(wallet?.services?.map(s => s.method) || []),
       ...Object.keys(
         getCompatibleInstallLinks(wallet, supportedStrategies, deviceInfo),
       ),
-    ]).size >= 1 && wallet?.services?.length === 1
+    ]).size === 1 && wallet?.services?.length === 1
 
   // WALLET_SELECTION does not exist when expanded
   // We may need to adjust the current view when the sidebar is collapsed
