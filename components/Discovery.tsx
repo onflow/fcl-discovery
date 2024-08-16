@@ -55,7 +55,7 @@ export default function Discovery() {
       ...Object.keys(
         getCompatibleInstallLinks(wallet, supportedStrategies, deviceInfo),
       ),
-    ]).size >= 1 && wallet?.services?.length >= 1
+    ]).size >= 1 && wallet?.services?.length === 1
 
   // WALLET_SELECTION does not exist when expanded
   // We may need to adjust the current view when the sidebar is collapsed
