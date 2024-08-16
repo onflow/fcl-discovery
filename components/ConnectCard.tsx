@@ -49,8 +49,8 @@ function useConnectCardInfo(wallet: Wallet, service: Service) {
       if (deviceInfo.type === DeviceType.MOBILE) {
         buttonText = `Open Wallet`
       } else {
-        // Older clients may skip scanning QR and use existing session
-        buttonText = rpcEnabled ? `Scan QR Code` : `Open Wallet`
+        // Older FCL clients may skip scanning QR and use existing session
+        buttonText = rpcEnabled ? `Scan QR Code` : `Connect`
       }
       icon = wallet.icon
       break
