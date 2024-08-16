@@ -30,7 +30,7 @@ export default function GetWalletCard({ wallet, getButtonOptions }: Props) {
           {wallet.name}
         </Text>
 
-        <HStack mt={1}>
+        <HStack mt={1} spacing={1}>
           {walletFeatures.map(featureId => (
             <FeatureTag key={featureId} featureId={featureId} />
           ))}
