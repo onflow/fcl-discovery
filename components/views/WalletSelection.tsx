@@ -7,6 +7,7 @@ import { useWcUri } from '../../hooks/useWcUri'
 import { useWallets } from '../../hooks/useWallets'
 import { DeviceType } from '../../helpers/device'
 import { ViewContainer } from '../layout/ViewContainer'
+import { useRpc } from '../../contexts/FclContext'
 
 type Props = {
   onSelectWallet: (wallet: Wallet) => void
@@ -64,11 +65,11 @@ const MobileWrapper = ({
   isLoading?: boolean
 }) => {
   const { isLoading: wcUriLoading } = useWcUri()
+  const { rpcEnabled } = useRpc()
+  const shouldShowLoading = (wcUriLoading && rpcEnabled) || isLoading
 
   return (
-    <LoadingWrapper isLoading={wcUriLoading || isLoading}>
-      {children}
-    </LoadingWrapper>
+    <LoadingWrapper isLoading={shouldShowLoading}>{children}</LoadingWrapper>
   )
 }
 
