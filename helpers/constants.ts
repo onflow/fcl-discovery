@@ -1,13 +1,14 @@
 import Enum from 'enum-xyz'
 import { Browser } from './browsers'
 
-const { AUTHN, CANARYNET, TESTNET, PREVIEWNET, MAINNET, LOCAL, EMULATOR } =
+const { AUTHN, CANARYNET, TESTNET, PREVIEWNET, MAINNET, LOCAL, EMULATOR, MIGRATIONNET } =
   Enum.String({ casing: 'lowercase' })
 
 export const NETWORKS = {
   CANARYNET, // canarynet
   TESTNET,
   PREVIEWNET,
+  MIGRATIONNET,
   MAINNET,
   LOCAL,
   EMULATOR,
@@ -36,6 +37,7 @@ export const PATHS = {
   MAINNET: '/authn',
   MAINNET_EXPLICIT: '/mainnet/authn',
   TESTNET: '/testnet/authn',
+  MIGRATIONNET: '/migrationnet/authn',
   PREVIEWNET: '/previewnet/authn',
   CANARYNET: '/canarynet/authn',
   LOCAL: '/local/authn',

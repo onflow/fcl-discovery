@@ -38,6 +38,7 @@ export interface WalletConfig extends BaseWallet {
     mainnet?: ServiceConfig[]
     testnet?: ServiceConfig[]
     previewnet?: ServiceConfig[]
+    migrationnet?: ServiceConfig[]
     canarynet?: ServiceConfig[]
     local?: ServiceConfig[]
   }

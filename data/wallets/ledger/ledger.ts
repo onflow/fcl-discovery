@@ -36,6 +36,20 @@ const ledger: WalletConfig = {
         },
       },
     ],
+    migrationnet: [
+      {
+        f_type: 'Service',
+        f_vsn: '1.0.0',
+        type: 'authn',
+        method: 'IFRAME/RPC',
+        uid: 'ledger#authn',
+        endpoint: 'https://fcl-ledger.onflow.org/migrationnet/authn',
+        optIn: true,
+        provider: {
+          address: '0x9d2e44203cb13051',
+        },
+      },
+    ],
     canarynet: [
       {
         f_type: 'Service',

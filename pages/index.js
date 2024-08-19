@@ -12,6 +12,10 @@ export default function Home() {
           https://fcl-discovery.onflow.org/api/testnet/authn
         </div>
         <div>
+          <strong>Migrationnet:</strong>{' '}
+          https://fcl-discovery.onflow.org/api/migrationnet/authn
+        </div>
+        <div>
           <strong>Previewnet:</strong>{' '}
           https://fcl-discovery.onflow.org/api/previewnet/authn
         </div>

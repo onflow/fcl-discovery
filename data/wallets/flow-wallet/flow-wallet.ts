@@ -104,6 +104,34 @@ const flowWallet: WalletConfig = {
         },
       },
     ],
+    migrationnet: [
+      {
+        f_type: 'Service',
+        f_vsn: '1.0.0',
+        type: 'authn',
+        method: 'EXT/RPC',
+        uid: 'fcw#authn',
+        endpoint:
+          'chrome-extension://hpclkefagolihohboafpheddmmgdffjm/popup.html',
+        provider: {
+          // Legacy override for systems using old /api/authn endpoint
+          address: '0x33f75ff0b830dcec',
+        },
+      },
+      {
+        f_type: 'Service',
+        f_vsn: '1.0.0',
+        type: 'authn',
+        method: 'WC/RPC',
+        uid: 'https://fcw-link.lilico.app/wc',
+        endpoint: 'flow_authn',
+        provider: {
+          // Legacy override for systems using old /api/authn endpoint
+          name: 'Flow Wallet Mobile',
+          address: '0xc7efa8c33fceee03',
+        },
+      },
+    ],
   },
   features: ['evm', 'mobile', 'extension'],
 }
