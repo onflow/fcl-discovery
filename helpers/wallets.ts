@@ -78,3 +78,7 @@ export function extractAllServicesWithProvider(wallets: Wallet[]) {
     return acc
   }, [])
 }
+
+export function removeEmptyWallets(wallets: Wallet[]) {
+  return wallets.filter(wallet => wallet.services.length > 0)
+}
