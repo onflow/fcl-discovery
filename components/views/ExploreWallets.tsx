@@ -25,7 +25,7 @@ export default function ExploreWallets({ onGetWallet }: ExploreWalletsProps) {
 
   return (
     <Stack spacing={0} flexGrow={1} overflow="hidden">
-      <Stack px={5} pb={5} overflow="scroll">
+      <Stack px={5} pb={5} overflow="auto">
         <Stack spacing="1rem">
           {wallets?.map((wallet, idx) => {
             // If the wallet has install links, we move to next view to install

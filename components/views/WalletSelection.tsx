@@ -26,7 +26,7 @@ export default function WalletSelection({
 
   const content = (
     <Stack spacing={0} flexGrow={1} overflow="hidden">
-      <Stack overflow="scroll" px={4} pb={5} flexGrow={1}>
+      <Stack overflow="auto" px={4} pb={5} flexGrow={1}>
         <ServiceList
           onSelectWallet={onSelectWallet}
           selectedWallet={selectedWallet}
