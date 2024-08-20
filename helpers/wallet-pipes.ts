@@ -27,7 +27,6 @@ import {
   walletsForNetwork,
 } from './wallets'
 import { injectClientServices } from './inject-wallets'
-import { Service } from '../types'
 
 export const getWalletPipes = ({
   fclVersion,
@@ -129,7 +128,8 @@ export const getWalletPipes = ({
         ),
         removeEmptyWallets,
 
-        // Process services without removal steps
+        // Filter services based on installation status
+        // Do not remove empty wallets, as we want to show installable wallets
         pipeWalletServices(
           ({ wallets }) =>
             pipe(
