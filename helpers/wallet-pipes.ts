@@ -1,6 +1,6 @@
 // Version key is the highest the pipe supports
 
-import { always, identity, ifElse, pipe, reject, when } from 'rambda'
+import { always, filter, identity, ifElse, pipe, reject, when } from 'rambda'
 import {
   isExtension,
   serviceListOfMethod,
@@ -21,9 +21,12 @@ import {
 } from './constants'
 import { getBrowserFromUserAgent } from './device'
 import { isGreaterThanOrEqualToVersion } from './version'
-import { pipeWalletServices, walletsForNetwork } from './wallets'
+import {
+  pipeWalletServices,
+  removeEmptyWallets,
+  walletsForNetwork,
+} from './wallets'
 import { injectClientServices } from './inject-wallets'
-import { Service } from '../types'
 
 export const getWalletPipes = ({
   fclVersion,
@@ -112,7 +115,10 @@ export const getWalletPipes = ({
         // Select wallets for the correct network
         walletsForNetwork(network),
 
-        // Pre-process services
+        // Inject client services
+        injectClientServices(clientServices),
+
+        // Filter unsupported services and remove empty wallets after
         pipeWalletServices(({ wallets }) =>
           pipe(
             filterSupportedStrategies(supportedStrategies),
@@ -120,11 +126,10 @@ export const getWalletPipes = ({
             filterOptInServices({ wallets, includeList: include }),
           ),
         ),
+        removeEmptyWallets,
 
-        // Inject client services
-        injectClientServices(clientServices),
-
-        // Post-process services
+        // Filter services based on installation status
+        // Do not remove empty wallets, as we want to show installable wallets
         pipeWalletServices(
           ({ wallets }) =>
             pipe(

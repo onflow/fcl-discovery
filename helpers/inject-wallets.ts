@@ -6,7 +6,7 @@ import { filterUniqueServices } from './services'
 
 type InjectionPipeValue = [
   injectedServices: (ServiceWithWallet | Service)[],
-  newWallets: Record<string, Wallet>
+  newWallets: Record<string, Wallet>,
 ]
 
 type WalletIdMap = {
@@ -19,7 +19,7 @@ export const injectClientServices =
   (wallets: Wallet[] = []) => {
     const [injectedServices, newWallets] = pipe(
       assignServiceWallets(wallets),
-      deriveWalletsFromUnknownServices
+      deriveWalletsFromUnknownServices,
     )([clientServices, {}])
 
     const updatedWallets = concat(wallets, Object.values(newWallets))
@@ -28,7 +28,7 @@ export const injectClientServices =
       const newServices = pipe(
         // Find corresponding services
         filter(
-          (service: ServiceWithWallet) => service.walletUid === wallet.uid
+          (service: ServiceWithWallet) => service.walletUid === wallet.uid,
         ),
         // Remove wallet uid
         map(({ walletUid: _, ...service }) => service),
@@ -38,7 +38,7 @@ export const injectClientServices =
         filterUniqueServices({
           address: true,
           uid: true,
-        })
+        }),
       )(injectedServices as ServiceWithWallet[])
 
       const newWallet = clone(wallet)
@@ -62,14 +62,14 @@ export const generateWalletIdMap = (wallets: Wallet[]) =>
     {
       serviceUidToWalletUid: {},
       providerAddressToWalletUid: {},
-    } as WalletIdMap
+    } as WalletIdMap,
   )
 
 export const assignServiceWallets =
   (wallets: Wallet[]) =>
   ([services, newWallets]: InjectionPipeValue): [
     injectedServices: ServiceWithWallet[],
-    newWallets: Record<string, Wallet>
+    newWallets: Record<string, Wallet>,
   ] => {
     const walletIdMap = generateWalletIdMap(wallets)
     return [
@@ -100,10 +100,11 @@ export const deriveWalletsFromUnknownServices = ([
       newWallets[newWallet.uid] = newWallet
       services.push({
         ...service,
+        walletUid: newWallet.uid,
       })
       return [services, newWallets]
     },
-    [[], clone(newWallets)] as InjectionPipeValue
+    [[], clone(newWallets)] as InjectionPipeValue,
   )
 
 // Support legacy injected services which do not have an associated wallet known
