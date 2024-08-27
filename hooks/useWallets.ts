@@ -27,6 +27,7 @@ export function useWallets() {
     appVersion,
     clientConfig,
     walletInclude,
+    walletExclude,
     clientServices,
     supportedStrategies,
     network,
@@ -38,6 +39,7 @@ export function useWallets() {
     type: ['authn'],
     fclVersion: appVersion,
     include: walletInclude,
+    exclude: walletExclude,
     features: {
       suggested: clientConfig?.discoveryFeaturesSuggested || [],
     },
