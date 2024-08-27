@@ -53,6 +53,12 @@ export const filterOptInServices = ({ wallets, includeList = [] }) =>
     return true
   })
 
+export const filterExcludedServices = ({ wallets, excludeList = [] }) =>
+  filter(service => {
+    const wallet = wallets?.find(w => w.uid === service.walletUid)
+    return !excludeList.includes(service?.provider?.address || wallet?.address)
+  })
+
 export const isExtension = service =>
   service?.method === FCL_SERVICE_METHODS.EXT
 

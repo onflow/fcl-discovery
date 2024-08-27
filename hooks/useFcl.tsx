@@ -21,6 +21,7 @@ export interface FclConfig {
   clientConfig: { [key: string]: any }
   appVersion: string
   walletInclude: string[]
+  walletExclude: string[]
   clientServices: Service[]
   supportedStrategies: FCL_SERVICE_METHODS[]
   rpcEnabled?: boolean
@@ -46,6 +47,7 @@ export function useFcl() {
             config.discoveryAuthnInclude ||
             config.client?.discoveryAuthnInclude ||
             [],
+          walletExclude: config.discoveryAuthnExclude || [],
           clientServices:
             config.client?.clientServices ||
             config.client?.extensions ||

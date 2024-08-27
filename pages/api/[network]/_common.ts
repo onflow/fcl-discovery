@@ -29,6 +29,7 @@ export async function getWalletsFromRequest(
   const {
     fclVersion,
     include,
+    exclude,
     extensions,
     userAgent,
     clientServices,
@@ -56,6 +57,7 @@ export async function getWalletsFromRequest(
     fclVersion,
     discoveryType: discoveryRequestType,
     include,
+    exclude,
     userAgent,
     clientServices: services,
     supportedStrategies,
