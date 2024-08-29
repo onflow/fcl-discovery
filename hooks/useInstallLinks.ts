@@ -32,10 +32,10 @@ export function getInstallLinkForMethod(
       }
       return wallet.installLink?.mobile || null
     case FCL_SERVICE_METHODS.EXT:
-      const isBrowserKnown = deviceInfo.browser !== Browser.UNKNOWN
+      const isBrowserUnknown = deviceInfo.browser === Browser.UNKNOWN
       return (
         wallet.installLink?.[deviceInfo.browser] ||
-        (isBrowserKnown && wallet.installLink?.browser) ||
+        (isBrowserUnknown && wallet.installLink?.browser) ||
         null
       )
   }
