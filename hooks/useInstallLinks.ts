@@ -4,6 +4,7 @@ import { DeviceInfo, DeviceType } from '../helpers/device'
 import { useConfig } from '../contexts/FclContext'
 import { FCL_SERVICE_METHODS } from '../helpers/constants'
 import { useMemo } from 'react'
+import { Browser } from '../helpers/browsers'
 
 export function useInstallLinks(wallet: Wallet) {
   const { deviceInfo } = useDevice()
@@ -31,9 +32,10 @@ export function getInstallLinkForMethod(
       }
       return wallet.installLink?.mobile || null
     case FCL_SERVICE_METHODS.EXT:
+      const isBrowserKnown = deviceInfo.browser !== Browser.UNKNOWN
       return (
         wallet.installLink?.[deviceInfo.browser] ||
-        wallet.installLink?.browser ||
+        (isBrowserKnown && wallet.installLink?.browser) ||
         null
       )
   }
