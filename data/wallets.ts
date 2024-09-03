@@ -6,7 +6,6 @@ import devWallet from './wallets/dev-wallet/dev-wallet'
 import flowWallet from './wallets/flow-wallet/flow-wallet'
 import ledger from './wallets/ledger/ledger'
 import nufi from './wallets/nufi/nufi'
-import shadow from './wallets/shadow/shadow'
 import { Browser } from '../helpers/browsers'
 import { MobilePlatform } from '../helpers/device'
 
@@ -54,5 +53,4 @@ export const wallets: WalletConfig[] = [
   ledger,
   nufi,
   blocto,
-  shadow,
 ]
