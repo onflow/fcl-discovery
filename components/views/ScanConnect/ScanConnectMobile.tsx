@@ -95,7 +95,7 @@ export default function ScanConnectMobile({
           spacing={2}
         >
           <Text textStyle="body2" colorScheme="red">
-            {`An error has occurred while generating the QR code. Please try again.`}
+            {`An error has occurred while connecting to your mobile wallet. Please try again.`}
           </Text>
         </Stack>
       )}
