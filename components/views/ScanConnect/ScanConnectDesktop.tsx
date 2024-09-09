@@ -1,4 +1,4 @@
-import { Box, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Box, Flex, Spinner, Stack, Text, Tooltip } from '@chakra-ui/react'
 import { Wallet } from '../../../data/wallets'
 import QRCode from '../../QRCode'
 import CopyButton from '../../CopyButton'
@@ -7,7 +7,7 @@ import { useWcUri } from '../../../hooks/useWcUri'
 import { useWalletHistory } from '../../../hooks/useWalletHistory'
 import { handleCancel } from '../../../helpers/window'
 import { ViewContainer } from '../../layout/ViewContainer'
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 interface ScanConnectDesktopProps {
   wallet: Wallet
@@ -30,9 +30,24 @@ export default function ScanConnectDesktop({
     navigator.permissions
       .query({ name: 'clipboard-write' as PermissionName })
       .then(result => {
-        setIsClipboardAllowed(result.state === 'granted')
+        setIsClipboardAllowed(result?.state === 'granted')
+      })
+      .catch(() => {
+        setIsClipboardAllowed(false)
       })
   }, [])
+
+  const wrapTooltip = (node: ReactNode) => {
+    if (isClipboardAllowed) {
+      return node
+    }
+
+    return (
+      <Tooltip label={isClipboardAllowed ? '' : 'Clipboard access is blocked'}>
+        {node}
+      </Tooltip>
+    )
+  }
 
   if (connecting) {
     return (
@@ -54,10 +69,13 @@ export default function ScanConnectDesktop({
     >
       <Flex justifyContent="space-between" width="100%" alignItems="center">
         <Text textStyle="body2">Scan in the {wallet.name} app to connect</Text>
-        <CopyButton
-          text={uri}
-          disabled={!uri || isLoading || !isClipboardAllowed}
-        />
+        {wrapTooltip(
+          <CopyButton
+            text={uri}
+            disabled={!uri || isLoading || !isClipboardAllowed}
+            tooltip="Copy URI"
+          />,
+        )}
       </Flex>
 
       <Box padding={3} borderRadius="0.75rem" borderWidth="1px" bg="white">
