@@ -54,9 +54,10 @@ export default function ScanConnectDesktop({
     >
       <Flex justifyContent="space-between" width="100%" alignItems="center">
         <Text textStyle="body2">Scan in the {wallet.name} app to connect</Text>
-        {isClipboardAllowed && (
-          <CopyButton text={uri} disabled={!uri || isLoading} />
-        )}
+        <CopyButton
+          text={uri}
+          disabled={!uri || isLoading || !isClipboardAllowed}
+        />
       </Flex>
 
       <Box padding={3} borderRadius="0.75rem" borderWidth="1px" bg="white">
