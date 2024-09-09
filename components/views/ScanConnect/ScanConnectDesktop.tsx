@@ -73,7 +73,6 @@ export default function ScanConnectDesktop({
           <CopyButton
             text={uri}
             disabled={!uri || isLoading || !isClipboardAllowed}
-            tooltip="Copy URI"
           />,
         )}
       </Flex>
