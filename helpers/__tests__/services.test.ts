@@ -46,7 +46,7 @@ describe('services helpers: filterUniqueServices', () => {
     const serviceList = [serviceA, serviceB, serviceC, serviceD]
     const expectedList = [serviceA, serviceB, serviceC]
     const filteredList = filterUniqueServices({ address: true, uid: false })(
-      serviceList
+      serviceList,
     )
 
     expect(filteredList).toEqual(expectedList)
@@ -91,7 +91,7 @@ describe('services helpers: filterUniqueServices', () => {
     const serviceList = [serviceA, serviceB, serviceC, serviceD]
     const expectedList = [serviceA, serviceB, serviceC]
     const filteredList = filterUniqueServices({ address: true, uid: true })(
-      serviceList
+      serviceList,
     )
 
     expect(filteredList).toEqual(expectedList)
@@ -131,10 +131,10 @@ describe('services helpers: combineServices', () => {
     const expectedListTwo = [serviceC, serviceA, serviceB]
 
     expect(combineServices(serviceListOne, serviceListTwo)).toEqual(
-      expectedListOne
+      expectedListOne,
     )
     expect(combineServices(serviceListOne, serviceListTwo, true)).toEqual(
-      expectedListTwo
+      expectedListTwo,
     )
   })
 })
@@ -202,10 +202,10 @@ describe('services helpers: filterOptInServices', () => {
     const expectedResponseB = [serviceA, serviceB, serviceC]
 
     const walletsA = serviceListA.map(x =>
-      injectedServiceToWallet(x as Service)
+      injectedServiceToWallet(x as Service),
     )
     const walletsB = serviceListB.map(x =>
-      injectedServiceToWallet(x as Service)
+      injectedServiceToWallet(x as Service),
     )
 
     const filterOptInServicesA = filterOptInServices({
@@ -263,10 +263,11 @@ describe('services helpers: filterServicesByPlatform', () => {
       services: [x],
     }))
     const services = extractWalletServices(wallets as any)
+    const extensions = []
     const expectedRes = [serviceA, serviceB, serviceC]
 
-    expect(filterServicesByPlatform({ wallets, platform })(services)).toEqual(
-      expectedRes
-    )
+    expect(
+      filterServicesByPlatform({ wallets, platform, extensions })(services),
+    ).toEqual(expectedRes)
   })
 })
