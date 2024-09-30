@@ -50,6 +50,8 @@ export default function ScanConnectMobile({
       link.target = '_blank'
       link.rel = 'noreferrer noopener'
       link.click()
+    } else {
+      window.location.href = deeplink.toString()
     }
   }
 
