@@ -43,8 +43,11 @@ export default function ScanConnectDesktop({
     >
       <HStack width="full">
         <Text textStyle="body2">
-          Scan in the <Text textStyle="body2Bold">{wallet.name}</Text> app to
-          connect
+          Scan in the{' '}
+          <Text as="span" textStyle="body2Bold">
+            {wallet.name}
+          </Text>{' '}
+          app to connect
         </Text>
         <CopyButton text={uri} isDisabled={!uri || isLoading} ml="auto" />
       </HStack>
