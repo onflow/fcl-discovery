@@ -8,6 +8,7 @@ import { useWallets } from '../../hooks/useWallets'
 import { DeviceType } from '../../helpers/device'
 import { ViewContainer } from '../layout/ViewContainer'
 import { useRpc } from '../../contexts/FclContext'
+import { useEffect, useState } from 'react'
 
 type Props = {
   onSelectWallet: (wallet: Wallet) => void
@@ -68,8 +69,26 @@ const MobileWrapper = ({
   const { rpcEnabled } = useRpc()
   const shouldShowLoading = (wcUriLoading && rpcEnabled) || isLoading
 
+  // If the WC URI is still loading after 5 seconds, there is likely an issue
+  // with WalletConnect. The loading spinner will be disabled in order to prevent
+  // blocking the entire page. If the user proceeds to a mobile wallet and the WC URI
+  // happens to load, deep linking may not work as expected, but the user can still
+  // manually retry the connection.
+  const [isTimedOut, setIsTimedOut] = useState(false)
+  useEffect(() => {
+    if (!wcUriLoading) {
+      return
+    }
+    const timeout = setTimeout(() => {
+      setIsTimedOut(true)
+    }, 5000)
+    return () => clearTimeout(timeout)
+  }, [wcUriLoading])
+
   return (
-    <LoadingWrapper isLoading={shouldShowLoading}>{children}</LoadingWrapper>
+    <LoadingWrapper isLoading={shouldShowLoading && !isTimedOut}>
+      {children}
+    </LoadingWrapper>
   )
 }
 
