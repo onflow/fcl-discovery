@@ -1,4 +1,5 @@
 import useSWR from 'swr'
+import * as Sentry from '@sentry/nextjs'
 import { useRpc } from '../contexts/FclContext'
 import { DiscoveryNotification, FclRequest } from '../helpers/rpc'
 import { useEffect, useRef, useState } from 'react'
@@ -20,6 +21,7 @@ export function useWcUri(onConnected?: () => void) {
       FclRequest.REQUEST_WALLETCONNECT_QRCODE,
       {},
     )
+
     return uri
   })
 
