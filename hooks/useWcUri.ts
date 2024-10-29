@@ -1,5 +1,4 @@
 import useSWR from 'swr'
-import * as Sentry from '@sentry/nextjs'
 import { useRpc } from '../contexts/FclContext'
 import { DiscoveryNotification, FclRequest } from '../helpers/rpc'
 import { useEffect, useRef, useState } from 'react'
