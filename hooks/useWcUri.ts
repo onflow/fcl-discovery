@@ -20,7 +20,6 @@ export function useWcUri(onConnected?: () => void) {
       FclRequest.REQUEST_WALLETCONNECT_QRCODE,
       {},
     )
-
     return uri
   })
 
