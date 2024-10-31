@@ -6,6 +6,8 @@ import { AdaptiveModal } from '../components/layout/AdaptiveModal'
 import { DeviceProvider } from '../contexts/DeviceContext'
 import App, { AppContext, AppProps } from 'next/app'
 import { ColorModeSync } from '../components/ColorModeSync'
+import { SWRConfig } from 'swr'
+import * as Sentry from '@sentry/nextjs'
 
 function MyApp({
   Component,
@@ -19,14 +21,20 @@ function MyApp({
   }
 
   return (
-    <ChakraProvider theme={theme}>
-      <ColorModeSync />
-      <DeviceProvider userAgent={pageProps.userAgent}>
-        <AdaptiveModal isOpen={isOpen} onClose={handleOnClose}>
-          <Component {...pageProps} />
-        </AdaptiveModal>
-      </DeviceProvider>
-    </ChakraProvider>
+    <SWRConfig
+      value={{
+        onError: (err, key) => Sentry.captureException(err, { extra: { key } }),
+      }}
+    >
+      <ChakraProvider theme={theme}>
+        <ColorModeSync />
+        <DeviceProvider userAgent={pageProps.userAgent}>
+          <AdaptiveModal isOpen={isOpen} onClose={handleOnClose}>
+            <Component {...pageProps} />
+          </AdaptiveModal>
+        </DeviceProvider>
+      </ChakraProvider>
+    </SWRConfig>
   )
 }
 
