@@ -1,18 +1,15 @@
 import Mixpanel from 'mixpanel-browser'
 import { trackWalletConnected, trackWalletDiscoveryRequest } from './telemetry'
-import { TelemetryConfigClient } from './types'
+import { TelemetryDataClient } from './types'
 
 let mixpanel: any = null
 
-export function getTelemetryClient(
-  config: TelemetryConfigClient,
-  baseData: any,
-) {
+export function getTelemetryClient(baseData: TelemetryDataClient) {
   if (process.env.NEXT_PUBLIC_MIXPANEL_ID && !mixpanel) {
     mixpanel = Mixpanel.init(process.env.MIXPANEL_ID)
   }
 
-  mixpanel.register(config)
+  mixpanel.register(baseData)
 
   return {
     trackWalletDiscoveryRequest: trackWalletDiscoveryRequest(

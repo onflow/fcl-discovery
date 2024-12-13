@@ -1,13 +1,13 @@
-export type TelemetryConfig = {
+export type TelemetryData = {
   fclVersion: string
   type: 'UI' | 'API'
   network: string
 }
 
-export type TelemetryConfigServer = TelemetryConfig & {
+export type TelemetryDataServer = TelemetryData & {
   origin?: string
 }
 
-export type TelemetryConfigClient = TelemetryConfig & {
+export type TelemetryDataClient = TelemetryData & {
   parent: string
 }

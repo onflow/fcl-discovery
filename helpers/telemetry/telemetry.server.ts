@@ -1,10 +1,10 @@
 import Mixpanel from 'mixpanel'
-import { TelemetryConfigServer } from './types'
+import { TelemetryDataServer } from './types'
 import { trackWalletConnected, trackWalletDiscoveryRequest } from './telemetry'
 
 let mixpanel: Mixpanel.Mixpanel | null = null
 
-export function getTelemetryServer(baseData: TelemetryConfigServer) {
+export function getTelemetryServer(baseData: TelemetryDataServer) {
   if (process.env.MIXPANEL_ID && !mixpanel) {
     mixpanel = Mixpanel.init(process.env.MIXPANEL_ID)
   }
