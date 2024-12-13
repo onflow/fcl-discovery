@@ -22,7 +22,7 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
   const { setLastUsed } = useWalletHistory()
   const telemetry = useTelemetry()
 
-  const connect = useCallback(() => {
+  const connect = () => {
     setIsConnecting(true)
     wallet.services.forEach(service => {
       if (service.method === FCL_SERVICE_METHODS.EXT) {
@@ -41,7 +41,7 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
           })
       }
     })
-  }, [rpc, wallet, telemetry, setLastUsed])
+  }
 
   useEffect(() => {
     if (!hasAttemptedConnection.current) {
