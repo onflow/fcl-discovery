@@ -4,7 +4,10 @@ import { TelemetryConfigClient } from './types'
 
 let mixpanel: any = null
 
-export function getTelemetryClient(config: TelemetryConfigClient) {
+export function getTelemetryClient(
+  config: TelemetryConfigClient,
+  baseData: any,
+) {
   if (process.env.NEXT_PUBLIC_MIXPANEL_ID && !mixpanel) {
     mixpanel = Mixpanel.init(process.env.MIXPANEL_ID)
   }
@@ -12,7 +15,10 @@ export function getTelemetryClient(config: TelemetryConfigClient) {
   mixpanel.register(config)
 
   return {
-    trackWalletDiscoveryRequest: trackWalletDiscoveryRequest(mixpanel),
-    trackWalletConnected: trackWalletConnected(mixpanel),
+    trackWalletDiscoveryRequest: trackWalletDiscoveryRequest(
+      mixpanel,
+      baseData,
+    ),
+    trackWalletConnected: trackWalletConnected(mixpanel, baseData),
   }
 }
