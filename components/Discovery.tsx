@@ -19,8 +19,8 @@ import { Service } from '../types'
 import { useConfig, useRpc } from '../contexts/FclContext'
 import { handleCancel } from '../helpers/window'
 import { useDevice } from '../contexts/DeviceContext'
-import { DeviceType } from '../helpers/device'
 import { getCompatibleInstallLinks } from '../hooks/useInstallLinks'
+import { useTelemetry } from '../hooks/useTelemetry'
 
 export enum VIEWS {
   WALLET_SELECTION,
@@ -47,6 +47,7 @@ export default function Discovery() {
   const { deviceInfo } = useDevice()
   const { rpcEnabled } = useRpc()
   const { supportedStrategies } = useConfig()
+  const telemetry = useTelemetry()
 
   // Skip the connect page if there is only one service available and no install links
   const shouldSkipConnectPage = (wallet: Wallet) =>
@@ -78,6 +79,10 @@ export default function Discovery() {
       setCurrentView(VIEWS.CONNECT_EXTENSION)
     } else {
       fcl.WalletUtils.redirect(service)
+      telemetry.trackWalletConnected(
+        wallet.uid,
+        service.method as FCL_SERVICE_METHODS,
+      )
     }
 
     setSelectedWallet(wallet)

@@ -8,6 +8,7 @@ import { useEffect, useRef } from 'react'
 import { FCL_SERVICE_METHODS } from '../../../helpers/constants'
 import WalletIcon from '../../icons/WalletIcon'
 import { ViewContainer } from '../../layout/ViewContainer'
+import { useTelemetry } from '../../../hooks/useTelemetry'
 
 interface ScanConnectMobileProps {
   wallet: Wallet
@@ -21,7 +22,9 @@ export default function ScanConnectMobile({
   noDeepLink,
 }: ScanConnectMobileProps) {
   const { setLastUsed } = useWalletHistory()
+  const telemetry = useTelemetry()
   const { uri, connecting, error, isLoading } = useWcUri(() => {
+    telemetry.trackWalletConnected(wallet.uid, FCL_SERVICE_METHODS.WC)
     setLastUsed(wallet)
     handleCancel()
   })
