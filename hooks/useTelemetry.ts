@@ -1,5 +1,5 @@
 import { useConfig } from '../contexts/FclContext'
-import { getTelemetryClient } from '../helpers/telemetry'
+import { getTelemetryClient } from '../helpers/telemetry/telemetry.client'
 
 export function useTelemetry() {
   const cfg = useConfig()

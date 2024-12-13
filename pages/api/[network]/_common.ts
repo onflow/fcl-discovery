@@ -5,7 +5,7 @@ import { findMatchingPipeVersion } from '../../../helpers/version'
 import { NETWORKS } from '../../../helpers/constants'
 import { getWalletPipes } from '../../../helpers/wallet-pipes'
 import { NextApiRequest } from 'next'
-import { getTelemetryServer } from '../../../helpers/telemetry'
+import { getTelemetryServer } from '../../../helpers/telemetry/telemetry.server'
 
 // Initializing the cors middleware
 export const cors = Cors({
