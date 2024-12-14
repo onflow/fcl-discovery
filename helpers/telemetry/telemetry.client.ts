@@ -6,7 +6,7 @@ let mixpanel: any = null
 
 export function getTelemetryClient(baseData: TelemetryDataClient) {
   if (process.env.NEXT_PUBLIC_MIXPANEL_ID && !mixpanel) {
-    mixpanel = Mixpanel.init(process.env.MIXPANEL_ID)
+    mixpanel = Mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
   }
 
   return {
