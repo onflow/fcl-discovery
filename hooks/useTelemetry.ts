@@ -7,6 +7,7 @@ export function useTelemetry() {
     network: cfg.network,
     type: 'UI',
     fclVersion: cfg.appVersion,
-    parent: window?.parent?.location?.href,
+    parent:
+      window.location != window.parent.location ? document.referrer : undefined,
   })
 }
