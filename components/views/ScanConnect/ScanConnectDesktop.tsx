@@ -7,6 +7,8 @@ import { useWcUri } from '../../../hooks/useWcUri'
 import { useWalletHistory } from '../../../hooks/useWalletHistory'
 import { handleCancel } from '../../../helpers/window'
 import { ViewContainer } from '../../layout/ViewContainer'
+import { FCL_SERVICE_METHODS } from '../../../helpers/constants'
+import { useTelemetry } from '../../../hooks/useTelemetry'
 
 interface ScanConnectDesktopProps {
   wallet: Wallet
@@ -18,7 +20,9 @@ export default function ScanConnectDesktop({
   onGetWallet,
 }: ScanConnectDesktopProps) {
   const { setLastUsed } = useWalletHistory()
+  const telemetry = useTelemetry()
   const { uri, connecting, error, isLoading } = useWcUri(() => {
+    telemetry.trackWalletConnected(wallet.uid, FCL_SERVICE_METHODS.WC)
     setLastUsed(wallet)
     handleCancel()
   })

@@ -5,7 +5,7 @@ import { findMatchingPipeVersion } from '../../../helpers/version'
 import { NETWORKS } from '../../../helpers/constants'
 import { getWalletPipes } from '../../../helpers/wallet-pipes'
 import { NextApiRequest } from 'next'
-import mixpanel from '../../../config/mixpanel.server'
+import { getTelemetryServer } from '../../../helpers/telemetry/telemetry.server'
 
 // Initializing the cors middleware
 export const cors = Cors({
@@ -21,10 +21,12 @@ export async function getWalletsFromRequest(
     network,
     discoveryType,
     port: portQuery,
+    origin,
   } = req.query as {
     network: string
     discoveryType: string
     port: string
+    origin: string
   }
   const {
     fclVersion,
@@ -39,11 +41,12 @@ export async function getWalletsFromRequest(
   const discoveryRequestType = discoveryType || 'API'
   const services = clientServices || extensions || []
 
-  mixpanel?.track('Wallet Discovery Request', {
-    type: discoveryRequestType,
+  getTelemetryServer({
+    type: discoveryRequestType as 'UI' | 'API',
     network,
     fclVersion,
-  })
+    origin,
+  }).trackWalletDiscoveryRequest()
 
   if (!isValidNetwork) {
     throw new Error('Invalid network')

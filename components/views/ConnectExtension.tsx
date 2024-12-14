@@ -1,6 +1,6 @@
 import { Button, Heading, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../data/wallets'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { FCL_SERVICE_METHODS } from '../../helpers/constants'
 import { useRpc } from '../../contexts/FclContext'
 import { FclRequest } from '../../helpers/rpc'
@@ -8,6 +8,7 @@ import WalletIcon from '../icons/WalletIcon'
 import { useWalletHistory } from '../../hooks/useWalletHistory'
 import { handleCancel } from '../../helpers/window'
 import { ViewContainer } from '../layout/ViewContainer'
+import { useTelemetry } from '../../hooks/useTelemetry'
 
 type ConnectExtensionProps = {
   wallet: Wallet
@@ -19,14 +20,16 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
   const hasAttemptedConnection = useRef(true)
   const showSpinner = !rpc || isConnecting
   const { setLastUsed } = useWalletHistory()
+  const telemetry = useTelemetry()
 
-  function connect() {
+  const connect = () => {
     setIsConnecting(true)
     wallet.services.forEach(service => {
       if (service.method === FCL_SERVICE_METHODS.EXT) {
         rpc
           .request(FclRequest.EXEC_SERVICE, { service })
           .then(() => {
+            telemetry.trackWalletConnected(wallet.uid, FCL_SERVICE_METHODS.EXT)
             setLastUsed(wallet)
             handleCancel()
           })
