@@ -5,7 +5,7 @@ import { trackWalletConnected, trackWalletDiscoveryRequest } from './telemetry'
 let mixpanel: Mixpanel.Mixpanel | null = null
 
 export function getTelemetryServer(baseData: TelemetryDataServer) {
-  if (process.env.MIXPANEL_ID && !mixpanel) {
+  if (process.env.NEXT_PUBLIC_MIXPANEL_ID && !mixpanel) {
     mixpanel = Mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
   }
 
