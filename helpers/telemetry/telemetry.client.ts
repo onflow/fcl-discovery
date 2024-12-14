@@ -9,8 +9,6 @@ export function getTelemetryClient(baseData: TelemetryDataClient) {
     mixpanel = Mixpanel.init(process.env.MIXPANEL_ID)
   }
 
-  mixpanel.register(baseData)
-
   return {
     trackWalletDiscoveryRequest: trackWalletDiscoveryRequest(
       mixpanel,
