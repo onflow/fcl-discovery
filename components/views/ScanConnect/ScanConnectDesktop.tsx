@@ -22,7 +22,10 @@ export default function ScanConnectDesktop({
   const { setLastUsed } = useWalletHistory()
   const telemetry = useTelemetry()
   const { uri, connecting, error, isLoading } = useWcUri(() => {
-    telemetry.trackWalletConnected(wallet.uid, FCL_SERVICE_METHODS.WC)
+    telemetry.trackWalletConnected({
+      walletUid: wallet.uid,
+      serviceMethod: FCL_SERVICE_METHODS.WC,
+    })
     setLastUsed(wallet)
     handleCancel()
   })
