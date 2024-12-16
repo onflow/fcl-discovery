@@ -1,9 +1,9 @@
 import { useConfig } from '../contexts/FclContext'
-import { getTelemetryClient } from '../helpers/telemetry/telemetry.client'
+import { clientTelemetry } from '../helpers/telemetry/telemetry.client'
 
 export function useTelemetry() {
   const cfg = useConfig()
-  return getTelemetryClient({
+  return clientTelemetry({
     network: cfg.network,
     type: 'UI',
     fclVersion: cfg.appVersion,

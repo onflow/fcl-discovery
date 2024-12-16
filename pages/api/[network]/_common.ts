@@ -5,7 +5,7 @@ import { findMatchingPipeVersion } from '../../../helpers/version'
 import { NETWORKS } from '../../../helpers/constants'
 import { getWalletPipes } from '../../../helpers/wallet-pipes'
 import { NextApiRequest } from 'next'
-import { getTelemetryServer } from '../../../helpers/telemetry/telemetry.server'
+import { serverTelemetry } from '../../../helpers/telemetry/telemetry.server'
 
 // Initializing the cors middleware
 export const cors = Cors({
@@ -41,7 +41,7 @@ export async function getWalletsFromRequest(
   const discoveryRequestType = discoveryType || 'API'
   const services = clientServices || extensions || []
 
-  getTelemetryServer({
+  serverTelemetry({
     type: discoveryRequestType as 'UI' | 'API',
     network,
     fclVersion,

@@ -2,12 +2,11 @@ import Mixpanel from 'mixpanel'
 import { TelemetryDataServer } from './types'
 
 let mixpanel: Mixpanel.Mixpanel | null = null
+if (process.env.NEXT_PUBLIC_MIXPANEL_ID) {
+  Mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
+}
 
-export function getTelemetryServer(baseData: TelemetryDataServer) {
-  if (process.env.NEXT_PUBLIC_MIXPANEL_ID && !mixpanel) {
-    Mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
-  }
-
+export function serverTelemetry(baseData: TelemetryDataServer) {
   return {
     trackWalletDiscoveryRequest: async () =>
       new Promise<void>(resolve => {
