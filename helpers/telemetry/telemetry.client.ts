@@ -1,8 +1,8 @@
-import Mixpanel from 'mixpanel-browser'
-import { trackWalletConnected, trackWalletDiscoveryRequest } from './telemetry'
+import * as Mixpanel from 'mixpanel-browser'
 import { TelemetryDataClient } from './types'
+import { FCL_SERVICE_METHODS } from '../constants'
 
-let mixpanel: any = null
+let mixpanel: Mixpanel.Mixpanel | null = null
 
 export function getTelemetryClient(baseData: TelemetryDataClient) {
   if (process.env.NEXT_PUBLIC_MIXPANEL_ID && !mixpanel) {
@@ -10,10 +10,24 @@ export function getTelemetryClient(baseData: TelemetryDataClient) {
   }
 
   return {
-    trackWalletDiscoveryRequest: trackWalletDiscoveryRequest(
-      mixpanel,
-      baseData,
-    ),
-    trackWalletConnected: trackWalletConnected(mixpanel, baseData),
+    trackWalletConnected: async ({
+      walletUid,
+      serviceMethod,
+    }: {
+      walletUid: string
+      serviceMethod: FCL_SERVICE_METHODS
+    }) => {
+      return new Promise<void>(resolve => {
+        mixpanel?.track(
+          'Wallet Connected',
+          {
+            walletUid: walletUid,
+            method: serviceMethod,
+            ...baseData,
+          },
+          () => resolve(),
+        )
+      })
+    },
   }
 }
