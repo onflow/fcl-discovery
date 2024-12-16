@@ -2,7 +2,6 @@ import mixpanel from 'mixpanel-browser'
 import { TelemetryDataClient } from './types'
 import { FCL_SERVICE_METHODS } from '../constants'
 
-console.log(process.env.NEXT_PUBLIC_MIXPANEL_ID)
 if (process.env.NEXT_PUBLIC_MIXPANEL_ID) {
   mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
 }
