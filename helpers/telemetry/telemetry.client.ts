@@ -1,12 +1,13 @@
-import * as Mixpanel from 'mixpanel-browser'
+import * as mixpanel from 'mixpanel-browser'
 import { TelemetryDataClient } from './types'
 import { FCL_SERVICE_METHODS } from '../constants'
 
-let mixpanel: Mixpanel.Mixpanel | null = null
+let hasInitialized = false
 
 export function getTelemetryClient(baseData: TelemetryDataClient) {
-  if (process.env.NEXT_PUBLIC_MIXPANEL_ID && !mixpanel) {
-    mixpanel = Mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
+  if (process.env.NEXT_PUBLIC_MIXPANEL_ID && !hasInitialized) {
+    mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
+    hasInitialized = true
   }
 
   return {
