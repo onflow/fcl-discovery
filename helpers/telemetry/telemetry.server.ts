@@ -8,9 +8,7 @@ if (process.env.NEXT_PUBLIC_MIXPANEL_ID) {
 
 export function serverTelemetry(baseData: TelemetryDataServer) {
   return {
-    trackWalletDiscoveryRequest: async () =>
-      new Promise<void>(resolve => {
-        mixpanel?.track('Wallet Discovery Request', baseData, () => resolve())
-      }),
+    trackWalletDiscoveryRequest: () =>
+      mixpanel?.track('Wallet Discovery Request', baseData),
   }
 }

@@ -8,23 +8,17 @@ if (process.env.NEXT_PUBLIC_MIXPANEL_ID) {
 
 export function clientTelemetry(baseData: TelemetryDataClient) {
   return {
-    trackWalletConnected: async ({
+    trackWalletConnected: ({
       walletUid,
       serviceMethod,
     }: {
       walletUid: string
       serviceMethod: FCL_SERVICE_METHODS
     }) => {
-      return new Promise<void>(resolve => {
-        mixpanel.track(
-          'Wallet Connected',
-          {
-            walletUid: walletUid,
-            method: serviceMethod,
-            ...baseData,
-          },
-          () => resolve(),
-        )
+      mixpanel.track('Wallet Connected', {
+        walletUid: walletUid,
+        method: serviceMethod,
+        ...baseData,
       })
     },
   }
