@@ -1,19 +1,25 @@
-import Mixpanel from 'mixpanel-browser'
-import { trackWalletConnected, trackWalletDiscoveryRequest } from './telemetry'
+import mixpanel from 'mixpanel-browser'
 import { TelemetryDataClient } from './types'
+import { FCL_SERVICE_METHODS } from '../constants'
 
-let mixpanel: any = null
+if (process.env.NEXT_PUBLIC_MIXPANEL_ID) {
+  mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
+}
 
-export function getTelemetryClient(baseData: TelemetryDataClient) {
-  if (process.env.NEXT_PUBLIC_MIXPANEL_ID && !mixpanel) {
-    mixpanel = Mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
-  }
-
+export function clientTelemetry(baseData: TelemetryDataClient) {
   return {
-    trackWalletDiscoveryRequest: trackWalletDiscoveryRequest(
-      mixpanel,
-      baseData,
-    ),
-    trackWalletConnected: trackWalletConnected(mixpanel, baseData),
+    trackWalletConnected: ({
+      walletUid,
+      serviceMethod,
+    }: {
+      walletUid: string
+      serviceMethod: FCL_SERVICE_METHODS
+    }) => {
+      mixpanel.track('Wallet Connected', {
+        walletUid: walletUid,
+        method: serviceMethod,
+        ...baseData,
+      })
+    },
   }
 }

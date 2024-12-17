@@ -29,7 +29,10 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
         rpc
           .request(FclRequest.EXEC_SERVICE, { service })
           .then(() => {
-            telemetry.trackWalletConnected(wallet.uid, FCL_SERVICE_METHODS.EXT)
+            telemetry.trackWalletConnected({
+              walletUid: wallet.uid,
+              serviceMethod: FCL_SERVICE_METHODS.WC,
+            })
             setLastUsed(wallet)
             handleCancel()
           })

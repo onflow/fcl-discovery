@@ -78,11 +78,11 @@ export default function Discovery() {
     } else if (service.method === FCL_SERVICE_METHODS.EXT && rpcEnabled) {
       setCurrentView(VIEWS.CONNECT_EXTENSION)
     } else {
+      telemetry.trackWalletConnected({
+        walletUid: wallet.uid,
+        serviceMethod: service.method as FCL_SERVICE_METHODS,
+      })
       fcl.WalletUtils.redirect(service)
-      telemetry.trackWalletConnected(
-        wallet.uid,
-        service.method as FCL_SERVICE_METHODS,
-      )
     }
 
     setSelectedWallet(wallet)

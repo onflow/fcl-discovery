@@ -1,19 +1,14 @@
 import Mixpanel from 'mixpanel'
 import { TelemetryDataServer } from './types'
-import { trackWalletConnected, trackWalletDiscoveryRequest } from './telemetry'
 
 let mixpanel: Mixpanel.Mixpanel | null = null
+if (process.env.NEXT_PUBLIC_MIXPANEL_ID) {
+  Mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
+}
 
-export function getTelemetryServer(baseData: TelemetryDataServer) {
-  if (process.env.NEXT_PUBLIC_MIXPANEL_ID && !mixpanel) {
-    mixpanel = Mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_ID)
-  }
-
+export function serverTelemetry(baseData: TelemetryDataServer) {
   return {
-    trackWalletDiscoveryRequest: trackWalletDiscoveryRequest(
-      mixpanel,
-      baseData,
-    ),
-    trackWalletConnected: trackWalletConnected(mixpanel, baseData),
+    trackWalletDiscoveryRequest: () =>
+      mixpanel?.track('Wallet Discovery Request', baseData),
   }
 }
