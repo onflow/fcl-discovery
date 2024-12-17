@@ -31,7 +31,7 @@ export default function ConnectExtension({ wallet }: ConnectExtensionProps) {
           .then(() => {
             telemetry.trackWalletConnected({
               walletUid: wallet.uid,
-              serviceMethod: FCL_SERVICE_METHODS.WC,
+              serviceMethod: FCL_SERVICE_METHODS.EXT,
             })
             setLastUsed(wallet)
             handleCancel()
