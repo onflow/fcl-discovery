@@ -41,7 +41,6 @@ export const getWalletPipes = ({
   portOverride,
   includeUninstalledServices,
 }) => {
-  console.log(clientServices.map(s => s.uid))
   const platform = getBrowserFromUserAgent(userAgent)?.toLowerCase()
   const isLocal = network === NETWORKS.LOCAL || network === NETWORKS.EMULATOR
 
