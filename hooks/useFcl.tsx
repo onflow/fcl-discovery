@@ -47,7 +47,7 @@ export function useFcl() {
             config.discoveryAuthnInclude ||
             config.client?.discoveryAuthnInclude ||
             [],
-          walletExclude: config.discoveryAuthnExclude || [],
+          walletExclude: config.client?.discoveryAuthnExclude || [],
           clientServices:
             config.client?.clientServices ||
             config.client?.extensions ||
