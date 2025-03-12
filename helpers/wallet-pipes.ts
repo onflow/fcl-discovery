@@ -12,6 +12,7 @@ import {
   filterServicesByPlatform,
   filterOptInServices,
   filterUninstalledServices,
+  filterExcludedServices,
 } from './services'
 import {
   NETWORKS,
@@ -32,6 +33,7 @@ export const getWalletPipes = ({
   fclVersion,
   discoveryType,
   include,
+  exclude,
   userAgent,
   clientServices,
   supportedStrategies,
@@ -124,6 +126,8 @@ export const getWalletPipes = ({
             filterSupportedStrategies(supportedStrategies),
             // Remove opt in services unless marked as include, if supported
             filterOptInServices({ wallets, includeList: include }),
+            // Remove any excluded wallets, if supported
+            filterExcludedServices({ wallets, excludeList: exclude }),
           ),
         ),
         removeEmptyWallets,

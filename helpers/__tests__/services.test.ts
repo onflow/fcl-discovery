@@ -2,6 +2,7 @@ import { Service } from '../../types'
 import { injectedServiceToWallet } from '../inject-wallets'
 import {
   combineServices,
+  filterExcludedServices,
   filterOptInServices,
   filterServicesByPlatform,
   filterUniqueServices,
@@ -221,6 +222,49 @@ describe('services helpers: filterOptInServices', () => {
     expect(filterOptInServicesA(serviceListA)).toEqual(expectedResponseA)
     expect(filterOptInServicesB(serviceListB).length).toEqual(3)
     expect(filterOptInServicesB(serviceListB)).toEqual(expectedResponseB)
+  })
+})
+
+describe('services helpers: filterExcludedServices', () => {
+  it('should filter out excluded services', () => {
+    const excludeList = ['0xC']
+
+    const serviceA = {
+      uid: 'a',
+      type: 'authn',
+      provider: {
+        address: '0xA',
+      },
+    }
+
+    const serviceB = {
+      uid: 'b',
+      type: 'authz',
+      provider: {
+        address: '0xB',
+      },
+    }
+
+    const serviceC = {
+      uid: 'c',
+      type: 'pre-authz',
+      provider: {
+        address: '0xC',
+      },
+    }
+
+    const serviceList = [serviceA, serviceB, serviceC]
+    const expectedResponse = [serviceA, serviceB]
+
+    const wallets = serviceList.map(x => injectedServiceToWallet(x as Service))
+
+    const result = filterExcludedServices({
+      wallets,
+      excludeList: excludeList,
+    })(serviceList)
+
+    expect(result.length).toEqual(2)
+    expect(result).toEqual(expectedResponse)
   })
 })
 
