@@ -307,10 +307,11 @@ describe('services helpers: filterServicesByPlatform', () => {
       services: [x],
     }))
     const services = extractWalletServices(wallets as any)
+    const extensions = []
     const expectedRes = [serviceA, serviceB, serviceC]
 
-    expect(filterServicesByPlatform({ wallets, platform })(services)).toEqual(
-      expectedRes,
-    )
+    expect(
+      filterServicesByPlatform({ wallets, platform, extensions })(services),
+    ).toEqual(expectedRes)
   })
 })

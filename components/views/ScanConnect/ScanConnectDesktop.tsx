@@ -1,4 +1,4 @@
-import { Box, Flex, Spinner, Stack, Text } from '@chakra-ui/react'
+import { Box, Flex, HStack, Spinner, Stack, Text } from '@chakra-ui/react'
 import { Wallet } from '../../../data/wallets'
 import QRCode from '../../QRCode'
 import CopyButton from '../../CopyButton'
@@ -7,6 +7,8 @@ import { useWcUri } from '../../../hooks/useWcUri'
 import { useWalletHistory } from '../../../hooks/useWalletHistory'
 import { handleCancel } from '../../../helpers/window'
 import { ViewContainer } from '../../layout/ViewContainer'
+import { FCL_SERVICE_METHODS } from '../../../helpers/constants'
+import { useTelemetry } from '../../../hooks/useTelemetry'
 
 interface ScanConnectDesktopProps {
   wallet: Wallet
@@ -18,7 +20,12 @@ export default function ScanConnectDesktop({
   onGetWallet,
 }: ScanConnectDesktopProps) {
   const { setLastUsed } = useWalletHistory()
+  const telemetry = useTelemetry()
   const { uri, connecting, error, isLoading } = useWcUri(() => {
+    telemetry.trackWalletConnected({
+      walletUid: wallet.uid,
+      serviceMethod: FCL_SERVICE_METHODS.WC,
+    })
     setLastUsed(wallet)
     handleCancel()
   })
@@ -41,10 +48,16 @@ export default function ScanConnectDesktop({
       spacing={2}
       justifyContent="space-evenly"
     >
-      <Flex justifyContent="space-between" width="100%" alignItems="center">
-        <Text textStyle="body2">Scan in the {wallet.name} app to connect</Text>
-        <CopyButton text={uri} />
-      </Flex>
+      <HStack width="full">
+        <Text textStyle="body2">
+          Scan in the{' '}
+          <Text as="span" textStyle="body2Bold">
+            {wallet.name}
+          </Text>{' '}
+          app to connect
+        </Text>
+        <CopyButton text={uri} isDisabled={!uri || isLoading} ml="auto" />
+      </HStack>
 
       <Box padding={3} borderRadius="0.75rem" borderWidth="1px" bg="white">
         {uri && (

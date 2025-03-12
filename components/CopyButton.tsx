@@ -1,13 +1,17 @@
-import { IconButton } from '@chakra-ui/react'
+import { HStack, IconButton, Text, Tooltip } from '@chakra-ui/react'
 import CopyIcon from './icons/CopyIcon'
-import { ComponentProps, useRef, useState } from 'react'
-import { CheckIcon } from '@chakra-ui/icons'
+import { ComponentProps, ReactNode, useEffect, useRef, useState } from 'react'
+import { CheckIcon, WarningIcon } from '@chakra-ui/icons'
 
 type CopyButtonProps = {
   text: string
 } & Partial<ComponentProps<typeof IconButton>>
 
-export default function CopyButton({ text, ...props }: CopyButtonProps) {
+export default function CopyButton({
+  text,
+  isDisabled,
+  ...props
+}: CopyButtonProps) {
   const size = '1.75rem'
   const checkSize = '1.15rem'
 
@@ -30,7 +34,44 @@ export default function CopyButton({ text, ...props }: CopyButtonProps) {
     }, 1000)
   }
 
-  return (
+  const [isClipboardAllowed, setIsClipboardAllowed] = useState(true)
+  useEffect(() => {
+    navigator.permissions
+      .query({ name: 'clipboard-write' as PermissionName })
+      .then(result => {
+        setIsClipboardAllowed(result?.state === 'granted')
+      })
+      .catch(() => {
+        setIsClipboardAllowed(false)
+      })
+  }, [])
+
+  const wrapTooltip = (node: ReactNode) => {
+    if (isClipboardAllowed) {
+      return node
+    }
+
+    return (
+      <Tooltip
+        label={
+          isClipboardAllowed ? null : (
+            <HStack>
+              <WarningIcon color="red.500" />
+              <Text textStyle="body2">No Clipboard Access</Text>
+            </HStack>
+          )
+        }
+        placement="bottom"
+        borderRadius="md"
+        px={2}
+        py={1}
+      >
+        {node}
+      </Tooltip>
+    )
+  }
+
+  return wrapTooltip(
     <IconButton
       variant="ghost"
       color="foreground.60%"
@@ -42,7 +83,8 @@ export default function CopyButton({ text, ...props }: CopyButtonProps) {
       icon={icon}
       onClick={onClick}
       isRound
+      isDisabled={isDisabled || !isClipboardAllowed}
       {...props}
-    ></IconButton>
+    ></IconButton>,
   )
 }

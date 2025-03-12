@@ -105,7 +105,7 @@ export const getWalletPipes = ({
               // Filter out extensions if not supported because they were added on the FCL side in previous versions
               ifElse(
                 always(areUninstalledExtensionsSupported),
-                filterServicesByPlatform({ wallets, platform }),
+                filterServicesByPlatform({ wallets, platform, extensions }),
                 reject(isExtension),
               ),
             ) as any,
@@ -142,7 +142,7 @@ export const getWalletPipes = ({
               ifElse(
                 always(includeUninstalledServices),
                 pipe(
-                  filterServicesByPlatform({ wallets, platform }),
+                  filterServicesByPlatform({ wallets, platform, extensions }),
                   appendInstallData({ wallets, platform, extensions }),
                 ),
                 filterUninstalledServices({ extensions }),

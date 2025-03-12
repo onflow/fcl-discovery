@@ -76,9 +76,12 @@ export const requiresPlatform = service => {
   return requiredPlatformTypes.includes(service?.method)
 }
 
-export const filterServicesByPlatform = ({ wallets, platform }) =>
+export const filterServicesByPlatform = ({ wallets, platform, extensions }) =>
   filter(service => {
     if (!requiresPlatform(service)) return true
+
+    // If extension is installed, ignore platform requirements
+    if (isExtensionInstalled(extensions, service)) return true
 
     const wallet = wallets?.find(w => w.uid === service.walletUid)
     if (!wallet.installLink) return true

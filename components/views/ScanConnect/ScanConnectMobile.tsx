@@ -8,6 +8,7 @@ import { useEffect, useRef } from 'react'
 import { FCL_SERVICE_METHODS } from '../../../helpers/constants'
 import WalletIcon from '../../icons/WalletIcon'
 import { ViewContainer } from '../../layout/ViewContainer'
+import { useTelemetry } from '../../../hooks/useTelemetry'
 
 interface ScanConnectMobileProps {
   wallet: Wallet
@@ -20,12 +21,13 @@ export default function ScanConnectMobile({
   onGetWallet,
   noDeepLink,
 }: ScanConnectMobileProps) {
-  const windowRef = useRef<Window | null>(null)
   const { setLastUsed } = useWalletHistory()
+  const telemetry = useTelemetry()
   const { uri, connecting, error, isLoading } = useWcUri(() => {
-    if (windowRef.current && !windowRef.current.closed) {
-      windowRef.current.close()
-    }
+    telemetry.trackWalletConnected({
+      walletUid: wallet.uid,
+      serviceMethod: FCL_SERVICE_METHODS.WC,
+    })
     setLastUsed(wallet)
     handleCancel()
   })
@@ -36,12 +38,27 @@ export default function ScanConnectMobile({
   )
 
   function openDeepLink() {
-    if (windowRef.current && !windowRef.current.closed) {
-      windowRef.current.close()
-    }
     const deeplink = new URL(service.uid)
     deeplink.searchParams.set('uri', uri)
-    windowRef.current = window.open(deeplink, '_blank')
+
+    if (deeplink.toString().startsWith('http')) {
+      // Workaround for https://github.com/rainbow-me/rainbowkit/issues/524.
+      // Using 'window.open' causes issues on iOS in non-Safari browsers and
+      // WebViews where a blank tab is left behind after connecting.
+      // This is especially bad in some WebView scenarios (e.g. following a
+      // link from Twitter) where the user doesn't have any mechanism for
+      // closing the blank tab.
+      // For whatever reason, links with a target of "_blank" don't suffer
+      // from this problem, and programmatically clicking a detached link
+      // element with the same attributes also avoids the issue.
+      const link = document.createElement('a')
+      link.href = deeplink.toString()
+      link.target = '_blank'
+      link.rel = 'noreferrer noopener'
+      link.click()
+    } else {
+      window.location.href = deeplink.toString()
+    }
   }
 
   useEffect(() => {
@@ -95,7 +112,7 @@ export default function ScanConnectMobile({
           spacing={2}
         >
           <Text textStyle="body2" colorScheme="red">
-            {`An error has occurred while generating the QR code. Please try again.`}
+            {`An error has occurred while connecting to your mobile wallet. Please try again.`}
           </Text>
         </Stack>
       )}
