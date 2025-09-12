@@ -19,6 +19,7 @@ import {
   FCL_SERVICE_METHODS,
   DEFAULT_SERVICE_METHODS,
   SUPPORTED_VERSIONS,
+  FEATURE_FLAGS,
 } from './constants'
 import { getBrowserFromUserAgent } from './device'
 import { isGreaterThanOrEqualToVersion } from './version'
@@ -27,6 +28,7 @@ import {
   removeEmptyWallets,
   walletsForNetwork,
 } from './wallets'
+import { filterPasskeyOnlyServices } from './services'
 import { injectClientServices } from './inject-wallets'
 
 export const getWalletPipes = ({
@@ -61,6 +63,11 @@ export const getWalletPipes = ({
       ? SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS
       : SUPPORTED_VERSIONS.UNINSTALLED_EXTENSIONS_API,
   )
+  const isPasskeysSupported = isGreaterThanOrEqualToVersion(
+    fclVersion,
+    SUPPORTED_VERSIONS.PASSKEYS,
+  )
+  const isPasskeysEnabled = FEATURE_FLAGS.PASSKEYS && isPasskeysSupported
   const extensions = serviceListOfMethod(
     clientServices,
     FCL_SERVICE_METHODS.EXT,
@@ -79,6 +86,8 @@ export const getWalletPipes = ({
             pipe(
               // Only support default FCL methods in this version
               filterSupportedStrategies(DEFAULT_SERVICE_METHODS),
+              // Hide passkey-only wallets unless feature is enabled and supported
+              filterPasskeyOnlyServices({ wallets, isPasskeysEnabled }),
               // Remove opt in services unless marked as include, if supported
               when(
                 always(isFilteringSupported),
@@ -124,6 +133,8 @@ export const getWalletPipes = ({
         pipeWalletServices(({ wallets }) =>
           pipe(
             filterSupportedStrategies(supportedStrategies),
+            // Hide passkey-only wallets unless feature is enabled and supported
+            filterPasskeyOnlyServices({ wallets, isPasskeysEnabled }),
             // Remove opt in services unless marked as include, if supported
             filterOptInServices({ wallets, includeList: include }),
             // Remove any excluded wallets, if supported

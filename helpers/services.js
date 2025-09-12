@@ -123,6 +123,15 @@ export const filterUninstalledServices = ({ extensions = [] }) =>
     return isExtensionInstalled(extensions, x)
   })
 
+// Filter out services for wallets that are passkey-only when not enabled/supported
+export const filterPasskeyOnlyServices = ({ wallets, isPasskeysEnabled }) =>
+  filter(service => {
+    if (isPasskeysEnabled) return true
+    const wallet = wallets?.find(w => w.uid === service.walletUid)
+    const hasPasskeysFeature = wallet?.features?.includes('passkeys')
+    return !hasPasskeysFeature
+  })
+
 export const overrideServicePorts = (shouldOverride, portOverride) =>
   ifElse(
     always(shouldOverride),

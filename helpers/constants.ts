@@ -51,6 +51,8 @@ export const SUPPORTED_VERSIONS = {
   PLATFORM: '1.0.0', // Version that supports platform
   PLUGIN_SERVICES: '1.2.0', // Version that supports plugin services TODO: up this after development
   SUGGESTED_FEATURES: '1.7.0', // Version that supports suggested features
+  // TODO(jribbink): Update once FCL ships passkeys handshake per FLIP-264
+  PASSKEYS: '1.9.0', // Minimum FCL version that supports passkey wallets (placeholder)
 }
 
 export const COLORS = {
@@ -99,6 +101,21 @@ export const AVAILABLE_FEATURES = [
     description: 'This wallet supports the Ethereum Virtual Machine.',
     color: 'orange',
   },
+  {
+    id: 'passkeys',
+    name: 'Passkeys',
+    description: 'This wallet supports WebAuthn/FIDO2 passkeys.',
+    color: '#2D9CDB',
+  },
 ] as const
 
 export const CUSTOM_RPC = 'FCL:VIEW:CUSTOM_RPC'
+
+// Runtime feature flags (client-side) to allow gradual enablement
+export const FEATURE_FLAGS = {
+  PASSKEYS:
+    (typeof process !== 'undefined' &&
+      typeof process.env !== 'undefined' &&
+      process.env.NEXT_PUBLIC_ENABLE_PASSKEY_WALLETS === 'true') ||
+    false,
+}
