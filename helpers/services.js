@@ -47,16 +47,26 @@ export const serviceListOfMethod = (services = [], method) =>
 export const filterOptInServices = ({ wallets, includeList = [] }) =>
   filter(service => {
     if (service.optIn) {
+      const walletUid = getServiceWalletUid(service, wallets)
       const wallet = wallets?.find(w => w.uid === service.walletUid)
-      return includeList.includes(service?.provider?.address || wallet?.address)
+      const legacyAddress = service?.provider?.address || wallet?.address
+      return (
+        includeList.includes(walletUid) ||
+        (legacyAddress && includeList.includes(legacyAddress))
+      )
     }
     return true
   })
 
 export const filterExcludedServices = ({ wallets, excludeList = [] }) =>
   filter(service => {
-    const wallet = wallets?.find(w => w.uid === service.walletUid)
-    return !excludeList.includes(service?.provider?.address || wallet?.address)
+    const walletUid = getServiceWalletUid(service, wallets)
+    const wallet = wallets?.find(w => w.uid === walletUid)
+    const legacyAddress = service?.provider?.address || wallet?.address
+    return !(
+      excludeList.includes(walletUid) ||
+      (legacyAddress && excludeList.includes(legacyAddress))
+    )
   })
 
 export const isExtension = service =>
