@@ -26,7 +26,7 @@ const nufi: WalletConfig = {
       'https://chromewebstore.google.com/detail/nufi/gpnihlnnodeiiaakbikldcihojploeca',
     browser: 'https://nu.fi',
   },
-  features: ['extension', 'hardware'],
+  features: ['evm', 'hardware', 'extension'],
 }
 
 export default nufi
