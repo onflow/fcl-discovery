@@ -47,8 +47,8 @@ export const serviceListOfMethod = (services = [], method) =>
 export const filterOptInServices = ({ wallets, includeList = [] }) =>
   filter(service => {
     if (service.optIn) {
-      const walletUid = getServiceWalletUid(service, wallets)
-      const wallet = wallets?.find(w => w.uid === service.walletUid)
+      const walletUid = service.walletUid
+      const wallet = wallets?.find(w => w.uid === walletUid)
       const legacyAddress = service?.provider?.address || wallet?.address
       return (
         includeList.includes(walletUid) ||
@@ -60,7 +60,7 @@ export const filterOptInServices = ({ wallets, includeList = [] }) =>
 
 export const filterExcludedServices = ({ wallets, excludeList = [] }) =>
   filter(service => {
-    const walletUid = getServiceWalletUid(service, wallets)
+    const walletUid = service.walletUid
     const wallet = wallets?.find(w => w.uid === walletUid)
     const legacyAddress = service?.provider?.address || wallet?.address
     return !(
