@@ -1,13 +1,13 @@
 import { WalletConfig } from '../../wallets'
-import NuFiIcon from '!!url-loader?limit=true!./nufi.svg'
+import NufiIcon from '!!url-loader?limit=true!./nufi.svg'
 
 const nufi: WalletConfig = {
   address: '0x95b85a9ef4daabb1',
-  name: 'NuFi',
+  name: 'NUFI',
   uid: 'nufi',
-  icon: NuFiIcon,
+  icon: NufiIcon,
   description:
-    'A Web3 crypto wallet for Cardano, Flow and Solana. Store, stake and connect to Dapps.',
+    'A powerful wallet for powerful users. Non-custodial, private and secure.',
   website: 'https://nu.fi',
   services: {
     mainnet: [
