@@ -6,6 +6,7 @@ import ConnectWallet from './views/ConnectWallet'
 import ScanConnect from './views/ScanConnect/ScanConnect'
 import AboutWallets from './views/AboutWallets'
 import ConnectExtension from './views/ConnectExtension'
+import DeveloperMessage from './DeveloperMessage'
 
 import { ComponentProps, useEffect, useState } from 'react'
 import { useWallets } from '../hooks/useWallets'
@@ -21,6 +22,7 @@ import { handleCancel } from '../helpers/window'
 import { useDevice } from '../contexts/DeviceContext'
 import { getCompatibleInstallLinks } from '../hooks/useInstallLinks'
 import { useTelemetry } from '../hooks/useTelemetry'
+import { isTestnet as isTestnetFn } from '../helpers/networks'
 
 export enum VIEWS {
   WALLET_SELECTION,
@@ -46,8 +48,18 @@ export default function Discovery() {
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
   const { deviceInfo } = useDevice()
   const { rpcEnabled } = useRpc()
-  const { supportedStrategies } = useConfig()
+  const { supportedStrategies, appConfig, walletConnectProjectId } = useConfig()
   const telemetry = useTelemetry()
+
+  // Developer message logic
+  const isTestnet = isTestnetFn()
+  const showMissingAppConfig =
+    isTestnet &&
+    !(appConfig?.icon && appConfig?.title)
+  const showMissingWalletConnect =
+    isTestnet &&
+    !walletConnectProjectId
+  const showDeveloperMessage = showMissingAppConfig || showMissingWalletConnect
 
   // Skip the connect page if there is only one service available and no install links
   const shouldSkipConnectPage = (wallet: Wallet) =>
@@ -234,7 +246,17 @@ export default function Discovery() {
 
   return (
     <ViewLayout
-      header={<ViewHeader {...{ onClose: handleCancel, ...headerProps }} />}
+      header={
+        <>
+          <ViewHeader {...{ onClose: handleCancel, ...headerProps }} />
+          {showDeveloperMessage && (
+            <DeveloperMessage
+              showMissingAppConfig={showMissingAppConfig}
+              showMissingWalletConnect={showMissingWalletConnect}
+            />
+          )}
+        </>
+      }
       sidebarHeader={
         <ViewHeader
           title="Connect a Wallet"
