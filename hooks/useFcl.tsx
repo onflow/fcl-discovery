@@ -25,7 +25,6 @@ export interface FclConfig {
   clientServices: Service[]
   supportedStrategies: FCL_SERVICE_METHODS[]
   rpcEnabled?: boolean
-  walletConnectProjectId?: string
 }
 
 export function useFcl() {
@@ -58,8 +57,6 @@ export function useFcl() {
             config.client?.supportedStrategies || [],
           ),
           rpcEnabled: config.client?.discoveryRpcEnabled || false,
-          walletConnectProjectId:
-            config.client?.['walletconnect.projectId'] || null,
         } as FclConfig
 
         setConfig(state)

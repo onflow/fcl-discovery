@@ -48,7 +48,7 @@ export default function Discovery() {
   const [selectedWallet, setSelectedWallet] = useState<Wallet | null>(null)
   const { deviceInfo } = useDevice()
   const { rpcEnabled } = useRpc()
-  const { supportedStrategies, appConfig, walletConnectProjectId } = useConfig()
+  const { supportedStrategies, appConfig } = useConfig()
   const telemetry = useTelemetry()
 
   // Developer message logic
@@ -58,7 +58,7 @@ export default function Discovery() {
     !(appConfig?.icon && appConfig?.title)
   const showMissingWalletConnect =
     isTestnet &&
-    !walletConnectProjectId
+    !supportedStrategies?.includes(FCL_SERVICE_METHODS.WC)
   const showDeveloperMessage = showMissingAppConfig || showMissingWalletConnect
 
   // Skip the connect page if there is only one service available and no install links
