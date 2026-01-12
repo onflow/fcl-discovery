@@ -124,7 +124,7 @@ exports[`Component: DeveloperMessage should render both messages when both are m
       </span>
       <a
         class="chakra-link emotion-4"
-        href="https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration"
+        href="https://developers.flow.com/build/tools/clients/fcl-js/discovery"
         rel="noopener"
         target="_blank"
       >
@@ -485,7 +485,7 @@ exports[`Component: DeveloperMessage should render the missing app config messag
       </span>
       <a
         class="chakra-link emotion-4"
-        href="https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration"
+        href="https://developers.flow.com/build/tools/clients/fcl-js/discovery"
         rel="noopener"
         target="_blank"
       >

@@ -25,7 +25,7 @@ export default function DeveloperMessage({
           <AlertDescription display="flex" alignItems="center" gap={1}>
             <Box as="span" fontWeight="medium">Missing app config.</Box>
             <Link
-              href="https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration"
+              href="https://developers.flow.com/build/tools/clients/fcl-js/discovery"
               isExternal
               color="orange.700"
             >
