@@ -1,7 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: DeveloperMessage should render the DeveloperMessage component 1`] = `
+exports[`Component: DeveloperMessage should render both messages when both are missing 1`] = `
 .emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 2px;
+  -webkit-margin-start: 4px;
+  margin-inline-start: 4px;
+  -webkit-margin-end: 4px;
+  margin-inline-end: 4px;
+  margin-bottom: 3px;
+}
+
+.emotion-1 {
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -13,30 +33,37 @@ exports[`Component: DeveloperMessage should render the DeveloperMessage componen
   align-items: center;
   position: relative;
   overflow: hidden;
-  margin-bottom: 3px;
-}
-
-.emotion-1 {
-  display: inherit;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  -webkit-padding-start: 3px;
+  padding-inline-start: 3px;
+  -webkit-padding-end: 3px;
+  padding-inline-end: 3px;
+  border-radius: lg;
+  font-size: xs;
 }
 
 .emotion-2 {
-  display: inline-block;
-  line-height: 1em;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  color: currentColor;
-  vertical-align: middle;
-  height: 100%;
-  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 1px;
+}
+
+.emotion-3 {
+  font-weight: medium;
 }
 
 .emotion-4 {
-  display: inline;
+  color: orange.700;
 }
 
-.emotion-6 {
+.emotion-5 {
   width: 1em;
   height: 1em;
   display: inline-block;
@@ -46,75 +73,447 @@ exports[`Component: DeveloperMessage should render the DeveloperMessage componen
   flex-shrink: 0;
   color: currentColor;
   vertical-align: middle;
-  -webkit-margin-start: 2px;
-  margin-inline-start: 2px;
-  -webkit-margin-end: 2px;
-  margin-inline-end: 2px;
+  margin-bottom: 2px;
+}
+
+.emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 1px;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.emotion-10 {
+  background: blue.100;
+  -webkit-padding-start: 1px;
+  padding-inline-start: 1px;
+  -webkit-padding-end: 1px;
+  padding-inline-end: 1px;
+  border-radius: sm;
+}
+
+.emotion-11 {
+  color: blue.700;
 }
 
 <div
-  class="chakra-alert emotion-0"
-  data-status="warning"
-  role="alert"
+  class="chakra-stack emotion-0"
 >
-  <span
-    class="chakra-alert__icon emotion-1"
-    data-status="warning"
-  >
-    <svg
-      class="chakra-icon emotion-2"
-      focusable="false"
-      viewBox="0 0 24 24"
-    >
-      <path
-        d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"
-        fill="currentColor"
-      />
-    </svg>
-  </span>
   <div
-    class="chakra-alert__title emotion-3"
+    class="chakra-alert emotion-1"
     data-status="warning"
+    role="alert"
   >
-    Missing Config
+    <div
+      class="chakra-alert__desc emotion-2"
+      data-status="warning"
+    >
+      <span
+        class="emotion-3"
+      >
+        Missing app config.
+      </span>
+      <a
+        class="chakra-link emotion-4"
+        href="https://developers.flow.com/build/tools/clients/fcl-js/discovery"
+        rel="noopener"
+        target="_blank"
+      >
+        Set title & icon 
+        <svg
+          class="chakra-icon emotion-5"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="2"
+          >
+            <path
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+            />
+            <path
+              d="M15 3h6v6"
+            />
+            <path
+              d="M10 14L21 3"
+            />
+          </g>
+        </svg>
+      </a>
+    </div>
   </div>
   <div
-    class="chakra-alert__desc emotion-4"
-    data-status="warning"
+    class="chakra-alert emotion-1"
+    data-status="info"
+    role="alert"
   >
-    See how to set your app title and icon
-     
-    <a
-      class="chakra-link emotion-3"
-      href="https://github.com/onflow/fcl-discovery/blob/master/README.md#configuration"
-      rel="noopener"
-      target="_blank"
+    <div
+      class="chakra-alert__desc emotion-7"
+      data-status="info"
     >
-      here 
-      <svg
-        class="chakra-icon emotion-6"
-        focusable="false"
-        viewBox="0 0 24 24"
+      <span
+        class="emotion-3"
       >
-        <g
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-width="2"
+        Enable mobile wallets:
+      </span>
+      <span
+        class="emotion-9"
+      >
+        set 
+        <code
+          class="emotion-10"
         >
-          <path
-            d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-          />
-          <path
-            d="M15 3h6v6"
-          />
-          <path
-            d="M10 14L21 3"
-          />
-        </g>
-      </svg>
-    </a>
-    .
+          walletconnect.projectId
+        </code>
+      </span>
+      <a
+        class="chakra-link emotion-11"
+        href="https://developers.flow.com/build/tools/clients/fcl-js/discovery"
+        rel="noopener"
+        target="_blank"
+      >
+        Docs 
+        <svg
+          class="chakra-icon emotion-5"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="2"
+          >
+            <path
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+            />
+            <path
+              d="M15 3h6v6"
+            />
+            <path
+              d="M10 14L21 3"
+            />
+          </g>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Component: DeveloperMessage should render nothing when no props are passed 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 2px;
+  -webkit-margin-start: 4px;
+  margin-inline-start: 4px;
+  -webkit-margin-end: 4px;
+  margin-inline-end: 4px;
+  margin-bottom: 3px;
+}
+
+<div
+  class="chakra-stack emotion-0"
+/>
+`;
+
+exports[`Component: DeveloperMessage should render the missing WalletConnect message 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 2px;
+  -webkit-margin-start: 4px;
+  margin-inline-start: 4px;
+  -webkit-margin-end: 4px;
+  margin-inline-end: 4px;
+  margin-bottom: 3px;
+}
+
+.emotion-1 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  -webkit-padding-start: 3px;
+  padding-inline-start: 3px;
+  -webkit-padding-end: 3px;
+  padding-inline-end: 3px;
+  border-radius: lg;
+  font-size: xs;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 1px;
+  -webkit-box-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.emotion-3 {
+  font-weight: medium;
+}
+
+.emotion-5 {
+  background: blue.100;
+  -webkit-padding-start: 1px;
+  padding-inline-start: 1px;
+  -webkit-padding-end: 1px;
+  padding-inline-end: 1px;
+  border-radius: sm;
+}
+
+.emotion-6 {
+  color: blue.700;
+}
+
+.emotion-7 {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  line-height: 1em;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: currentColor;
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
+
+<div
+  class="chakra-stack emotion-0"
+>
+  <div
+    class="chakra-alert emotion-1"
+    data-status="info"
+    role="alert"
+  >
+    <div
+      class="chakra-alert__desc emotion-2"
+      data-status="info"
+    >
+      <span
+        class="emotion-3"
+      >
+        Enable mobile wallets:
+      </span>
+      <span
+        class="emotion-4"
+      >
+        set 
+        <code
+          class="emotion-5"
+        >
+          walletconnect.projectId
+        </code>
+      </span>
+      <a
+        class="chakra-link emotion-6"
+        href="https://developers.flow.com/build/tools/clients/fcl-js/discovery"
+        rel="noopener"
+        target="_blank"
+      >
+        Docs 
+        <svg
+          class="chakra-icon emotion-7"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="2"
+          >
+            <path
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+            />
+            <path
+              d="M15 3h6v6"
+            />
+            <path
+              d="M10 14L21 3"
+            />
+          </g>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Component: DeveloperMessage should render the missing app config message 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 2px;
+  -webkit-margin-start: 4px;
+  margin-inline-start: 4px;
+  -webkit-margin-end: 4px;
+  margin-inline-end: 4px;
+  margin-bottom: 3px;
+}
+
+.emotion-1 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  -webkit-padding-start: 3px;
+  padding-inline-start: 3px;
+  -webkit-padding-end: 3px;
+  padding-inline-end: 3px;
+  border-radius: lg;
+  font-size: xs;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 1px;
+}
+
+.emotion-3 {
+  font-weight: medium;
+}
+
+.emotion-4 {
+  color: orange.700;
+}
+
+.emotion-5 {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  line-height: 1em;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: currentColor;
+  vertical-align: middle;
+  margin-bottom: 2px;
+}
+
+<div
+  class="chakra-stack emotion-0"
+>
+  <div
+    class="chakra-alert emotion-1"
+    data-status="warning"
+    role="alert"
+  >
+    <div
+      class="chakra-alert__desc emotion-2"
+      data-status="warning"
+    >
+      <span
+        class="emotion-3"
+      >
+        Missing app config.
+      </span>
+      <a
+        class="chakra-link emotion-4"
+        href="https://developers.flow.com/build/tools/clients/fcl-js/discovery"
+        rel="noopener"
+        target="_blank"
+      >
+        Set title & icon 
+        <svg
+          class="chakra-icon emotion-5"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <g
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-width="2"
+          >
+            <path
+              d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+            />
+            <path
+              d="M15 3h6v6"
+            />
+            <path
+              d="M10 14L21 3"
+            />
+          </g>
+        </svg>
+      </a>
+    </div>
   </div>
 </div>
 `;
